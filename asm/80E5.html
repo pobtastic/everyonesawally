@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 80E5</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="7E37.html">7E37</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#80e5">Map</a></td>
+<td class="next">
+Next: <a href="813B.html">813B</a>
+</td>
+</tr>
+</table>
+<div class="description">80E5: Game Selection Menu</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="8155.html">8155</a> and <a href="8184.html">8184</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">GameMenu</td>
+<td class="address-2"><span id="80e5"></span>80E5</td>
+<td class="instruction">CALL <a href="B8ED.html">Clear_Screen</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B8ED.html">Clear_Screen</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80e8"></span>80E8</td>
+<td class="instruction">CALL <a href="B471.html">$B471</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B471.html">B471</a>.</td>
+</tr>
+<tr>
+<td class="asm-label">GameMenu_Loop</td>
+<td class="address-2"><span id="80eb"></span>80EB</td>
+<td class="instruction">LD HL,$7DC6</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7DC6.html">Messaging_Splash</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80ee"></span>80EE</td>
+<td class="instruction">LD DE,$0003</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=0003.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80f1"></span>80F1</td>
+<td class="instruction">CALL <a href="B8C4.html">PrintString</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B8C4.html">PrintString</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80f4"></span>80F4</td>
+<td class="instruction">LD HL,$7E37</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7E37.html">7E37</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80f7"></span>80F7</td>
+<td class="instruction">LD A,($B2DB)</td>
+<td class="comment-1" rowspan="5"><span class="register">B</span>=02-*<a href="B2DB.html">B2DB</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80fa"></span>80FA</td>
+<td class="instruction">LD B,A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80fb"></span>80FB</td>
+<td class="instruction">LD A,$02</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80fd"></span>80FD</td>
+<td class="instruction">SUB B</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80fe"></span>80FE</td>
+<td class="instruction">LD B,A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="80ff"></span>80FF</td>
+<td class="instruction">ADD A,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8100"></span>8100</td>
+<td class="instruction">ADD A,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8101"></span>8101</td>
+<td class="instruction">ADD A,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8102"></span>8102</td>
+<td class="instruction">SUB B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8103"></span>8103</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=<span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8104"></span>8104</td>
+<td class="instruction">LD E,$03</td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=03.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8106"></span>8106</td>
+<td class="instruction">CALL <a href="B8C4.html">PrintString</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B8C4.html">PrintString</a>.</td>
+</tr>
+<tr>
+<td class="asm-label">GameMenu_0</td>
+<td class="address-2"><span id="8109"></span>8109</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="2">Write FF to <a href="B4E9.html">B4E9</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="810b"></span>810B</td>
+<td class="instruction">LD ($B4E9),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="810e"></span>810E</td>
+<td class="instruction">CALL <a href="B482.html">$B482</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B482.html">B482</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8111"></span>8111</td>
+<td class="instruction">LD A,($B55F)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8114"></span>8114</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8115"></span>8115</td>
+<td class="instruction">JR NZ,<a href="8155.html">$8155</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8117"></span>8117</td>
+<td class="instruction">LD A,($B4E9)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="811a"></span>811A</td>
+<td class="instruction">BIT 0,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="811c"></span>811C</td>
+<td class="instruction">JR NZ,<a href="80E5.html#8123">GameMenu_1</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="811e"></span>811E</td>
+<td class="instruction">CALL $B2DC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8121"></span>8121</td>
+<td class="instruction">JR <a href="80E5.html#80eb">GameMenu_Loop</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label">GameMenu_1</td>
+<td class="address-2"><span id="8123"></span>8123</td>
+<td class="instruction">BIT 1,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8125"></span>8125</td>
+<td class="instruction">JR NZ,<a href="80E5.html#812c">GameMenu_2</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8127"></span>8127</td>
+<td class="instruction">CALL $B2E2</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="812a"></span>812A</td>
+<td class="instruction">JR <a href="80E5.html#80eb">GameMenu_Loop</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label">GameMenu_2</td>
+<td class="address-2"><span id="812c"></span>812C</td>
+<td class="instruction">BIT 2,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="812e"></span>812E</td>
+<td class="instruction">JR NZ,<a href="80E5.html#8135">GameMenu_3</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8130"></span>8130</td>
+<td class="instruction">CALL $B2E8</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8133"></span>8133</td>
+<td class="instruction">JR <a href="80E5.html#80eb">GameMenu_Loop</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label">GameMenu_3</td>
+<td class="address-2"><span id="8135"></span>8135</td>
+<td class="instruction">BIT 3,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8137"></span>8137</td>
+<td class="instruction">JR NZ,<a href="80E5.html#8109">GameMenu_0</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="8139"></span>8139</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="813a"></span>813A</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="7E37.html">7E37</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#80e5">Map</a></td>
+<td class="next">
+Next: <a href="813B.html">813B</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../dec/asm/32997.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 8155</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="813B.html">813B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#8155">Map</a></td>
+<td class="next">
+Next: <a href="8184.html">8184</a>
+</td>
+</tr>
+</table>
+<div class="description">8155: Routine at 8155</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="80E5.html">GameMenu</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8155"></span>8155</td>
+<td class="instruction">CALL <a href="BAD8.html">$BAD8</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8158"></span>8158</td>
+<td class="instruction">CALL <a href="B8ED.html">Clear_Screen</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="815b"></span>815B</td>
+<td class="instruction">CALL <a href="E3FD.html">$E3FD</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="815e"></span>815E</td>
+<td class="instruction">CALL <a href="813B.html">$813B</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8161"></span>8161</td>
+<td class="instruction">LD ($813A),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="8164"></span>8164</td>
+<td class="instruction">LD A,($813A)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8167"></span>8167</td>
+<td class="instruction">CP (IY+$0F)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="816a"></span>816A</td>
+<td class="instruction">JR Z,<a href="8155.html#8175">$8175</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="816c"></span>816C</td>
+<td class="instruction">LD A,(IY+$0F)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="816f"></span>816F</td>
+<td class="instruction">LD ($813A),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8172"></span>8172</td>
+<td class="instruction">CALL <a href="B952.html">$B952</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="8175"></span>8175</td>
+<td class="instruction">CALL <a href="81AE.html">$81AE</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8178"></span>8178</td>
+<td class="instruction">XOR A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8179"></span>8179</td>
+<td class="instruction">IN A,($FE)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="817b"></span>817B</td>
+<td class="instruction">OR $E0</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="817d"></span>817D</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="817f"></span>817F</td>
+<td class="instruction">JP NZ,<a href="80E5.html">GameMenu</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8182"></span>8182</td>
+<td class="instruction">JR <a href="8155.html#8164">$8164</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="813B.html">813B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#8155">Map</a></td>
+<td class="next">
+Next: <a href="8184.html">8184</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../dec/asm/33109.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

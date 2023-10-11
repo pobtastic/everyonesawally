@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 47300</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46971.html">46971</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47300">Map</a></td>
+<td class="next">
+Next: <a href="47341.html">47341</a>
+</td>
+</tr>
+</table>
+<div class="description">47300: Print String</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="32997.html">GameMenu</a>, <a href="45809.html">45809</a>, <a href="45899.html">45899</a> and <a href="60714.html">60714</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Screen co-ordinates</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Message address</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PrintString</td>
+<td class="address-2"><span id="47300"></span>47300</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47301"></span>47301</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47302"></span>47302</td>
+<td class="instruction">CP 128</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is higher than 128 jump to <a href="47300.html#47335">PrintString_1</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47304"></span>47304</td>
+<td class="instruction">JR C,<a href="47300.html#47335">PrintString_1</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47306"></span>
+<div class="comments">
+<div class="paragraph">
+Return if we've reached the terminator (255).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47306"></span>47306</td>
+<td class="instruction">CP 255</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is 255 then return.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47308"></span>47308</td>
+<td class="instruction">RET Z</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47309"></span>
+<div class="comments">
+<div class="paragraph">
+If the current byte is our control byte (254) - we grab the next byte and store it in <span class="register">C</span> and then loop back to the start.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47309"></span>47309</td>
+<td class="instruction">CP 254</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not 254 jump to <a href="47300.html#47317">PrintString_0</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47311"></span>47311</td>
+<td class="instruction">JR NZ,<a href="47300.html#47317">PrintString_0</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47313"></span>47313</td>
+<td class="instruction">LD C,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47314"></span>47314</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47315"></span>47315</td>
+<td class="instruction">JR <a href="47300.html#47300">PrintString</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47300.html">PrintString</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47317"></span>
+<div class="comments">
+<div class="paragraph">
+Any other data is processed from here.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PrintString_0</td>
+<td class="address-2"><span id="47317"></span>47317</td>
+<td class="instruction">CP 168</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is higher than 168 jump to <a href="47300.html#47335">PrintString_1</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47319"></span>47319</td>
+<td class="instruction">JR C,<a href="47300.html#47335">PrintString_1</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47321"></span>47321</td>
+<td class="instruction">CP 232</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is lower than 232 jump to <a href="47300.html#47335">PrintString_1</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47323"></span>47323</td>
+<td class="instruction">JR NC,<a href="47300.html#47335">PrintString_1</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47325"></span>47325</td>
+<td class="instruction">SUB 200</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>-=200.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47327"></span>47327</td>
+<td class="instruction">ADD A,E</td>
+<td class="comment-1" rowspan="2"><span class="register">E</span>=<span class="register">A</span>+<span class="register">E</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47328"></span>47328</td>
+<td class="instruction">LD E,A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47329"></span>47329</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="3"><span class="register">D</span>+=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47330"></span>47330</td>
+<td class="instruction">ADD A,(HL)</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47331"></span>47331</td>
+<td class="instruction">LD D,A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47332"></span>47332</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47333"></span>47333</td>
+<td class="instruction">JR <a href="47300.html#47300">PrintString</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47300.html">PrintString</a>.</td>
+</tr>
+<tr>
+<td class="asm-label">PrintString_1</td>
+<td class="address-2"><span id="47335"></span>47335</td>
+<td class="instruction">CALL <a href="46869.html">PrintStringColour</a></td>
+<td class="comment-1" rowspan="1">Call <a href="46869.html">PrintStringColour</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47338"></span>47338</td>
+<td class="instruction">INC E</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47339"></span>47339</td>
+<td class="instruction">JR <a href="47300.html#47300">PrintString</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47300.html">PrintString</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46971.html">46971</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47300">Map</a></td>
+<td class="next">
+Next: <a href="47341.html">47341</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../../asm/B8C4.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

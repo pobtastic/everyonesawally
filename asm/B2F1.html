@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at B2F1</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B2EF.html">B2EF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b2f1">Map</a></td>
+<td class="next">
+Next: <a href="B34B.html">B34B</a>
+</td>
+</tr>
+</table>
+<div class="description">B2F1: Routine at B2F1</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="B34B.html">B34B</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="b2f1"></span>B2F1</td>
+<td class="instruction">CALL <a href="B8ED.html">Clear_Screen</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B8ED.html">Clear_Screen</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2f4"></span>B2F4</td>
+<td class="instruction">LD DE,$010A</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=010A.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2f7"></span>B2F7</td>
+<td class="instruction">LD HL,$7C1B</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7C1B.html">Messaging_Wages</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2fa"></span>B2FA</td>
+<td class="instruction">CALL <a href="B8C4.html">PrintString</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B8C4.html">PrintString</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2fd"></span>B2FD</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">IY</span> on the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2ff"></span>B2FF</td>
+<td class="instruction">LD DE,$0513</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=0513.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b302"></span>B302</td>
+<td class="instruction">LD BC,$0545</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0545.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b305"></span>B305</td>
+<td class="instruction">LD HL,$B2ED</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="B2ED.html">B2ED</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b308"></span>B308</td>
+<td class="instruction">LD IY,$BC67</td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="BC67.html">BC67</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b30c"></span>B30C</td>
+<td class="instruction">LD IX,$B2ED</td>
+<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="B2ED.html">B2ED</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b310"></span>B310</td>
+<td class="instruction">LD (IX+$02),$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b314"></span>B314</td>
+<td class="instruction">LD (IX+$03),$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="b318"></span>B318</td>
+<td class="instruction">LD A,(IY-$0A)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b31b"></span>B31B</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b31e"></span>B31E</td>
+<td class="instruction">ADD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b321"></span>B321</td>
+<td class="instruction">DAA</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b322"></span>B322</td>
+<td class="instruction">LD (IX+$03),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b325"></span>B325</td>
+<td class="instruction">LD A,(IY-$1E)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b328"></span>B328</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b32b"></span>B32B</td>
+<td class="instruction">ADC A,(IX+$02)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b32e"></span>B32E</td>
+<td class="instruction">DAA</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b32f"></span>B32F</td>
+<td class="instruction">LD (IX+$02),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b332"></span>B332</td>
+<td class="instruction">CALL <a href="B34B.html#b34c">$B34C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B34B.html#b34c">B34C</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b335"></span>B335</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b336"></span>B336</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b337"></span>B337</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b338"></span>B338</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b33a"></span>B33A</td>
+<td class="instruction">DJNZ <a href="B2F1.html#b318">$B318</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b33c"></span>B33C</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">IY</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b33e"></span>B33E</td>
+<td class="instruction">LD D,$15</td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=15.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b340"></span>B340</td>
+<td class="instruction">LD HL,$B2EF</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="B2EF.html">B2EF</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b343"></span>B343</td>
+<td class="instruction">LD E,$11</td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=11.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b345"></span>B345</td>
+<td class="instruction">CALL <a href="B34B.html#b34c">$B34C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B34B.html#b34c">B34C</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b348"></span>B348</td>
+<td class="instruction">JP <a href="B34B.html#b3ab">$B3AB</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B34B.html#b3ab">B3AB</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B2EF.html">B2EF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b2f1">Map</a></td>
+<td class="next">
+Next: <a href="B34B.html">B34B</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../dec/asm/45809.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

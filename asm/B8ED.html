@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at B8ED</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B8C4.html">B8C4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b8ed">Map</a></td>
+<td class="next">
+Next: <a href="B902.html">B902</a>
+</td>
+</tr>
+</table>
+<div class="description">B8ED: Clear Screen</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="80E5.html">GameMenu</a>, <a href="8155.html">8155</a>, <a href="B2F1.html">B2F1</a> and <a href="B34B.html">B34B</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Clear_Screen</td>
+<td class="address-2"><span id="b8ed"></span>B8ED</td>
+<td class="instruction">LD HL,$4000</td>
+<td class="comment-1" rowspan="5">Clear the screen buffer.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b8f0"></span>B8F0</td>
+<td class="instruction">LD (HL),$00</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b8f2"></span>B8F2</td>
+<td class="instruction">LD DE,$4001</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b8f5"></span>B8F5</td>
+<td class="instruction">LD BC,$1800</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b8f8"></span>B8F8</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b8fa"></span>B8FA</td>
+<td class="instruction">LD (HL),$46</td>
+<td class="comment-1" rowspan="3">Write 46 (INK:
+YELLOW,
+PAPER:
+BLACK
+(BRIGHT)
+) to the entire attribute buffer.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b8fc"></span>B8FC</td>
+<td class="instruction">LD BC,$02FF</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b8ff"></span>B8FF</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b901"></span>B901</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B8C4.html">B8C4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b8ed">Map</a></td>
+<td class="next">
+Next: <a href="B902.html">B902</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../dec/asm/47341.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

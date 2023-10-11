@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 813B</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="80E5.html">80E5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#813b">Map</a></td>
+<td class="next">
+Next: <a href="8155.html">8155</a>
+</td>
+</tr>
+</table>
+<div class="description">813B: Routine at 813B</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="8155.html">8155</a> and <a href="8184.html">8184</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="813b"></span>813B</td>
+<td class="instruction">CALL <a href="B952.html">$B952</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B952.html">B952</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="813e"></span>813E</td>
+<td class="instruction">LD BC,$0014</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0014.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8141"></span>8141</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">BC</span> on the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8142"></span>8142</td>
+<td class="instruction">CALL <a href="EEA2.html">$EEA2</a></td>
+<td class="comment-1" rowspan="1">Call <a href="EEA2.html">EEA2</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8145"></span>8145</td>
+<td class="instruction">CALL <a href="F578.html">$F578</a></td>
+<td class="comment-1" rowspan="1">Call <a href="F578.html">F578</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8148"></span>8148</td>
+<td class="instruction">CALL <a href="B9D6.html">$B9D6</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B9D6.html">B9D6</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="814b"></span>814B</td>
+<td class="instruction">CALL <a href="B9FB.html">Handler_Sprites</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B9FB.html">Handler_Sprites</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="814e"></span>814E</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="814f"></span>814F</td>
+<td class="instruction">DEC BC</td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8150"></span>8150</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="3">Jump to <a href="813B.html#8141">8141</a> until <span class="register">BC</span> is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8151"></span>8151</td>
+<td class="instruction">OR C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8152"></span>8152</td>
+<td class="instruction">JR NZ,<a href="813B.html#8141">$8141</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8154"></span>8154</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="80E5.html">80E5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#813b">Map</a></td>
+<td class="next">
+Next: <a href="8155.html">8155</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../dec/asm/33083.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

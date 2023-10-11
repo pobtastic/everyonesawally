@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Pokes</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Pokes">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Pokes</td>
+</tr>
+</table>
+<ul class="contents">
+<li><a href="#infinite_lives">Infinite Lives</a></li>
+<li><a href="#immunity">Immunity</a></li>
+<li><a href="#change_characters_anywhere">Change characters anywhere</a></li>
+<li><a href="#freezes_the_gang_members_not_in_your_control">Freezes the gang members not in your control</a></li>
+<li><a href="#food_is_at_bakers_&_bar">Food is at Bakers & Bar</a></li>
+<li><a href="#food_is_at_workshed_&_butchers">Food is at Workshed & Butchers</a></li>
+<li><a href="#food_is_at_bar_&_wally's_house">Food is at Bar & Wally's House</a></li>
+<li><a href="#food_is_at_butchers_&_bakers">Food is at Butchers & Bakers</a></li>
+<li><a href="#food_is_at_wally's_house_&_workshed">Food is at Wally's House & Workshed</a></li>
+<li><a href="#no_letters__default_">No letters (default)</a></li>
+<li><a href="#1letter__you_see_"b"_at_bank_">1letter (you see "B" at bank)</a></li>
+<li><a href="#2letters__you_see_"br"_at_bank_">2letters (you see "BR" at bank)</a></li>
+<li><a href="#3letters__you_see_"bre"_at_bank_">3letters (you see "BRE" at bank)</a></li>
+<li><a href="#4letters__you_see_"brea"_at_bank_">4letters (you see "BREA" at bank)</a></li>
+<li><a href="#the_hook_is_working">The hook is working</a></li>
+<li><a href="#fountain_repaired">Fountain repaired</a></li>
+<li><a href="#wall_is_built">Wall is built</a></li>
+<li><a href="#lives_of_wally__#n$00-#n$ff_">Lives of Wally (0-255)</a></li>
+<li><a href="#lives_of_wilma__#n$00-#n$ff_">Lives of Wilma (0-255)</a></li>
+<li><a href="#lives_of_tom__#n$00-#n$ff_">Lives of Tom (0-255)</a></li>
+<li><a href="#lives_of_dick__#n$00-#n$ff_">Lives of Dick (0-255)</a></li>
+<li><a href="#lives_of_harry__#n$00-#n$ff_">Lives of Harry (0-255)</a></li>
+<li><a href="#phone_box'_stage_completed">Phone box' stage completed</a></li>
+<li><a href="#the_bottle_full">The Bottle Full</a></li>
+<li><a href="#the_fuse_rewired">The Fuse Rewired</a></li>
+<li><a href="#the_parcel_stamped">The Parcel Stamped</a></li>
+<li><a href="#the_bucket_full">The Bucket Full</a></li>
+<li><a href="#the_pipe_patched">The Pipe patched</a></li>
+<li><a href="#the_battery_charged">The Battery charged</a></li>
+<li><a href="#the_oil_can_full">The Oil Can Full</a></li>
+<li><a href="#item_at_supermarket_[floor]__0-40_the_same_for_all_">Item at Supermarket [floor] (0-40 the same for all)</a></li>
+<li><a href="#item_at_park">Item at Park</a></li>
+<li><a href="#item_at_wall_street_[engine]">Item at Wall Street [engine]</a></li>
+<li><a href="#item_at_workshed_[on_left_table]">Item at Workshed [on left table]</a></li>
+<li><a href="#item_at_workshed_[under_left_table]">Item at Workshed [under left table]</a></li>
+<li><a href="#item_at_workshed_[under_right_table]">Item at Workshed [under right table]</a></li>
+<li><a href="#item_at_school">Item at School</a></li>
+<li><a href="#item_at_kemco_lab_[on_left_table]">Item at Kemco Lab [on left table]</a></li>
+<li><a href="#item_at_kemco_lab_[on_right_table]">Item at Kemco Lab [on right table]</a></li>
+<li><a href="#item_at_garage">Item at Garage</a></li>
+<li><a href="#item_at_wally's_house">Item at Wally's House</a></li>
+<li><a href="#item_at_bank">Item at Bank</a></li>
+<li><a href="#item_at_butchers_[bottom]">Item at Butchers [bottom]</a></li>
+<li><a href="#item_at_station">Item at Station</a></li>
+<li><a href="#item_at_sewer">Item at Sewer</a></li>
+<li><a href="#1st_item_[wally]__0-40_">1st item [Wally] (0-40)</a></li>
+<li><a href="#2nd_item_[wally]__0-40_">2nd item [Wally] (0-40)</a></li>
+<li><a href="#1st_item_[wilma]__0-40_">1st item [Wilma] (0-40)</a></li>
+<li><a href="#2nd_item_[wilma]__0-40_">2nd item [Wilma] (0-40)</a></li>
+<li><a href="#1st_item_[tom]__0-40_">1st item [Tom] (0-40)</a></li>
+<li><a href="#2nd_item_[tom]__0-40_">2nd item [Tom] (0-40)</a></li>
+<li><a href="#1st_item_[dick]__0-40_">1st item [Dick] (0-40)</a></li>
+<li><a href="#2nd_item_[dick]__0-40_">2nd item [Dick] (0-40)</a></li>
+<li><a href="#1st_item_[harry]__0-40_">1st item [Harry] (0-40)</a></li>
+<li><a href="#2nd_item_[harry]__0-40_">2nd item [Harry] (0-40)</a></li>
+<li><a href="#remove_colours_from_the_main_characters">Remove colours from the main characters</a></li>
+<li><a href="#characters_can't_pick_up_objects">Characters can't pick up objects</a></li>
+</ul>
+<div><span id="infinite_lives"></span></div>
+<div class="box box-1">
+<div class="box-title">Infinite Lives</div>
+<div class="paragraph">
+POKE <a href="../asm/58153.html#58214">58215</a>,182
+</div>
+<div class="paragraph">
+This alters the line.
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/58153.html#58214">58214</a></td>
+<td class="instruction">DEC (<span class="register">IY</span>+45)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div><span id="immunity"></span></div>
+<div class="box box-2">
+<div class="box-title">Immunity</div>
+<div class="paragraph">
+POKE <a href="../asm/58153.html#58179">58179</a>,201
+</div>
+<div class="paragraph">
+This alters the line.
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/58153.html#58179">58179</a></td>
+<td class="instruction">RET NZ</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+To immediately just return without any flag checking.
+</div>
+</div>
+<div><span id="change_characters_anywhere"></span></div>
+<div class="box box-1">
+<div class="box-title">Change characters anywhere</div>
+<div class="paragraph">
+POKE <a href="../asm/59291.html#59320">59320</a>,24
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/59291.html#59320">59320</a></td>
+<td class="instruction">JR Z,<a href="../asm/59291.html#59328">59328</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div><span id="freezes_the_gang_members_not_in_your_control"></span></div>
+<div class="box box-2">
+<div class="box-title">Freezes the gang members not in your control</div>
+<div class="paragraph">
+POKE <a href="../asm/43069.html#43308">43308</a>,201
+</div>
+<div class="paragraph">
+This alters the routine which handles the character movements, to change this line:
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/43069.html#43308">43308</a></td>
+<td class="instruction">PUSH <span class="register">IY</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+To immediately just return.
+</div>
+</div>
+<div><span id="food_is_at_bakers_&_bar"></span></div>
+<div class="box box-1">
+<div class="box-title">Food is at Bakers & Bar</div>
+<div class="paragraph">
+POKE 63506 233
+</div>
+</div>
+<div><span id="food_is_at_workshed_&_butchers"></span></div>
+<div class="box box-2">
+<div class="box-title">Food is at Workshed & Butchers</div>
+<div class="paragraph">
+POKE 63506 237
+</div>
+</div>
+<div><span id="food_is_at_bar_&_wally's_house"></span></div>
+<div class="box box-1">
+<div class="box-title">Food is at Bar & Wally's House</div>
+<div class="paragraph">
+POKE 63506 241
+</div>
+</div>
+<div><span id="food_is_at_butchers_&_bakers"></span></div>
+<div class="box box-2">
+<div class="box-title">Food is at Butchers & Bakers</div>
+<div class="paragraph">
+POKE 63506 245
+</div>
+</div>
+<div><span id="food_is_at_wally's_house_&_workshed"></span></div>
+<div class="box box-1">
+<div class="box-title">Food is at Wally's House & Workshed</div>
+<div class="paragraph">
+POKE 63506 249
+</div>
+</div>
+<div><span id="no_letters__default_"></span></div>
+<div class="box box-2">
+<div class="box-title">No letters (default)</div>
+<div class="paragraph">
+POKE 60670 0
+POKE 60869 1
+</div>
+</div>
+<div><span id="1letter__you_see_"b"_at_bank_"></span></div>
+<div class="box box-1">
+<div class="box-title">1letter (you see "B" at bank)</div>
+<div class="paragraph">
+POKE 60670 2
+POKE 60869 2
+</div>
+</div>
+<div><span id="2letters__you_see_"br"_at_bank_"></span></div>
+<div class="box box-2">
+<div class="box-title">2letters (you see "BR" at bank)</div>
+<div class="paragraph">
+POKE 60670 4 0
+POKE 60869 3 1
+</div>
+</div>
+<div><span id="3letters__you_see_"bre"_at_bank_"></span></div>
+<div class="box box-1">
+<div class="box-title">3letters (you see "BRE" at bank)</div>
+<div class="paragraph">
+POKE 60670 6 0
+POKE 60869 4 1
+</div>
+</div>
+<div><span id="4letters__you_see_"brea"_at_bank_"></span></div>
+<div class="box box-2">
+<div class="box-title">4letters (you see "BREA" at bank)</div>
+<div class="paragraph">
+POKE 60670 8 0
+POKE 60869 5 1
+</div>
+</div>
+<div><span id="the_hook_is_working"></span></div>
+<div class="box box-1">
+<div class="box-title">The hook is working</div>
+<div class="paragraph">
+POKE 60434 1 0
+</div>
+</div>
+<div><span id="fountain_repaired"></span></div>
+<div class="box box-2">
+<div class="box-title">Fountain repaired</div>
+<div class="paragraph">
+POKE 60439 1 0
+</div>
+</div>
+<div><span id="wall_is_built"></span></div>
+<div class="box box-1">
+<div class="box-title">Wall is built</div>
+<div class="paragraph">
+POKE 60440 1 0
+</div>
+</div>
+<div><span id="lives_of_wally__#n$00-#n$ff_"></span></div>
+<div class="box box-2">
+<div class="box-title">Lives of Wally (0-255)</div>
+<div class="paragraph">
+POKE <a href="../asm/48276.html">48276</a>,<em>nn</em>
+</div>
+</div>
+<div><span id="lives_of_wilma__#n$00-#n$ff_"></span></div>
+<div class="box box-1">
+<div class="box-title">Lives of Wilma (0-255)</div>
+<div class="paragraph">
+POKE <a href="../asm/48277.html">48277</a>,<em>nn</em>
+</div>
+</div>
+<div><span id="lives_of_tom__#n$00-#n$ff_"></span></div>
+<div class="box box-2">
+<div class="box-title">Lives of Tom (0-255)</div>
+<div class="paragraph">
+POKE <a href="../asm/48278.html">48278</a>,<em>nn</em>
+</div>
+</div>
+<div><span id="lives_of_dick__#n$00-#n$ff_"></span></div>
+<div class="box box-1">
+<div class="box-title">Lives of Dick (0-255)</div>
+<div class="paragraph">
+POKE <a href="../asm/48279.html">48279</a>,<em>nn</em>
+</div>
+</div>
+<div><span id="lives_of_harry__#n$00-#n$ff_"></span></div>
+<div class="box box-2">
+<div class="box-title">Lives of Harry (0-255)</div>
+<div class="paragraph">
+POKE <a href="../asm/48280.html">48280</a>,<em>nn</em>
+</div>
+</div>
+<div><span id="phone_box'_stage_completed"></span></div>
+<div class="box box-1">
+<div class="box-title">Phone box' stage completed</div>
+<div class="paragraph">
+POKE 60444 1 0
+</div>
+</div>
+<div><span id="the_bottle_full"></span></div>
+<div class="box box-2">
+<div class="box-title">The Bottle Full</div>
+<div class="paragraph">
+POKE 60431 1 0
+</div>
+</div>
+<div><span id="the_fuse_rewired"></span></div>
+<div class="box box-1">
+<div class="box-title">The Fuse Rewired</div>
+<div class="paragraph">
+POKE 60432 1 0
+</div>
+</div>
+<div><span id="the_parcel_stamped"></span></div>
+<div class="box box-2">
+<div class="box-title">The Parcel Stamped</div>
+<div class="paragraph">
+POKE 60433 1 0
+</div>
+</div>
+<div><span id="the_bucket_full"></span></div>
+<div class="box box-1">
+<div class="box-title">The Bucket Full</div>
+<div class="paragraph">
+POKE 60435 1 0
+</div>
+</div>
+<div><span id="the_pipe_patched"></span></div>
+<div class="box box-2">
+<div class="box-title">The Pipe patched</div>
+<div class="paragraph">
+POKE 60436 1 0
+</div>
+</div>
+<div><span id="the_battery_charged"></span></div>
+<div class="box box-1">
+<div class="box-title">The Battery charged</div>
+<div class="paragraph">
+POKE 60437 1 0
+</div>
+</div>
+<div><span id="the_oil_can_full"></span></div>
+<div class="box box-2">
+<div class="box-title">The Oil Can Full</div>
+<div class="paragraph">
+POKE 60438 1
+</div>
+</div>
+<div><span id="item_at_supermarket_[floor]__0-40_the_same_for_all_"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at Supermarket [floor] (0-40 the same for all)</div>
+<div class="paragraph">
+POKE 48373 256
+</div>
+</div>
+<div><span id="item_at_park"></span></div>
+<div class="box box-2">
+<div class="box-title">Item at Park</div>
+<div class="paragraph">
+POKE 48378 256
+</div>
+</div>
+<div><span id="item_at_wall_street_[engine]"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at Wall Street [engine]</div>
+<div class="paragraph">
+POKE 48385 256
+</div>
+</div>
+<div><span id="item_at_workshed_[on_left_table]"></span></div>
+<div class="box box-2">
+<div class="box-title">Item at Workshed [on left table]</div>
+<div class="paragraph">
+POKE 48399 256
+</div>
+</div>
+<div><span id="item_at_workshed_[under_left_table]"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at Workshed [under left table]</div>
+<div class="paragraph">
+POKE 48403 256
+</div>
+</div>
+<div><span id="item_at_workshed_[under_right_table]"></span></div>
+<div class="box box-2">
+<div class="box-title">Item at Workshed [under right table]</div>
+<div class="paragraph">
+POKE 48407 256
+</div>
+</div>
+<div><span id="item_at_school"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at School</div>
+<div class="paragraph">
+POKE 48417 256
+</div>
+</div>
+<div><span id="item_at_kemco_lab_[on_left_table]"></span></div>
+<div class="box box-2">
+<div class="box-title">Item at Kemco Lab [on left table]</div>
+<div class="paragraph">
+POKE 48434 256
+</div>
+</div>
+<div><span id="item_at_kemco_lab_[on_right_table]"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at Kemco Lab [on right table]</div>
+<div class="paragraph">
+POKE 48438 256
+</div>
+</div>
+<div><span id="item_at_garage"></span></div>
+<div class="box box-2">
+<div class="box-title">Item at Garage</div>
+<div class="paragraph">
+POKE 48443 256
+</div>
+</div>
+<div><span id="item_at_wally's_house"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at Wally's House</div>
+<div class="paragraph">
+POKE 48461 256
+</div>
+</div>
+<div><span id="item_at_bank"></span></div>
+<div class="box box-2">
+<div class="box-title">Item at Bank</div>
+<div class="paragraph">
+POKE 48463 256
+</div>
+</div>
+<div><span id="item_at_butchers_[bottom]"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at Butchers [bottom]</div>
+<div class="paragraph">
+POKE 48474 256
+</div>
+</div>
+<div><span id="item_at_station"></span></div>
+<div class="box box-2">
+<div class="box-title">Item at Station</div>
+<div class="paragraph">
+POKE 48490 256
+</div>
+</div>
+<div><span id="item_at_sewer"></span></div>
+<div class="box box-1">
+<div class="box-title">Item at Sewer</div>
+<div class="paragraph">
+POKE 48504 256
+</div>
+</div>
+<div><span id="1st_item_[wally]__0-40_"></span></div>
+<div class="box box-2">
+<div class="box-title">1st item [Wally] (0-40)</div>
+<div class="paragraph">
+POKE 48311 256
+</div>
+</div>
+<div><span id="2nd_item_[wally]__0-40_"></span></div>
+<div class="box box-1">
+<div class="box-title">2nd item [Wally] (0-40)</div>
+<div class="paragraph">
+POKE 48316 256
+</div>
+</div>
+<div><span id="1st_item_[wilma]__0-40_"></span></div>
+<div class="box box-2">
+<div class="box-title">1st item [Wilma] (0-40)</div>
+<div class="paragraph">
+POKE 48312 256
+</div>
+</div>
+<div><span id="2nd_item_[wilma]__0-40_"></span></div>
+<div class="box box-1">
+<div class="box-title">2nd item [Wilma] (0-40)</div>
+<div class="paragraph">
+POKE 48317 256
+</div>
+</div>
+<div><span id="1st_item_[tom]__0-40_"></span></div>
+<div class="box box-2">
+<div class="box-title">1st item [Tom] (0-40)</div>
+<div class="paragraph">
+POKE 48313 256
+</div>
+</div>
+<div><span id="2nd_item_[tom]__0-40_"></span></div>
+<div class="box box-1">
+<div class="box-title">2nd item [Tom] (0-40)</div>
+<div class="paragraph">
+POKE 48318 256
+</div>
+</div>
+<div><span id="1st_item_[dick]__0-40_"></span></div>
+<div class="box box-2">
+<div class="box-title">1st item [Dick] (0-40)</div>
+<div class="paragraph">
+POKE 48314 256
+</div>
+</div>
+<div><span id="2nd_item_[dick]__0-40_"></span></div>
+<div class="box box-1">
+<div class="box-title">2nd item [Dick] (0-40)</div>
+<div class="paragraph">
+POKE 48319 256
+</div>
+</div>
+<div><span id="1st_item_[harry]__0-40_"></span></div>
+<div class="box box-2">
+<div class="box-title">1st item [Harry] (0-40)</div>
+<div class="paragraph">
+POKE 48315 256
+</div>
+</div>
+<div><span id="2nd_item_[harry]__0-40_"></span></div>
+<div class="box box-1">
+<div class="box-title">2nd item [Harry] (0-40)</div>
+<div class="paragraph">
+POKE 48320 256
+</div>
+</div>
+<div><span id="remove_colours_from_the_main_characters"></span></div>
+<div class="box box-2">
+<div class="box-title">Remove colours from the main characters</div>
+<div class="paragraph">
+<code>
+<div>POKE <a href="../asm/45286.html#45444">45444</a>,0</div>
+<div>POKE <a href="../asm/45286.html#45446">45446</a>,0</div>
+<div>POKE <a href="../asm/45286.html#45453">45453</a>,0</div>
+</code>
+</div>
+<div class="paragraph">
+This removes all the lines which would otherwise write the colour attribute value (<span class="register">C</span>) to the attribute buffer
+(<span class="register">HL</span>).
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45444">45444</a></td>
+<td class="instruction">LD (<span class="register">HL</span>),<span class="register">C</span></td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45445">45445</a></td>
+<td class="instruction">INC <span class="register">HL</span></td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45446">45446</a></td>
+<td class="instruction">LD (<span class="register">HL</span>),<span class="register">C</span></td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45447">45447</a></td>
+<td class="instruction">INC <span class="register">HL</span></td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45448">45448</a></td>
+<td class="instruction">LD <span class="register">A</span>,255</td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45450">45450</a></td>
+<td class="instruction">OR <span class="register">A</span></td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45451">45451</a></td>
+<td class="instruction">JR Z,<a href="../asm/45286.html#45454">45454</a></td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/45286.html#45453">45453</a></td>
+<td class="instruction">LD (<span class="register">HL</span>),<span class="register">C</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div><span id="characters_can't_pick_up_objects"></span></div>
+<div class="box box-1">
+<div class="box-title">Characters can't pick up objects</div>
+<div class="paragraph">
+<code>
+<div>POKE <a href="../asm/43069.html#43504">43504</a>,0</div>
+<div>POKE <a href="../asm/43069.html#43504">43505</a>,0</div>
+<div>POKE <a href="../asm/43069.html#43504">43506</a>,0</div>
+</code>
+</div>
+<div class="paragraph">
+This removes the line which would otherwise call the routine to handle picking up objects.
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/43069.html#43504">43504</a></td>
+<td class="instruction">CALL <a href="../asm/43568.html">43568</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../../reference/pokes.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

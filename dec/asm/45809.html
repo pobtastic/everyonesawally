@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 45809</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45807.html">45807</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45809">Map</a></td>
+<td class="next">
+Next: <a href="45899.html">45899</a>
+</td>
+</tr>
+</table>
+<div class="description">45809: Routine at B2F1</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="45899.html">45899</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45809"></span>45809</td>
+<td class="instruction">CALL <a href="47341.html">Clear_Screen</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47341.html">Clear_Screen</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45812"></span>45812</td>
+<td class="instruction">LD DE,266</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=266.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45815"></span>45815</td>
+<td class="instruction">LD HL,31771</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="31771.html">Messaging_Wages</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45818"></span>45818</td>
+<td class="instruction">CALL <a href="47300.html">PrintString</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47300.html">PrintString</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45821"></span>45821</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">IY</span> on the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45823"></span>45823</td>
+<td class="instruction">LD DE,1299</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=1299.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45826"></span>45826</td>
+<td class="instruction">LD BC,1349</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=1349.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45829"></span>45829</td>
+<td class="instruction">LD HL,45805</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="45805.html">45805</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45832"></span>45832</td>
+<td class="instruction">LD IY,48231</td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="48231.html">48231</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45836"></span>45836</td>
+<td class="instruction">LD IX,45805</td>
+<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="45805.html">45805</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45840"></span>45840</td>
+<td class="instruction">LD (IX+2),0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45844"></span>45844</td>
+<td class="instruction">LD (IX+3),0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="45848"></span>45848</td>
+<td class="instruction">LD A,(IY-10)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45851"></span>45851</td>
+<td class="instruction">LD (IX+1),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45854"></span>45854</td>
+<td class="instruction">ADD A,(IX+3)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45857"></span>45857</td>
+<td class="instruction">DAA</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45858"></span>45858</td>
+<td class="instruction">LD (IX+3),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45861"></span>45861</td>
+<td class="instruction">LD A,(IY-30)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45864"></span>45864</td>
+<td class="instruction">LD (IX+0),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45867"></span>45867</td>
+<td class="instruction">ADC A,(IX+2)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45870"></span>45870</td>
+<td class="instruction">DAA</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45871"></span>45871</td>
+<td class="instruction">LD (IX+2),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45874"></span>45874</td>
+<td class="instruction">CALL <a href="45899.html#45900">45900</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45899.html#45900">45900</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45877"></span>45877</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45878"></span>45878</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45879"></span>45879</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45880"></span>45880</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45882"></span>45882</td>
+<td class="instruction">DJNZ <a href="45809.html#45848">45848</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45884"></span>45884</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">IY</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45886"></span>45886</td>
+<td class="instruction">LD D,21</td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=21.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45888"></span>45888</td>
+<td class="instruction">LD HL,45807</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="45807.html">45807</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45891"></span>45891</td>
+<td class="instruction">LD E,17</td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=17.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45893"></span>45893</td>
+<td class="instruction">CALL <a href="45899.html#45900">45900</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45899.html#45900">45900</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45896"></span>45896</td>
+<td class="instruction">JP <a href="45899.html#45995">45995</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="45899.html#45995">45995</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45807.html">45807</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45809">Map</a></td>
+<td class="next">
+Next: <a href="45899.html">45899</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../../asm/B2F1.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

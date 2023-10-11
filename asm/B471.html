@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at B471</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B34B.html">B34B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b471">Map</a></td>
+<td class="next">
+Next: <a href="B482.html">B482</a>
+</td>
+</tr>
+</table>
+<div class="description">B471: Routine at B471</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="80E5.html">GameMenu</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="b471"></span>B471</td>
+<td class="instruction">DI</td>
+<td class="comment-1" rowspan="1">Disable interrupts.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b472"></span>B472</td>
+<td class="instruction">LD HL,$B560</td>
+<td class="comment-1" rowspan="2">Write <a href="B55F.html#b560">B560</a> to <a href="B4E7.html">B4E7</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b475"></span>B475</td>
+<td class="instruction">LD ($B4E7),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b478"></span>B478</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="2">Write FF to <a href="B4E9.html">B4E9</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b47a"></span>B47A</td>
+<td class="instruction">LD ($B4E9),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b47d"></span>B47D</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="2">Write 00 to <a href="B55F.html">B55F</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b47e"></span>B47E</td>
+<td class="instruction">LD ($B55F),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b481"></span>B481</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B34B.html">B34B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b471">Map</a></td>
+<td class="next">
+Next: <a href="B482.html">B482</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div><a href="../dec/asm/46193.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>
