@@ -29,7 +29,7 @@ Prev: <a href="81AE.html">81AE</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#81c4">Map</a></td>
 <td class="next">
-Next: <a href="81F8.html">81F8</a>
+Next: <a href="81D4.html">81D4</a>
 </td>
 </tr>
 </table>
@@ -47,172 +47,47 @@ Used by the routine at <a href="8184.html">8184</a>.
 <tr>
 <td class="address-2"><span id="81c4"></span>81C4</td>
 <td class="instruction">LD A,$FE</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81c6"></span>81C6</td>
 <td class="instruction">IN A,($FE)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81c8"></span>81C8</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81c9"></span>81C9</td>
 <td class="instruction">LD A,$7F</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81cb"></span>81CB</td>
 <td class="instruction">IN A,($FE)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81cd"></span>81CD</td>
 <td class="instruction">OR B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81ce"></span>81CE</td>
 <td class="instruction">BIT 0,A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81d0"></span>81D0</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="81d1"></span>81D1</td>
 <td class="instruction">JP <a href="81C4.html#81c4">$81C4</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="81d4"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routines at <a href="B1A6.html">B1A6</a> and <a href="EEC1.html">EEC1</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="81d4"></span>81D4</td>
-<td class="instruction">EXX</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81d5"></span>81D5</td>
-<td class="instruction">XOR $01</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81d7"></span>81D7</td>
-<td class="instruction">LD (IY-$3C),A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81da"></span>81DA</td>
-<td class="instruction">LD E,(IY+$23)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81dd"></span>81DD</td>
-<td class="instruction">LD D,(IY+$28)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81e0"></span>81E0</td>
-<td class="instruction">LD BC,$0400</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="81e3"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="EEC1.html">EEC1</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="81e3"></span>81E3</td>
-<td class="instruction">LD A,(DE)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81e4"></span>81E4</td>
-<td class="instruction">EX AF,AF'</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81e5"></span>81E5</td>
-<td class="instruction">INC DE</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81e6"></span>81E6</td>
-<td class="instruction">LD A,(DE)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81e7"></span>81E7</td>
-<td class="instruction">DEC DE</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81e8"></span>81E8</td>
-<td class="instruction">LD L,A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81e9"></span>81E9</td>
-<td class="instruction">LD H,$7B</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81eb"></span>81EB</td>
-<td class="instruction">LDI</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81ed"></span>81ED</td>
-<td class="instruction">EX AF,AF'</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81ee"></span>81EE</td>
-<td class="instruction">LD H,$7B</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81f0"></span>81F0</td>
-<td class="instruction">LD L,A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81f1"></span>81F1</td>
-<td class="instruction">LDI</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81f3"></span>81F3</td>
-<td class="instruction">JP PE,<a href="81C4.html#81e3">$81E3</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81f6"></span>81F6</td>
-<td class="instruction">EXX</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="81f7"></span>81F7</td>
-<td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="81C4.html">81C4</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -222,7 +97,7 @@ Prev: <a href="81AE.html">81AE</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#81c4">Map</a></td>
 <td class="next">
-Next: <a href="81F8.html">81F8</a>
+Next: <a href="81D4.html">81D4</a>
 </td>
 </tr>
 </table>

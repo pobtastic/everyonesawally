@@ -42,139 +42,161 @@ Next: <a href="FF24.html">FF24</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Checksum</td>
 <td class="address-2"><span id="fef7"></span>FEF7</td>
 <td class="instruction">LD HL,$4000</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=4000.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="fefa"></span>FEFA</td>
 <td class="instruction">LD BC,$BF24</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=BF24.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="fefd"></span>FEFD</td>
 <td class="instruction">LD A,$00</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=00.</td>
 </tr>
 <tr>
+<td class="asm-label">Checksum_Loop</td>
 <td class="address-2"><span id="feff"></span>FEFF</td>
 <td class="instruction">ADD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">E</span>=<span class="register">A</span>+*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff00"></span>FF00</td>
 <td class="instruction">LD E,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff01"></span>FF01</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff02"></span>FF02</td>
 <td class="instruction">DEC BC</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff03"></span>FF03</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Is <span class="register">BC</span> zero?..</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff04"></span>FF04</td>
 <td class="instruction">OR C</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff05"></span>FF05</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<span class="register">E</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff06"></span>FF06</td>
-<td class="instruction">JR NZ,<a href="FEF7.html#feff">$FEFF</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="FEF7.html#feff">Checksum_Loop</a></td>
+<td class="comment-1" rowspan="1">If <span class="register">BC</span> is not zero, jump to <a href="FEF7.html#feff">Checksum_Loop</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff08"></span>FF08</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If *<span class="register">HL</span> is not zero, jump to 00 (return to ZX Spectrum BASIC).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff09"></span>FF09</td>
 <td class="instruction">JP NZ,$0000</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff0c"></span>FF0C</td>
 <td class="instruction">LD DE,$5B80</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="5B80.html">5B80</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff0f"></span>FF0F</td>
 <td class="instruction">LD HL,$53FE</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=53FE.</td>
 </tr>
 <tr>
+<td class="asm-label">Decryption_Loop</td>
 <td class="address-2"><span id="ff12"></span>FF12</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff13"></span>FF13</td>
 <td class="instruction">XOR (HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Run an XOR on *<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff14"></span>FF14</td>
 <td class="instruction">RES 4,H</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Reset bit 4 of <span class="register">H</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff16"></span>FF16</td>
 <td class="instruction">XOR (HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Run another XOR on *<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff17"></span>FF17</td>
 <td class="instruction">SET 4,H</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Set bit 4 of <span class="register">H</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff19"></span>FF19</td>
 <td class="instruction">LD (DE),A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to *<span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff1a"></span>FF1A</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff1b"></span>FF1B</td>
 <td class="instruction">INC DE</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">DE</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff1c"></span>FF1C</td>
 <td class="instruction">LD A,E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">E</span> is not 9A jump to <a href="FEF7.html#ff12">Decryption_Loop</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff1d"></span>FF1D</td>
 <td class="instruction">CP $9A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff1f"></span>FF1F</td>
-<td class="instruction">JR NZ,<a href="FEF7.html#ff12">$FF12</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="FEF7.html#ff12">Decryption_Loop</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ff21"></span>FF21</td>
 <td class="instruction">JP <a href="5B80.html#5b94">$5B94</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="5B80.html#5b94">5B94</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

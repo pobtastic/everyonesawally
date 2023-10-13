@@ -44,74 +44,71 @@ Next: <a href="23450.html">23450</a>
 <tr>
 <td class="address-2"><span id="23424"></span>23424</td>
 <td class="instruction">LD BC,41625</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=41625.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="23427"></span>23427</td>
 <td class="instruction">LD HL,23447</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=23447.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="23430"></span>23430</td>
 <td class="instruction">XOR A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">R</span>=0.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="23431"></span>23431</td>
 <td class="instruction">LD R,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-2"><span id="23433"></span>23433</td>
 <td class="instruction">LD A,R</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="23435"></span>23435</td>
 <td class="instruction">XOR (HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="23436"></span>23436</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="23437"></span>23437</td>
 <td class="instruction">DEC BC</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="23438"></span>23438</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="23439"></span>23439</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Jump to <a href="23424.html#23433">23433</a> unless <span class="register">BC</span> is now zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="23440"></span>23440</td>
 <td class="instruction">OR C</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="23441"></span>23441</td>
 <td class="instruction">JR NZ,<a href="23424.html#23433">23433</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="23443"></span>23443</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
 <span id="23444"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="65271.html">65271</a>.
+This entry point is used by the routine at <a href="65271.html">Checksum</a>.
 </div>
 </div>
 </td>
@@ -119,12 +116,12 @@ This entry point is used by the routine at <a href="65271.html">65271</a>.
 <tr>
 <td class="address-2"><span id="23444"></span>23444</td>
 <td class="instruction">CALL <a href="23424.html#23424">23424</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="23424.html">23424</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="23447"></span>23447</td>
 <td class="instruction">JP <a href="33156.html">33156</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="33156.html">33156</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
