@@ -1,0 +1,46 @@
+;
+; SkoolKit ref file for Everyone's a Wally
+;
+; To build the HTML disassembly, run these commands:
+;   tap2sna.py @everyonesawally.t2s
+;   sna2skool.py -H -c sources/everyonesawally.ctl EveryonesaWally.z80 > sources/everyonesawally.skool
+;   skool2html.py -H sources/everyonesawally.skool -T dark
+
+[Config]
+Expand=#INCLUDE(Expand)
+RefFiles=bases.ref;analytics.ref;pokes.ref
+GameDir=everyonesawally
+
+[Game]
+Game=Everyone's a Wally
+Logo=#SCR2,0,21,32,3,$4000,$5800{20,15,472,26}(/images/logo)
+Copyright=&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.
+LinkInternalOperands=1
+AddressAnchor={address#IF({base}==16)(:04x)}
+
+[Expand]
+#DEF(#COLOUR(id)
+  #LET(ink=$id&$07)#IF({ink}>=$00)(INK:
+    #MAP({ink})(
+      UNKNOWN,
+      0:BLACK,
+      1:BLUE,
+      2:RED,
+      3:MAGENTA,
+      4:GREEN,
+      5:CYAN,
+      6:YELLOW,
+      7:WHITE)),
+  #LET(paper=$id>>$03&$07)#IF({paper}>=$00)(PAPER:
+    #MAP({paper})(
+      UNKNOWN,
+      0:BLACK,
+      1:BLUE,
+      2:RED,
+      3:MAGENTA,
+      4:GREEN,
+      5:CYAN,
+      6:YELLOW,
+      7:WHITE))
+  #LET(bright=$id&$40)#IF({bright}>$00)((BRIGHT))
+  #LET(flash=$id&$80)#IF({flash}>$00)(FLASH: ON))

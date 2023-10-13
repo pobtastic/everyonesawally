@@ -1,0 +1,14 @@
+; tap2sna.py file for Everyone's a Wally. Run
+;
+;   $ tap2sna.py @everyonesawally.t2s
+;
+; to create a Z80 snapshot.
+
+https://www.worldofspectrum.org//pub/sinclair/games/e/EveryonesAWally.tzx.zip
+EveryonesaWally.z80
+
+--sim-load
+--tape-name "Everyone's A Wally.tzx"
+--tape-sum 538ad0852363e32bc75cfbc7debbf702
+--start 0x5B97
+--sim-load-config accelerator=speedlock
