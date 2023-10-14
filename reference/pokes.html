@@ -145,7 +145,7 @@ POKE <a href="../asm/E79B.html#e7b8">E7B8</a>,18
 <div class="box box-2">
 <div class="box-title">Freezes the gang members not in your control</div>
 <div class="paragraph">
-POKE <a href="../asm/A83D.html#a92c">A92C</a>,C9
+POKE <a href="../asm/A92C.html">Handler_Move_Characters</a>,C9
 </div>
 <div class="paragraph">
 This alters the routine which handles the character movements, to change this line:
@@ -154,7 +154,7 @@ This alters the routine which handles the character movements, to change this li
 <table>
 <tbody>
 <tr>
-<td class="address-1"><a href="../asm/A83D.html#a92c">A92C</a></td>
+<td class="address-1"><a href="../asm/A92C.html">A92C</a></td>
 <td class="instruction">PUSH <span class="register">IY</span></td>
 </tr>
 </tbody>
@@ -584,9 +584,9 @@ This removes all the lines which would otherwise write the colour attribute valu
 <div class="box-title">Characters can't pick up objects</div>
 <div class="paragraph">
 <code>
-<div>POKE <a href="../asm/A83D.html#a9f0">A9F0</a>,00</div>
-<div>POKE <a href="../asm/A83D.html#a9f0">A9F1</a>,00</div>
-<div>POKE <a href="../asm/A83D.html#a9f0">A9F2</a>,00</div>
+<div>POKE <a href="../asm/A92C.html#a9f0">A9F0</a>,00</div>
+<div>POKE <a href="../asm/A92C.html#a9f0">A9F1</a>,00</div>
+<div>POKE <a href="../asm/A92C.html#a9f0">A9F2</a>,00</div>
 </code>
 </div>
 <div class="paragraph">
@@ -596,7 +596,7 @@ This removes the line which would otherwise call the routine to handle picking u
 <table>
 <tbody>
 <tr>
-<td class="address-1"><a href="../asm/A83D.html#a9f0">A9F0</a></td>
+<td class="address-1"><a href="../asm/A92C.html#a9f0">A9F0</a></td>
 <td class="instruction">CALL <a href="../asm/AA30.html">AA30</a></td>
 </tr>
 </tbody>
@@ -606,8 +606,9 @@ This removes the line which would otherwise call the routine to handle picking u
 <footer>
 <div class="release"></div>
 <div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div><div>Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
 <div><a href="../dec/reference/pokes.html">Switch to decimal</a>.</div>
+
 </footer>
 </body>
 </html>

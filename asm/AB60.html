@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at AB60</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AB43.html">AB43</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ab60">Map</a></td>
+<td class="next">
+Next: <a href="AB9B.html">AB9B</a>
+</td>
+</tr>
+</table>
+<div class="description">AB60: Routine at AB60</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ab60"></span>AB60</td>
+<td class="instruction">LD A,(IY+$0A)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab63"></span>AB63</td>
+<td class="instruction">CP $98</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab65"></span>AB65</td>
+<td class="instruction">JR NZ,<a href="AB60.html#ab88">$AB88</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab67"></span>AB67</td>
+<td class="instruction">LD A,(IY+$05)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab6a"></span>AB6A</td>
+<td class="instruction">CP $66</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab6c"></span>AB6C</td>
+<td class="instruction">JR NC,<a href="AB60.html#ab74">$AB74</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab6e"></span>AB6E</td>
+<td class="instruction">LD (IY+$3C),$01</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab72"></span>AB72</td>
+<td class="instruction">JR <a href="AB60.html#ab78">$AB78</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ab74"></span>AB74</td>
+<td class="instruction">LD (IY+$3C),$FF</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ab78"></span>AB78</td>
+<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab7b"></span>AB7B</td>
+<td class="instruction">LD A,(IY+$05)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab7e"></span>AB7E</td>
+<td class="instruction">CP $66</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab80"></span>AB80</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ab81"></span>AB81</td>
+<td class="instruction">LD (IY+$3C),$FF</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab85"></span>AB85</td>
+<td class="instruction">JP <a href="B1A6.html">$B1A6</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ab88"></span>AB88</td>
+<td class="instruction">CP $58</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab8a"></span>AB8A</td>
+<td class="instruction">JR NZ,<a href="AB60.html#ab81">$AB81</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab8c"></span>AB8C</td>
+<td class="instruction">LD (IY+$3C),$FF</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab90"></span>AB90</td>
+<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab93"></span>AB93</td>
+<td class="instruction">LD A,(IY+$05)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab96"></span>AB96</td>
+<td class="instruction">OR A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab97"></span>AB97</td>
+<td class="instruction">JP Z,<a href="AE5D.html">$AE5D</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ab9a"></span>AB9A</td>
+<td class="instruction">RET</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AB43.html">AB43</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ab60">Map</a></td>
+<td class="next">
+Next: <a href="AB9B.html">AB9B</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div><div>Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/43872.html">Switch to decimal</a>.</div>
+
+</footer>
+</body>
+</html>

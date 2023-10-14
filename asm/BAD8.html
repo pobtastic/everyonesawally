@@ -77,27 +77,26 @@ Used by the routines at <a href="8155.html">8155</a> and <a href="8184.html">818
 <tr>
 <td class="address-2"><span id="bae9"></span>BAE9</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="baea"></span>BAEA</td>
 <td class="instruction">CP $FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not the terminator (FF) jump to <a href="BAD8.html#baf1">BAF1</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="baec"></span>BAEC</td>
 <td class="instruction">JR NZ,<a href="BAD8.html#baf1">$BAF1</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="baee"></span>BAEE</td>
 <td class="instruction">INC DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">DE</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="baef"></span>BAEF</td>
 <td class="instruction">JR <a href="BAD8.html#bae9">$BAE9</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="BAD8.html#bae9">BAE9</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="baf1"></span>BAF1</td>
@@ -107,12 +106,11 @@ Used by the routines at <a href="8155.html">8155</a> and <a href="8184.html">818
 <tr>
 <td class="address-1"><span id="baf3"></span>BAF3</td>
 <td class="instruction">INC DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Increment <span class="register">DE</span> by two.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="baf4"></span>BAF4</td>
 <td class="instruction">INC DE</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="baf5"></span>BAF5</td>
@@ -122,27 +120,27 @@ Used by the routines at <a href="8155.html">8155</a> and <a href="8184.html">818
 <tr>
 <td class="address-1"><span id="baf7"></span>BAF7</td>
 <td class="instruction">POP BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="baf8"></span>BAF8</td>
 <td class="instruction">DJNZ <a href="BAD8.html#bae8">$BAE8</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="BAD8.html#bae8">BAE8</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bafa"></span>BAFA</td>
 <td class="instruction">LD BC,$00AF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=00AF.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bafd"></span>BAFD</td>
 <td class="instruction">LD HL,$BB7C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="BB7C.html">BB7C</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb00"></span>BB00</td>
 <td class="instruction">LD DE,$BC30</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="BC30.html">BC30</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb03"></span>BB03</td>
@@ -152,137 +150,131 @@ Used by the routines at <a href="8155.html">8155</a> and <a href="8184.html">818
 <tr>
 <td class="address-1"><span id="bb05"></span>BB05</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="4">Write 00 to: <ul class="">
+<li><a href="EC5C.html#ecf5">ECF5</a></li>
+<li><a href="EC5C.html#ecfe">ECFE</a></li>
+<li><a href="EC5C.html#ecff">ECFF</a></li>
+</ul></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb06"></span>BB06</td>
 <td class="instruction">LD ($ECF5),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb09"></span>BB09</td>
 <td class="instruction">LD ($ECFE),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb0c"></span>BB0C</td>
 <td class="instruction">LD ($ECFF),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb0f"></span>BB0F</td>
 <td class="instruction">INC A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="ED2A.html#edc5">EDC5</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb10"></span>BB10</td>
 <td class="instruction">LD ($EDC5),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb13"></span>BB13</td>
 <td class="instruction">LD A,$14</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 14 to <a href="F5F1.html#f9f4">F9F4</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb15"></span>BB15</td>
 <td class="instruction">LD ($F9F4),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb18"></span>BB18</td>
 <td class="instruction">LD A,$28</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 28 to <a href="F5BE.html">F5BE</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb1a"></span>BB1A</td>
 <td class="instruction">LD ($F5BE),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb1d"></span>BB1D</td>
 <td class="instruction">LD A,$3C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 3C to <a href="F5BE.html#f5c2">F5C2</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb1f"></span>BB1F</td>
 <td class="instruction">LD ($F5C2),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb22"></span>BB22</td>
 <td class="instruction">LD A,$20</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 20 to <a href="F5BE.html#f5c6">F5C6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb24"></span>BB24</td>
 <td class="instruction">LD ($F5C6),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb27"></span>BB27</td>
 <td class="instruction">LD HL,$EC5C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="EC5C.html">EC5C</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb2a"></span>BB2A</td>
 <td class="instruction">LD B,$20</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=20 (counter).</td>
 </tr>
 <tr>
 <td class="address-2"><span id="bb2c"></span>BB2C</td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 00 to *<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb2e"></span>BB2E</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Increment <span class="register">HL</span> by three.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb2f"></span>BB2F</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb30"></span>BB30</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb31"></span>BB31</td>
 <td class="instruction">DJNZ <a href="BAD8.html#bb2c">$BB2C</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="BAD8.html#bb2c">BB2C</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb33"></span>BB33</td>
 <td class="instruction">LD HL,$EC0F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="EC0F.html">EC0F</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb36"></span>BB36</td>
 <td class="instruction">LD B,$0E</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=0E.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="bb38"></span>BB38</td>
 <td class="instruction">LD (HL),$00</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 00 to *<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb3a"></span>BB3A</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb3b"></span>BB3B</td>
 <td class="instruction">DJNZ <a href="BAD8.html#bb38">$BB38</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="BAD8.html#bb38">BB38</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bb3d"></span>BB3D</td>
 <td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -299,8 +291,9 @@ Next: <a href="BB3E.html">BB3E</a>
 <footer>
 <div class="release"></div>
 <div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div><div>Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
 <div><a href="../dec/asm/47832.html">Switch to decimal</a>.</div>
+
 </footer>
 </body>
 </html>

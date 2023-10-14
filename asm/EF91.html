@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at EF91</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="EEC1.html">EEC1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ef91">Map</a></td>
+<td class="next">
+Next: <a href="EFC7.html">EFC7</a>
+</td>
+</tr>
+</table>
+<div class="description">EF91: Routine at EF91</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="EFC7.html">EFC7</a> and <a href="F578.html">F578</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ef91"></span>EF91</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">AF</span> on the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ef92"></span>EF92</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Switch to the shadow registers.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ef93"></span>EF93</td>
+<td class="instruction">LD A,($F26F)</td>
+<td class="comment-1" rowspan="2"><span class="register">C</span>=*<a href="EFC7.html#f26f">F26F</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ef96"></span>EF96</td>
+<td class="instruction">LD C,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ef97"></span>EF97</td>
+<td class="instruction">LD A,($A839)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="A839.html">A839</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ef9a"></span>EF9A</td>
+<td class="instruction">AND %00000111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-2.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ef9c"></span>EF9C</td>
+<td class="instruction">JR Z,<a href="EF91.html#efa2">$EFA2</a></td>
+<td class="comment-1" rowspan="1">If the result is zero, jump to <a href="EF91.html#efa2">EFA2</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ef9e"></span>EF9E</td>
+<td class="instruction">LD B,$03</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=03.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efa0"></span>EFA0</td>
+<td class="instruction">JR <a href="EF91.html#efa4">$EFA4</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="EF91.html#efa4">EFA4</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="efa2"></span>EFA2</td>
+<td class="instruction">LD B,$02</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=02.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="efa4"></span>EFA4</td>
+<td class="instruction">LD A,($A839)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="A839.html">A839</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efa7"></span>EFA7</td>
+<td class="instruction">AND %11111000</td>
+<td class="comment-1" rowspan="1">Keep only bits 3-7.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efa9"></span>EFA9</td>
+<td class="instruction">LD H,$00</td>
+<td class="comment-1" rowspan="2">Create an offset in <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efab"></span>EFAB</td>
+<td class="instruction">LD L,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efac"></span>EFAC</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>*=04.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efad"></span>EFAD</td>
+<td class="instruction">ADD HL,HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efae"></span>EFAE</td>
+<td class="instruction">LD DE,$FB00</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="FAEF.html#fb00">FB00</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efb1"></span>EFB1</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>+=<span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efb2"></span>EFB2</td>
+<td class="instruction">LD DE,$001E</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=001E.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="efb5"></span>EFB5</td>
+<td class="instruction">LD (HL),C</td>
+<td class="comment-1" rowspan="1">Write <span class="register">C</span> to *<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efb6"></span>EFB6</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efb7"></span>EFB7</td>
+<td class="instruction">LD (HL),C</td>
+<td class="comment-1" rowspan="1">Write <span class="register">C</span> to *<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efb8"></span>EFB8</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efb9"></span>EFB9</td>
+<td class="instruction">LD A,($A838)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="8378.html#a838">A838</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efbc"></span>EFBC</td>
+<td class="instruction">AND %00000111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-2.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efbe"></span>EFBE</td>
+<td class="instruction">JR Z,<a href="EF91.html#efc1">$EFC1</a></td>
+<td class="comment-1" rowspan="1">If the result is zero, jump to <a href="EF91.html#efc1">EFC1</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efc0"></span>EFC0</td>
+<td class="instruction">LD (HL),C</td>
+<td class="comment-1" rowspan="1">Write <span class="register">C</span> to *<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="efc1"></span>EFC1</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>+=<span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efc2"></span>EFC2</td>
+<td class="instruction">DJNZ <a href="EF91.html#efb5">$EFB5</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="EF91.html#efb5">EFB5</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efc4"></span>EFC4</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Switch back to the normal registers.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efc5"></span>EFC5</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">AF</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="efc6"></span>EFC6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="EEC1.html">EEC1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ef91">Map</a></td>
+<td class="next">
+Next: <a href="EFC7.html">EFC7</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div><div>Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/61329.html">Switch to decimal</a>.</div>
+
+</footer>
+</body>
+</html>

@@ -25,7 +25,7 @@ gtag('config', 'G-75RERFCHBG');
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="B952.html">B952</a>
+Prev: <a href="B9AC.html">B9AC</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b9d6">Map</a></td>
 <td class="next">
@@ -47,88 +47,86 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="81AE.html">81AE</
 <tr>
 <td class="address-2"><span id="b9d6"></span>B9D6</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write <span class="register">IY</span>+0F to <a href="B951.html">B951</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9d9"></span>B9D9</td>
 <td class="instruction">LD ($B951),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9dc"></span>B9DC</td>
 <td class="instruction">LD B,$05</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=05.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9de"></span>B9DE</td>
 <td class="instruction">PUSH IY</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash <span class="register">IY</span> on the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9e0"></span>B9E0</td>
 <td class="instruction">LD IY,$BC6B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="BC67.html#bc6b">BC6B</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="b9e4"></span>B9E4</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash <span class="register">BC</span> on the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9e5"></span>B9E5</td>
 <td class="instruction">LD A,($B951)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="B951.html">B951</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9e8"></span>B9E8</td>
 <td class="instruction">CP (IY+$0F)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not equal to *<span class="register">IY</span>+0F jump to <a href="B9D6.html#b9f0">B9F0</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9eb"></span>B9EB</td>
 <td class="instruction">JR NZ,<a href="B9D6.html#b9f0">$B9F0</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9ed"></span>B9ED</td>
 <td class="instruction">CALL <a href="B0E6.html">$B0E6</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="B0E6.html">B0E6</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="b9f0"></span>B9F0</td>
 <td class="instruction">DEC IY</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">IY</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9f2"></span>B9F2</td>
 <td class="instruction">POP BC</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9f3"></span>B9F3</td>
 <td class="instruction">DJNZ <a href="B9D6.html#b9e4">$B9E4</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="B9D6.html#b9e4">B9E4</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9f5"></span>B9F5</td>
 <td class="instruction">POP IY</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">IY</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9f7"></span>B9F7</td>
 <td class="instruction">CALL <a href="B9FB.html">Handler_Sprites</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="B9FB.html">Handler_Sprites</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9fa"></span>B9FA</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="B952.html">B952</a>
+Prev: <a href="B9AC.html">B9AC</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b9d6">Map</a></td>
 <td class="next">
@@ -139,8 +137,9 @@ Next: <a href="B9FB.html">B9FB</a>
 <footer>
 <div class="release"></div>
 <div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div><div>Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
 <div><a href="../dec/asm/47574.html">Switch to decimal</a>.</div>
+
 </footer>
 </body>
 </html>

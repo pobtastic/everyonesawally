@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at EC1D</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="EC0F.html">EC0F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ec1d">Map</a></td>
+<td class="next">
+Next: <a href="EC2B.html">EC2B</a>
+</td>
+</tr>
+</table>
+<div class="description">EC1D: Routine at EC1D</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="B952.html">B952</a>, <a href="E41D.html">E41D</a>, <a href="ED2A.html">ED2A</a>, <a href="EFC7.html">EFC7</a> and <a href="F5F1.html">F5F1</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ec1d"></span>EC1D</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="2">Stash <span class="register">HL</span> and <span class="register">DE</span> on the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec1e"></span>EC1E</td>
+<td class="instruction">PUSH DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec1f"></span>EC1F</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="2">Create an offset in <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec20"></span>EC20</td>
+<td class="instruction">LD D,$00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec22"></span>EC22</td>
+<td class="instruction">LD HL,$EC0F</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="EC0F.html">EC0F</a>+<span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec25"></span>EC25</td>
+<td class="instruction">ADD HL,DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec26"></span>EC26</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec27"></span>EC27</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="2">Restore <span class="register">DE</span> and <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec28"></span>EC28</td>
+<td class="instruction">POP HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec29"></span>EC29</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="1">Set flags.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ec2a"></span>EC2A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="EC0F.html">EC0F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ec1d">Map</a></td>
+<td class="next">
+Next: <a href="EC2B.html">EC2B</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div><div>Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/60445.html">Switch to decimal</a>.</div>
+
+</footer>
+</body>
+</html>
