@@ -10,5 +10,7 @@ EveryonesaWally.z80
 --sim-load
 --tape-name "Everyone's A Wally.tzx"
 --tape-sum 538ad0852363e32bc75cfbc7debbf702
+; The "real" start address is 0xFEF7 but we allow the code to move blocks around
+; and decrypt to allow us to disassemble.
 --start 0x5B97
 --sim-load-config accelerator=speedlock
