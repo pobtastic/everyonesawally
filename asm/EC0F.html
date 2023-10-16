@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Everyone's a Wally: Data at EC0F</title>
+<title>Everyone's a Wally: Game status buffer entry at EC0F</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
@@ -15,11 +15,11 @@ gtag('js', new Date());
 gtag('config', 'G-75RERFCHBG');
 </script>
 </head>
-<body class="Asm-b">
+<body class="Asm-g">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Data</td>
+<td class="page-header">Game status buffer</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -33,7 +33,7 @@ Next: <a href="EC1D.html">EC1D</a>
 </td>
 </tr>
 </table>
-<div class="description">EC0F: Data block at EC0F</div>
+<div class="description">EC0F: Game Flags</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,71 +42,85 @@ Next: <a href="EC1D.html">EC1D</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Bottle_Full</td>
 <td class="address-1"><span id="ec0f"></span>EC0F</td>
 <td class="instruction">DEFB $00</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Fuse_Rewired</td>
 <td class="address-1"><span id="ec10"></span>EC10</td>
 <td class="instruction">DEFB $01</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Parcel_Stamped</td>
 <td class="address-1"><span id="ec11"></span>EC11</td>
 <td class="instruction">DEFB $02</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Hook_Working</td>
 <td class="address-1"><span id="ec12"></span>EC12</td>
 <td class="instruction">DEFB $03</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Bucket_Full</td>
 <td class="address-1"><span id="ec13"></span>EC13</td>
 <td class="instruction">DEFB $04</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Pipe_Patched</td>
 <td class="address-1"><span id="ec14"></span>EC14</td>
 <td class="instruction">DEFB $05</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Battery_Charged</td>
 <td class="address-1"><span id="ec15"></span>EC15</td>
 <td class="instruction">DEFB $06</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_OilCan_Full</td>
 <td class="address-1"><span id="ec16"></span>EC16</td>
 <td class="instruction">DEFB $07</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Fountain_Repaired</td>
 <td class="address-1"><span id="ec17"></span>EC17</td>
 <td class="instruction">DEFB $08</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_Wall_Built</td>
 <td class="address-1"><span id="ec18"></span>EC18</td>
 <td class="instruction">DEFB $09</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec19"></span>EC19</td>
 <td class="instruction">DEFB $0A</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec1a"></span>EC1A</td>
 <td class="instruction">DEFB $0B</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec1b"></span>EC1B</td>
 <td class="instruction">DEFB $0C</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Flag_PhoneBox_Completed</td>
 <td class="address-1"><span id="ec1c"></span>EC1C</td>
 <td class="instruction">DEFB $0D</td>
 <td class="comment-0" rowspan="1"></td>

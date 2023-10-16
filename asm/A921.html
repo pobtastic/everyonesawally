@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at A921</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="A8A0.html">A8A0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#a921">Map</a></td>
+<td class="next">
+Next: <a href="A92C.html">A92C</a>
+</td>
+</tr>
+</table>
+<div class="description">A921: Routine at A921</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="A92C.html">Handler_Move_Characters</a>, <a href="AA30.html">Handler_PickUpObjects</a>, <a href="B1A6.html">B1A6</a> and <a href="E79B.html">E79B</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="a921"></span>A921</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>=<span class="register">IY</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="a923"></span>A923</td>
+<td class="instruction">POP HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="a924"></span>A924</td>
+<td class="instruction">LD DE,($B09D)</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=*<a href="B09D.html">B09D</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="a928"></span>A928</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="a929"></span>A929</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>-=<span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="a92b"></span>A92B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="A8A0.html">A8A0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#a921">Map</a></td>
+<td class="next">
+Next: <a href="A92C.html">A92C</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/43297.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>
