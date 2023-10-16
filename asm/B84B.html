@@ -33,386 +33,488 @@ Next: <a href="B8C4.html">B8C4</a>
 </td>
 </tr>
 </table>
-<div class="description">B84B: Routine at B84B</div>
+<div class="description">B84B: Handler: Sprite Controller</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="B34B.html">B34B</a>, <a href="B82B.html">B82B</a>, <a href="B952.html">B952</a>, <a href="BA66.html">BA66</a>, <a href="E3FD.html">E3FD</a>, <a href="E41D.html">E41D</a> and <a href="ED2A.html">ED2A</a>.
+Used by the routines at <a href="B34B.html">B34B</a>, <a href="B82B.html">B82B</a>, <a href="B952.html">DrawRoom</a>, <a href="BA66.html">BA66</a>, <a href="E3FD.html">E3FD</a>, <a href="E41D.html">E41D</a> and <a href="ED2A.html">ED2A</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController</td>
 <td class="address-2"><span id="b84b"></span>B84B</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b84c"></span>B84C</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b84d"></span>B84D</td>
 <td class="instruction">CP $80</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is lower than 80 jump to <a href="B84B.html#b8bd">Handler_SpriteController_8</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b84f"></span>B84F</td>
-<td class="instruction">JR C,<a href="B84B.html#b8bd">$B8BD</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR C,<a href="B84B.html#b8bd">Handler_SpriteController_8</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b851"></span>
+<div class="comments">
+<div class="paragraph">
+Return if the terminator is reached.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b851"></span>B851</td>
 <td class="instruction">CP $FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Return if <span class="register">A</span> is the terminator (FF).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b853"></span>B853</td>
 <td class="instruction">RET Z</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b854"></span>
+<div class="comments">
+<div class="paragraph">
+Check for the FE control character. This signifies that the subsequent byte is the colour attribute.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b854"></span>B854</td>
 <td class="instruction">CP $FE</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not FE jump to <a href="B84B.html#b85c">Handler_SpriteController_NotAttribute</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b856"></span>B856</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b85c">$B85C</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b85c">Handler_SpriteController_NotAttribute</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b858"></span>B858</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=*<span class="register">HL</span> (set the attribute).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b859"></span>B859</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b85a"></span>B85A</td>
-<td class="instruction">JR <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_NotAttribute</td>
 <td class="address-2"><span id="b85c"></span>B85C</td>
 <td class="instruction">CP $A8</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is lower than A8 jump to <a href="B84B.html#b8bd">Handler_SpriteController_8</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b85e"></span>B85E</td>
-<td class="instruction">JR C,<a href="B84B.html#b8bd">$B8BD</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR C,<a href="B84B.html#b8bd">Handler_SpriteController_8</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b860"></span>
+<div class="comments">
+<div class="paragraph">
+If the value is between A8-E8 then it is screen co-ordinates.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b860"></span>B860</td>
 <td class="instruction">CP $E8</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is higher than E8 jump to <a href="B84B.html#b86e">Handler_SpriteController_0</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b862"></span>B862</td>
-<td class="instruction">JR NC,<a href="B84B.html#b86e">$B86E</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NC,<a href="B84B.html#b86e">Handler_SpriteController_0</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b864"></span>
+<div class="comments">
+<div class="paragraph">
+Remove the control number, then we're left with the desired screen co-ordinate data updates.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b864"></span>B864</td>
 <td class="instruction">SUB $C8</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">E</span>=(<span class="register">A</span>-C8)+<span class="register">E</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b866"></span>B866</td>
 <td class="instruction">ADD A,E</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b867"></span>B867</td>
 <td class="instruction">LD E,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b868"></span>B868</td>
 <td class="instruction">LD A,D</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">D</span>+=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b869"></span>B869</td>
 <td class="instruction">ADD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b86a"></span>B86A</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b86b"></span>B86B</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b86c"></span>B86C</td>
-<td class="instruction">JR <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_0</td>
 <td class="address-2"><span id="b86e"></span>B86E</td>
 <td class="instruction">CP $FB</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not FB jump to <a href="B84B.html#b87e">Handler_SpriteController_1</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b870"></span>B870</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b87e">$B87E</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b87e">Handler_SpriteController_1</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b872"></span>B872</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write *<span class="register">HL</span> to <a href="B7BA.html#b7e8">B7E9</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b873"></span>B873</td>
 <td class="instruction">LD ($B7E9),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b876"></span>B876</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b877"></span>B877</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write *<span class="register">HL</span> to <a href="B7BA.html#b7e8">B7EA</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b878"></span>B878</td>
 <td class="instruction">LD ($B7EA),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b87b"></span>B87B</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b87c"></span>B87C</td>
-<td class="instruction">JR <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_1</td>
 <td class="address-2"><span id="b87e"></span>B87E</td>
 <td class="instruction">CP $F1</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b880"></span>B880</td>
-<td class="instruction">JR Z,<a href="B84B.html#b8c0">$B8C0</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="B84B.html#b8c0">Handler_SpriteController_9</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b882"></span>B882</td>
 <td class="instruction">CP $F3</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b884"></span>B884</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b88c">$B88C</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b88c">Handler_SpriteController_2</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b886"></span>B886</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b887"></span>B887</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b888"></span>B888</td>
 <td class="instruction">LD H,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b889"></span>B889</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b88a"></span>B88A</td>
-<td class="instruction">JR <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_2</td>
 <td class="address-2"><span id="b88c"></span>B88C</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b88d"></span>B88D</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b88e"></span>B88E</td>
 <td class="instruction">CP $F0</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b890"></span>B890</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b89c">$B89C</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b89c">Handler_SpriteController_4</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b892"></span>B892</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b893"></span>B893</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_3</td>
 <td class="address-2"><span id="b894"></span>B894</td>
-<td class="instruction">CALL <a href="B7BA.html">$B7BA</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B7BA.html">DrawSprite</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b897"></span>B897</td>
 <td class="instruction">INC D</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">D</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b898"></span>B898</td>
-<td class="instruction">DJNZ <a href="B84B.html#b894">$B894</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="B84B.html#b894">Handler_SpriteController_3</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b89a"></span>B89A</td>
-<td class="instruction">JR <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_4</td>
 <td class="address-2"><span id="b89c"></span>B89C</td>
 <td class="instruction">CP $F2</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b89e"></span>B89E</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b8b2">$B8B2</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b8b2">Handler_SpriteController_6</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_5</td>
 <td class="address-2"><span id="b8a0"></span>B8A0</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8a1"></span>B8A1</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8a2"></span>B8A2</td>
-<td class="instruction">CALL <a href="B7BA.html">$B7BA</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8a5"></span>B8A5</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8a6"></span>B8A6</td>
 <td class="instruction">INC E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8a7"></span>B8A7</td>
-<td class="instruction">CALL <a href="B7BA.html">$B7BA</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8aa"></span>B8AA</td>
 <td class="instruction">INC E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8ab"></span>B8AB</td>
 <td class="instruction">DEC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8ac"></span>B8AC</td>
-<td class="instruction">DJNZ <a href="B84B.html#b8a0">$B8A0</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="B84B.html#b8a0">Handler_SpriteController_5</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8ae"></span>B8AE</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8af"></span>B8AF</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8b0"></span>B8B0</td>
-<td class="instruction">JR <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_6</td>
 <td class="address-2"><span id="b8b2"></span>B8B2</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8b3"></span>B8B3</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_7</td>
 <td class="address-2"><span id="b8b4"></span>B8B4</td>
-<td class="instruction">CALL <a href="B7BA.html">$B7BA</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8b7"></span>B8B7</td>
 <td class="instruction">INC E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8b8"></span>B8B8</td>
-<td class="instruction">DJNZ <a href="B84B.html#b8b4">$B8B4</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="B84B.html#b8b4">Handler_SpriteController_7</a></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8ba"></span>B8BA</td>
-<td class="instruction">JP <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JP <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_8</td>
 <td class="address-2"><span id="b8bd"></span>B8BD</td>
-<td class="instruction">CALL <a href="B7BA.html">$B7BA</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B7BA.html">DrawSprite</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_SpriteController_9</td>
 <td class="address-2"><span id="b8c0"></span>B8C0</td>
 <td class="instruction">INC E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b8c1"></span>B8C1</td>
-<td class="instruction">JP <a href="B84B.html#b84b">$B84B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JP <a href="B84B.html#b84b">Handler_SpriteController</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

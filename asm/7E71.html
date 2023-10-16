@@ -44,25 +44,19 @@ Next: <a href="7E9F.html">7E9F</a>
 <tr>
 <td class="asm-label">Messaging_TeaBreak</td>
 <td class="address-1"><span id="7e71"></span>7E71</td>
-<td class="instruction">DEFB $FE</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="7e72"></span>7E72</td>
-<td class="instruction">DEFB $45,$CD</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="7e74"></span>7E74</td>
-<td class="instruction">DEFB $0C</td>
-<td class="comment-1" rowspan="1">INK:
-GREEN,
+<td class="instruction">DEFB $FE,$45</td>
+<td class="comment-1" rowspan="1">Attribute=INK:
+CYAN,
 PAPER:
-BLUE
-
+BLACK
+(BRIGHT)
 .</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e73"></span>7E73</td>
+<td class="instruction">DEFB $CD,$0C</td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>

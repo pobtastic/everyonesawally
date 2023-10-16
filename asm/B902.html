@@ -33,101 +33,119 @@ Next: <a href="B931.html">B931</a>
 </td>
 </tr>
 </table>
-<div class="description">B902: Routine at B902</div>
+<div class="description">B902: Clear Play Area</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="B952.html">B952</a>, <a href="ED2A.html">ED2A</a> and <a href="EFC7.html">EFC7</a>.
+Used by the routines at <a href="B952.html">DrawRoom</a>, <a href="ED2A.html">ED2A</a> and <a href="EFC7.html">EFC7</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Clear_PlayArea</td>
 <td class="address-2"><span id="b902"></span>B902</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="3">Stash <span class="register">HL</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b903"></span>B903</td>
 <td class="instruction">PUSH BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b904"></span>B904</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b905"></span>B905</td>
 <td class="instruction">LD IX,$8248</td>
 <td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="81F8.html#8248">8248</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b909"></span>B909</td>
 <td class="instruction">LD C,$98</td>
 <td class="comment-1" rowspan="1"><span class="register">C</span>=98.</td>
 </tr>
 <tr>
+<td class="asm-label">Clear_PlayArea_0</td>
 <td class="address-2"><span id="b90b"></span>B90B</td>
 <td class="instruction">LD L,(IX+$00)</td>
 <td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">IX</span>+00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b90e"></span>B90E</td>
 <td class="instruction">LD H,(IX+$01)</td>
 <td class="comment-1" rowspan="1"><span class="register">H</span>=<span class="register">IX</span>+01.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b911"></span>B911</td>
 <td class="instruction">LD B,$20</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=20.</td>
 </tr>
 <tr>
+<td class="asm-label">Clear_PlayArea_1</td>
 <td class="address-2"><span id="b913"></span>B913</td>
 <td class="instruction">LD (HL),$00</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b915"></span>B915</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b916"></span>B916</td>
-<td class="instruction">DJNZ <a href="B902.html#b913">$B913</a></td>
+<td class="instruction">DJNZ <a href="B902.html#b913">Clear_PlayArea_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b918"></span>B918</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b91a"></span>B91A</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b91c"></span>B91C</td>
 <td class="instruction">DEC C</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b91d"></span>B91D</td>
-<td class="instruction">JR NZ,<a href="B902.html#b90b">$B90B</a></td>
+<td class="instruction">JR NZ,<a href="B902.html#b90b">Clear_PlayArea_0</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b91f"></span>B91F</td>
 <td class="instruction">LD HL,$58A0</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="4000.html#58a0">58A0</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b922"></span>B922</td>
 <td class="instruction">LD BC,$0260</td>
 <td class="comment-1" rowspan="1"><span class="register">BC</span>=0260.</td>
 </tr>
 <tr>
+<td class="asm-label">Clear_PlayArea_2</td>
 <td class="address-2"><span id="b925"></span>B925</td>
 <td class="instruction">LD (HL),$46</td>
 <td class="comment-1" rowspan="1">Write 46 to <span class="register">HL</span> (INK:
@@ -138,27 +156,32 @@ BLACK
 ).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b927"></span>B927</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b928"></span>B928</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b929"></span>B929</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="3">Jump to <a href="B902.html#b925">B925</a> until <span class="register">BC</span> is zero.</td>
+<td class="comment-1" rowspan="3">Jump to <a href="B902.html#b925">Clear_PlayArea_2</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b92a"></span>B92A</td>
 <td class="instruction">OR C</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b92b"></span>B92B</td>
-<td class="instruction">JR NZ,<a href="B902.html#b925">$B925</a></td>
+<td class="instruction">JR NZ,<a href="B902.html#b925">Clear_PlayArea_2</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -171,19 +194,23 @@ This entry point is used by the routine at <a href="B931.html">B931</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">Clear_PlayArea_3</td>
 <td class="address-2"><span id="b92d"></span>B92D</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="3">Restore <span class="register">DE</span>, <span class="register">BC</span> and <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b92e"></span>B92E</td>
 <td class="instruction">POP BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b92f"></span>B92F</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b930"></span>B930</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

@@ -47,7 +47,7 @@ Used by the routines at <a href="B9D6.html">B9D6</a> and <a href="EFC7.html">EFC
 <tr>
 <td class="address-2"><span id="b0e6"></span>B0E6</td>
 <td class="instruction">EXX</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch to the shadow registers.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0e7"></span>B0E7</td>
@@ -106,13 +106,23 @@ Used by the routines at <a href="B9D6.html">B9D6</a> and <a href="EFC7.html">EFC
 </tr>
 <tr>
 <td class="address-1"><span id="b100"></span>B100</td>
-<td class="instruction">AND $07</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %00000111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-2.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b102"></span>
+<div class="comments">
+<div class="paragraph">
+Self-modifying code.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b102"></span>B102</td>
 <td class="instruction">LD ($B189),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="B0E6.html#b188">B189</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b105"></span>B105</td>
@@ -545,9 +555,19 @@ Used by the routines at <a href="B9D6.html">B9D6</a> and <a href="EFC7.html">EFC
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b188"></span>
+<div class="comments">
+<div class="paragraph">
+This is modified from <a href="B0E6.html#b102">B102</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="address-1"><span id="b188"></span>B188</td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=FF.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b18a"></span>B18A</td>
@@ -577,12 +597,12 @@ Used by the routines at <a href="B9D6.html">B9D6</a> and <a href="EFC7.html">EFC
 <tr>
 <td class="address-1"><span id="b191"></span>B191</td>
 <td class="instruction">EXX</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch to the normal registers.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b192"></span>B192</td>
 <td class="instruction">LD SP,($A83B)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">SP</span> from <a href="A83B.html">Temp_StackPointer_Storage</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b196"></span>B196</td>
