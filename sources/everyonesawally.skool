@@ -3251,35 +3251,35 @@ c$A83D DI            ; Disable interrupts.
 ; Routine at A8A0
 ;
 ; Used by the routines at #R$ED2A, #R$EFC7, #R$F5F1 and #R$F814.
-c$A8A0 EXX           ;
- $A8A1 PUSH AF       ;
- $A8A2 LD ($A83B),SP ;
- $A8A6 LD SP,$8378   ;
- $A8A9 LD L,A        ;
- $A8AA LD H,$00      ;
- $A8AC ADD HL,HL     ;
+c$A8A0 EXX           ; Switch to the shadow registers.
+ $A8A1 PUSH AF       ; Stash #REGaf on the stack.
+ $A8A2 LD ($A83B),SP ; Write #REGsp to #R$A83B.
+ $A8A6 LD SP,$8378   ; #REGsp=#R$8378.
+ $A8A9 LD L,A        ; {Create an offset in #REGhl.
+ $A8AA LD H,$00      ; }
+ $A8AC ADD HL,HL     ; {#REGsp=(#REGhl*#N$20)+#REGsp.
  $A8AD ADD HL,HL     ;
  $A8AE ADD HL,HL     ;
  $A8AF ADD HL,HL     ;
  $A8B0 ADD HL,HL     ;
  $A8B1 ADD HL,SP     ;
- $A8B2 LD SP,HL      ;
- $A8B3 LD A,($A838)  ;
- $A8B6 LD B,A        ;
- $A8B7 AND $07       ;
- $A8B9 INC A         ;
- $A8BA LD ($A8E0),A  ;
- $A8BD LD ($A8FC),A  ;
+ $A8B2 LD SP,HL      ; }
+ $A8B3 LD A,($A838)  ; {#REGb=#R$A838.
+ $A8B6 LD B,A        ; }
+ $A8B7 AND %00000111 ; Keep only bits 0-2.
+ $A8B9 INC A         ; Increment #REGa by one.
+ $A8BA LD ($A8E0),A  ; {Write #REGa to #LIST { #R$A8DF(#N$A8E0) } {
+ $A8BD LD ($A8FC),A  ; #R$A8FB(#N$A8FC) } LIST#}
  $A8C0 LD A,B        ;
- $A8C1 AND $F8       ;
+ $A8C1 AND %11111000 ; Keep only bits 3-7.
  $A8C3 RRCA          ;
  $A8C4 RRCA          ;
  $A8C5 RRCA          ;
- $A8C6 LD ($EFAF),A  ;
- $A8C9 ADD A,$02     ;
- $A8CB LD E,A        ;
- $A8CC LD C,$10      ;
- $A8CE LD A,($A839)  ;
+ $A8C6 LD ($EFAF),A  ; Write #REGa to #R$EFAE(#N$EFAF).
+ $A8C9 ADD A,$02     ; {#REGe=#REGa+#N$02.
+ $A8CB LD E,A        ; }
+ $A8CC LD C,$10      ; #REGc=#N$10.
+ $A8CE LD A,($A839)  ; #REGa=*#R$A839.
  $A8D1 SUB $40       ;
  $A8D3 LD L,A        ;
  $A8D4 LD H,$00      ;
@@ -3331,22 +3331,24 @@ c$A8A0 EXX           ;
  $A90F LD A,(HL)     ;
  $A910 OR E          ;
  $A911 LD (HL),A     ;
- $A912 LD DE,$0022   ;
- $A915 ADD HL,DE     ;
- $A916 DEC C         ;
- $A917 JP NZ,$A8DE   ;
- $A91A EXX           ;
- $A91B LD SP,($A83B) ;
- $A91F POP AF        ;
- $A920 RET           ;
-; This entry point is used by the routines at #R$A92C, #R$AA30, #R$B1A6 and
-; #R$E79B.
-*$A921 PUSH IY       ;
- $A923 POP HL        ;
- $A924 LD DE,($B09D) ;
+ $A912 LD DE,$0022   ; {#REGhl+=#N($0022,$04,$04).
+ $A915 ADD HL,DE     ; }
+ $A916 DEC C         ; Decrease #REGc by one.
+ $A917 JP NZ,$A8DE   ; If #REGc is not zero, jump to #R$A8DE.
+ $A91A EXX           ; Switch to the normal registers.
+ $A91B LD SP,($A83B) ; Restore #REGsp from #R$A83B.
+ $A91F POP AF        ; Restore #REGaf from the stack.
+ $A920 RET           ; Return.
+
+; Routine at A921
+;
+; Used by the routines at #R$A92C, #R$AA30, #R$B1A6 and #R$E79B.
+c$A921 PUSH IY       ; {#REGhl=#REGiy.
+ $A923 POP HL        ; }
+ $A924 LD DE,($B09D) ; #REGde=*#R$B09D.
  $A928 AND A         ;
- $A929 SBC HL,DE     ;
- $A92B RET           ;
+ $A929 SBC HL,DE     ; #REGhl-=#REGde.
+ $A92B RET           ; Return.
 
 ; Move Non-Player Characters
 ;
@@ -5853,31 +5855,90 @@ g$BC98 DEFB $03
  $BC99 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $BCA1 DEFB $00,$00,$00,$00,$00,$00,$00,$01
  $BCA9 DEFB $01,$01,$01,$01,$00,$00,$00,$00
- $BCB1 DEFB $00,$00,$00,$00,$00,$00,$1F,$21
- $BCB9 DEFB $23,$25,$27,$20,$22,$24,$26,$28
- $BCC1 DEFB $14,$05,$17,$12,$08,$00,$00,$00
+ $BCB1 DEFB $00,$00,$00,$00,$00,$00
+
+; Items
+@label=Item_1_Wally
+g$BCB7 DEFB $1F
+@label=Item_1_Wilma
+ $BCB8 DEFB $21
+@label=Item_1_Tom
+ $BCB9 DEFB $23
+@label=Item_1_Dick
+ $BCBA DEFB $25
+@label=Item_1_Harry
+ $BCBB DEFB $27
+@label=Item_2_Wally
+ $BCBC DEFB $20
+@label=Item_2_Wilma
+ $BCBD DEFB $22
+@label=Item_2_Tom
+ $BCBE DEFB $24
+@label=Item_2_Dick
+ $BCBF DEFB $26
+@label=Item_2_Harry
+ $BCC0 DEFB $28
+
+; Data block at BCC1
+b$BCC1 DEFB $14,$05,$17,$12,$08,$00,$00,$00
  $BCC9 DEFB $00,$00,$00,$00,$00,$01,$01,$18
  $BCD1 DEFB $18,$18,$01,$01,$01,$01,$01,$18
  $BCD9 DEFB $18,$01,$01,$01,$00,$00,$A7,$B0
  $BCE1 DEFB $B9,$C2,$CB,$AE,$AE,$AE,$AE,$AE
  $BCE9 DEFB $FF,$FF,$00,$C8,$90,$1F,$FF,$FF
- $BCF1 DEFB $01,$18,$88,$9F,$02,$78,$A8,$1F
- $BCF9 DEFB $FF,$03,$88,$A8,$9F,$FF,$FF,$FF
- $BD01 DEFB $04,$20,$A0,$9F,$05,$C8,$68,$9F
- $BD09 DEFB $FF,$06,$40,$A8,$9F,$FF,$07,$60
- $BD11 DEFB $90,$1F,$08,$80,$A8,$1F,$09,$C8
- $BD19 DEFB $A8,$1F,$FF,$0A,$28,$50,$9F,$FF
- $BD21 DEFB $0B,$10,$A8,$9F,$FF,$FF,$0C,$10
- $BD29 DEFB $A0,$1F,$FF,$0D,$A0,$90,$9F,$FF
- $BD31 DEFB $FF,$0E,$60,$90,$1F,$0F,$D8,$90
- $BD39 DEFB $1F,$FF,$10,$78,$A8,$1F,$FF,$FF
- $BD41 DEFB $11,$38,$90,$9F,$12,$78,$90,$9F
- $BD49 DEFB $13,$C0,$90,$9F,$FF,$FF,$14,$C8
- $BD51 DEFB $A8,$1F,$FF,$15,$78,$A8,$1F,$FF
- $BD59 DEFB $FF,$16,$10,$A8,$9F,$17,$10,$90
- $BD61 DEFB $9F,$FF,$FF,$18,$08,$A8,$9F,$FF
- $BD69 DEFB $FF,$19,$B0,$90,$1F,$FF,$1A,$00
- $BD71 DEFB $A8,$9F,$1B,$84,$90,$9F,$FF,$1C
+ $BCF1 DEFB $01,$18,$88,$9F
+@label=Item_Supermarket
+ $BCF5 DEFB $02
+ $BCF6 DEFB $78,$A8,$1F,$FF
+@label=Item_Park
+ $BCFA DEFB $03
+ $BCFB DEFB $88,$A8,$9F,$FF,$FF,$FF
+@label=Item_WallStreet
+ $BD01 DEFB $04
+ $BD02 DEFB $20,$A0,$9F,$05,$C8,$68,$9F,$FF
+ $BD0A DEFB $06,$40,$A8,$9F,$FF
+@label=Item_Workshed_OnLeftTable
+ $BD0F DEFB $07
+ $BD10 DEFB $60,$90,$1F
+@label=Item_Workshed_UnderLeftTable
+ $BD13 DEFB $08
+ $BD14 DEFB $80,$A8,$1F
+@label=Item_Workshed_UnderRightTable
+ $BD17 DEFB $09
+ $BD18 DEFB $C8,$A8,$1F,$FF,$0A,$28,$50,$9F
+ $BD20 DEFB $FF
+@label=Item_School
+ $BD21 DEFB $0B
+ $BD22 DEFB $10,$A8,$9F,$FF,$FF,$0C,$10,$A0
+ $BD2A DEFB $1F,$FF,$0D,$A0,$90,$9F,$FF,$FF
+@label=Item_KemcoLab_Left
+ $BD32 DEFB $0E
+ $BD33 DEFB $60,$90,$1F
+@label=Item_KemcoLab_Right
+ $BD36 DEFB $0F
+ $BD37 DEFB $D8,$90,$1F,$FF
+@label=Item_Garage
+ $BD3B DEFB $10
+ $BD3C DEFB $78,$A8,$1F,$FF,$FF,$11,$38,$90
+ $BD44 DEFB $9F,$12,$78,$90,$9F,$13,$C0,$90
+ $BD4C DEFB $9F
+@label=Item_WallysHouse
+ $BD4D DEFB $FF
+ $BD4E DEFB $FF
+@label=Item_Bank
+ $BD4F DEFB $14
+ $BD50 DEFB $C8,$A8,$1F,$FF,$15,$78,$A8,$1F
+ $BD58 DEFB $FF,$FF
+@label=Item_Butchers
+ $BD5A DEFB $16
+ $BD5B DEFB $10,$A8,$9F,$17,$10,$90,$9F,$FF
+ $BD63 DEFB $FF,$18,$08,$A8,$9F,$FF,$FF
+@label=Item_Station
+ $BD6A DEFB $19
+ $BD6B DEFB $B0,$90,$1F,$FF,$1A,$00,$A8,$9F
+ $BD73 DEFB $1B,$84,$90,$9F,$FF
+@label=Item_Sewer
+ $BD78 DEFB $1C
  $BD79 DEFB $78,$A8,$1F,$FF,$1D,$00,$98,$9F
  $BD81 DEFB $1E,$48,$A8,$9F,$FF
 
@@ -11862,20 +11923,31 @@ c$EB55 LD BC,$0000   ;
  $EC09 JP Z,$EAE3    ;
  $EC0C JP $EACB      ;
 
-; Data block at EC0F
-b$EC0F DEFB $00
+; Game Flags
+@label=Flag_Bottle_Full
+g$EC0F DEFB $00
+@label=Flag_Fuse_Rewired
  $EC10 DEFB $01
+@label=Flag_Parcel_Stamped
  $EC11 DEFB $02
+@label=Flag_Hook_Working
  $EC12 DEFB $03
+@label=Flag_Bucket_Full
  $EC13 DEFB $04
+@label=Flag_Pipe_Patched
  $EC14 DEFB $05
+@label=Flag_Battery_Charged
  $EC15 DEFB $06
+@label=Flag_OilCan_Full
  $EC16 DEFB $07
+@label=Flag_Fountain_Repaired
  $EC17 DEFB $08
+@label=Flag_Wall_Built
  $EC18 DEFB $09
  $EC19 DEFB $0A
  $EC1A DEFB $0B
  $EC1B DEFB $0C
+@label=Flag_PhoneBox_Completed
  $EC1C DEFB $0D
 
 ; Routine at EC1D
@@ -12001,27 +12073,27 @@ c$ED2A LD A,($ECF5)    ; {#REGe=*#R$ECF5*#N$02.
  $ED53 EX DE,HL        ;
  $ED54 LD DE,$0000     ; #REGde=#N($0000,$04,$04).
  $ED57 CALL $B8C4      ; Call #R$B8C4.
- $ED5A CALL $B9AC      ;
-*$ED5D CALL $EEA2      ;
+ $ED5A CALL $B9AC      ; Call #R$B9AC.
+*$ED5D CALL $EEA2      ; Call #R$EEA2.
  $ED60 LD A,($ECF5)    ;
  $ED63 ADD A,A         ;
  $ED64 ADD A,$65       ;
- $ED66 LD IX,$ED06     ;
- $ED6A LD B,$03        ;
-*$ED6C PUSH BC         ;
- $ED6D LD BC,$F5CA     ;
- $ED70 CALL $EF35      ;
- $ED73 CALL $A8A0      ;
+ $ED66 LD IX,$ED06     ; #REGix=#R$ED06.
+ $ED6A LD B,$03        ; #REGb=#N$03.
+*$ED6C PUSH BC         ; Stash #REGbc on the stack.
+ $ED6D LD BC,$F5CA     ; #REGbc=#R$F5CA.
+ $ED70 CALL $EF35      ; Call #R$EF35.
+ $ED73 CALL $A8A0      ; Call #R$A8A0.
  $ED76 POP BC          ;
  $ED77 DJNZ $ED6C      ;
- $ED79 CALL $B9FB      ;
- $ED7C CALL $ABD7      ;
+ $ED79 CALL $B9FB      ; Call #R$B9FB.
+ $ED7C CALL $ABD7      ; Call #R$ABD7.
  $ED7F OR A            ;
  $ED80 JR Z,$ED5D      ;
- $ED82 LD HL,$ECF5     ;
- $ED85 INC (HL)        ;
- $ED86 CALL $B952      ;
- $ED89 RET             ;
+ $ED82 LD HL,$ECF5     ; {Incremnt *#R$ECF5 by one.
+ $ED85 INC (HL)        ; }
+ $ED86 CALL $B952      ; Call #R$B952.
+ $ED89 RET             ; Return.
 ; This entry point is used by the routines at #R$ED13 and #R$EFC7.
 *$ED8A LD IX,$ED06     ;
  $ED8E LD B,$03        ;
@@ -13044,12 +13116,12 @@ c$F578 LD A,$45      ; {Write #N$45 to #R$F26F.
 ; Data block at F5BE
 b$F5BE DEFB $28,$46,$02,$02
  $F5C2 DEFB $3C,$78,$FE,$02
- $F5C6 DEFB $20,$64,$02,$FE,$10,$E0,$40,$A8
- $F5CE DEFB $10,$40,$40,$A8,$38,$01,$01,$01
- $F5D6 DEFB $01,$00,$01,$00,$01,$00,$01,$00
- $F5DE DEFB $01,$00,$00,$00,$00,$00,$02,$00
- $F5E6 DEFB $02,$00,$02,$00,$02,$00,$02,$02
- $F5EE DEFB $02,$02,$FF
+ $F5C6 DEFB $20,$64,$02,$FE
+ $F5CA DEFB $10,$E0,$40,$A8,$10,$40,$40,$A8
+ $F5D2 DEFB $38,$01,$01,$01,$01,$00,$01,$00
+ $F5DA DEFB $01,$00,$01,$00,$01,$00,$00,$00
+ $F5E2 DEFB $00,$00,$02,$00,$02,$00,$02,$00
+ $F5EA DEFB $02,$00,$02,$02,$02,$02,$FF
 
 ; Routine at F5F1
 ;

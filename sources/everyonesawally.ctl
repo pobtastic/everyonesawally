@@ -487,6 +487,37 @@ N $A87A This is modified from #R$A858.
   $A89F,$01 Return.
 
 c $A8A0
+  $A8A0,$01 Switch to the shadow registers.
+  $A8A1,$01 Stash #REGaf on the stack.
+  $A8A2,$04 Write #REGsp to #R$A83B.
+  $A8A6,$03 #REGsp=#R$8378.
+  $A8A9,$03 Create an offset in #REGhl.
+  $A8AC,$07 #REGsp=(#REGhl*#N$20)+#REGsp.
+  $A8B3,$04 #REGb=#R$A838.
+  $A8B7,$02,b$01 Keep only bits 0-2.
+  $A8B9,$01 Increment #REGa by one.
+  $A8BA,$06 Write #REGa to #LIST { #R$A8DF(#N$A8E0) } { #R$A8FB(#N$A8FC) } LIST#
+  $A8C1,$02,b$01 Keep only bits 3-7.
+  $A8C3,$03
+  $A8C6,$03 Write #REGa to #R$EFAE(#N$EFAF).
+  $A8C9,$03 #REGe=#REGa+#N$02.
+  $A8CC,$02 #REGc=#N$10.
+  $A8CE,$03 #REGa=*#R$A839.
+
+  $A912,$04 #REGhl+=#N($0022,$04,$04).
+  $A916,$01 Decrease #REGc by one.
+  $A917,$03 If #REGc is not zero, jump to #R$A8DE.
+  $A91A,$01 Switch to the normal registers.
+  $A91B,$04 Restore #REGsp from #R$A83B.
+  $A91F,$01 Restore #REGaf from the stack.
+  $A920,$01 Return.
+
+c $A921
+  $A921,$03 #REGhl=#REGiy.
+  $A924,$04 #REGde=*#R$B09D.
+  $A928,$01
+  $A929,$02 #REGhl-=#REGde.
+  $A92B,$01 Return.
 
 c $A92C Move Non-Player Characters
 @ $A92C label=Handler_Move_Characters
@@ -1137,6 +1168,61 @@ B $BC97,$01
 g $BC98 Lives: Harry
 @ $BC98 label=Lives_Harry
 B $BC98,$01
+
+g $BCB7 Items
+@ $BCB7 label=Item_1_Wally
+B $BCB7,$01
+@ $BCB8 label=Item_1_Wilma
+B $BCB8,$01
+@ $BCB9 label=Item_1_Tom
+B $BCB9,$01
+@ $BCBA label=Item_1_Dick
+B $BCBA,$01
+@ $BCBB label=Item_1_Harry
+B $BCBB,$01
+@ $BCBC label=Item_2_Wally
+B $BCBC,$01
+@ $BCBD label=Item_2_Wilma
+B $BCBD,$01
+@ $BCBE label=Item_2_Tom
+B $BCBE,$01
+@ $BCBF label=Item_2_Dick
+B $BCBF,$01
+@ $BCC0 label=Item_2_Harry
+B $BCC0,$01
+
+b $BCC1
+
+@ $BCF5 label=Item_Supermarket
+B $BCF5,$01
+@ $BCFA label=Item_Park
+B $BCFA,$01
+@ $BD01 label=Item_WallStreet
+B $BD01,$01
+@ $BD0F label=Item_Workshed_OnLeftTable
+B $BD0F,$01
+@ $BD13 label=Item_Workshed_UnderLeftTable
+B $BD13,$01
+@ $BD17 label=Item_Workshed_UnderRightTable
+B $BD17,$01
+@ $BD21 label=Item_School
+B $BD21,$01
+@ $BD32 label=Item_KemcoLab_Left
+B $BD32,$01
+@ $BD36 label=Item_KemcoLab_Right
+B $BD36,$01
+@ $BD3B label=Item_Garage
+B $BD3B,$01
+@ $BD4D label=Item_WallysHouse
+B $BD4D,$01
+@ $BD4F label=Item_Bank
+B $BD4F,$01
+@ $BD5A label=Item_Butchers
+B $BD5A,$01
+@ $BD6A label=Item_Station
+B $BD6A,$01
+@ $BD78 label=Item_Sewer
+B $BD78,$01
 
 b $BD86 Table: Graphic Data
 @ $BD86 label=Table_GraphicData
@@ -4651,8 +4737,32 @@ c $EABF
 
 c $EB55
 
-b $EC0F
-  $EC0F,$0E,$01
+g $EC0F Game Flags
+@ $EC0F label=Flag_Bottle_Full
+  $EC0F,$01
+@ $EC10 label=Flag_Fuse_Rewired
+  $EC10,$01
+@ $EC11 label=Flag_Parcel_Stamped
+  $EC11,$01
+@ $EC12 label=Flag_Hook_Working
+  $EC12,$01
+@ $EC13 label=Flag_Bucket_Full
+  $EC13,$01
+@ $EC14 label=Flag_Pipe_Patched
+  $EC14,$01
+@ $EC15 label=Flag_Battery_Charged
+  $EC15,$01
+@ $EC16 label=Flag_OilCan_Full
+  $EC16,$01
+@ $EC17 label=Flag_Fountain_Repaired
+  $EC17,$01
+@ $EC18 label=Flag_Wall_Built
+  $EC18,$01
+  $EC19,$01
+  $EC1A,$01
+  $EC1B,$01
+@ $EC1C label=Flag_PhoneBox_Completed
+  $EC1C,$01
 
 c $EC1D
   $EC1D,$02 Stash #REGhl and #REGde on the stack.
@@ -4683,6 +4793,22 @@ c $ED2A
   $ED4C,$03 #REGhl=#R$ED00.
   $ED54,$03 #REGde=#N($0000,$04,$04).
   $ED57,$03 Call #R$B8C4.
+  $ED5A,$03 Call #R$B9AC.
+  $ED5D,$03 Call #R$EEA2.
+
+  $ED66,$04 #REGix=#R$ED06.
+  $ED6A,$02 #REGb=#N$03.
+  $ED6C,$01 Stash #REGbc on the stack.
+  $ED6D,$03 #REGbc=#R$F5CA.
+  $ED70,$03 Call #R$EF35.
+  $ED73,$03 Call #R$A8A0.
+
+  $ED79,$03 Call #R$B9FB.
+  $ED7C,$03 Call #R$ABD7.
+
+  $ED82,$04 Incremnt *#R$ECF5 by one.
+  $ED86,$03 Call #R$B952.
+  $ED89,$01 Return.
 
 c $EEA2
   $EEA2,$03 #REGde=#R$6B00.
@@ -4756,6 +4882,7 @@ c $F578
 b $F5BE
   $F5C2
   $F5C6
+  $F5CA
 
 c $F5F1
   $F5F1,$03 #REGhl=#N$5DE7.

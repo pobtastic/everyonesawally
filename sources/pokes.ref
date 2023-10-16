@@ -1,7 +1,9 @@
 ; Copyright 2023 Paul Maddern (paul@arcadegeek.co.uk)
 
 [Poke:Infinite Lives]
+<code>
 POKE #R$E366(#N$E367),#N$B6
+</code>
 
 This alters the line.
 
@@ -30,8 +32,10 @@ This alters the line.
 
 To immediately just return without any flag checking.
 
-[Poke:Change characters anywhere]
+[Poke:Change Characters Anywhere]
+<code>
 POKE #R$E7B8,#N$18
+</code>
 
 <table>
   <tbody>
@@ -42,8 +46,10 @@ POKE #R$E7B8,#N$18
   </tbody>
 </table>
 
-[Poke:Freezes the gang members not in your control]
+[Poke:Freezes Gang Members Not In Your Control]
+<code>
 POKE #R$A92C(#N$A92C),#N$C9
+</code>
 
 This alters the routine which handles the character movements, to change this line:
 
@@ -59,165 +65,266 @@ This alters the routine which handles the character movements, to change this li
 To immediately just return.
 
 [Poke:Food is at Bakers & Bar]
+<code>
 POKE #R$F812,#N$E9
+</code>
 
 [Poke:Food is at Workshed & Butchers]
+<code>
 POKE #R$F812,#N$ED
+</code>
 
 [Poke:Food is at Bar & Wally's House]
+<code>
 POKE #R$F812,#N$F1
+</code>
 
 [Poke:Food is at Butchers & Bakers]
+<code>
 POKE #R$F812,#N$F5
+</code>
 
 [Poke:Food is at Wally's House & Workshed]
+<code>
 POKE #R$F812,#N$F9
+</code>
 
-[Poke:No letters (default)]
-POKE #R$ECFE,#N$00
+[Poke:No Letters (Default)]
+<code>
+<div>POKE #R$ECFE,#N$00</div>
+<div>POKE #R$EDC5,#N$01</div>
+</code>
 
-POKE #R$EDC5,#N$01
+[Poke:1 Letter (you see "B" at The Bank)]
+<code>
+<div>POKE #R$ECFE,#N$02</div>
+<div>POKE #R$EDC5,#N$02</div>
+</code>
 
-[Poke:1letter (you see "B" at bank)]
-POKE #N60670 #N$02
-POKE #N60869 #N$02
+[Poke:2 Letters (you see "BR" at The Bank)]
+<code>
+<div>POKE #R$ECFE,#N$04</div>
+<div>POKE #R$EDC5,#N$03</div>
+</code>
 
-[Poke:2letters (you see "BR" at bank)]
-POKE #N60670 4 0
-POKE #N60869 3 1
+[Poke:3 Letters (you see "BRE" at The Bank)]
+<code>
+<div>POKE #R$ECFE,#N$06</div>
+<div>POKE #R$EDC5,#N$04</div>
+</code>
 
-[Poke:3letters (you see "BRE" at bank)]
-POKE #N60670 6 0
-POKE #N60869 4 1
-
-[Poke:4letters (you see "BREA" at bank)]
-POKE #N60670 8 0
-POKE #N60869 5 1
-
-[Poke:The hook is working]
-POKE #N60434 1 0
-
-[Poke:Fountain repaired]
-POKE #N60439 1 0
-
-[Poke:Wall is built]
-POKE #N60440 1 0
+[Poke:4 Letters (you see "BREA" at The Bank)]
+<code>
+<div>POKE #R$ECFE,#N$08</div>
+<div>POKE #R$EDC5,#N$05</div>
+</code>
 
 [Poke:Lives of Wally (#N$00-#N$FF)]
+<code>
 POKE #R$BC94(#N$BC94),<em>nn</em>
+</code>
 
 [Poke:Lives of Wilma (#N$00-#N$FF)]
+<code>
 POKE #R$BC95(#N$BC95),<em>nn</em>
+</code>
 
 [Poke:Lives of Tom (#N$00-#N$FF)]
+<code>
 POKE #R$BC96(#N$BC96),<em>nn</em>
+</code>
 
 [Poke:Lives of Dick (#N$00-#N$FF)]
+<code>
 POKE #R$BC97(#N$BC97),<em>nn</em>
+</code>
 
 [Poke:Lives of Harry (#N$00-#N$FF)]
+<code>
 POKE #R$BC98(#N$BC98),<em>nn</em>
-
-[Poke:Phone box' stage completed]
-POKE #N60444 1 0
+</code>
 
 [Poke:The Bottle Full]
-POKE #N60431 1 0
+<code>
+POKE #R$EC0F(#N$EC0F),#N$01
+</code>
 
 [Poke:The Fuse Rewired]
-POKE #N60432 1 0
+<code>
+POKE #R$EC10(#N$EC10),#N$01
+</code>
 
 [Poke:The Parcel Stamped]
-POKE #N60433 1 0
+<code>
+POKE #R$EC11(#N$EC11),#N$01
+</code>
+
+[Poke:The Hook Working]
+<code>
+POKE #R$EC12(#N$EC12),#N$01
+</code>
 
 [Poke:The Bucket Full]
-POKE #N60435 1 0
+<code>
+POKE #R$EC13(#N$EC13),#N$01
+</code>
 
-[Poke:The Pipe patched]
-POKE #N60436 1 0
+[Poke:The Pipe Patched]
+<code>
+POKE #R$EC14(#N$EC14),#N$01
+</code>
 
-[Poke:The Battery charged]
-POKE #N60437 1 0
+[Poke:The Battery Charged]
+<code>
+POKE #R$EC15(#N$EC15),#N$01
+</code>
 
 [Poke:The Oil Can Full]
-POKE #N60438 1
+<code>
+POKE #R$EC16(#N$EC16),#N$01
+</code>
 
-[Poke:Item at Supermarket [floor] (0-40 the same for all)]
-POKE #N48373 256
+[Poke:Fountain Repaired]
+<code>
+POKE #R$EC17(#N$EC17),#N$01
+</code>
 
-[Poke:Item at Park]
-POKE #N48378 256
+[Poke:Wall Built]
+<code>
+POKE #R$EC18(#N$EC18),#N$01
+</code>
 
-[Poke:Item at Wall Street [engine]]
-POKE #N48385 256
+[Poke:PhoneBox Stage Completed]
+<code>
+POKE #R$EC1C(#N$EC1C),#N$01
+</code>
 
-[Poke:Item at Workshed [on left table]]
-POKE #N48399 256
+[Poke:Item at Supermarket [floor] (#N$00-#N$28)]
+<code>
+POKE #R$BCF5(#N$BCF5),<em>nn</em>
+</code>
 
-[Poke:Item at Workshed [under left table]]
-POKE #N48403 256
+[Poke:Item at Park (#N$00-#N$28)]
+<code>
+POKE #R$BCFA(#N$BCFA),<em>nn</em>
+</code>
 
-[Poke:Item at Workshed [under right table]]
-POKE #N48407 256
+[Poke:Item at Wall Street [engine] (#N$00-#N$28)]
+<code>
+POKE #R$BD01(#N$BD01),<em>nn</em>
+</code>
 
-[Poke:Item at School]
-POKE #N48417 256
+[Poke:Item at Workshed [on left table] (#N$00-#N$28)]
+<code>
+POKE #R$BD0F(#N$BD0F),<em>nn</em>
+</code>
 
-[Poke:Item at Kemco Lab [on left table]]
-POKE #N48434 256
+[Poke:Item at Workshed [under left table] (#N$00-#N$28)]
+<code>
+POKE #R$BD13(#N$BD13),<em>nn</em>
+</code>
 
-[Poke:Item at Kemco Lab [on right table]]
-POKE #N48438 256
+[Poke:Item at Workshed [under right table] (#N$00-#N$28)]
+<code>
+POKE #R$BD17(#N$BD17),<em>nn</em>
+</code>
 
-[Poke:Item at Garage]
-POKE #N48443 256
+[Poke:Item at School (#N$00-#N$28)]
+<code>
+POKE #R$BD21(#N$BD21),<em>nn</em>
+</code>
 
-[Poke:Item at Wally's House]
-POKE #N48461 256
+[Poke:Item at Kemco Lab [on left table] (#N$00-#N$28)]
+<code>
+POKE #R$BD32(#N$BD32),<em>nn</em>
+</code>
 
-[Poke:Item at Bank]
-POKE #N48463 256
+[Poke:Item at Kemco Lab [on right table] (#N$00-#N$28)]
+<code>
+POKE #R$BD36(#N$BD36),<em>nn</em>
+</code>
 
-[Poke:Item at Butchers [bottom]]
-POKE #N48474 256
+[Poke:Item at Garage (#N$00-#N$28)]
+<code>
+POKE #R$BD3B(#N$BD3B),<em>nn</em>
+</code>
 
-[Poke:Item at Station]
-POKE #N48490 256
+[Poke:Item at Wally's House (#N$00-#N$28)]
+<code>
+POKE #R$BD4D(#N$BD4D),<em>nn</em>
+</code>
 
-[Poke:Item at Sewer]
-POKE #N48504 256
+[Poke:Item at Bank (#N$00-#N$28)]
+<code>
+POKE #R$BD4F(#N$BD4F),<em>nn</em>
+</code>
 
-[Poke:1st item [Wally] (0-40)]
-POKE #N48311 256
+[Poke:Item at Butchers [bottom] (#N$00-#N$28)]
+<code>
+POKE #R$BD5A(#N$BD5A),<em>nn</em>
+</code>
 
-[Poke:2nd item [Wally] (0-40)]
-POKE #N48316 256
+[Poke:Item at Station (#N$00-#N$28)]
+<code>
+POKE #R$BD6A(#N$BD6A),<em>nn</em>
+</code>
 
-[Poke:1st item [Wilma] (0-40)]
-POKE #N48312 256
+[Poke:Item at Sewer (#N$00-#N$28)]
+<code>
+POKE #R$BD78(#N$BD78),<em>nn</em>
+</code>
 
-[Poke:2nd item [Wilma] (0-40)]
-POKE #N48317 256
+[Poke:1st Item [Wally] (#N$00-#N$28)]
+<code>
+POKE #R$BCB7(#N$BCB7),<em>nn</em>
+</code>
 
-[Poke:1st item [Tom] (0-40)]
-POKE #N48313 256
+[Poke:2nd Item [Wally] (#N$00-#N$28)]
+<code>
+POKE #R$BCBC(#N$BCBC),<em>nn</em>
+</code>
 
-[Poke:2nd item [Tom] (0-40)]
-POKE #N48318 256
+[Poke:1st Item [Wilma] (#N$00-#N$28)]
+<code>
+POKE #R$BCB8(#N$BCB8),<em>nn</em>
+</code>
 
-[Poke:1st item [Dick] (0-40)]
-POKE #N48314 256
+[Poke:2nd Item [Wilma] (#N$00-#N$28)]
+<code>
+POKE #R$BCBD(#N$BCBD),<em>nn</em>
+</code>
 
-[Poke:2nd item [Dick] (0-40)]
-POKE #N48319 256
+[Poke:1st Item [Tom] (#N$00-#N$28)]
+<code>
+POKE #R$BCB9(#N$BCB9),<em>nn</em>
+</code>
 
-[Poke:1st item [Harry] (0-40)]
-POKE #N48315 256
+[Poke:2nd Item [Tom] (#N$00-#N$28)]
+<code>
+POKE #R$BCBE(#N$BCBE),<em>nn</em>
+</code>
 
-[Poke:2nd item [Harry] (0-40)]
-POKE #N48320 256
+[Poke:1st Item [Dick] (#N$00-#N$28)]
+<code>
+POKE #R$BCBA(#N$BCBA),<em>nn</em>
+</code>
 
-[Poke:Remove colours from the main characters]
+[Poke:2nd Item [Dick] (#N$00-#N$28)]
+<code>
+POKE #R$BCBF(#N$BCBF),<em>nn</em>
+</code>
+
+[Poke:1st Item [Harry] (#N$00-#N$28)]
+<code>
+POKE #R$BCBB(#N$BCBB),<em>nn</em>
+</code>
+
+[Poke:2nd Item [Harry] (#N$00-#N$28)]
+<code>
+POKE #R$BCC0(#N$BCC0),<em>nn</em>
+</code>
+
+[Poke:Remove Colours From The Main Characters]
 <code>
 <div>POKE #R$B184,#N$00</div>
 <div>POKE #R$B186,#N$00</div>
@@ -264,7 +371,7 @@ This removes all the lines which would otherwise write the colour attribute valu
   </tbody>
 </table>
 
-[Poke:Characters can't pick up objects]
+[Poke:Characters Can't Pick Up Objects]
 <code>
 <div>POKE #R$A9F0(#N$A9F0),#N$00</div>
 <div>POKE #R$A9F0(#N$A9F1),#N$00</div>
