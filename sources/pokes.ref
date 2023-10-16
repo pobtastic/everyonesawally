@@ -43,7 +43,7 @@ POKE #R$E7B8,#N$18
 </table>
 
 [Poke:Freezes the gang members not in your control]
-POKE #R$A92C,#N$C9
+POKE #R$A92C(#N$A92C),#N$C9
 
 This alters the routine which handles the character movements, to change this line:
 
@@ -59,23 +59,24 @@ This alters the routine which handles the character movements, to change this li
 To immediately just return.
 
 [Poke:Food is at Bakers & Bar]
-POKE #N63506 #N233
+POKE #R$F812,#N$E9
 
 [Poke:Food is at Workshed & Butchers]
-POKE #N63506 #N237
+POKE #R$F812,#N$ED
 
 [Poke:Food is at Bar & Wally's House]
-POKE #N63506 #N241
+POKE #R$F812,#N$F1
 
 [Poke:Food is at Butchers & Bakers]
-POKE #N63506 #N245
+POKE #R$F812,#N$F5
 
 [Poke:Food is at Wally's House & Workshed]
-POKE #N63506 #N249
+POKE #R$F812,#N$F9
 
 [Poke:No letters (default)]
-POKE #N60670 #N$00
-POKE #N60869 #N$01
+POKE #R$ECFE,#N$00
+
+POKE #R$EDC5,#N$01
 
 [Poke:1letter (you see "B" at bank)]
 POKE #N60670 #N$02

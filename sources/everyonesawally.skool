@@ -1432,9 +1432,8 @@ t$7E42 DEFB $FE
 
 ; Messaging: Tea Break
 @label=Messaging_TeaBreak
-t$7E71 DEFB $FE
- $7E72 DEFB $45,$CD
- $7E74 DEFB $0C                      ; #COLOUR(#PEEK(#PC)).
+t$7E71 DEFB $FE,$45                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E73 DEFB $CD,$0C
  $7E75 DEFM "HO HUM, TIME FOR A BUN" ; "HO HUM, TIME FOR A BUN".
  $7E8B DEFB $B4,$04
  $7E8D DEFM "MORNING TEA BREAK"      ; "#STR$7E8D,$08($b==$FF)".
@@ -1442,8 +1441,7 @@ t$7E71 DEFB $FE
 
 ; Messaging: Lunch Time
 @label=Messaging_LunchTime
-t$7E9F DEFB $FE
- $7EA0 DEFB $43                            ; #COLOUR(#PEEK(#PC)).
+t$7E9F DEFB $FE,$43                        ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7EA1 DEFB $CA,$0C
  $7EA3 DEFM "RUBBA DUB DUB, TIME FOR GRUB" ; "RUBBA DUB DUB, TIME FOR GRUB".
  $7EBF DEFB $B5,$04
@@ -1452,8 +1450,7 @@ t$7E9F DEFB $FE
 
 ; Messaging: Afternoon Tea Break
 @label=Messaging_AfternoonTeaBreak
-t$7ECC DEFB $FE
- $7ECD DEFB $46                            ; #COLOUR(#PEEK(#PC)).
+t$7ECC DEFB $FE,$46                        ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7ECE DEFB $CA,$0C
  $7ED0 DEFM "FIDDLE DEE DEE, TIME FOR TEA" ; "FIDDLE DEE DEE, TIME FOR TEA".
  $7EEC DEFB $B1,$04
@@ -3182,7 +3179,7 @@ g$A83B DEFW $0000
 
 ; Routine at A83D
 ;
-; Used by the routines at #R$EEC1, #R$EFC7, #R$F578 and #R$F5F1.
+; Used by the routines at #R$EEC1, #R$EFC7, #R$F578, #R$F5F1 and #R$F814.
 c$A83D DI            ; Disable interrupts.
  $A83E EXX           ; Switch to the shadow registers.
  $A83F PUSH AF       ; Stash #REGaf on the stack.
@@ -3253,7 +3250,7 @@ c$A83D DI            ; Disable interrupts.
 
 ; Routine at A8A0
 ;
-; Used by the routines at #R$ED2A, #R$EFC7 and #R$F5F1.
+; Used by the routines at #R$ED2A, #R$EFC7, #R$F5F1 and #R$F814.
 c$A8A0 EXX           ;
  $A8A1 PUSH AF       ;
  $A8A2 LD ($A83B),SP ;
@@ -3472,50 +3469,51 @@ c$A92C PUSH IY         ; Stash #REGiy on the stack.
  $AA2A CALL $ADBA      ; Call #R$ADBA.
  $AA2D JP $A989        ; Jump to #R$A989.
 
-; Routine at AA30
+; Handler: Pick Up Objects
 ;
 ; Used by the routines at #R$A92C and #R$EABF.
-c$AA30 PUSH HL       ;
- $AA31 CALL $AA8C    ;
- $AA34 INC HL        ;
+@label=Handler_PickUpObjects
+c$AA30 PUSH HL       ; Stash #REGhl on the stack.
+ $AA31 CALL $AA8C    ; Call #R$AA8C.
+ $AA34 INC HL        ; {Increment #REGhl by three.
  $AA35 INC HL        ;
- $AA36 INC HL        ;
+ $AA36 INC HL        ; }
  $AA37 LD A,(HL)     ;
  $AA38 AND (IY-$28)  ;
  $AA3B JR Z,$AA74    ;
  $AA3D LD A,(HL)     ;
- $AA3E AND $80       ;
+ $AA3E AND %10000000 ; Keep only bit 7.
  $AA40 JR Z,$AA49    ;
- $AA42 PUSH HL       ;
- $AA43 CALL $A921    ;
- $AA46 POP HL        ;
+ $AA42 PUSH HL       ; Stash #REGhl on the stack.
+ $AA43 CALL $A921    ; Call #R$A921.
+ $AA46 POP HL        ; Restore #REGhl from the stack.
  $AA47 JR NZ,$AA74   ;
 *$AA49 LD A,(HL)     ;
  $AA4A RES 7,A       ;
  $AA4C LD D,A        ;
  $AA4D LD A,(HL)     ;
- $AA4E AND $80       ;
+ $AA4E AND %10000000 ; Keep only bit 7.
  $AA50 OR (IY-$32)   ;
  $AA53 LD (HL),A     ;
  $AA54 LD A,(IY-$37) ;
  $AA57 LD (IY-$32),A ;
  $AA5A LD (IY-$37),D ;
  $AA5D LD A,(IY+$55) ;
- $AA60 DEC HL        ;
+ $AA60 DEC HL        ; {Decrease #REGhl by three.
  $AA61 DEC HL        ;
- $AA62 DEC HL        ;
+ $AA62 DEC HL        ; }
  $AA63 LD E,(HL)     ;
  $AA64 LD (HL),A     ;
  $AA65 LD A,(IY+$50) ;
  $AA68 LD (IY+$55),A ;
  $AA6B LD (IY+$50),E ;
- $AA6E CALL $A921    ;
+ $AA6E CALL $A921    ; Call #R$A921.
  $AA71 CALL Z,$E41D  ;
 *$AA74 LD A,($B951)  ;
  $AA77 CP (IY+$0F)   ;
  $AA7A CALL Z,$AA7F  ;
- $AA7D POP HL        ;
- $AA7E RET           ;
+ $AA7D POP HL        ; Restore #REGhl from the stack.
+ $AA7E RET           ; Return.
 
 ; Routine at AA7F
 ;
@@ -3681,7 +3679,7 @@ c$AB9B LD A,(IY+$0A)   ;
  $ABD1 CP $F0          ;
  $ABD3 JP Z,$AE5D      ;
  $ABD6 RET             ;
-; This entry point is used by the routines at #R$AC06, #R$ED2A and #R$F5F1.
+; This entry point is used by the routines at #R$AC06, #R$ED2A and #R$F814.
 *$ABD7 LD A,($B2DB)    ;
  $ABDA OR A            ;
  $ABDB JR Z,$ABEA      ;
@@ -4240,7 +4238,7 @@ c$AFC4 LD (IY+$37),$01 ;
  $B004 JR NC,$AFF0     ;
 *$B006 LD (IY+$37),$00 ;
  $B00A RET             ;
-; This entry point is used by the routines at #R$B09F, #R$EFC7 and #R$F5F1.
+; This entry point is used by the routines at #R$B09F, #R$EFC7 and #R$F814.
 *$B00B LD A,($B2DB)    ;
  $B00E OR A            ;
  $B00F JR Z,$B028      ;
@@ -4268,7 +4266,7 @@ c$AFC4 LD (IY+$37),$01 ;
  $B038 JR NZ,$B025     ;
 *$B03A XOR A           ;
  $B03B RET             ;
-; This entry point is used by the routines at #R$B09F, #R$EFC7 and #R$F5F1.
+; This entry point is used by the routines at #R$B09F, #R$EFC7 and #R$F814.
 *$B03C LD A,($B2DB)    ;
  $B03F OR A            ;
  $B040 JR Z,$B059      ;
@@ -4296,7 +4294,7 @@ c$AFC4 LD (IY+$37),$01 ;
  $B069 JR NZ,$B056     ;
 *$B06B XOR A           ;
  $B06C RET             ;
-; This entry point is used by the routines at #R$B09F and #R$F5F1.
+; This entry point is used by the routines at #R$B09F and #R$F814.
 *$B06D LD A,($B2DB)    ;
  $B070 OR A            ;
  $B071 JR Z,$B08A      ;
@@ -4360,7 +4358,7 @@ c$B09F LD IY,($B09D)   ;
 ; Routine at B0E6
 ;
 ; Used by the routines at #R$B9D6 and #R$EFC7.
-c$B0E6 EXX           ;
+c$B0E6 EXX           ; Switch to the shadow registers.
  $B0E7 LD E,(IY+$23) ;
  $B0EA LD D,(IY+$28) ;
  $B0ED LD ($A83B),SP ;
@@ -4372,8 +4370,9 @@ c$B0E6 EXX           ;
  $B0FB LD SP,HL      ;
  $B0FC LD A,(IY+$05) ;
  $B0FF LD B,A        ;
- $B100 AND $07       ;
- $B102 LD ($B189),A  ;
+ $B100 AND %00000111 ; Keep only bits 0-2.
+; Self-modifying code.
+ $B102 LD ($B189),A  ; Write #REGa to #R$B188(#N$B189).
  $B105 INC A         ;
  $B106 LD ($B129),A  ;
  $B109 LD ($B145),A  ;
@@ -4460,14 +4459,15 @@ c$B0E6 EXX           ;
  $B185 INC HL        ;
  $B186 LD (HL),C     ;
  $B187 INC HL        ;
- $B188 LD A,$FF      ;
+; This is modified from #R$B102.
+ $B188 LD A,$FF      ; #REGb=#N$FF.
  $B18A OR A          ;
  $B18B JR Z,$B18E    ;
  $B18D LD (HL),C     ;
 *$B18E ADD HL,DE     ;
  $B18F DJNZ $B184    ;
- $B191 EXX           ;
- $B192 LD SP,($A83B) ;
+ $B191 EXX           ; Switch to the normal registers.
+ $B192 LD SP,($A83B) ; Restore #REGsp from #R$A83B.
  $B196 RET           ; Return.
 
 ; Routine at B197
@@ -5168,62 +5168,70 @@ c$B77B PUSH AF       ; {Push #REGaf, #REGhl, #REGbc and #REGde on the stack.
  $B7B8 POP AF        ; }
  $B7B9 RET           ; Return.
 
-; Routine at B7BA
+; Draw Sprite Block To Screen
 ;
 ; Used by the routines at #R$B84B and #R$E329.
-c$B7BA PUSH AF       ;
+;
+; DE Screen Buffer Co-ordinates
+; HL Sprite data
+; C Sprite attribute value
+@label=DrawSprite
+c$B7BA PUSH AF       ; {Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
  $B7BB PUSH HL       ;
  $B7BC PUSH BC       ;
- $B7BD PUSH DE       ;
- $B7BE EX DE,HL      ;
- $B7BF PUSH HL       ;
- $B7C0 LD D,$58      ;
- $B7C2 LD E,L        ;
- $B7C3 LD L,H        ;
- $B7C4 LD H,$00      ;
- $B7C6 ADD HL,HL     ;
+ $B7BD PUSH DE       ; }
+ $B7BE EX DE,HL      ; Exchange the #REGde and #REGhl registers.
+ $B7BF PUSH HL       ; Stash #REGhl on the stack.
+ $B7C0 LD D,$58      ; #REGd=#N$58.
+ $B7C2 LD E,L        ; #REGe=#REGl.
+ $B7C3 LD L,H        ; #REGl=#REGh.
+ $B7C4 LD H,$00      ; #REGh=#N$00.
+ $B7C6 ADD HL,HL     ; {#REGhl=(#REGhl*#N$20)+#REGde.
  $B7C7 ADD HL,HL     ;
  $B7C8 ADD HL,HL     ;
  $B7C9 ADD HL,HL     ;
  $B7CA ADD HL,HL     ;
- $B7CB ADD HL,DE     ;
- $B7CC LD (HL),C     ;
- $B7CD POP HL        ;
- $B7CE LD L,H        ;
- $B7CF LD D,$00      ;
- $B7D1 LD H,D        ;
- $B7D2 PUSH DE       ;
- $B7D3 ADD HL,HL     ;
+ $B7CB ADD HL,DE     ; }
+ $B7CC LD (HL),C     ; Write #REGc to *#REGhl.
+ $B7CD POP HL        ; Restore #REGhl from the stack.
+ $B7CE LD L,H        ; #REGl=#REGh.
+ $B7CF LD D,$00      ; #REGd=#N$00.
+ $B7D1 LD H,D        ; #REGh=#REGd.
+ $B7D2 PUSH DE       ; Stash #REGde on the stack.
+ $B7D3 ADD HL,HL     ; {#REGhl*=#N$10.
  $B7D4 ADD HL,HL     ;
  $B7D5 ADD HL,HL     ;
- $B7D6 ADD HL,HL     ;
- $B7D7 LD DE,$81F8   ;
- $B7DA ADD HL,DE     ;
- $B7DB LD E,(HL)     ;
- $B7DC INC HL        ;
- $B7DD LD D,(HL)     ;
- $B7DE EX DE,HL      ;
- $B7DF POP DE        ;
- $B7E0 ADD HL,DE     ;
- $B7E1 EX DE,HL      ;
- $B7E2 LD L,A        ;
- $B7E3 LD H,$00      ;
- $B7E5 ADD HL,HL     ;
+ $B7D6 ADD HL,HL     ; }
+ $B7D7 LD DE,$81F8   ; {#REGhl+=#R$81F8.
+ $B7DA ADD HL,DE     ; }
+ $B7DB LD E,(HL)     ; #REGe=*#REGhl.
+ $B7DC INC HL        ; Increment #REGhl by one.
+ $B7DD LD D,(HL)     ; #REGd=*#REGhl.
+ $B7DE EX DE,HL      ; Switch the #REGde and #REGhl registers.
+ $B7DF POP DE        ; Restore #REGde from the stack.
+ $B7E0 ADD HL,DE     ; #REGhl+=#REGde.
+ $B7E1 EX DE,HL      ; Switch the #REGde and #REGhl registers.
+ $B7E2 LD L,A        ; {Create an offset in #REGhl.
+ $B7E3 LD H,$00      ; }
+ $B7E5 ADD HL,HL     ; {#REGhl*=#N$08.
  $B7E6 ADD HL,HL     ;
- $B7E7 ADD HL,HL     ;
- $B7E8 LD BC,$DFDC   ;
- $B7EB ADD HL,BC     ;
- $B7EC LD B,$08      ;
-*$B7EE LD A,(HL)     ;
- $B7EF LD (DE),A     ;
- $B7F0 INC HL        ;
- $B7F1 INC D         ;
- $B7F2 DJNZ $B7EE    ;
- $B7F4 POP DE        ;
- $B7F5 POP BC        ;
+ $B7E7 ADD HL,HL     ; }
+; This is modified from #R$B872.
+ $B7E8 LD BC,$DFDC   ; {#REGhl+=#R$DFDC.
+ $B7EB ADD HL,BC     ; }
+ $B7EC LD B,$08      ; #REGb=#N$08 (counter).
+@label=DrawSprite_Loop
+*$B7EE LD A,(HL)     ; {Copy a byte from *#REGhl and write it to *#REGde.
+ $B7EF LD (DE),A     ; }
+ $B7F0 INC HL        ; Increment #REGhl by one.
+ $B7F1 INC D         ; Increment #REGd by one.
+ $B7F2 DJNZ $B7EE    ; Decrease counter by one and loop back to #R$B7EE until
+                     ; counter is zero.
+ $B7F4 POP DE        ; {Restore #REGde, #REGbc, #REGhl and #REGaf from the
+ $B7F5 POP BC        ; stack.
  $B7F6 POP HL        ;
- $B7F7 POP AF        ;
- $B7F8 RET           ;
+ $B7F7 POP AF        ; }
+ $B7F8 RET           ; Return.
 
 ; Routine at B7F9
 ;
@@ -5286,42 +5294,50 @@ c$B82B PUSH HL       ;
  $B849 POP HL        ;
  $B84A RET           ;
 
-; Routine at B84B
+; Handler: Sprite Controller
 ;
 ; Used by the routines at #R$B34B, #R$B82B, #R$B952, #R$BA66, #R$E3FD, #R$E41D
 ; and #R$ED2A.
-c$B84B LD A,(HL)     ;
- $B84C INC HL        ;
- $B84D CP $80        ;
- $B84F JR C,$B8BD    ;
- $B851 CP $FF        ;
- $B853 RET Z         ;
- $B854 CP $FE        ;
- $B856 JR NZ,$B85C   ;
- $B858 LD C,(HL)     ;
- $B859 INC HL        ;
- $B85A JR $B84B      ;
-*$B85C CP $A8        ;
- $B85E JR C,$B8BD    ;
- $B860 CP $E8        ;
- $B862 JR NC,$B86E   ;
- $B864 SUB $C8       ;
+@label=Handler_SpriteController
+c$B84B LD A,(HL)     ; #REGa=*#REGhl.
+ $B84C INC HL        ; Increment #REGhl by one.
+ $B84D CP $80        ; {If #REGa is lower than #N$80, jump to #R$B8BD.
+ $B84F JR C,$B8BD    ; }
+; Return if the terminator is reached.
+ $B851 CP $FF        ; {Return if #REGa is the terminator (#N$FF).
+ $B853 RET Z         ; }
+; Check for the #N$FE control character. This signifies that the subsequent
+; byte is the colour attribute.
+ $B854 CP $FE        ; {If #REGa is not #N$FE, jump to #R$B85C.
+ $B856 JR NZ,$B85C   ; }
+ $B858 LD C,(HL)     ; #REGc=*#REGhl (set the attribute).
+ $B859 INC HL        ; Increment #REGhl by one.
+ $B85A JR $B84B      ; Jump to #R$B84B.
+@label=Handler_SpriteController_NotAttribute
+*$B85C CP $A8        ; {If #REGa is lower than #N$A8, jump to #R$B8BD.
+ $B85E JR C,$B8BD    ; }
+; If the value is between #N$A8-#N$E8 then it is screen co-ordinates.
+ $B860 CP $E8        ; {If #REGa is higher than #N$E8, jump to #R$B86E.
+ $B862 JR NC,$B86E   ; }
+; Remove the control number, then we're left with the desired screen
+; co-ordinate data updates.
+ $B864 SUB $C8       ; {#REGe=(#REGa-#N$C8)+#REGe.
  $B866 ADD A,E       ;
- $B867 LD E,A        ;
- $B868 LD A,D        ;
+ $B867 LD E,A        ; }
+ $B868 LD A,D        ; {#REGd+=*#REGhl.
  $B869 ADD A,(HL)    ;
- $B86A LD D,A        ;
- $B86B INC HL        ;
- $B86C JR $B84B      ;
-*$B86E CP $FB        ;
- $B870 JR NZ,$B87E   ;
- $B872 LD A,(HL)     ;
- $B873 LD ($B7E9),A  ;
- $B876 INC HL        ;
- $B877 LD A,(HL)     ;
- $B878 LD ($B7EA),A  ;
- $B87B INC HL        ;
- $B87C JR $B84B      ;
+ $B86A LD D,A        ; }
+ $B86B INC HL        ; Increment #REGhl by one.
+ $B86C JR $B84B      ; Jump to #R$B84B.
+*$B86E CP $FB        ; {If #REGa is not #N$FB, jump to #R$B87E.
+ $B870 JR NZ,$B87E   ; }
+ $B872 LD A,(HL)     ; {Write *#REGhl to #R$B7E8(#N$B7E9).
+ $B873 LD ($B7E9),A  ; }
+ $B876 INC HL        ; Increment #REGhl by one.
+ $B877 LD A,(HL)     ; {Write *#REGhl to #R$B7E8(#N$B7EA).
+ $B878 LD ($B7EA),A  ; }
+ $B87B INC HL        ; Increment #REGhl by one.
+ $B87C JR $B84B      ; Jump to #R$B84B.
 *$B87E CP $F1        ;
  $B880 JR Z,$B8C0    ;
  $B882 CP $F3        ;
@@ -5330,17 +5346,17 @@ c$B84B LD A,(HL)     ;
  $B887 INC HL        ;
  $B888 LD H,(HL)     ;
  $B889 LD L,A        ;
- $B88A JR $B84B      ;
+ $B88A JR $B84B      ; Jump to #R$B84B.
 *$B88C LD B,(HL)     ;
  $B88D INC HL        ;
  $B88E CP $F0        ;
  $B890 JR NZ,$B89C   ;
  $B892 LD A,(HL)     ;
  $B893 INC HL        ;
-*$B894 CALL $B7BA    ;
- $B897 INC D         ;
+*$B894 CALL $B7BA    ; Call #R$B7BA.
+ $B897 INC D         ; Increment #REGd by one.
  $B898 DJNZ $B894    ;
- $B89A JR $B84B      ;
+ $B89A JR $B84B      ; Jump to #R$B84B.
 *$B89C CP $F2        ;
  $B89E JR NZ,$B8B2   ;
 *$B8A0 LD A,(HL)     ;
@@ -5354,16 +5370,16 @@ c$B84B LD A,(HL)     ;
  $B8AC DJNZ $B8A0    ;
  $B8AE INC HL        ;
  $B8AF INC HL        ;
- $B8B0 JR $B84B      ;
+ $B8B0 JR $B84B      ; Jump to #R$B84B.
 *$B8B2 LD A,(HL)     ;
  $B8B3 INC HL        ;
 *$B8B4 CALL $B7BA    ;
  $B8B7 INC E         ;
  $B8B8 DJNZ $B8B4    ;
- $B8BA JP $B84B      ;
-*$B8BD CALL $B7BA    ;
-*$B8C0 INC E         ;
- $B8C1 JP $B84B      ;
+ $B8BA JP $B84B      ; Jump to #R$B84B.
+*$B8BD CALL $B7BA    ; Call #R$B7BA.
+*$B8C0 INC E         ; Increment #REGe by one.
+ $B8C1 JP $B84B      ; Jump to #R$B84B.
 
 ; Print String
 ;
@@ -5417,9 +5433,10 @@ c$B8ED LD HL,$4000   ; {Clear the screen buffer.
  $B8FF LDIR          ; }
  $B901 RET           ; Return.
 
-; Routine at B902
+; Clear Play Area
 ;
 ; Used by the routines at #R$B952, #R$ED2A and #R$EFC7.
+@label=Clear_PlayArea
 c$B902 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $B903 PUSH BC       ;
  $B904 PUSH DE       ; }
@@ -5473,9 +5490,10 @@ c$B931 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
 ; Data block at B951
 b$B951 DEFB $00
 
-; Routine at B952
+; Draw Room
 ;
 ; Used by the routines at #R$813B, #R$8155, #R$AC06 and #R$ED2A.
+@label=DrawRoom
 c$B952 LD A,$B8      ; {Write #N$B8 to #R$AF88.
  $B954 LD ($AF88),A  ; }
  $B957 CALL $B902    ; Call #R$B902.
@@ -5863,687 +5881,3676 @@ g$BC98 DEFB $03
  $BD79 DEFB $78,$A8,$1F,$FF,$1D,$00,$98,$9F
  $BD81 DEFB $1E,$48,$A8,$9F,$FF
 
-; Data block at BD86
-b$BD86 DEFW $C352
- $BD88 DEFW $C37C
- $BD8A DEFW $C3DB
- $BD8C DEFW $C56B
- $BD8E DEFW $C580
- $BD90 DEFW $C5C0
- $BD92 DEFW $C651
- $BD94 DEFW $C6E3
- $BD96 DEFW $C703
- $BD98 DEFW $C71F
- $BD9A DEFW $C732
- $BD9C DEFW $C745
- $BD9E DEFW $C77F
- $BDA0 DEFW $C7BF
- $BDA2 DEFW $C844
- $BDA4 DEFW $C9BE
- $BDA6 DEFW $C9DD
- $BDA8 DEFW $C9FC
- $BDAA DEFW $CA57
- $BDAC DEFW $C860
- $BDAE DEFW $C908
- $BDB0 DEFW $C986
- $BDB2 DEFW $C9A2
- $BDB4 DEFW $CA9A
- $BDB6 DEFW $CAAE
- $BDB8 DEFW $C876
- $BDBA DEFW $C8E4
- $BDBC DEFW $C9D4
- $BDBE DEFW $C7B7
- $BDC0 DEFW $C8B3
- $BDC2 DEFW $C8C3
- $BDC4 DEFW $C23C
- $BDC6 DEFW $C35D
- $BDC8 DEFW $C369
- $BDCA DEFW $C91A
- $BDCC DEFW $C762
- $BDCE DEFW $C943
- $BDD0 DEFW $C801
- $BDD2 DEFW $C82B
- $BDD4 DEFW $C889
- $BDD6 DEFW $C89F
- $BDD8 DEFW $C79F
- $BDDA DEFW $C7E0
- $BDDC DEFW $CB05
- $BDDE DEFW $C797
- $BDE0 DEFW $C254
- $BDE2 DEFW $C20A
- $BDE4 DEFW $C220
- $BDE6 DEFW $CB2F
- $BDE8 DEFW $CB55
- $BDEA DEFW $CB6B
- $BDEC DEFW $CBA0
- $BDEE DEFW $CBE0
- $BDF0 DEFW $CBF0
- $BDF2 DEFW $CC03
- $BDF4 DEFW $CC25
- $BDF6 DEFW $CCDA
- $BDF8 DEFW $CCF2
- $BDFA DEFW $C857
- $BDFC DEFW $C27C
- $BDFE DEFW $C92E
- $BE00 DEFW $CC39
- $BE02 DEFW $CC97
- $BE04 DEFW $CB1A
- $BE06 DEFW $CCAA
- $BE08 DEFW $CC8D
- $BE0A DEFW $CC5D
- $BE0C DEFW $C5DA
- $BE0E DEFW $C5F9
- $BE10 DEFW $C610
- $BE12 DEFW $C61A
- $BE14 DEFW $C625
- $BE16 DEFW $C635
- $BE18 DEFW $C291
- $BE1A DEFW $C29A
- $BE1C DEFW $CACA
- $BE1E DEFW $CCB2
- $BE20 DEFW $C19D
- $BE22 DEFW $CA1F
- $BE24 DEFW $BFE2
- $BE26 DEFW $C0F1
- $BE28 DEFW $BFA4
- $BE2A DEFW $BFB2
- $BE2C DEFW $BFDA
- $BE2E DEFW $BFFE
- $BE30 DEFW $BF27
- $BE32 DEFW $C132
- $BE34 DEFW $BE8F
- $BE36 DEFW $BEDA
- $BE38 DEFW $BF03
- $BE3A DEFW $BF19
- $BE3C DEFW $C026
- $BE3E DEFW $C03C
- $BE40 DEFW $C045
- $BE42 DEFW $C050
- $BE44 DEFW $C05A
- $BE46 DEFW $C082
- $BE48 DEFW $C0A0
- $BE4A DEFW $C0AA
- $BE4C DEFW $C0B8
- $BE4E DEFW $C0D4
- $BE50 DEFW $CAEC
- $BE52 DEFW $C0DC
- $BE54 DEFW $CD14
- $BE56 DEFW $C4CD
- $BE58 DEFW $C437
- $BE5A DEFW $C2A8
- $BE5C DEFW $C312
- $BE5E DEFW $C577
- $BE60 DEFW $C960
- $BE62 DEFW $BF81
- $BE64 DEFW $C957
- $BE66 DEFW $BE72
- $BE68 DEFW $C334
- $BE6A DEFW $C347
- $BE6C DEFW $CB85
- $BE6E DEFW $CD2F
- $BE70 DEFW $CD43
- $BE72 DEFB $FB,$EC,$DF,$FE,$46,$09,$09,$F1
- $BE7A DEFB $F1,$0E,$C5,$FF,$FE,$42,$0C,$0D
- $BE82 DEFB $C6,$01,$0A,$0B,$C8,$01,$FE,$46
- $BE8A DEFB $FB,$6C,$E0,$04
- $BE8E DEFB $FF                             ; Terminator.
- $BE8F DEFB $FB,$04,$D2,$FE,$44,$07,$FD,$17
- $BE97 DEFB $01,$F0,$01,$02,$03,$AF,$00,$04
- $BE9F DEFB $FB,$E4,$D9,$02,$0B,$03,$02,$0B
- $BEA7 DEFB $0B,$0B,$03,$02,$0B,$0B,$0B,$03
- $BEAF DEFB $02,$0B,$0B,$0B,$03,$02,$0B,$0B
- $BEB7 DEFB $0B,$03,$B0,$01,$FB,$BC,$D6,$FE
- $BEBF DEFB $47,$00,$01,$01,$00,$01,$01,$00
- $BEC7 DEFB $01,$01,$00,$01,$01,$00,$01,$01
- $BECF DEFB $00,$01,$01,$00,$01,$01,$00,$01
- $BED7 DEFB $01,$02
- $BED9 DEFB $FF                             ; Terminator.
- $BEDA DEFB $FB,$D4,$DD,$FE,$43,$F0,$01,$00
- $BEE2 DEFB $01,$C8,$FF,$FE,$45,$F0,$01,$00
- $BEEA DEFB $01,$C8,$FF,$FE,$42,$F0,$01,$00
- $BEF2 DEFB $01,$C8,$FF,$FE,$46,$F0,$01,$00
- $BEFA DEFB $01,$C4,$01,$FE,$47,$FD,$04,$02
- $BF02 DEFB $FF                             ; Terminator.
- $BF03 DEFB $FB,$D4,$DD,$FE,$47,$FD,$06,$03
- $BF0B DEFB $C2,$01,$FB,$BC,$D1,$FE,$43,$00
- $BF13 DEFB $01,$02,$02,$00,$01
- $BF18 DEFB $FF                             ; Terminator.
- $BF19 DEFB $FB,$D4,$DD,$FE,$46,$06,$07,$C6
- $BF21 DEFB $01,$FE,$45,$04,$05
- $BF26 DEFB $FF                             ; Terminator.
- $BF27 DEFB $FB,$54,$DD,$FE,$45,$F0,$03,$0A
- $BF2F DEFB $CA,$FD,$F0,$03,$0A,$C9,$FF,$09
- $BF37 DEFB $FE,$42,$C3,$01,$06,$06,$02,$06
- $BF3F DEFB $06,$02,$06,$08,$C0,$01,$07,$07
- $BF47 DEFB $0B,$07,$07,$0B,$07,$CD,$00,$03
- $BF4F DEFB $04,$05,$B9,$01,$FE,$47,$00,$00
- $BF57 DEFB $0C,$0D,$00,$00,$0C,$0D,$00,$00
- $BF5F DEFB $0C,$0D,$00,$01,$BA,$01,$00,$00
- $BF67 DEFB $0F,$0E,$00,$00,$0F,$0E,$00,$00
- $BF6F DEFB $0F,$0E,$01,$BD,$01,$FE,$42,$FD
- $BF77 DEFB $09,$00,$01,$BE,$01,$FD,$08,$00
- $BF7F DEFB $01
- $BF80 DEFB $FF                             ; Terminator.
- $BF81 DEFB $FB,$0C,$DD,$FE,$42,$F0,$01,$06
- $BF89 DEFB $06,$01,$C6,$01,$05,$01,$C6,$01
- $BF91 DEFB $04,$01,$C5,$01,$07,$F1,$03,$C5
- $BF99 DEFB $01,$06,$FB,$E4,$D9,$0B,$0B,$C6
- $BFA1 DEFB $FF,$0B
- $BFA3 DEFB $FF                             ; Terminator.
- $BFA4 DEFB $FB,$EC,$DC,$C8,$03,$FE,$44,$00
- $BFAC DEFB $01,$C6,$01,$02,$03
- $BFB1 DEFB $FF                             ; Terminator.
- $BFB2 DEFB $FB,$0C,$DD,$FE,$28,$00,$08,$C6
- $BFBA DEFB $01,$00,$08,$C6,$01,$01,$08,$C6
- $BFC2 DEFB $01,$01,$07,$C6,$01,$01,$07,$C6
- $BFCA DEFB $01,$02,$06,$C6,$01,$02,$06,$C6
- $BFD2 DEFB $01,$02,$05,$C6,$01,$03,$04,$FF
- $BFDA DEFB $FB,$0C,$DD,$FE,$50,$F3,$C7,$BF
- $BFE2 DEFB $FB,$24,$DC,$FE,$46,$0F,$11,$12
- $BFEA DEFB $15,$C4,$01,$10,$13,$14,$16,$C5
- $BFF2 DEFB $01,$17,$18,$C5,$01,$FE,$44,$02
- $BFFA DEFB $01,$01,$02
- $BFFD DEFB $FF                             ; Terminator.
- $BFFE DEFB $FB,$E4,$D9,$FE,$79,$FD,$10,$09
- $C006 DEFB $B8,$02,$FD,$10,$0A,$B8,$FF,$FE
- $C00E DEFB $72,$FB,$DC,$DF,$FD,$04,$20,$FB
- $C016 DEFB $E4,$D9,$10,$11,$11,$12,$13,$11
- $C01E DEFB $11,$FB,$DC,$DF,$FD,$05,$20,$FF
- $C026 DEFB $FB,$DC,$DF,$FE,$4E,$FD,$18,$20
- $C02E DEFB $FB,$14,$DE,$B8,$00,$08,$09,$0A
- $C036 DEFB $0B,$0C,$0D,$0E,$0F
- $C03B DEFB $FF                             ; Terminator.
- $C03C DEFB $FB,$14,$DE,$FE,$47,$00,$01,$02
- $C044 DEFB $FF                             ; Terminator.
- $C045 DEFB $FB,$14,$DE,$FE,$46,$03,$04,$05
- $C04D DEFB $06,$07
- $C04F DEFB $FF                             ; Terminator.
- $C050 DEFB $FB,$14,$DE,$FE,$60,$10,$11,$12
- $C058 DEFB $13
- $C059 DEFB $FF                             ; Terminator.
- $C05A DEFB $FB,$14,$DE,$FE,$4F,$14,$15,$16
- $C062 DEFB $17,$18,$FB,$DC,$DE,$00,$01,$02
- $C06A DEFB $03,$04,$05,$FB,$DC,$DF,$20,$20
- $C072 DEFB $20,$B8,$00,$20,$20,$C6,$FF,$FD
- $C07A DEFB $10,$20,$B8,$02,$FD,$10,$20,$FF
- $C082 DEFB $FB,$DC,$DF,$FE,$57,$FD,$07,$20
- $C08A DEFB $C1,$01,$20,$CD,$00,$20,$C1,$01
- $C092 DEFB $FD,$07,$20,$C2,$FF,$FB,$DC,$DE
- $C09A DEFB $06,$07,$08,$09,$0A
- $C09F DEFB $FF                             ; Terminator.
- $C0A0 DEFB $FB,$2C,$D7,$C8,$03,$FE,$45,$10
- $C0A8 DEFB $11
- $C0A9 DEFB $FF                             ; Terminator.
- $C0AA DEFB $FB,$2C,$D7,$FE,$46,$06,$08,$C6
- $C0B2 DEFB $01,$FE,$42,$0E,$0F
- $C0B7 DEFB $FF                             ; Terminator.
- $C0B8 DEFB $FB,$5C,$D3,$FE,$44,$F2,$08,$07
- $C0C0 DEFB $08,$B8,$01,$F2,$08,$08,$07,$B8
- $C0C8 DEFB $01,$F2,$08,$07,$08,$B8,$01,$F2
- $C0D0 DEFB $08,$08,$07
- $C0D3 DEFB $FF                             ; Terminator.
- $C0D4 DEFB $FB,$14,$D5,$FE,$46,$F3,$D9,$CA
- $C0DC DEFB $FB,$AC,$DF,$C8,$03,$FE,$42,$01
- $C0E4 DEFB $03,$01,$02,$02,$C4
- $C0E9 DEFB $FF                             ; Terminator.
- $C0EA DEFB $00,$03,$01,$C6,$FF,$02
- $C0F0 DEFB $FF                             ; Terminator.
- $C0F1 DEFB $FB,$24,$DC,$FE,$45,$F0,$09,$0A
- $C0F9 DEFB $C8,$FC,$0B,$C7,$02,$0B,$FE,$47
- $C101 DEFB $C2,$FC,$05,$C5,$01,$09,$06,$04
- $C109 DEFB $C5,$01,$08,$07,$F1,$FE,$44,$00
- $C111 DEFB $0D,$0E,$0C,$C1,$01,$03,$03,$03
- $C119 DEFB $00,$F1,$F1,$0C,$C1,$01,$03,$03
- $C121 DEFB $0D,$0E,$F1,$F1,$0C,$C1,$01,$FE
- $C129 DEFB $46,$01,$02,$01,$01,$01,$02,$01
- $C131 DEFB $FF
- $C132 DEFB $FB,$AC,$DB,$FE,$45,$00,$0C,$C6
- $C13A DEFB $01,$0D,$0E,$C5,$05,$08,$09,$04
- $C142 DEFB $05,$C4,$01,$0A,$0B,$02,$03,$C5
- $C14A DEFB $01,$F0,$09,$0D,$C7,$FF,$06,$F1
- $C152 DEFB $F1,$07,$C6,$F8,$F0,$09,$0E,$BF
- $C15A DEFB $F2,$00,$FD,$06,$01,$C0,$01,$00
- $C162 DEFB $FD,$07,$01,$CC,$FF,$01,$01,$01
- $C16A DEFB $0C,$C4,$01,$FD,$04,$01,$0C,$BF
- $C172 DEFB $FE,$FE,$43,$FB,$14,$D5,$12,$13
- $C17A DEFB $C6,$01,$17,$18,$C8,$FF,$FE,$46
- $C182 DEFB $1A,$1A,$C6,$01,$1A,$1A,$C4,$01
- $C18A DEFB $FD,$04,$1A,$C4,$01,$FD,$04,$1A
- $C192 DEFB $BE,$00,$FB,$E4,$D9,$FE,$43,$F0
- $C19A DEFB $07,$14,$FF
- $C19D DEFB $FB,$AC,$DB,$FE,$07,$00,$0C,$C6
- $C1A5 DEFB $01,$0D,$0E,$C6,$01,$0D,$0E,$C5
- $C1AD DEFB $03,$06,$0D,$0E,$07,$C4,$01,$04
- $C1B5 DEFB $05,$08,$09,$C4,$01,$02,$03,$0A
- $C1BD DEFB $0B,$C3,$01,$06,$CC,$00,$07,$C2
- $C1C5 DEFB $01,$04,$05,$F1,$F1,$08,$09,$C2
- $C1CD DEFB $01,$02,$03,$F1,$F1,$0A,$0B,$C1
- $C1D5 DEFB $01,$06,$CE,$00,$07,$C0,$01,$04
- $C1DD DEFB $05,$CC,$00,$08,$09,$C0,$01,$02
- $C1E5 DEFB $03,$CC,$00,$0A,$0B,$BF,$01,$06
- $C1ED DEFB $D0,$00,$07,$BE,$01,$04,$05,$CE
- $C1F5 DEFB $00,$08,$09,$BF,$FF,$FE,$46,$FD
- $C1FD DEFB $08,$01,$C1,$FD,$FD,$06,$01,$C3
- $C205 DEFB $FD,$FD,$04,$01,$FF
- $C20A DEFB $FB,$2C,$D7,$FE,$47,$F0,$01,$00
- $C212 DEFB $FE,$46,$F0,$01,$01,$FE,$42,$02
- $C21A DEFB $C6,$01,$03,$04,$05,$FF
- $C220 DEFB $FB,$2C,$D7,$FE,$44,$0D,$FE,$47
- $C228 DEFB $C6,$01,$0B,$07,$0C,$C5,$01,$FE
- $C230 DEFB $44,$09,$F1,$0A,$C5,$01,$FE,$47
- $C238 DEFB $06,$07,$08,$FF
- $C23C DEFB $FB,$14,$D5,$FE,$43,$0D,$F0,$01
- $C244 DEFB $0E,$FE,$07,$F0,$0A,$10,$C7,$F6
- $C24C DEFB $F0,$0A,$0F,$FE,$43,$0B,$0C,$FF
- $C254 DEFB $FB,$BC,$D1,$FE,$47,$03,$FE,$43
- $C25C DEFB $04,$FE,$42,$05,$FE,$46,$03,$FE
- $C264 DEFB $43,$04,$FE,$47,$05,$FE,$44,$05
- $C26C DEFB $FE,$46,$03,$C0,$01,$FE,$45,$00
- $C274 DEFB $01,$02,$00,$01,$02,$00,$01,$FF
- $C27C DEFB $FB,$2C,$D7,$FE,$45,$09,$0A,$C6
- $C284 DEFB $01,$FB,$14,$D5,$FE,$72,$00,$00
- $C28C DEFB $C6,$01,$00,$00,$FF
- $C291 DEFB $FB,$EC,$DF,$FE,$44,$FD,$20,$07
- $C299 DEFB $FF
- $C29A DEFB $FB,$7C,$D2,$FE,$45,$11,$12,$13
- $C2A2 DEFB $C5,$01,$14,$15,$16,$FF
- $C2A8 DEFB $FB,$FC,$D5,$FE,$44,$13,$FD,$16
- $C2B0 DEFB $14,$F0,$01,$15,$F0,$05,$17,$B1
- $C2B8 DEFB $FB,$F0,$05,$16,$C9,$FB,$FE,$46
- $C2C0 DEFB $FB,$14,$D5,$F2,$0B,$12,$13,$B2
- $C2C8 DEFB $01,$F2,$0B,$14,$15,$B2,$01,$F2
- $C2D0 DEFB $0B,$14,$15,$B2,$01,$14,$15,$17
- $C2D8 DEFB $18,$F2,$03,$14,$15,$17,$18,$F2
- $C2E0 DEFB $03,$14,$15,$17,$18,$14,$15,$B2
- $C2E8 DEFB $01,$17,$18,$F1,$F1,$F2,$03,$17
- $C2F0 DEFB $18,$F1,$F1,$F2,$03,$17,$18,$F1
- $C2F8 DEFB $F1,$17,$18,$B1,$01,$FE,$45,$FB
- $C300 DEFB $04,$D2,$07,$FD,$1A,$01,$F0,$01
- $C308 DEFB $02,$F0,$02,$03,$AD,$FE,$F0,$02
- $C310 DEFB $04,$FF
- $C312 DEFB $FB,$E4,$D9,$C8,$03,$FE,$45,$02
- $C31A DEFB $0B,$03,$02,$0B,$0B,$0B,$03,$02
- $C322 DEFB $0B,$0B,$0B,$03,$02,$0B,$0B,$0B
- $C32A DEFB $03,$02,$0B,$0B,$0B,$03,$02,$0B
- $C332 DEFB $03,$FF
- $C334 DEFB $FB,$BC,$D6,$FE,$45,$F0,$01,$02
- $C33C DEFB $F0,$07,$09,$FE,$44,$FB,$BC,$D1
- $C344 DEFB $01,$02,$FF
- $C347 DEFB $FB,$EC,$DF,$C8,$03,$FE,$45,$FD
- $C34F DEFB $17,$0F,$FF
- $C352 DEFB $FB,$EC,$DF,$C8,$03,$FE,$05,$FD
- $C35A DEFB $20,$00,$FF
- $C35D DEFB $FB,$EC,$DF,$C8,$03,$FE,$43,$F2
- $C365 DEFB $10,$05,$06,$FF
- $C369 DEFB $FB,$04,$D2,$FE,$46,$F0,$01,$00
- $C371 DEFB $04,$F1,$05,$02,$C4,$01,$04,$F1
- $C379 DEFB $06,$03,$FF
- $C37C DEFB $FB,$6C,$E0,$FE,$46,$01,$02,$01
- $C384 DEFB $02,$01,$05,$C3,$01,$04,$F1,$04
- $C38C DEFB $F1,$06,$05,$C1,$01,$FE,$45,$FD
- $C394 DEFB $04,$00,$03,$FE,$46,$04,$07,$05
- $C39C DEFB $C5,$01,$FE,$45,$03,$F1,$FE,$46
- $C3A4 DEFB $06,$05,$C5,$01,$FE,$45,$03,$FE
- $C3AC DEFB $46,$04,$07,$05,$C5,$01,$FE,$45
- $C3B4 DEFB $03,$F1,$FE,$46,$06,$05,$C5,$01
- $C3BC DEFB $FE,$45,$03,$FE,$46,$04,$07,$05
- $C3C4 DEFB $C5,$01,$FE,$45,$03,$F1,$FE,$46
- $C3CC DEFB $06,$C6,$01,$FE,$45,$03,$FE,$46
- $C3D4 DEFB $F0,$01,$04,$FE,$45,$03,$FF
- $C3DB DEFB $FB,$6C,$E0,$FE,$46,$08,$01,$02
- $C3E3 DEFB $01,$02,$01,$C1,$01,$08,$0A,$F1
- $C3EB DEFB $04,$F1,$04,$C1,$01,$08,$0B,$04
- $C3F3 DEFB $FE,$45,$09,$FD,$04,$0C,$FE,$46
- $C3FB DEFB $BF,$01,$08,$0A,$F1,$FE,$45,$09
- $C403 DEFB $FE,$46,$C3,$01,$08,$0B,$04,$FE
- $C40B DEFB $45,$09,$FE,$46,$C3,$01,$08,$0A
- $C413 DEFB $F1,$FE,$45,$09,$FE,$46,$C3,$01
- $C41B DEFB $08,$0B,$04,$FE,$45,$09,$FE,$46
- $C423 DEFB $C4,$01,$0A,$C9,$00,$FE,$45,$09
- $C42B DEFB $C5,$01,$FE,$46,$04,$FE,$45,$09
- $C433 DEFB $C6,$01,$09,$FF,$FB,$44,$DF,$FE
- $C43B DEFB $45,$06,$FE,$47,$FD,$08,$0A,$FE
- $C443 DEFB $45,$07,$06,$07,$06,$07,$BC,$01
- $C44B DEFB $06,$FD,$06,$05,$08,$04,$BF,$01
- $C453 DEFB $09,$FE,$43,$FD,$06,$0A,$FE,$45
- $C45B DEFB $07,$04,$BF,$01,$06,$FD,$06,$05
- $C463 DEFB $08,$04,$BF,$01,$09,$FE,$46,$FD
- $C46B DEFB $06,$0A,$FE,$45,$07,$04,$BF,$01
- $C473 DEFB $06,$FD,$06,$05,$08,$04,$BF,$01
- $C47B DEFB $09,$FE,$42,$FD,$06,$0A,$FE,$45
- $C483 DEFB $07,$04,$BF,$01,$06,$FD,$06,$05
- $C48B DEFB $08,$04,$BF,$01,$09,$FE,$44,$FD
- $C493 DEFB $06,$0A,$FE,$45,$05,$08,$09,$08
- $C49B DEFB $C7,$F9,$F0,$07,$04,$C9,$FE,$09
- $C4A3 DEFB $05,$07,$C3,$FB,$FE,$47,$F0,$07
- $C4AB DEFB $0C,$CA,$F9,$F0,$05,$0C,$BB,$FB
- $C4B3 DEFB $FE,$45,$F0,$01,$04,$FE,$47,$F0
- $C4BB DEFB $02,$0B,$FE,$45,$04,$C6,$01,$FE
- $C4C3 DEFB $46,$02,$03,$FE,$44,$C6,$01,$00
- $C4CB DEFB $01,$FF,$FB,$BC,$D1,$FE,$43,$00
- $C4D3 DEFB $01,$02,$02,$00,$01,$02,$02,$00
- $C4DB DEFB $01,$02,$02,$00,$01,$02,$02,$00
- $C4E3 DEFB $01,$02,$02,$00,$01,$B3,$FE,$FE
- $C4EB DEFB $45,$F0,$01,$06,$07,$C8,$FF,$FE
- $C4F3 DEFB $46,$F0,$01,$06,$07,$F1,$FE,$46
- $C4FB DEFB $08,$C8,$FE,$08,$FE,$44,$08,$C6
- $C503 DEFB $01,$FE,$42,$08,$FE,$47,$08,$FE
- $C50B DEFB $46,$08,$C5,$01,$FE,$44,$08,$FE
- $C513 DEFB $46,$08,$FE,$45,$08,$FE,$46,$08
- $C51B DEFB $C9,$FF,$FE,$47,$F0,$01,$06,$07
- $C523 DEFB $C8,$FF,$FE,$44,$F0,$01,$06,$07
- $C52B DEFB $C8,$FF,$FE,$46,$F0,$01,$06,$07
- $C533 DEFB $C8,$FF,$FE,$45,$F0,$01,$06,$07
- $C53B DEFB $C8,$FF,$FE,$44,$F0,$01,$06,$07
- $C543 DEFB $C8,$FF,$FE,$42,$F0,$01,$06,$07
- $C54B DEFB $CA,$FE,$FE,$46,$08,$FE,$45,$08
- $C553 DEFB $C5,$01,$FE,$44,$08,$FE,$46,$08
- $C55B DEFB $FE,$47,$08,$C5,$01,$08,$FE,$45
- $C563 DEFB $08,$FE,$46,$08,$FE,$44,$08,$FF
- $C56B DEFB $FB,$EC,$DF,$C8,$03,$FE,$45,$01
- $C573 DEFB $02,$03,$04,$FF,$FB,$9C,$D4,$FE
- $C57B DEFB $44,$F0,$0C,$04,$FF,$FB,$24,$D4
- $C583 DEFB $FE,$47,$06,$07,$C6,$01,$08,$09
- $C58B DEFB $C6,$01,$0A,$0B,$C6,$01,$0C,$0D
- $C593 DEFB $C6,$01,$FE,$46,$00,$02,$C4,$01
- $C59B DEFB $00,$FD,$04,$01,$02,$C3,$01,$FD
- $C5A3 DEFB $04,$0E,$C1,$01,$00,$FD,$08,$01
- $C5AB DEFB $02,$BF,$01,$FD,$08,$0E,$BD,$01
- $C5B3 DEFB $00,$FD,$0C,$01,$02,$BB,$01,$03
- $C5BB DEFB $FD,$0A,$05,$04,$FF,$FB,$E4,$D3
- $C5C3 DEFB $FE,$45,$00,$FD,$06,$01,$02,$C0
- $C5CB DEFB $01,$03,$FD,$06,$04,$05,$C0,$01
- $C5D3 DEFB $FE,$43,$06,$CE,$00,$07,$FF,$FB
- $C5DB DEFB $04,$D2,$FE,$43,$0C,$FD,$06,$09
- $C5E3 DEFB $0D,$C0,$01,$FE,$42,$0A,$FD,$06
- $C5EB DEFB $08,$0B,$C0,$01,$FB,$E4,$D3,$FE
- $C5F3 DEFB $44,$06,$CE,$00,$07,$FF,$FB,$04
- $C5FB DEFB $D2,$FE,$43,$0C,$0D,$C6,$01,$FE
- $C603 DEFB $42,$0A,$0B,$C6,$01,$FE,$44,$FB
- $C60B DEFB $E4,$D3,$06,$07,$FF,$FB,$7C,$D2
- $C613 DEFB $FE,$45,$F2,$10,$0F,$10,$FF,$FB
- $C61B DEFB $7C,$D2,$FE,$47,$00,$FD,$08,$01
- $C623 DEFB $02,$FF,$FB,$7C,$D2,$FE,$45,$F0
- $C62B DEFB $04,$06,$C7,$00,$FE,$43,$03,$04
- $C633 DEFB $05,$FF,$FB,$7C,$D2,$FE,$47,$0C
- $C63B DEFB $FD,$06,$0D,$0E,$FE,$46,$C0,$01
- $C643 DEFB $F0,$02,$0A,$07,$FD,$06,$08,$C8
- $C64B DEFB $FE,$F0,$02,$0B,$09,$FF,$FB,$5C
- $C653 DEFB $D3,$FE,$44,$03,$00,$01,$00,$04
- $C65B DEFB $C1,$01,$03,$02,$01,$02,$01,$01
- $C663 DEFB $02,$04,$BF,$01,$03,$00,$02,$00
- $C66B DEFB $00,$02,$01,$02,$02,$BF,$01,$00
- $C673 DEFB $02,$02,$02,$01,$00,$02,$01,$02
- $C67B DEFB $00,$BE,$01,$00,$01,$00,$02,$01
- $C683 DEFB $02,$00,$01,$02,$05,$BD,$01,$03
- $C68B DEFB $00,$00,$02,$01,$00,$00,$02,$01
- $C693 DEFB $01,$04,$BD,$01,$06,$01,$02,$01
- $C69B DEFB $02,$00,$02,$01,$00,$00,$00,$BE
- $C6A3 DEFB $01,$00,$02,$01,$00,$00,$01,$02
- $C6AB DEFB $02,$01,$05,$BF,$01,$06,$02,$01
- $C6B3 DEFB $00,$00,$02,$00,$00,$C1,$01,$06
- $C6BB DEFB $05,$01,$05,$06,$05,$C3,$01,$FE
- $C6C3 DEFB $42,$09,$0A,$0B,$0C,$C5,$01,$07
- $C6CB DEFB $08,$C6,$01,$07,$08,$C6,$01,$08
- $C6D3 DEFB $07,$C6,$01,$08,$07,$C6,$01,$07
- $C6DB DEFB $08,$C5,$01,$0D,$0E,$0F,$10,$FF
- $C6E3 DEFB $FB,$5C,$D3,$FE,$04,$00,$02,$01
- $C6EB DEFB $01,$00,$C3,$01,$02,$01,$02,$02
- $C6F3 DEFB $02,$C3,$01,$00,$02,$01,$02,$00
- $C6FB DEFB $C3,$01,$00,$01,$01,$02,$00,$FF
- $C703 DEFB $FB,$5C,$D3,$FE,$04,$01,$00,$02
- $C70B DEFB $01,$C4,$01,$02,$01,$00,$02,$C4
- $C713 DEFB $01,$01,$00,$01,$01,$C4,$01,$00
- $C71B DEFB $02,$02,$01,$FF,$FB,$34,$D3,$FE
- $C723 DEFB $43,$FD,$05,$00,$C3,$01,$FD,$05
- $C72B DEFB $02,$C3,$01,$FD,$05,$01,$FF,$FB
- $C733 DEFB $34,$D3,$FE,$43,$FD,$04,$00,$C4
- $C73B DEFB $01,$FD,$04,$02,$C4,$01,$FD,$04
- $C743 DEFB $01,$FF,$FB,$34,$D3,$FE,$45,$FD
- $C74B DEFB $05,$04,$C3,$01,$FD,$05,$03,$C3
- $C753 DEFB $01,$FD,$05,$03,$C3,$01,$FD,$05
- $C75B DEFB $03,$C3,$01,$FD,$05,$03,$FF,$FB
- $C763 DEFB $34,$D3,$FE,$45,$FD,$04,$04,$C4
- $C76B DEFB $01,$FD,$04,$03,$C4,$01,$FD,$04
- $C773 DEFB $03,$C4,$01,$FD,$04,$03,$C4,$01
- $C77B DEFB $FD,$04,$03,$FF,$FB,$14,$D5,$FE
- $C783 DEFB $72,$FD,$10,$00,$B8,$01,$FD,$10
- $C78B DEFB $00,$B8,$01,$FD,$10,$00,$B8,$01
- $C793 DEFB $FD,$10,$00,$FF,$FB,$DC,$D5,$FE
- $C79B DEFB $46,$F3,$84,$C7,$FB,$14,$D5,$FE
- $C7A3 DEFB $72,$FD,$08,$00,$C0,$01,$FD,$08
- $C7AB DEFB $00,$C0,$01,$FD,$08,$00,$C0,$01
- $C7B3 DEFB $FD,$08,$00,$FF,$FB,$14,$D5,$FE
- $C7BB DEFB $56,$F3,$84,$C7,$FB,$14,$D5,$FE
- $C7C3 DEFB $02,$FD,$10,$03,$B8,$01,$F2,$08
- $C7CB DEFB $01,$02,$B8,$01,$F2,$08,$01,$02
- $C7D3 DEFB $B8,$01,$F2,$08,$01,$02,$B8,$01
- $C7DB DEFB $F2,$08,$01,$02,$FF,$FB,$14,$D5
- $C7E3 DEFB $FE,$02,$FD,$08,$03,$C0,$01,$F2
- $C7EB DEFB $04,$01,$02,$C0,$01,$F2,$04,$01
- $C7F3 DEFB $02,$C0,$01,$F2,$04,$01,$02,$C0
- $C7FB DEFB $01,$F2,$04,$01,$02,$FF,$FB,$FC
- $C803 DEFB $D5,$FE,$47,$00,$FD,$04,$01,$C3
- $C80B DEFB $01,$F0,$04,$07,$10,$FD,$04,$11
- $C813 DEFB $C4,$FC,$FB,$DC,$DF,$FD,$04,$20
- $C81B DEFB $C4,$01,$FD,$04,$20,$C4,$01,$FD
- $C823 DEFB $04,$20,$C4,$01,$FD,$04,$20,$FF
- $C82B DEFB $FB,$FC,$D5,$FE,$47,$FD,$04,$01
- $C833 DEFB $F0,$01,$02,$F0,$04,$08,$C4,$00
- $C83B DEFB $FD,$04,$11,$12,$C3,$FC,$F3,$15
- $C843 DEFB $C8,$FB,$FC,$D5,$FE,$47,$00,$01
- $C84B DEFB $02,$C5,$01,$07,$06,$08,$C5,$01
- $C853 DEFB $03,$04,$05,$FF,$FB,$DC,$DF,$FE
- $C85B DEFB $46,$F0,$12,$20,$FF,$FB,$FC,$D5
- $C863 DEFB $FE,$47,$00,$01,$01,$02,$C4,$01
- $C86B DEFB $07,$06,$06,$08,$C4,$01,$03,$04
- $C873 DEFB $04,$05,$FF,$FB,$34,$D3,$FE,$45
- $C87B DEFB $03,$03,$03,$C5,$01,$03,$03,$03
- $C883 DEFB $C5,$01,$03,$03,$03,$FF,$FB,$FC
- $C88B DEFB $D5,$FE,$47,$00,$01,$01,$02,$C4
- $C893 DEFB $01,$07,$06,$06,$08,$C4,$01,$10
- $C89B DEFB $11,$11,$12,$FF,$FB,$14,$D5,$FE
- $C8A3 DEFB $47,$12,$13,$C6,$01,$16,$15,$C6
- $C8AB DEFB $01,$14,$15,$C6,$01,$17,$18,$FF
- $C8B3 DEFB $FB,$FC,$D5,$FE,$47,$0B,$0D,$C6
- $C8BB DEFB $01,$0E,$0F,$C6,$01,$0E,$0F,$FF
- $C8C3 DEFB $FB,$FC,$D5,$FE,$47,$0B,$0C,$0C
- $C8CB DEFB $0D,$C4,$01,$F0,$04,$0E,$CB,$FC
- $C8D3 DEFB $F0,$04,$0F,$C6,$FC,$FB,$DC,$DF
- $C8DB DEFB $F0,$04,$20,$C9,$FC,$F0,$04,$20
- $C8E3 DEFB $FF,$FB,$34,$D3,$FE,$45,$FD,$04
- $C8EB DEFB $03,$C4,$01,$FD,$04,$03,$C4,$01
- $C8F3 DEFB $03,$FB,$FC,$D5,$0A,$FB,$34,$D3
- $C8FB DEFB $03,$03,$C4,$01,$FD,$04,$03,$C4
- $C903 DEFB $01,$FD,$04,$03,$FF,$FB,$FC,$D5
- $C90B DEFB $FE,$47,$09,$F0,$04,$09,$C7,$FD
- $C913 DEFB $F0,$01,$0A,$F0,$02,$09,$FF,$FB
- $C91B DEFB $FC,$D5,$FE,$47,$00,$01,$01,$02
- $C923 DEFB $C4,$01,$F0,$04,$07,$CB,$FC,$F0
- $C92B DEFB $04,$08,$FF,$FB,$FC,$D5,$FE,$47
- $C933 DEFB $13,$FD,$12,$14,$F0,$01,$15,$F0
- $C93B DEFB $05,$17,$B5,$FB,$F0,$05,$16,$FF
- $C943 DEFB $FB,$FC,$D5,$FE,$47,$13,$14,$14
- $C94B DEFB $15,$C4,$01,$F0,$04,$16,$CB,$FC
- $C953 DEFB $F0,$04,$17,$FF,$FB,$EC,$DF,$FE
- $C95B DEFB $44,$FD,$1E,$09,$FF,$FB,$14,$D5
- $C963 DEFB $FE,$46,$F2,$02,$09,$0A,$C3,$01
- $C96B DEFB $F2,$02,$09,$0A,$C5,$01,$09,$0A
- $C973 DEFB $C5,$00,$FE,$44,$FB,$EC,$DF,$08
- $C97B DEFB $C8,$01,$08,$08,$C8,$FF,$08,$C8
- $C983 DEFB $FF,$08,$FF,$FB,$14,$D5,$FE,$46
- $C98B DEFB $F2,$04,$09,$0A,$C0,$01,$F2,$04
- $C993 DEFB $0A,$09,$C0,$01,$F2,$04,$09,$0A
- $C99B DEFB $C0,$01,$F2,$04,$0A,$09,$FF,$FB
- $C9A3 DEFB $14,$D5,$FE,$46,$F2,$08,$09,$0A
- $C9AB DEFB $B8,$01,$F2,$08,$0A,$09,$B8,$01
- $C9B3 DEFB $F2,$08,$09,$0A,$B8,$01,$F2,$08
- $C9BB DEFB $0A,$09,$FF,$FB,$14,$D5,$FE,$43
- $C9C3 DEFB $04,$05,$05,$05,$04,$05,$05,$05
- $C9CB DEFB $04,$05,$05,$05,$04,$05,$05,$05
- $C9D3 DEFB $FF,$FB,$14,$D5,$FE,$44,$FD,$10
- $C9DB DEFB $11,$FF,$FB,$14,$D5,$FE,$43,$F0
- $C9E3 DEFB $01,$06,$F0,$02,$07,$F0,$01,$08
- $C9EB DEFB $F0,$02,$07,$F0,$01,$08,$F0,$02
- $C9F3 DEFB $07,$F0,$01,$08,$F0,$02,$07,$08
- $C9FB DEFB $FF,$FB,$9C,$D4,$FE,$45,$0B,$FE
- $CA03 DEFB $46,$C6,$01,$08,$09,$0A,$C5,$01
- $CA0B DEFB $05,$06,$07,$FE,$45,$C6,$01,$04
- $CA13 DEFB $C6,$01,$01,$00,$02,$C6,$01,$F0
- $CA1B DEFB $08,$04,$03,$FF,$FB,$BC,$D6,$FE
- $CA23 DEFB $46,$0A,$0B,$F1,$0A,$0B,$C3,$01
- $CA2B DEFB $0C,$0D,$F1,$0C,$0D,$C3,$02,$0A
- $CA33 DEFB $0B,$F1,$0A,$0B,$C3,$01,$0C,$0D
- $CA3B DEFB $F1,$0C,$0D,$C2,$FE,$FE,$43,$00
- $CA43 DEFB $FD,$05,$01,$02,$C1,$01,$F0,$02
- $CA4B DEFB $08,$00,$FD,$05,$01,$02,$C7,$FE
- $CA53 DEFB $F0,$02,$09,$FF,$FB,$BC,$D6,$FE
- $CA5B DEFB $43,$00,$FD,$08,$01,$F0,$01,$02
- $CA63 DEFB $F0,$07,$09,$BF,$F9,$F0,$07,$08
- $CA6B DEFB $FE,$46,$C9,$F8,$F0,$01,$03,$F0
- $CA73 DEFB $05,$04,$CA,$FA,$F0,$01,$03,$F0
- $CA7B DEFB $05,$04,$CB,$FA,$F0,$01,$03,$F0
- $CA83 DEFB $05,$04,$CA,$FA,$F0,$01,$03,$F0
- $CA8B DEFB $05,$04,$C1,$00,$FE,$47,$05,$06
- $CA93 DEFB $07,$F1,$F1,$05,$06,$07,$FF,$FB
- $CA9B DEFB $9C,$D4,$FE,$46,$F0,$01,$0B,$F0
- $CAA3 DEFB $07,$04,$03,$C6,$FA,$FE,$44,$0C
- $CAAB DEFB $0D,$0E,$FF,$FB,$14,$D5,$FE,$42
- $CAB3 DEFB $F2,$08,$1B,$1C,$B8,$01,$F2,$08
- $CABB DEFB $1B,$1C,$B8,$01,$F2,$08,$1B,$1C
- $CAC3 DEFB $B8,$01,$F2,$08,$1B,$1C,$FF,$FB
- $CACB DEFB $9C,$DA,$FE,$43,$FD,$10,$10,$B8
- $CAD3 DEFB $01,$FB,$14,$D5,$FE,$45,$FD,$10
- $CADB DEFB $1A,$B8,$01,$FD,$10,$1A,$B8,$01
- $CAE3 DEFB $FD,$10,$1A,$B8,$01,$FD,$10,$1A
- $CAEB DEFB $FF,$FB,$BC,$D6,$FE,$43,$00,$FE
- $CAF3 DEFB $46,$FD,$0D,$01,$FE,$43,$F0,$01
- $CAFB DEFB $02,$F0,$0A,$09,$BA,$F6,$F0,$0A
- $CB03 DEFB $08,$FF,$FB,$04,$D2,$FE,$46,$07
- $CB0B DEFB $FD,$06,$01,$F0,$01,$02,$F0,$02
- $CB13 DEFB $03,$C1,$FE,$F0,$02,$04,$FF,$FB
- $CB1B DEFB $04,$D2,$FE,$43,$07,$FD,$06,$01
- $CB23 DEFB $F0,$01,$02,$F0,$02,$0E,$C1,$FE
- $CB2B DEFB $F0,$02,$0E,$FF,$FB,$BC,$D7,$FE
- $CB33 DEFB $42,$08,$09,$0A,$C5,$01,$00,$04
- $CB3B DEFB $01,$C5,$01,$07,$FE,$45,$0B,$FE
- $CB43 DEFB $42,$05,$C5,$01,$02,$06,$03,$C5
- $CB4B DEFB $01,$00,$04,$01,$C5,$01,$02,$06
- $CB53 DEFB $03,$FF,$FB,$BC,$D7,$FE,$42,$12
- $CB5B DEFB $13,$C6,$01,$10,$11,$C6,$01,$0E
- $CB63 DEFB $0F,$C6,$01,$FE,$45,$0C,$0D,$FF
- $CB6B DEFB $FB,$74,$D8,$FE,$42,$06,$FE,$56
- $CB73 DEFB $00,$01,$02,$FE,$42,$08,$C3,$01
- $CB7B DEFB $07,$FE,$56,$03,$04,$05,$FE,$42
- $CB83 DEFB $09,$FF,$FB,$E4,$D9,$FE,$42,$0B
- $CB8B DEFB $0B,$0B,$C5,$01,$0B,$F1,$0B,$C5
- $CB93 DEFB $01,$0B,$0B,$0B,$C6,$FF,$FE,$56
- $CB9B DEFB $FB,$74,$D8,$0A,$FF,$FB,$9C,$D4
- $CBA3 DEFB $FE,$47,$F0,$01,$0B,$F0,$0C,$04
- $CBAB DEFB $F0,$01,$03,$C6,$F3,$FB,$FC,$D5
- $CBB3 DEFB $FE,$46,$00,$01,$01,$01,$02,$C3
- $CBBB DEFB $04,$03,$04,$04,$04,$05,$C3,$FD
- $CBC3 DEFB $F0,$03,$07,$CC,$FD,$F0,$03,$08
- $CBCB DEFB $FB,$74,$D8,$FE,$7A,$C5,$FD,$0C
- $CBD3 DEFB $0D,$0E,$C5,$01,$0F,$10,$11,$C5
- $CBDB DEFB $01,$12,$13,$14,$FF,$FB,$BC,$D7
- $CBE3 DEFB $FE,$43,$14,$15,$C6,$01,$10,$11
- $CBEB DEFB $C6,$01,$0E,$0F,$FF,$FB,$1C,$D9
- $CBF3 DEFB $FE,$45,$00,$01,$02,$C5,$01,$03
- $CBFB DEFB $04,$05,$C5,$01,$06,$07,$08,$FF
- $CC03 DEFB $FB,$DC,$DF,$FE,$4F,$FD,$0F,$20
- $CC0B DEFB $B9,$02,$FD,$0F,$20,$B9,$FF,$FD
- $CC13 DEFB $0F,$20,$BC,$00,$FB,$1C,$D9,$0F
- $CC1B DEFB $10,$11,$12,$17,$18,$13,$14,$15
- $CC23 DEFB $16,$FF,$FB,$DC,$DF,$FE,$57,$FD
- $CC2B DEFB $10,$20,$BE,$00,$FB,$1C,$D9,$09
- $CC33 DEFB $0A,$0B,$0C,$0D,$0E,$FF,$FB,$9C
- $CC3B DEFB $DA,$FE,$45,$F0,$05,$15,$C9,$FB
- $CC43 DEFB $F0,$05,$16,$C9,$FB,$F0,$05,$17
- $CC4B DEFB $C9,$FB,$F0,$05,$15,$C9,$FB,$F0
- $CC53 DEFB $05,$16,$C9,$FB,$F0,$05,$17,$C9
- $CC5B DEFB $FB,$FF,$FB,$E4,$D9,$FE,$45,$0D
- $CC63 DEFB $0E,$0F,$C5,$01,$FE,$44,$F0,$01
- $CC6B DEFB $07,$FE,$47,$04,$0A,$05,$C5,$01
- $CC73 DEFB $02,$F1,$03,$C5,$01,$00,$09,$01
- $CC7B DEFB $C8,$FE,$FE,$45,$F0,$01,$06,$F0
- $CC83 DEFB $01,$07,$08,$C5,$FF,$FB,$DC,$DF
- $CC8B DEFB $50,$FF,$FB,$9C,$DA,$FE,$44,$F0
- $CC93 DEFB $01,$18,$14,$FF,$FB,$64,$DB,$FE
- $CC9B DEFB $46,$00,$01,$02,$C5,$01,$03,$04
- $CCA3 DEFB $05,$C5,$01,$06,$07,$08,$FF,$FB
- $CCAB DEFB $DC,$DF,$FE,$46,$20,$20,$FF,$FB
- $CCB3 DEFB $9C,$DA,$FE,$47,$0A,$0B,$0B,$0C
- $CCBB DEFB $C4,$01,$0D,$F1,$F1,$0E,$C4,$01
- $CCC3 DEFB $0D,$F1,$F1,$0E,$C4,$01,$0A,$0B
- $CCCB DEFB $0B,$0C,$C4,$01,$0D,$F1,$F1,$0E
- $CCD3 DEFB $C4,$01,$0F,$F1,$F1,$11,$FF,$FB
- $CCDB DEFB $9C,$DA,$FE,$44,$00,$01,$02,$C5
- $CCE3 DEFB $01,$03,$04,$05,$C5,$01,$03,$06
- $CCEB DEFB $05,$C5,$01,$07,$08,$09,$FF,$FB
- $CCF3 DEFB $9C,$DA,$FE,$44,$12,$0A,$0B,$0C
- $CCFB DEFB $C4,$01,$13,$0D,$F1,$0E,$C5,$01
- $CD03 DEFB $0D,$F1,$0E,$C5,$01,$0F,$10,$11
- $CD0B DEFB $FB,$DC,$DF,$C6,$FE,$F0,$02,$20
- $CD13 DEFB $FF,$FB,$DC,$DF,$FE,$72,$FD,$05
- $CD1B DEFB $20,$C3,$01,$FD,$05,$20,$C3,$01
- $CD23 DEFB $FD,$05,$20,$C4,$FF,$FB,$DC,$DE
- $CD2B DEFB $0B,$0C,$0C,$FF,$FB,$CC,$DF,$FE
- $CD33 DEFB $46,$FD,$06,$01,$C1,$01,$03,$C8
- $CD3B DEFB $01,$FD,$06,$00,$C8,$FF,$02,$FF
- $CD43 DEFB $FB,$E4,$D9,$FE,$43,$04,$FD,$1E
- $CD4B DEFB $0A,$05,$A8,$01,$02,$FD,$1E,$0B
- $CD53 DEFB $03,$A8,$01,$00,$FD,$1E,$09,$01
- $CD5B DEFB $A8,$01,$FE,$06,$F2,$10,$16,$15
- $CD63 DEFB $A8,$01,$F2,$10,$15,$16,$A8,$01
- $CD6B DEFB $F2,$10,$16,$15,$A8,$01,$F2,$10
- $CD73 DEFB $15,$16,$A8,$01,$FE,$42,$FB,$6C
- $CD7B DEFB $E0,$FD,$20,$0C,$C3,$00,$FE,$46
- $CD83 DEFB $F0,$01,$02,$F0,$04,$04,$BC,$FB
- $CD8B DEFB $F0,$01,$02,$F0,$04,$04,$BC,$FB
- $CD93 DEFB $F0,$01,$02,$F0,$04,$04,$FE,$5F
- $CD9B DEFB $CA,$F5,$FB,$DC,$DF,$4D,$49,$4B
- $CDA3 DEFB $52,$4F,$2D,$47,$45,$4E,$CC,$00
- $CDAB DEFB $4D,$49,$4B,$52,$4F,$2D,$47,$45
- $CDB3 DEFB $4E,$FF
+; Table: Graphic Data
+@label=Table_GraphicData
+b$BD86 DEFW $C352    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD88 DEFW $C37C    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD8A DEFW $C3DB    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD8C DEFW $C56B    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD8E DEFW $C580    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD90 DEFW $C5C0    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD92 DEFW $C651    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD94 DEFW $C6E3    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD96 DEFW $C703    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD98 DEFW $C71F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD9A DEFW $C732    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD9C DEFW $C745    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BD9E DEFW $C77F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDA0 DEFW $C7BF    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDA2 DEFW $C844    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDA4 DEFW $C9BE    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDA6 DEFW $C9DD    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDA8 DEFW $C9FC    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDAA DEFW $CA57    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDAC DEFW $C860    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDAE DEFW $C908    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDB0 DEFW $C986    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDB2 DEFW $C9A2    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDB4 DEFW $CA9A    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDB6 DEFW $CAAE    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDB8 DEFW $C876    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDBA DEFW $C8E4    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDBC DEFW $C9D4    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDBE DEFW $C7B7    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDC0 DEFW $C8B3    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDC2 DEFW $C8C3    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDC4 DEFW $C23C    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDC6 DEFW $C35D    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDC8 DEFW $C369    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDCA DEFW $C91A    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDCC DEFW $C762    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDCE DEFW $C943    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDD0 DEFW $C801    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDD2 DEFW $C82B    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDD4 DEFW $C889    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDD6 DEFW $C89F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDD8 DEFW $C79F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDDA DEFW $C7E0    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDDC DEFW $CB05    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDDE DEFW $C797    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDE0 DEFW $C254    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDE2 DEFW $C20A    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDE4 DEFW $C220    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDE6 DEFW $CB2F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDE8 DEFW $CB55    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDEA DEFW $CB6B    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDEC DEFW $CBA0    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDEE DEFW $CBE0    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDF0 DEFW $CBF0    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDF2 DEFW $CC03    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDF4 DEFW $CC25    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDF6 DEFW $CCDA    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDF8 DEFW $CCF2    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDFA DEFW $C857    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDFC DEFW $C27C    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BDFE DEFW $C92E    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE00 DEFW $CC39    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE02 DEFW $CC97    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE04 DEFW $CB1A    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE06 DEFW $CCAA    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE08 DEFW $CC8D    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE0A DEFW $CC5D    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE0C DEFW $C5DA    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE0E DEFW $C5F9    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE10 DEFW $C610    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE12 DEFW $C61A    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE14 DEFW $C625    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE16 DEFW $C635    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE18 DEFW $C291    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE1A DEFW $C29A    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE1C DEFW $CACA    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE1E DEFW $CCB2    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE20 DEFW $C19D    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE22 DEFW $CA1F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE24 DEFW $BFE2    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE26 DEFW $C0F1    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE28 DEFW $BFA4    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE2A DEFW $BFB2    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE2C DEFW $BFDA    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE2E DEFW $BFFE    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE30 DEFW $BF27    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE32 DEFW $C132    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE34 DEFW $BE8F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE36 DEFW $BEDA    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE38 DEFW $BF03    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE3A DEFW $BF19    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE3C DEFW $C026    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE3E DEFW $C03C    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE40 DEFW $C045    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE42 DEFW $C050    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE44 DEFW $C05A    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE46 DEFW $C082    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE48 DEFW $C0A0    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE4A DEFW $C0AA    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE4C DEFW $C0B8    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE4E DEFW $C0D4    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE50 DEFW $CAEC    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE52 DEFW $C0DC    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE54 DEFW $CD14    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE56 DEFW $C4CD    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE58 DEFW $C437    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE5A DEFW $C2A8    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE5C DEFW $C312    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE5E DEFW $C577    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE60 DEFW $C960    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE62 DEFW $BF81    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE64 DEFW $C957    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE66 DEFW $BE72    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE68 DEFW $C334    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE6A DEFW $C347    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE6C DEFW $CB85    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE6E DEFW $CD2F    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+ $BE70 DEFW $CD43    ; Sprite ID:
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
 
-; Data block at CDB5
-b$CDB5 DEFW $CDF7
- $CDB7 DEFW $CE01
- $CDB9 DEFW $CE25
- $CDBB DEFW $CE37
- $CDBD DEFW $CE69
- $CDBF DEFW $CE7B
- $CDC1 DEFW $CE89
- $CDC3 DEFW $CEAD
- $CDC5 DEFW $CEC9
- $CDC7 DEFW $CEE1
- $CDC9 DEFW $CEF9
- $CDCB DEFW $CF09
- $CDCD DEFW $CF29
- $CDCF DEFW $CF49
- $CDD1 DEFW $CF71
- $CDD3 DEFW $CF97
- $CDD5 DEFW $CFB5
- $CDD7 DEFW $CFD9
- $CDD9 DEFW $CFEF
- $CDDB DEFW $D009
- $CDDD DEFW $D039
- $CDDF DEFW $D057
- $CDE1 DEFW $D08B
- $CDE3 DEFW $D0AF
- $CDE5 DEFW $D0C3
- $CDE7 DEFW $D0E7
- $CDE9 DEFW $D109
- $CDEB DEFW $D125
- $CDED DEFW $D135
- $CDEF DEFW $D153
- $CDF1 DEFW $D16D
- $CDF3 DEFW $D17D
- $CDF5 DEFW $D191
- $CDF7 DEFB $80,$07,$86,$B0,$84,$4B,$85,$AF
- $CDFF DEFB $7F,$00
- $CE01 DEFB $80,$07,$08,$E7,$30,$DE,$8A,$87
+; Graphic ID
+@label=graphic_0
+b$BE72 DEFB $FB,$EC,$DF                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BE75 DEFB $FE,$46                         ; Attribute=#COLOUR(#PC+$01)
+ $BE77 DEFB $09
+ $BE78 DEFB $09
+ $BE79 DEFB $F1
+ $BE7A DEFB $F1
+ $BE7B DEFB $0E
+ $BE7C DEFB $C5
+ $BE7D DEFB $FF,$FE,$42,$0C,$0D,$C6,$01,$0A ; {Terminator.
+ $BE85 DEFB $0B,$C8,$01,$FE,$46,$FB,$6C,$E0 ;
+ $BE8D DEFB $04,$FF                         ; }
+
+; Graphic ID
+@label=graphic_1
+b$BE8F DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BE92 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $BE94 DEFB $07
+ $BE95 DEFB $FD
+ $BE96 DEFB $17
+ $BE97 DEFB $01
+ $BE98 DEFB $F0
+ $BE99 DEFB $01
+ $BE9A DEFB $02
+ $BE9B DEFB $03
+ $BE9C DEFB $AF
+ $BE9D DEFB $00
+ $BE9E DEFB $04
+ $BE9F DEFB $FB,$E4,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BEA2 DEFB $02
+ $BEA3 DEFB $0B
+ $BEA4 DEFB $03
+ $BEA5 DEFB $02
+ $BEA6 DEFB $0B
+ $BEA7 DEFB $0B
+ $BEA8 DEFB $0B
+ $BEA9 DEFB $03
+ $BEAA DEFB $02
+ $BEAB DEFB $0B
+ $BEAC DEFB $0B
+ $BEAD DEFB $0B
+ $BEAE DEFB $03
+ $BEAF DEFB $02
+ $BEB0 DEFB $0B
+ $BEB1 DEFB $0B
+ $BEB2 DEFB $0B
+ $BEB3 DEFB $03
+ $BEB4 DEFB $02
+ $BEB5 DEFB $0B
+ $BEB6 DEFB $0B
+ $BEB7 DEFB $0B
+ $BEB8 DEFB $03
+ $BEB9 DEFB $B0
+ $BEBA DEFB $01
+ $BEBB DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BEBE DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $BEC0 DEFB $00
+ $BEC1 DEFB $01
+ $BEC2 DEFB $01
+ $BEC3 DEFB $00
+ $BEC4 DEFB $01
+ $BEC5 DEFB $01
+ $BEC6 DEFB $00
+ $BEC7 DEFB $01
+ $BEC8 DEFB $01
+ $BEC9 DEFB $00
+ $BECA DEFB $01
+ $BECB DEFB $01
+ $BECC DEFB $00
+ $BECD DEFB $01
+ $BECE DEFB $01
+ $BECF DEFB $00
+ $BED0 DEFB $01
+ $BED1 DEFB $01
+ $BED2 DEFB $00
+ $BED3 DEFB $01
+ $BED4 DEFB $01
+ $BED5 DEFB $00
+ $BED6 DEFB $01
+ $BED7 DEFB $01
+ $BED8 DEFB $02
+ $BED9 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_2
+b$BEDA DEFB $FB,$D4,$DD                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BEDD DEFB $FE,$43                         ; Attribute=#COLOUR(#PC+$01)
+ $BEDF DEFB $F0
+ $BEE0 DEFB $01
+ $BEE1 DEFB $00
+ $BEE2 DEFB $01
+ $BEE3 DEFB $C8
+ $BEE4 DEFB $FF,$FE,$45,$F0,$01,$00,$01,$C8 ; {Terminator.
+ $BEEC DEFB $FF,$FE,$42,$F0,$01,$00,$01,$C8 ;
+ $BEF4 DEFB $FF,$FE,$46,$F0,$01,$00,$01,$C4 ;
+ $BEFC DEFB $01,$FE,$47,$FD,$04,$02,$FF     ; }
+
+; Graphic ID
+@label=graphic_3
+b$BF03 DEFB $FB,$D4,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BF06 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $BF08 DEFB $FD
+ $BF09 DEFB $06
+ $BF0A DEFB $03
+ $BF0B DEFB $C2
+ $BF0C DEFB $01
+ $BF0D DEFB $FB,$BC,$D1 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BF10 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $BF12 DEFB $00
+ $BF13 DEFB $01
+ $BF14 DEFB $02
+ $BF15 DEFB $02
+ $BF16 DEFB $00
+ $BF17 DEFB $01
+ $BF18 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_4
+b$BF19 DEFB $FB,$D4,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BF1C DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $BF1E DEFB $06
+ $BF1F DEFB $07
+ $BF20 DEFB $C6
+ $BF21 DEFB $01
+ $BF22 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $BF24 DEFB $04
+ $BF25 DEFB $05
+ $BF26 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_5
+b$BF27 DEFB $FB,$54,$DD                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BF2A DEFB $FE,$45                         ; Attribute=#COLOUR(#PC+$01)
+ $BF2C DEFB $F0
+ $BF2D DEFB $03
+ $BF2E DEFB $0A
+ $BF2F DEFB $CA
+ $BF30 DEFB $FD
+ $BF31 DEFB $F0
+ $BF32 DEFB $03
+ $BF33 DEFB $0A
+ $BF34 DEFB $C9
+ $BF35 DEFB $FF,$09,$FE,$42,$C3,$01,$06,$06 ; {Terminator.
+ $BF3D DEFB $02,$06,$06,$02,$06,$08,$C0,$01 ;
+ $BF45 DEFB $07,$07,$0B,$07,$07,$0B,$07,$CD ;
+ $BF4D DEFB $00,$03,$04,$05,$B9,$01,$FE,$47 ;
+ $BF55 DEFB $00,$00,$0C,$0D,$00,$00,$0C,$0D ;
+ $BF5D DEFB $00,$00,$0C,$0D,$00,$01,$BA,$01 ;
+ $BF65 DEFB $00,$00,$0F,$0E,$00,$00,$0F,$0E ;
+ $BF6D DEFB $00,$00,$0F,$0E,$01,$BD,$01,$FE ;
+ $BF75 DEFB $42,$FD,$09,$00,$01,$BE,$01,$FD ;
+ $BF7D DEFB $08,$00,$01,$FF                 ; }
+
+; Graphic ID
+@label=graphic_6
+b$BF81 DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BF84 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $BF86 DEFB $F0
+ $BF87 DEFB $01
+ $BF88 DEFB $06
+ $BF89 DEFB $06
+ $BF8A DEFB $01
+ $BF8B DEFB $C6
+ $BF8C DEFB $01
+ $BF8D DEFB $05
+ $BF8E DEFB $01
+ $BF8F DEFB $C6
+ $BF90 DEFB $01
+ $BF91 DEFB $04
+ $BF92 DEFB $01
+ $BF93 DEFB $C5
+ $BF94 DEFB $01
+ $BF95 DEFB $07
+ $BF96 DEFB $F1
+ $BF97 DEFB $03
+ $BF98 DEFB $C5
+ $BF99 DEFB $01
+ $BF9A DEFB $06
+ $BF9B DEFB $FB,$E4,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BF9E DEFB $0B
+ $BF9F DEFB $0B
+ $BFA0 DEFB $C6
+ $BFA1 DEFB $FF,$0B,$FF ; Terminator.
+
+; Graphic ID
+@label=graphic_7
+b$BFA4 DEFB $FB,$EC,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BFA7 DEFB $C8
+ $BFA8 DEFB $03
+ $BFA9 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $BFAB DEFB $00
+ $BFAC DEFB $01
+ $BFAD DEFB $C6
+ $BFAE DEFB $01
+ $BFAF DEFB $02
+ $BFB0 DEFB $03
+ $BFB1 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_8
+b$BFB2 DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BFB5 DEFB $FE,$28     ; Attribute=#COLOUR(#PC+$01)
+ $BFB7 DEFB $00
+ $BFB8 DEFB $08
+ $BFB9 DEFB $C6
+ $BFBA DEFB $01
+ $BFBB DEFB $00
+ $BFBC DEFB $08
+ $BFBD DEFB $C6
+ $BFBE DEFB $01
+ $BFBF DEFB $01
+ $BFC0 DEFB $08
+ $BFC1 DEFB $C6
+ $BFC2 DEFB $01
+ $BFC3 DEFB $01
+ $BFC4 DEFB $07
+ $BFC5 DEFB $C6
+ $BFC6 DEFB $01
+ $BFC7 DEFB $01
+ $BFC8 DEFB $07
+ $BFC9 DEFB $C6
+ $BFCA DEFB $01
+ $BFCB DEFB $02
+ $BFCC DEFB $06
+ $BFCD DEFB $C6
+ $BFCE DEFB $01
+ $BFCF DEFB $02
+ $BFD0 DEFB $06
+ $BFD1 DEFB $C6
+ $BFD2 DEFB $01
+ $BFD3 DEFB $02
+ $BFD4 DEFB $05
+ $BFD5 DEFB $C6
+ $BFD6 DEFB $01
+ $BFD7 DEFB $03
+ $BFD8 DEFB $04
+ $BFD9 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_9
+b$BFDA DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BFDD DEFB $FE,$50     ; Attribute=#COLOUR(#PC+$01)
+ $BFDF DEFB $F3
+ $BFE0 DEFB $C7
+ $BFE1 DEFB $BF
+
+; Graphic ID
+@label=graphic_10
+b$BFE2 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $BFE5 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $BFE7 DEFB $0F
+ $BFE8 DEFB $11
+ $BFE9 DEFB $12
+ $BFEA DEFB $15
+ $BFEB DEFB $C4
+ $BFEC DEFB $01
+ $BFED DEFB $10
+ $BFEE DEFB $13
+ $BFEF DEFB $14
+ $BFF0 DEFB $16
+ $BFF1 DEFB $C5
+ $BFF2 DEFB $01
+ $BFF3 DEFB $17
+ $BFF4 DEFB $18
+ $BFF5 DEFB $C5
+ $BFF6 DEFB $01
+ $BFF7 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $BFF9 DEFB $02
+ $BFFA DEFB $01
+ $BFFB DEFB $01
+ $BFFC DEFB $02
+ $BFFD DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_11
+b$BFFE DEFB $FB,$E4,$D9                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C001 DEFB $FE,$79                         ; Attribute=#COLOUR(#PC+$01)
+ $C003 DEFB $FD
+ $C004 DEFB $10
+ $C005 DEFB $09
+ $C006 DEFB $B8
+ $C007 DEFB $02
+ $C008 DEFB $FD
+ $C009 DEFB $10
+ $C00A DEFB $0A
+ $C00B DEFB $B8
+ $C00C DEFB $FF,$FE,$72,$FB,$DC,$DF,$FD,$04 ; {Terminator.
+ $C014 DEFB $20,$FB,$E4,$D9,$10,$11,$11,$12 ;
+ $C01C DEFB $13,$11,$11,$FB,$DC,$DF,$FD,$05 ;
+ $C024 DEFB $20,$FF                         ; }
+
+; Graphic ID
+@label=graphic_12
+b$C026 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C029 DEFB $FE,$4E     ; Attribute=#COLOUR(#PC+$01)
+ $C02B DEFB $FD
+ $C02C DEFB $18
+ $C02D DEFB $20
+ $C02E DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C031 DEFB $B8
+ $C032 DEFB $00
+ $C033 DEFB $08
+ $C034 DEFB $09
+ $C035 DEFB $0A
+ $C036 DEFB $0B
+ $C037 DEFB $0C
+ $C038 DEFB $0D
+ $C039 DEFB $0E
+ $C03A DEFB $0F
+ $C03B DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_13
+b$C03C DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C03F DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C041 DEFB $00
+ $C042 DEFB $01
+ $C043 DEFB $02
+ $C044 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_14
+b$C045 DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C048 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C04A DEFB $03
+ $C04B DEFB $04
+ $C04C DEFB $05
+ $C04D DEFB $06
+ $C04E DEFB $07
+ $C04F DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_15
+b$C050 DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C053 DEFB $FE,$60     ; Attribute=#COLOUR(#PC+$01)
+ $C055 DEFB $10
+ $C056 DEFB $11
+ $C057 DEFB $12
+ $C058 DEFB $13
+ $C059 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_16
+b$C05A DEFB $FB,$14,$DE                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C05D DEFB $FE,$4F                         ; Attribute=#COLOUR(#PC+$01)
+ $C05F DEFB $14
+ $C060 DEFB $15
+ $C061 DEFB $16
+ $C062 DEFB $17
+ $C063 DEFB $18
+ $C064 DEFB $FB,$DC,$DE                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C067 DEFB $00
+ $C068 DEFB $01
+ $C069 DEFB $02
+ $C06A DEFB $03
+ $C06B DEFB $04
+ $C06C DEFB $05
+ $C06D DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C070 DEFB $20
+ $C071 DEFB $20
+ $C072 DEFB $20
+ $C073 DEFB $B8
+ $C074 DEFB $00
+ $C075 DEFB $20
+ $C076 DEFB $20
+ $C077 DEFB $C6
+ $C078 DEFB $FF,$FD,$10,$20,$B8,$02,$FD,$10 ; {Terminator.
+ $C080 DEFB $20,$FF                         ; }
+
+; Graphic ID
+@label=graphic_17
+b$C082 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C085 DEFB $FE,$57                         ; Attribute=#COLOUR(#PC+$01)
+ $C087 DEFB $FD
+ $C088 DEFB $07
+ $C089 DEFB $20
+ $C08A DEFB $C1
+ $C08B DEFB $01
+ $C08C DEFB $20
+ $C08D DEFB $CD
+ $C08E DEFB $00
+ $C08F DEFB $20
+ $C090 DEFB $C1
+ $C091 DEFB $01
+ $C092 DEFB $FD
+ $C093 DEFB $07
+ $C094 DEFB $20
+ $C095 DEFB $C2
+ $C096 DEFB $FF,$FB,$DC,$DE,$06,$07,$08,$09 ; {Terminator.
+ $C09E DEFB $0A,$FF                         ; }
+
+; Graphic ID
+@label=graphic_18
+b$C0A0 DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C0A3 DEFB $C8
+ $C0A4 DEFB $03
+ $C0A5 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C0A7 DEFB $10
+ $C0A8 DEFB $11
+ $C0A9 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_19
+b$C0AA DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C0AD DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C0AF DEFB $06
+ $C0B0 DEFB $08
+ $C0B1 DEFB $C6
+ $C0B2 DEFB $01
+ $C0B3 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C0B5 DEFB $0E
+ $C0B6 DEFB $0F
+ $C0B7 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_20
+b$C0B8 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C0BB DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C0BD DEFB $F2
+ $C0BE DEFB $08
+ $C0BF DEFB $07
+ $C0C0 DEFB $08
+ $C0C1 DEFB $B8
+ $C0C2 DEFB $01
+ $C0C3 DEFB $F2
+ $C0C4 DEFB $08
+ $C0C5 DEFB $08
+ $C0C6 DEFB $07
+ $C0C7 DEFB $B8
+ $C0C8 DEFB $01
+ $C0C9 DEFB $F2
+ $C0CA DEFB $08
+ $C0CB DEFB $07
+ $C0CC DEFB $08
+ $C0CD DEFB $B8
+ $C0CE DEFB $01
+ $C0CF DEFB $F2
+ $C0D0 DEFB $08
+ $C0D1 DEFB $08
+ $C0D2 DEFB $07
+ $C0D3 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_21
+b$C0D4 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C0D7 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C0D9 DEFB $F3
+ $C0DA DEFB $D9
+ $C0DB DEFB $CA
+
+; Graphic ID
+@label=graphic_22
+b$C0DC DEFB $FB,$AC,$DF                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C0DF DEFB $C8
+ $C0E0 DEFB $03
+ $C0E1 DEFB $FE,$42                         ; Attribute=#COLOUR(#PC+$01)
+ $C0E3 DEFB $01
+ $C0E4 DEFB $03
+ $C0E5 DEFB $01
+ $C0E6 DEFB $02
+ $C0E7 DEFB $02
+ $C0E8 DEFB $C4
+ $C0E9 DEFB $FF,$00,$03,$01,$C6,$FF,$02,$FF ; Terminator.
+
+; Graphic ID
+@label=graphic_23
+b$C0F1 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C0F4 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C0F6 DEFB $F0
+ $C0F7 DEFB $09
+ $C0F8 DEFB $0A
+ $C0F9 DEFB $C8
+ $C0FA DEFB $FC
+ $C0FB DEFB $0B
+ $C0FC DEFB $C7
+ $C0FD DEFB $02
+ $C0FE DEFB $0B
+ $C0FF DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C101 DEFB $C2
+ $C102 DEFB $FC
+ $C103 DEFB $05
+ $C104 DEFB $C5
+ $C105 DEFB $01
+ $C106 DEFB $09
+ $C107 DEFB $06
+ $C108 DEFB $04
+ $C109 DEFB $C5
+ $C10A DEFB $01
+ $C10B DEFB $08
+ $C10C DEFB $07
+ $C10D DEFB $F1
+ $C10E DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C110 DEFB $00
+ $C111 DEFB $0D
+ $C112 DEFB $0E
+ $C113 DEFB $0C
+ $C114 DEFB $C1
+ $C115 DEFB $01
+ $C116 DEFB $03
+ $C117 DEFB $03
+ $C118 DEFB $03
+ $C119 DEFB $00
+ $C11A DEFB $F1
+ $C11B DEFB $F1
+ $C11C DEFB $0C
+ $C11D DEFB $C1
+ $C11E DEFB $01
+ $C11F DEFB $03
+ $C120 DEFB $03
+ $C121 DEFB $0D
+ $C122 DEFB $0E
+ $C123 DEFB $F1
+ $C124 DEFB $F1
+ $C125 DEFB $0C
+ $C126 DEFB $C1
+ $C127 DEFB $01
+ $C128 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C12A DEFB $01
+ $C12B DEFB $02
+ $C12C DEFB $01
+ $C12D DEFB $01
+ $C12E DEFB $01
+ $C12F DEFB $02
+ $C130 DEFB $01
+ $C131 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_24
+b$C132 DEFB $FB,$AC,$DB                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C135 DEFB $FE,$45                         ; Attribute=#COLOUR(#PC+$01)
+ $C137 DEFB $00
+ $C138 DEFB $0C
+ $C139 DEFB $C6
+ $C13A DEFB $01
+ $C13B DEFB $0D
+ $C13C DEFB $0E
+ $C13D DEFB $C5
+ $C13E DEFB $05
+ $C13F DEFB $08
+ $C140 DEFB $09
+ $C141 DEFB $04
+ $C142 DEFB $05
+ $C143 DEFB $C4
+ $C144 DEFB $01
+ $C145 DEFB $0A
+ $C146 DEFB $0B
+ $C147 DEFB $02
+ $C148 DEFB $03
+ $C149 DEFB $C5
+ $C14A DEFB $01
+ $C14B DEFB $F0
+ $C14C DEFB $09
+ $C14D DEFB $0D
+ $C14E DEFB $C7
+ $C14F DEFB $FF,$06,$F1,$F1,$07,$C6,$F8,$F0 ; {Terminator.
+ $C157 DEFB $09,$0E,$BF,$F2,$00,$FD,$06,$01 ;
+ $C15F DEFB $C0,$01,$00,$FD,$07,$01,$CC,$FF ;
+ $C167 DEFB $01,$01,$01,$0C,$C4,$01,$FD,$04 ;
+ $C16F DEFB $01,$0C,$BF,$FE,$FE,$43,$FB,$14 ;
+ $C177 DEFB $D5,$12,$13,$C6,$01,$17,$18,$C8 ;
+ $C17F DEFB $FF,$FE,$46,$1A,$1A,$C6,$01,$1A ;
+ $C187 DEFB $1A,$C4,$01,$FD,$04,$1A,$C4,$01 ;
+ $C18F DEFB $FD,$04,$1A,$BE,$00,$FB,$E4,$D9 ;
+ $C197 DEFB $FE,$43,$F0,$07,$14,$FF         ; }
+
+; Graphic ID
+@label=graphic_25
+b$C19D DEFB $FB,$AC,$DB                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C1A0 DEFB $FE,$07                         ; Attribute=#COLOUR(#PC+$01)
+ $C1A2 DEFB $00
+ $C1A3 DEFB $0C
+ $C1A4 DEFB $C6
+ $C1A5 DEFB $01
+ $C1A6 DEFB $0D
+ $C1A7 DEFB $0E
+ $C1A8 DEFB $C6
+ $C1A9 DEFB $01
+ $C1AA DEFB $0D
+ $C1AB DEFB $0E
+ $C1AC DEFB $C5
+ $C1AD DEFB $03
+ $C1AE DEFB $06
+ $C1AF DEFB $0D
+ $C1B0 DEFB $0E
+ $C1B1 DEFB $07
+ $C1B2 DEFB $C4
+ $C1B3 DEFB $01
+ $C1B4 DEFB $04
+ $C1B5 DEFB $05
+ $C1B6 DEFB $08
+ $C1B7 DEFB $09
+ $C1B8 DEFB $C4
+ $C1B9 DEFB $01
+ $C1BA DEFB $02
+ $C1BB DEFB $03
+ $C1BC DEFB $0A
+ $C1BD DEFB $0B
+ $C1BE DEFB $C3
+ $C1BF DEFB $01
+ $C1C0 DEFB $06
+ $C1C1 DEFB $CC
+ $C1C2 DEFB $00
+ $C1C3 DEFB $07
+ $C1C4 DEFB $C2
+ $C1C5 DEFB $01
+ $C1C6 DEFB $04
+ $C1C7 DEFB $05
+ $C1C8 DEFB $F1
+ $C1C9 DEFB $F1
+ $C1CA DEFB $08
+ $C1CB DEFB $09
+ $C1CC DEFB $C2
+ $C1CD DEFB $01
+ $C1CE DEFB $02
+ $C1CF DEFB $03
+ $C1D0 DEFB $F1
+ $C1D1 DEFB $F1
+ $C1D2 DEFB $0A
+ $C1D3 DEFB $0B
+ $C1D4 DEFB $C1
+ $C1D5 DEFB $01
+ $C1D6 DEFB $06
+ $C1D7 DEFB $CE
+ $C1D8 DEFB $00
+ $C1D9 DEFB $07
+ $C1DA DEFB $C0
+ $C1DB DEFB $01
+ $C1DC DEFB $04
+ $C1DD DEFB $05
+ $C1DE DEFB $CC
+ $C1DF DEFB $00
+ $C1E0 DEFB $08
+ $C1E1 DEFB $09
+ $C1E2 DEFB $C0
+ $C1E3 DEFB $01
+ $C1E4 DEFB $02
+ $C1E5 DEFB $03
+ $C1E6 DEFB $CC
+ $C1E7 DEFB $00
+ $C1E8 DEFB $0A
+ $C1E9 DEFB $0B
+ $C1EA DEFB $BF
+ $C1EB DEFB $01
+ $C1EC DEFB $06
+ $C1ED DEFB $D0
+ $C1EE DEFB $00
+ $C1EF DEFB $07
+ $C1F0 DEFB $BE
+ $C1F1 DEFB $01
+ $C1F2 DEFB $04
+ $C1F3 DEFB $05
+ $C1F4 DEFB $CE
+ $C1F5 DEFB $00
+ $C1F6 DEFB $08
+ $C1F7 DEFB $09
+ $C1F8 DEFB $BF
+ $C1F9 DEFB $FF,$FE,$46,$FD,$08,$01,$C1,$FD ; {Terminator.
+ $C201 DEFB $FD,$06,$01,$C3,$FD,$FD,$04,$01 ;
+ $C209 DEFB $FF                             ; }
+
+; Graphic ID
+@label=graphic_26
+b$C20A DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C20D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C20F DEFB $F0
+ $C210 DEFB $01
+ $C211 DEFB $00
+ $C212 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C214 DEFB $F0
+ $C215 DEFB $01
+ $C216 DEFB $01
+ $C217 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C219 DEFB $02
+ $C21A DEFB $C6
+ $C21B DEFB $01
+ $C21C DEFB $03
+ $C21D DEFB $04
+ $C21E DEFB $05
+ $C21F DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_27
+b$C220 DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C223 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C225 DEFB $0D
+ $C226 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C228 DEFB $C6
+ $C229 DEFB $01
+ $C22A DEFB $0B
+ $C22B DEFB $07
+ $C22C DEFB $0C
+ $C22D DEFB $C5
+ $C22E DEFB $01
+ $C22F DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C231 DEFB $09
+ $C232 DEFB $F1
+ $C233 DEFB $0A
+ $C234 DEFB $C5
+ $C235 DEFB $01
+ $C236 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C238 DEFB $06
+ $C239 DEFB $07
+ $C23A DEFB $08
+ $C23B DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_28
+b$C23C DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C23F DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C241 DEFB $0D
+ $C242 DEFB $F0
+ $C243 DEFB $01
+ $C244 DEFB $0E
+ $C245 DEFB $FE,$07     ; Attribute=#COLOUR(#PC+$01)
+ $C247 DEFB $F0
+ $C248 DEFB $0A
+ $C249 DEFB $10
+ $C24A DEFB $C7
+ $C24B DEFB $F6
+ $C24C DEFB $F0
+ $C24D DEFB $0A
+ $C24E DEFB $0F
+ $C24F DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C251 DEFB $0B
+ $C252 DEFB $0C
+ $C253 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_29
+b$C254 DEFB $FB,$BC,$D1 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C257 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C259 DEFB $03
+ $C25A DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C25C DEFB $04
+ $C25D DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C25F DEFB $05
+ $C260 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C262 DEFB $03
+ $C263 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C265 DEFB $04
+ $C266 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C268 DEFB $05
+ $C269 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C26B DEFB $05
+ $C26C DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C26E DEFB $03
+ $C26F DEFB $C0
+ $C270 DEFB $01
+ $C271 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C273 DEFB $00
+ $C274 DEFB $01
+ $C275 DEFB $02
+ $C276 DEFB $00
+ $C277 DEFB $01
+ $C278 DEFB $02
+ $C279 DEFB $00
+ $C27A DEFB $01
+ $C27B DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_30
+b$C27C DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C27F DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C281 DEFB $09
+ $C282 DEFB $0A
+ $C283 DEFB $C6
+ $C284 DEFB $01
+ $C285 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C288 DEFB $FE,$72     ; Attribute=#COLOUR(#PC+$01)
+ $C28A DEFB $00
+ $C28B DEFB $00
+ $C28C DEFB $C6
+ $C28D DEFB $01
+ $C28E DEFB $00
+ $C28F DEFB $00
+ $C290 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_31
+b$C291 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C294 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C296 DEFB $FD
+ $C297 DEFB $20
+ $C298 DEFB $07
+ $C299 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_32
+b$C29A DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C29D DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C29F DEFB $11
+ $C2A0 DEFB $12
+ $C2A1 DEFB $13
+ $C2A2 DEFB $C5
+ $C2A3 DEFB $01
+ $C2A4 DEFB $14
+ $C2A5 DEFB $15
+ $C2A6 DEFB $16
+ $C2A7 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_33
+b$C2A8 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C2AB DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C2AD DEFB $13
+ $C2AE DEFB $FD
+ $C2AF DEFB $16
+ $C2B0 DEFB $14
+ $C2B1 DEFB $F0
+ $C2B2 DEFB $01
+ $C2B3 DEFB $15
+ $C2B4 DEFB $F0
+ $C2B5 DEFB $05
+ $C2B6 DEFB $17
+ $C2B7 DEFB $B1
+ $C2B8 DEFB $FB,$F0,$05 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C2BB DEFB $16
+ $C2BC DEFB $C9
+ $C2BD DEFB $FB,$FE,$46 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C2C0 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C2C3 DEFB $F2
+ $C2C4 DEFB $0B
+ $C2C5 DEFB $12
+ $C2C6 DEFB $13
+ $C2C7 DEFB $B2
+ $C2C8 DEFB $01
+ $C2C9 DEFB $F2
+ $C2CA DEFB $0B
+ $C2CB DEFB $14
+ $C2CC DEFB $15
+ $C2CD DEFB $B2
+ $C2CE DEFB $01
+ $C2CF DEFB $F2
+ $C2D0 DEFB $0B
+ $C2D1 DEFB $14
+ $C2D2 DEFB $15
+ $C2D3 DEFB $B2
+ $C2D4 DEFB $01
+ $C2D5 DEFB $14
+ $C2D6 DEFB $15
+ $C2D7 DEFB $17
+ $C2D8 DEFB $18
+ $C2D9 DEFB $F2
+ $C2DA DEFB $03
+ $C2DB DEFB $14
+ $C2DC DEFB $15
+ $C2DD DEFB $17
+ $C2DE DEFB $18
+ $C2DF DEFB $F2
+ $C2E0 DEFB $03
+ $C2E1 DEFB $14
+ $C2E2 DEFB $15
+ $C2E3 DEFB $17
+ $C2E4 DEFB $18
+ $C2E5 DEFB $14
+ $C2E6 DEFB $15
+ $C2E7 DEFB $B2
+ $C2E8 DEFB $01
+ $C2E9 DEFB $17
+ $C2EA DEFB $18
+ $C2EB DEFB $F1
+ $C2EC DEFB $F1
+ $C2ED DEFB $F2
+ $C2EE DEFB $03
+ $C2EF DEFB $17
+ $C2F0 DEFB $18
+ $C2F1 DEFB $F1
+ $C2F2 DEFB $F1
+ $C2F3 DEFB $F2
+ $C2F4 DEFB $03
+ $C2F5 DEFB $17
+ $C2F6 DEFB $18
+ $C2F7 DEFB $F1
+ $C2F8 DEFB $F1
+ $C2F9 DEFB $17
+ $C2FA DEFB $18
+ $C2FB DEFB $B1
+ $C2FC DEFB $01
+ $C2FD DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C2FF DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C302 DEFB $07
+ $C303 DEFB $FD
+ $C304 DEFB $1A
+ $C305 DEFB $01
+ $C306 DEFB $F0
+ $C307 DEFB $01
+ $C308 DEFB $02
+ $C309 DEFB $F0
+ $C30A DEFB $02
+ $C30B DEFB $03
+ $C30C DEFB $AD
+ $C30D DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $C30F DEFB $02
+ $C310 DEFB $04
+ $C311 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_34
+b$C312 DEFB $FB,$E4,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C315 DEFB $C8
+ $C316 DEFB $03
+ $C317 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C319 DEFB $02
+ $C31A DEFB $0B
+ $C31B DEFB $03
+ $C31C DEFB $02
+ $C31D DEFB $0B
+ $C31E DEFB $0B
+ $C31F DEFB $0B
+ $C320 DEFB $03
+ $C321 DEFB $02
+ $C322 DEFB $0B
+ $C323 DEFB $0B
+ $C324 DEFB $0B
+ $C325 DEFB $03
+ $C326 DEFB $02
+ $C327 DEFB $0B
+ $C328 DEFB $0B
+ $C329 DEFB $0B
+ $C32A DEFB $03
+ $C32B DEFB $02
+ $C32C DEFB $0B
+ $C32D DEFB $0B
+ $C32E DEFB $0B
+ $C32F DEFB $03
+ $C330 DEFB $02
+ $C331 DEFB $0B
+ $C332 DEFB $03
+ $C333 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_35
+b$C334 DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C337 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C339 DEFB $F0
+ $C33A DEFB $01
+ $C33B DEFB $02
+ $C33C DEFB $F0
+ $C33D DEFB $07
+ $C33E DEFB $09
+ $C33F DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C341 DEFB $FB,$BC,$D1 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C344 DEFB $01
+ $C345 DEFB $02
+ $C346 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_36
+b$C347 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C34A DEFB $C8
+ $C34B DEFB $03
+ $C34C DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C34E DEFB $FD
+ $C34F DEFB $17
+ $C350 DEFB $0F
+ $C351 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_37
+b$C352 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C355 DEFB $C8
+ $C356 DEFB $03
+ $C357 DEFB $FE,$05     ; Attribute=#COLOUR(#PC+$01)
+ $C359 DEFB $FD
+ $C35A DEFB $20
+ $C35B DEFB $00
+ $C35C DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_38
+b$C35D DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C360 DEFB $C8
+ $C361 DEFB $03
+ $C362 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C364 DEFB $F2
+ $C365 DEFB $10
+ $C366 DEFB $05
+ $C367 DEFB $06
+ $C368 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_39
+b$C369 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C36C DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C36E DEFB $F0
+ $C36F DEFB $01
+ $C370 DEFB $00
+ $C371 DEFB $04
+ $C372 DEFB $F1
+ $C373 DEFB $05
+ $C374 DEFB $02
+ $C375 DEFB $C4
+ $C376 DEFB $01
+ $C377 DEFB $04
+ $C378 DEFB $F1
+ $C379 DEFB $06
+ $C37A DEFB $03
+ $C37B DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_40
+b$C37C DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C37F DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C381 DEFB $01
+ $C382 DEFB $02
+ $C383 DEFB $01
+ $C384 DEFB $02
+ $C385 DEFB $01
+ $C386 DEFB $05
+ $C387 DEFB $C3
+ $C388 DEFB $01
+ $C389 DEFB $04
+ $C38A DEFB $F1
+ $C38B DEFB $04
+ $C38C DEFB $F1
+ $C38D DEFB $06
+ $C38E DEFB $05
+ $C38F DEFB $C1
+ $C390 DEFB $01
+ $C391 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C393 DEFB $FD
+ $C394 DEFB $04
+ $C395 DEFB $00
+ $C396 DEFB $03
+ $C397 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C399 DEFB $04
+ $C39A DEFB $07
+ $C39B DEFB $05
+ $C39C DEFB $C5
+ $C39D DEFB $01
+ $C39E DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3A0 DEFB $03
+ $C3A1 DEFB $F1
+ $C3A2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3A4 DEFB $06
+ $C3A5 DEFB $05
+ $C3A6 DEFB $C5
+ $C3A7 DEFB $01
+ $C3A8 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3AA DEFB $03
+ $C3AB DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3AD DEFB $04
+ $C3AE DEFB $07
+ $C3AF DEFB $05
+ $C3B0 DEFB $C5
+ $C3B1 DEFB $01
+ $C3B2 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3B4 DEFB $03
+ $C3B5 DEFB $F1
+ $C3B6 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3B8 DEFB $06
+ $C3B9 DEFB $05
+ $C3BA DEFB $C5
+ $C3BB DEFB $01
+ $C3BC DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3BE DEFB $03
+ $C3BF DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3C1 DEFB $04
+ $C3C2 DEFB $07
+ $C3C3 DEFB $05
+ $C3C4 DEFB $C5
+ $C3C5 DEFB $01
+ $C3C6 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3C8 DEFB $03
+ $C3C9 DEFB $F1
+ $C3CA DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3CC DEFB $06
+ $C3CD DEFB $C6
+ $C3CE DEFB $01
+ $C3CF DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3D1 DEFB $03
+ $C3D2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3D4 DEFB $F0
+ $C3D5 DEFB $01
+ $C3D6 DEFB $04
+ $C3D7 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3D9 DEFB $03
+ $C3DA DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_41
+b$C3DB DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C3DE DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3E0 DEFB $08
+ $C3E1 DEFB $01
+ $C3E2 DEFB $02
+ $C3E3 DEFB $01
+ $C3E4 DEFB $02
+ $C3E5 DEFB $01
+ $C3E6 DEFB $C1
+ $C3E7 DEFB $01
+ $C3E8 DEFB $08
+ $C3E9 DEFB $0A
+ $C3EA DEFB $F1
+ $C3EB DEFB $04
+ $C3EC DEFB $F1
+ $C3ED DEFB $04
+ $C3EE DEFB $C1
+ $C3EF DEFB $01
+ $C3F0 DEFB $08
+ $C3F1 DEFB $0B
+ $C3F2 DEFB $04
+ $C3F3 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3F5 DEFB $09
+ $C3F6 DEFB $FD
+ $C3F7 DEFB $04
+ $C3F8 DEFB $0C
+ $C3F9 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3FB DEFB $BF
+ $C3FC DEFB $01
+ $C3FD DEFB $08
+ $C3FE DEFB $0A
+ $C3FF DEFB $F1
+ $C400 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C402 DEFB $09
+ $C403 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C405 DEFB $C3
+ $C406 DEFB $01
+ $C407 DEFB $08
+ $C408 DEFB $0B
+ $C409 DEFB $04
+ $C40A DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C40C DEFB $09
+ $C40D DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C40F DEFB $C3
+ $C410 DEFB $01
+ $C411 DEFB $08
+ $C412 DEFB $0A
+ $C413 DEFB $F1
+ $C414 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C416 DEFB $09
+ $C417 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C419 DEFB $C3
+ $C41A DEFB $01
+ $C41B DEFB $08
+ $C41C DEFB $0B
+ $C41D DEFB $04
+ $C41E DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C420 DEFB $09
+ $C421 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C423 DEFB $C4
+ $C424 DEFB $01
+ $C425 DEFB $0A
+ $C426 DEFB $C9
+ $C427 DEFB $00
+ $C428 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C42A DEFB $09
+ $C42B DEFB $C5
+ $C42C DEFB $01
+ $C42D DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C42F DEFB $04
+ $C430 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C432 DEFB $09
+ $C433 DEFB $C6
+ $C434 DEFB $01
+ $C435 DEFB $09
+ $C436 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_42
+b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C43A DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C43C DEFB $06
+ $C43D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C43F DEFB $FD
+ $C440 DEFB $08
+ $C441 DEFB $0A
+ $C442 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C444 DEFB $07
+ $C445 DEFB $06
+ $C446 DEFB $07
+ $C447 DEFB $06
+ $C448 DEFB $07
+ $C449 DEFB $BC
+ $C44A DEFB $01
+ $C44B DEFB $06
+ $C44C DEFB $FD
+ $C44D DEFB $06
+ $C44E DEFB $05
+ $C44F DEFB $08
+ $C450 DEFB $04
+ $C451 DEFB $BF
+ $C452 DEFB $01
+ $C453 DEFB $09
+ $C454 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C456 DEFB $FD
+ $C457 DEFB $06
+ $C458 DEFB $0A
+ $C459 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C45B DEFB $07
+ $C45C DEFB $04
+ $C45D DEFB $BF
+ $C45E DEFB $01
+ $C45F DEFB $06
+ $C460 DEFB $FD
+ $C461 DEFB $06
+ $C462 DEFB $05
+ $C463 DEFB $08
+ $C464 DEFB $04
+ $C465 DEFB $BF
+ $C466 DEFB $01
+ $C467 DEFB $09
+ $C468 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C46A DEFB $FD
+ $C46B DEFB $06
+ $C46C DEFB $0A
+ $C46D DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C46F DEFB $07
+ $C470 DEFB $04
+ $C471 DEFB $BF
+ $C472 DEFB $01
+ $C473 DEFB $06
+ $C474 DEFB $FD
+ $C475 DEFB $06
+ $C476 DEFB $05
+ $C477 DEFB $08
+ $C478 DEFB $04
+ $C479 DEFB $BF
+ $C47A DEFB $01
+ $C47B DEFB $09
+ $C47C DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C47E DEFB $FD
+ $C47F DEFB $06
+ $C480 DEFB $0A
+ $C481 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C483 DEFB $07
+ $C484 DEFB $04
+ $C485 DEFB $BF
+ $C486 DEFB $01
+ $C487 DEFB $06
+ $C488 DEFB $FD
+ $C489 DEFB $06
+ $C48A DEFB $05
+ $C48B DEFB $08
+ $C48C DEFB $04
+ $C48D DEFB $BF
+ $C48E DEFB $01
+ $C48F DEFB $09
+ $C490 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C492 DEFB $FD
+ $C493 DEFB $06
+ $C494 DEFB $0A
+ $C495 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C497 DEFB $05
+ $C498 DEFB $08
+ $C499 DEFB $09
+ $C49A DEFB $08
+ $C49B DEFB $C7
+ $C49C DEFB $F9
+ $C49D DEFB $F0
+ $C49E DEFB $07
+ $C49F DEFB $04
+ $C4A0 DEFB $C9
+ $C4A1 DEFB $FE,$09     ; Attribute=#COLOUR(#PC+$01)
+ $C4A3 DEFB $05
+ $C4A4 DEFB $07
+ $C4A5 DEFB $C3
+ $C4A6 DEFB $FB,$FE,$47 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C4A9 DEFB $F0
+ $C4AA DEFB $07
+ $C4AB DEFB $0C
+ $C4AC DEFB $CA
+ $C4AD DEFB $F9
+ $C4AE DEFB $F0
+ $C4AF DEFB $05
+ $C4B0 DEFB $0C
+ $C4B1 DEFB $BB
+ $C4B2 DEFB $FB,$FE,$45 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C4B5 DEFB $F0
+ $C4B6 DEFB $01
+ $C4B7 DEFB $04
+ $C4B8 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C4BA DEFB $F0
+ $C4BB DEFB $02
+ $C4BC DEFB $0B
+ $C4BD DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C4BF DEFB $04
+ $C4C0 DEFB $C6
+ $C4C1 DEFB $01
+ $C4C2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C4C4 DEFB $02
+ $C4C5 DEFB $03
+ $C4C6 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C4C8 DEFB $C6
+ $C4C9 DEFB $01
+ $C4CA DEFB $00
+ $C4CB DEFB $01
+ $C4CC DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_43
+b$C4CD DEFB $FB,$BC,$D1                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C4D0 DEFB $FE,$43                         ; Attribute=#COLOUR(#PC+$01)
+ $C4D2 DEFB $00
+ $C4D3 DEFB $01
+ $C4D4 DEFB $02
+ $C4D5 DEFB $02
+ $C4D6 DEFB $00
+ $C4D7 DEFB $01
+ $C4D8 DEFB $02
+ $C4D9 DEFB $02
+ $C4DA DEFB $00
+ $C4DB DEFB $01
+ $C4DC DEFB $02
+ $C4DD DEFB $02
+ $C4DE DEFB $00
+ $C4DF DEFB $01
+ $C4E0 DEFB $02
+ $C4E1 DEFB $02
+ $C4E2 DEFB $00
+ $C4E3 DEFB $01
+ $C4E4 DEFB $02
+ $C4E5 DEFB $02
+ $C4E6 DEFB $00
+ $C4E7 DEFB $01
+ $C4E8 DEFB $B3
+ $C4E9 DEFB $FE,$FE                         ; Attribute=#COLOUR(#PC+$01)
+ $C4EB DEFB $45
+ $C4EC DEFB $F0
+ $C4ED DEFB $01
+ $C4EE DEFB $06
+ $C4EF DEFB $07
+ $C4F0 DEFB $C8
+ $C4F1 DEFB $FF,$FE,$46,$F0,$01,$06,$07,$F1 ; {Terminator.
+ $C4F9 DEFB $FE,$46,$08,$C8,$FE,$08,$FE,$44 ;
+ $C501 DEFB $08,$C6,$01,$FE,$42,$08,$FE,$47 ;
+ $C509 DEFB $08,$FE,$46,$08,$C5,$01,$FE,$44 ;
+ $C511 DEFB $08,$FE,$46,$08,$FE,$45,$08,$FE ;
+ $C519 DEFB $46,$08,$C9,$FF,$FE,$47,$F0,$01 ;
+ $C521 DEFB $06,$07,$C8,$FF,$FE,$44,$F0,$01 ;
+ $C529 DEFB $06,$07,$C8,$FF,$FE,$46,$F0,$01 ;
+ $C531 DEFB $06,$07,$C8,$FF,$FE,$45,$F0,$01 ;
+ $C539 DEFB $06,$07,$C8,$FF,$FE,$44,$F0,$01 ;
+ $C541 DEFB $06,$07,$C8,$FF,$FE,$42,$F0,$01 ;
+ $C549 DEFB $06,$07,$CA,$FE,$FE,$46,$08,$FE ;
+ $C551 DEFB $45,$08,$C5,$01,$FE,$44,$08,$FE ;
+ $C559 DEFB $46,$08,$FE,$47,$08,$C5,$01,$08 ;
+ $C561 DEFB $FE,$45,$08,$FE,$46,$08,$FE,$44 ;
+ $C569 DEFB $08,$FF                         ; }
+
+; Graphic ID
+@label=graphic_44
+b$C56B DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C56E DEFB $C8
+ $C56F DEFB $03
+ $C570 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C572 DEFB $01
+ $C573 DEFB $02
+ $C574 DEFB $03
+ $C575 DEFB $04
+ $C576 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_45
+b$C577 DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C57A DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C57C DEFB $F0
+ $C57D DEFB $0C
+ $C57E DEFB $04
+ $C57F DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_46
+b$C580 DEFB $FB,$24,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C583 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C585 DEFB $06
+ $C586 DEFB $07
+ $C587 DEFB $C6
+ $C588 DEFB $01
+ $C589 DEFB $08
+ $C58A DEFB $09
+ $C58B DEFB $C6
+ $C58C DEFB $01
+ $C58D DEFB $0A
+ $C58E DEFB $0B
+ $C58F DEFB $C6
+ $C590 DEFB $01
+ $C591 DEFB $0C
+ $C592 DEFB $0D
+ $C593 DEFB $C6
+ $C594 DEFB $01
+ $C595 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C597 DEFB $00
+ $C598 DEFB $02
+ $C599 DEFB $C4
+ $C59A DEFB $01
+ $C59B DEFB $00
+ $C59C DEFB $FD
+ $C59D DEFB $04
+ $C59E DEFB $01
+ $C59F DEFB $02
+ $C5A0 DEFB $C3
+ $C5A1 DEFB $01
+ $C5A2 DEFB $FD
+ $C5A3 DEFB $04
+ $C5A4 DEFB $0E
+ $C5A5 DEFB $C1
+ $C5A6 DEFB $01
+ $C5A7 DEFB $00
+ $C5A8 DEFB $FD
+ $C5A9 DEFB $08
+ $C5AA DEFB $01
+ $C5AB DEFB $02
+ $C5AC DEFB $BF
+ $C5AD DEFB $01
+ $C5AE DEFB $FD
+ $C5AF DEFB $08
+ $C5B0 DEFB $0E
+ $C5B1 DEFB $BD
+ $C5B2 DEFB $01
+ $C5B3 DEFB $00
+ $C5B4 DEFB $FD
+ $C5B5 DEFB $0C
+ $C5B6 DEFB $01
+ $C5B7 DEFB $02
+ $C5B8 DEFB $BB
+ $C5B9 DEFB $01
+ $C5BA DEFB $03
+ $C5BB DEFB $FD
+ $C5BC DEFB $0A
+ $C5BD DEFB $05
+ $C5BE DEFB $04
+ $C5BF DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_47
+b$C5C0 DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C5C3 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C5C5 DEFB $00
+ $C5C6 DEFB $FD
+ $C5C7 DEFB $06
+ $C5C8 DEFB $01
+ $C5C9 DEFB $02
+ $C5CA DEFB $C0
+ $C5CB DEFB $01
+ $C5CC DEFB $03
+ $C5CD DEFB $FD
+ $C5CE DEFB $06
+ $C5CF DEFB $04
+ $C5D0 DEFB $05
+ $C5D1 DEFB $C0
+ $C5D2 DEFB $01
+ $C5D3 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C5D5 DEFB $06
+ $C5D6 DEFB $CE
+ $C5D7 DEFB $00
+ $C5D8 DEFB $07
+ $C5D9 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_48
+b$C5DA DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C5DD DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C5DF DEFB $0C
+ $C5E0 DEFB $FD
+ $C5E1 DEFB $06
+ $C5E2 DEFB $09
+ $C5E3 DEFB $0D
+ $C5E4 DEFB $C0
+ $C5E5 DEFB $01
+ $C5E6 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C5E8 DEFB $0A
+ $C5E9 DEFB $FD
+ $C5EA DEFB $06
+ $C5EB DEFB $08
+ $C5EC DEFB $0B
+ $C5ED DEFB $C0
+ $C5EE DEFB $01
+ $C5EF DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C5F2 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C5F4 DEFB $06
+ $C5F5 DEFB $CE
+ $C5F6 DEFB $00
+ $C5F7 DEFB $07
+ $C5F8 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_49
+b$C5F9 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C5FC DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C5FE DEFB $0C
+ $C5FF DEFB $0D
+ $C600 DEFB $C6
+ $C601 DEFB $01
+ $C602 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C604 DEFB $0A
+ $C605 DEFB $0B
+ $C606 DEFB $C6
+ $C607 DEFB $01
+ $C608 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C60A DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C60D DEFB $06
+ $C60E DEFB $07
+ $C60F DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_50
+b$C610 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C613 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C615 DEFB $F2
+ $C616 DEFB $10
+ $C617 DEFB $0F
+ $C618 DEFB $10
+ $C619 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_51
+b$C61A DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C61D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C61F DEFB $00
+ $C620 DEFB $FD
+ $C621 DEFB $08
+ $C622 DEFB $01
+ $C623 DEFB $02
+ $C624 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_52
+b$C625 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C628 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C62A DEFB $F0
+ $C62B DEFB $04
+ $C62C DEFB $06
+ $C62D DEFB $C7
+ $C62E DEFB $00
+ $C62F DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C631 DEFB $03
+ $C632 DEFB $04
+ $C633 DEFB $05
+ $C634 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_53
+b$C635 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C638 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C63A DEFB $0C
+ $C63B DEFB $FD
+ $C63C DEFB $06
+ $C63D DEFB $0D
+ $C63E DEFB $0E
+ $C63F DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C641 DEFB $C0
+ $C642 DEFB $01
+ $C643 DEFB $F0
+ $C644 DEFB $02
+ $C645 DEFB $0A
+ $C646 DEFB $07
+ $C647 DEFB $FD
+ $C648 DEFB $06
+ $C649 DEFB $08
+ $C64A DEFB $C8
+ $C64B DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $C64D DEFB $02
+ $C64E DEFB $0B
+ $C64F DEFB $09
+ $C650 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_54
+b$C651 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C654 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C656 DEFB $03
+ $C657 DEFB $00
+ $C658 DEFB $01
+ $C659 DEFB $00
+ $C65A DEFB $04
+ $C65B DEFB $C1
+ $C65C DEFB $01
+ $C65D DEFB $03
+ $C65E DEFB $02
+ $C65F DEFB $01
+ $C660 DEFB $02
+ $C661 DEFB $01
+ $C662 DEFB $01
+ $C663 DEFB $02
+ $C664 DEFB $04
+ $C665 DEFB $BF
+ $C666 DEFB $01
+ $C667 DEFB $03
+ $C668 DEFB $00
+ $C669 DEFB $02
+ $C66A DEFB $00
+ $C66B DEFB $00
+ $C66C DEFB $02
+ $C66D DEFB $01
+ $C66E DEFB $02
+ $C66F DEFB $02
+ $C670 DEFB $BF
+ $C671 DEFB $01
+ $C672 DEFB $00
+ $C673 DEFB $02
+ $C674 DEFB $02
+ $C675 DEFB $02
+ $C676 DEFB $01
+ $C677 DEFB $00
+ $C678 DEFB $02
+ $C679 DEFB $01
+ $C67A DEFB $02
+ $C67B DEFB $00
+ $C67C DEFB $BE
+ $C67D DEFB $01
+ $C67E DEFB $00
+ $C67F DEFB $01
+ $C680 DEFB $00
+ $C681 DEFB $02
+ $C682 DEFB $01
+ $C683 DEFB $02
+ $C684 DEFB $00
+ $C685 DEFB $01
+ $C686 DEFB $02
+ $C687 DEFB $05
+ $C688 DEFB $BD
+ $C689 DEFB $01
+ $C68A DEFB $03
+ $C68B DEFB $00
+ $C68C DEFB $00
+ $C68D DEFB $02
+ $C68E DEFB $01
+ $C68F DEFB $00
+ $C690 DEFB $00
+ $C691 DEFB $02
+ $C692 DEFB $01
+ $C693 DEFB $01
+ $C694 DEFB $04
+ $C695 DEFB $BD
+ $C696 DEFB $01
+ $C697 DEFB $06
+ $C698 DEFB $01
+ $C699 DEFB $02
+ $C69A DEFB $01
+ $C69B DEFB $02
+ $C69C DEFB $00
+ $C69D DEFB $02
+ $C69E DEFB $01
+ $C69F DEFB $00
+ $C6A0 DEFB $00
+ $C6A1 DEFB $00
+ $C6A2 DEFB $BE
+ $C6A3 DEFB $01
+ $C6A4 DEFB $00
+ $C6A5 DEFB $02
+ $C6A6 DEFB $01
+ $C6A7 DEFB $00
+ $C6A8 DEFB $00
+ $C6A9 DEFB $01
+ $C6AA DEFB $02
+ $C6AB DEFB $02
+ $C6AC DEFB $01
+ $C6AD DEFB $05
+ $C6AE DEFB $BF
+ $C6AF DEFB $01
+ $C6B0 DEFB $06
+ $C6B1 DEFB $02
+ $C6B2 DEFB $01
+ $C6B3 DEFB $00
+ $C6B4 DEFB $00
+ $C6B5 DEFB $02
+ $C6B6 DEFB $00
+ $C6B7 DEFB $00
+ $C6B8 DEFB $C1
+ $C6B9 DEFB $01
+ $C6BA DEFB $06
+ $C6BB DEFB $05
+ $C6BC DEFB $01
+ $C6BD DEFB $05
+ $C6BE DEFB $06
+ $C6BF DEFB $05
+ $C6C0 DEFB $C3
+ $C6C1 DEFB $01
+ $C6C2 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C6C4 DEFB $09
+ $C6C5 DEFB $0A
+ $C6C6 DEFB $0B
+ $C6C7 DEFB $0C
+ $C6C8 DEFB $C5
+ $C6C9 DEFB $01
+ $C6CA DEFB $07
+ $C6CB DEFB $08
+ $C6CC DEFB $C6
+ $C6CD DEFB $01
+ $C6CE DEFB $07
+ $C6CF DEFB $08
+ $C6D0 DEFB $C6
+ $C6D1 DEFB $01
+ $C6D2 DEFB $08
+ $C6D3 DEFB $07
+ $C6D4 DEFB $C6
+ $C6D5 DEFB $01
+ $C6D6 DEFB $08
+ $C6D7 DEFB $07
+ $C6D8 DEFB $C6
+ $C6D9 DEFB $01
+ $C6DA DEFB $07
+ $C6DB DEFB $08
+ $C6DC DEFB $C5
+ $C6DD DEFB $01
+ $C6DE DEFB $0D
+ $C6DF DEFB $0E
+ $C6E0 DEFB $0F
+ $C6E1 DEFB $10
+ $C6E2 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_55
+b$C6E3 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C6E6 DEFB $FE,$04     ; Attribute=#COLOUR(#PC+$01)
+ $C6E8 DEFB $00
+ $C6E9 DEFB $02
+ $C6EA DEFB $01
+ $C6EB DEFB $01
+ $C6EC DEFB $00
+ $C6ED DEFB $C3
+ $C6EE DEFB $01
+ $C6EF DEFB $02
+ $C6F0 DEFB $01
+ $C6F1 DEFB $02
+ $C6F2 DEFB $02
+ $C6F3 DEFB $02
+ $C6F4 DEFB $C3
+ $C6F5 DEFB $01
+ $C6F6 DEFB $00
+ $C6F7 DEFB $02
+ $C6F8 DEFB $01
+ $C6F9 DEFB $02
+ $C6FA DEFB $00
+ $C6FB DEFB $C3
+ $C6FC DEFB $01
+ $C6FD DEFB $00
+ $C6FE DEFB $01
+ $C6FF DEFB $01
+ $C700 DEFB $02
+ $C701 DEFB $00
+ $C702 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_56
+b$C703 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C706 DEFB $FE,$04     ; Attribute=#COLOUR(#PC+$01)
+ $C708 DEFB $01
+ $C709 DEFB $00
+ $C70A DEFB $02
+ $C70B DEFB $01
+ $C70C DEFB $C4
+ $C70D DEFB $01
+ $C70E DEFB $02
+ $C70F DEFB $01
+ $C710 DEFB $00
+ $C711 DEFB $02
+ $C712 DEFB $C4
+ $C713 DEFB $01
+ $C714 DEFB $01
+ $C715 DEFB $00
+ $C716 DEFB $01
+ $C717 DEFB $01
+ $C718 DEFB $C4
+ $C719 DEFB $01
+ $C71A DEFB $00
+ $C71B DEFB $02
+ $C71C DEFB $02
+ $C71D DEFB $01
+ $C71E DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_57
+b$C71F DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C722 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C724 DEFB $FD
+ $C725 DEFB $05
+ $C726 DEFB $00
+ $C727 DEFB $C3
+ $C728 DEFB $01
+ $C729 DEFB $FD
+ $C72A DEFB $05
+ $C72B DEFB $02
+ $C72C DEFB $C3
+ $C72D DEFB $01
+ $C72E DEFB $FD
+ $C72F DEFB $05
+ $C730 DEFB $01
+ $C731 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_58
+b$C732 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C735 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C737 DEFB $FD
+ $C738 DEFB $04
+ $C739 DEFB $00
+ $C73A DEFB $C4
+ $C73B DEFB $01
+ $C73C DEFB $FD
+ $C73D DEFB $04
+ $C73E DEFB $02
+ $C73F DEFB $C4
+ $C740 DEFB $01
+ $C741 DEFB $FD
+ $C742 DEFB $04
+ $C743 DEFB $01
+ $C744 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_59
+b$C745 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C748 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C74A DEFB $FD
+ $C74B DEFB $05
+ $C74C DEFB $04
+ $C74D DEFB $C3
+ $C74E DEFB $01
+ $C74F DEFB $FD
+ $C750 DEFB $05
+ $C751 DEFB $03
+ $C752 DEFB $C3
+ $C753 DEFB $01
+ $C754 DEFB $FD
+ $C755 DEFB $05
+ $C756 DEFB $03
+ $C757 DEFB $C3
+ $C758 DEFB $01
+ $C759 DEFB $FD
+ $C75A DEFB $05
+ $C75B DEFB $03
+ $C75C DEFB $C3
+ $C75D DEFB $01
+ $C75E DEFB $FD
+ $C75F DEFB $05
+ $C760 DEFB $03
+ $C761 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_60
+b$C762 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C765 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C767 DEFB $FD
+ $C768 DEFB $04
+ $C769 DEFB $04
+ $C76A DEFB $C4
+ $C76B DEFB $01
+ $C76C DEFB $FD
+ $C76D DEFB $04
+ $C76E DEFB $03
+ $C76F DEFB $C4
+ $C770 DEFB $01
+ $C771 DEFB $FD
+ $C772 DEFB $04
+ $C773 DEFB $03
+ $C774 DEFB $C4
+ $C775 DEFB $01
+ $C776 DEFB $FD
+ $C777 DEFB $04
+ $C778 DEFB $03
+ $C779 DEFB $C4
+ $C77A DEFB $01
+ $C77B DEFB $FD
+ $C77C DEFB $04
+ $C77D DEFB $03
+ $C77E DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_61
+b$C77F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C782 DEFB $FE,$72     ; Attribute=#COLOUR(#PC+$01)
+ $C784 DEFB $FD
+ $C785 DEFB $10
+ $C786 DEFB $00
+ $C787 DEFB $B8
+ $C788 DEFB $01
+ $C789 DEFB $FD
+ $C78A DEFB $10
+ $C78B DEFB $00
+ $C78C DEFB $B8
+ $C78D DEFB $01
+ $C78E DEFB $FD
+ $C78F DEFB $10
+ $C790 DEFB $00
+ $C791 DEFB $B8
+ $C792 DEFB $01
+ $C793 DEFB $FD
+ $C794 DEFB $10
+ $C795 DEFB $00
+ $C796 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_62
+b$C797 DEFB $FB,$DC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C79A DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C79C DEFB $F3
+ $C79D DEFB $84
+ $C79E DEFB $C7
+
+; Graphic ID
+@label=graphic_63
+b$C79F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C7A2 DEFB $FE,$72     ; Attribute=#COLOUR(#PC+$01)
+ $C7A4 DEFB $FD
+ $C7A5 DEFB $08
+ $C7A6 DEFB $00
+ $C7A7 DEFB $C0
+ $C7A8 DEFB $01
+ $C7A9 DEFB $FD
+ $C7AA DEFB $08
+ $C7AB DEFB $00
+ $C7AC DEFB $C0
+ $C7AD DEFB $01
+ $C7AE DEFB $FD
+ $C7AF DEFB $08
+ $C7B0 DEFB $00
+ $C7B1 DEFB $C0
+ $C7B2 DEFB $01
+ $C7B3 DEFB $FD
+ $C7B4 DEFB $08
+ $C7B5 DEFB $00
+ $C7B6 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_64
+b$C7B7 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C7BA DEFB $FE,$56     ; Attribute=#COLOUR(#PC+$01)
+ $C7BC DEFB $F3
+ $C7BD DEFB $84
+ $C7BE DEFB $C7
+
+; Graphic ID
+@label=graphic_65
+b$C7BF DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C7C2 DEFB $FE,$02     ; Attribute=#COLOUR(#PC+$01)
+ $C7C4 DEFB $FD
+ $C7C5 DEFB $10
+ $C7C6 DEFB $03
+ $C7C7 DEFB $B8
+ $C7C8 DEFB $01
+ $C7C9 DEFB $F2
+ $C7CA DEFB $08
+ $C7CB DEFB $01
+ $C7CC DEFB $02
+ $C7CD DEFB $B8
+ $C7CE DEFB $01
+ $C7CF DEFB $F2
+ $C7D0 DEFB $08
+ $C7D1 DEFB $01
+ $C7D2 DEFB $02
+ $C7D3 DEFB $B8
+ $C7D4 DEFB $01
+ $C7D5 DEFB $F2
+ $C7D6 DEFB $08
+ $C7D7 DEFB $01
+ $C7D8 DEFB $02
+ $C7D9 DEFB $B8
+ $C7DA DEFB $01
+ $C7DB DEFB $F2
+ $C7DC DEFB $08
+ $C7DD DEFB $01
+ $C7DE DEFB $02
+ $C7DF DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_66
+b$C7E0 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C7E3 DEFB $FE,$02     ; Attribute=#COLOUR(#PC+$01)
+ $C7E5 DEFB $FD
+ $C7E6 DEFB $08
+ $C7E7 DEFB $03
+ $C7E8 DEFB $C0
+ $C7E9 DEFB $01
+ $C7EA DEFB $F2
+ $C7EB DEFB $04
+ $C7EC DEFB $01
+ $C7ED DEFB $02
+ $C7EE DEFB $C0
+ $C7EF DEFB $01
+ $C7F0 DEFB $F2
+ $C7F1 DEFB $04
+ $C7F2 DEFB $01
+ $C7F3 DEFB $02
+ $C7F4 DEFB $C0
+ $C7F5 DEFB $01
+ $C7F6 DEFB $F2
+ $C7F7 DEFB $04
+ $C7F8 DEFB $01
+ $C7F9 DEFB $02
+ $C7FA DEFB $C0
+ $C7FB DEFB $01
+ $C7FC DEFB $F2
+ $C7FD DEFB $04
+ $C7FE DEFB $01
+ $C7FF DEFB $02
+ $C800 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_67
+b$C801 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C804 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C806 DEFB $00
+ $C807 DEFB $FD
+ $C808 DEFB $04
+ $C809 DEFB $01
+ $C80A DEFB $C3
+ $C80B DEFB $01
+ $C80C DEFB $F0
+ $C80D DEFB $04
+ $C80E DEFB $07
+ $C80F DEFB $10
+ $C810 DEFB $FD
+ $C811 DEFB $04
+ $C812 DEFB $11
+ $C813 DEFB $C4
+ $C814 DEFB $FC
+ $C815 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C818 DEFB $FD
+ $C819 DEFB $04
+ $C81A DEFB $20
+ $C81B DEFB $C4
+ $C81C DEFB $01
+ $C81D DEFB $FD
+ $C81E DEFB $04
+ $C81F DEFB $20
+ $C820 DEFB $C4
+ $C821 DEFB $01
+ $C822 DEFB $FD
+ $C823 DEFB $04
+ $C824 DEFB $20
+ $C825 DEFB $C4
+ $C826 DEFB $01
+ $C827 DEFB $FD
+ $C828 DEFB $04
+ $C829 DEFB $20
+ $C82A DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_68
+b$C82B DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C82E DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C830 DEFB $FD
+ $C831 DEFB $04
+ $C832 DEFB $01
+ $C833 DEFB $F0
+ $C834 DEFB $01
+ $C835 DEFB $02
+ $C836 DEFB $F0
+ $C837 DEFB $04
+ $C838 DEFB $08
+ $C839 DEFB $C4
+ $C83A DEFB $00
+ $C83B DEFB $FD
+ $C83C DEFB $04
+ $C83D DEFB $11
+ $C83E DEFB $12
+ $C83F DEFB $C3
+ $C840 DEFB $FC
+ $C841 DEFB $F3
+ $C842 DEFB $15
+ $C843 DEFB $C8
+
+; Graphic ID
+@label=graphic_69
+b$C844 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C847 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C849 DEFB $00
+ $C84A DEFB $01
+ $C84B DEFB $02
+ $C84C DEFB $C5
+ $C84D DEFB $01
+ $C84E DEFB $07
+ $C84F DEFB $06
+ $C850 DEFB $08
+ $C851 DEFB $C5
+ $C852 DEFB $01
+ $C853 DEFB $03
+ $C854 DEFB $04
+ $C855 DEFB $05
+ $C856 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_70
+b$C857 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C85A DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C85C DEFB $F0
+ $C85D DEFB $12
+ $C85E DEFB $20
+ $C85F DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_71
+b$C860 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C863 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C865 DEFB $00
+ $C866 DEFB $01
+ $C867 DEFB $01
+ $C868 DEFB $02
+ $C869 DEFB $C4
+ $C86A DEFB $01
+ $C86B DEFB $07
+ $C86C DEFB $06
+ $C86D DEFB $06
+ $C86E DEFB $08
+ $C86F DEFB $C4
+ $C870 DEFB $01
+ $C871 DEFB $03
+ $C872 DEFB $04
+ $C873 DEFB $04
+ $C874 DEFB $05
+ $C875 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_72
+b$C876 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C879 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C87B DEFB $03
+ $C87C DEFB $03
+ $C87D DEFB $03
+ $C87E DEFB $C5
+ $C87F DEFB $01
+ $C880 DEFB $03
+ $C881 DEFB $03
+ $C882 DEFB $03
+ $C883 DEFB $C5
+ $C884 DEFB $01
+ $C885 DEFB $03
+ $C886 DEFB $03
+ $C887 DEFB $03
+ $C888 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_73
+b$C889 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C88C DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C88E DEFB $00
+ $C88F DEFB $01
+ $C890 DEFB $01
+ $C891 DEFB $02
+ $C892 DEFB $C4
+ $C893 DEFB $01
+ $C894 DEFB $07
+ $C895 DEFB $06
+ $C896 DEFB $06
+ $C897 DEFB $08
+ $C898 DEFB $C4
+ $C899 DEFB $01
+ $C89A DEFB $10
+ $C89B DEFB $11
+ $C89C DEFB $11
+ $C89D DEFB $12
+ $C89E DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_74
+b$C89F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C8A2 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C8A4 DEFB $12
+ $C8A5 DEFB $13
+ $C8A6 DEFB $C6
+ $C8A7 DEFB $01
+ $C8A8 DEFB $16
+ $C8A9 DEFB $15
+ $C8AA DEFB $C6
+ $C8AB DEFB $01
+ $C8AC DEFB $14
+ $C8AD DEFB $15
+ $C8AE DEFB $C6
+ $C8AF DEFB $01
+ $C8B0 DEFB $17
+ $C8B1 DEFB $18
+ $C8B2 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_75
+b$C8B3 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C8B6 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C8B8 DEFB $0B
+ $C8B9 DEFB $0D
+ $C8BA DEFB $C6
+ $C8BB DEFB $01
+ $C8BC DEFB $0E
+ $C8BD DEFB $0F
+ $C8BE DEFB $C6
+ $C8BF DEFB $01
+ $C8C0 DEFB $0E
+ $C8C1 DEFB $0F
+ $C8C2 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_76
+b$C8C3 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C8C6 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C8C8 DEFB $0B
+ $C8C9 DEFB $0C
+ $C8CA DEFB $0C
+ $C8CB DEFB $0D
+ $C8CC DEFB $C4
+ $C8CD DEFB $01
+ $C8CE DEFB $F0
+ $C8CF DEFB $04
+ $C8D0 DEFB $0E
+ $C8D1 DEFB $CB
+ $C8D2 DEFB $FC
+ $C8D3 DEFB $F0
+ $C8D4 DEFB $04
+ $C8D5 DEFB $0F
+ $C8D6 DEFB $C6
+ $C8D7 DEFB $FC
+ $C8D8 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C8DB DEFB $F0
+ $C8DC DEFB $04
+ $C8DD DEFB $20
+ $C8DE DEFB $C9
+ $C8DF DEFB $FC
+ $C8E0 DEFB $F0
+ $C8E1 DEFB $04
+ $C8E2 DEFB $20
+ $C8E3 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_77
+b$C8E4 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C8E7 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C8E9 DEFB $FD
+ $C8EA DEFB $04
+ $C8EB DEFB $03
+ $C8EC DEFB $C4
+ $C8ED DEFB $01
+ $C8EE DEFB $FD
+ $C8EF DEFB $04
+ $C8F0 DEFB $03
+ $C8F1 DEFB $C4
+ $C8F2 DEFB $01
+ $C8F3 DEFB $03
+ $C8F4 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C8F7 DEFB $0A
+ $C8F8 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C8FB DEFB $03
+ $C8FC DEFB $03
+ $C8FD DEFB $C4
+ $C8FE DEFB $01
+ $C8FF DEFB $FD
+ $C900 DEFB $04
+ $C901 DEFB $03
+ $C902 DEFB $C4
+ $C903 DEFB $01
+ $C904 DEFB $FD
+ $C905 DEFB $04
+ $C906 DEFB $03
+ $C907 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_78
+b$C908 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C90B DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C90D DEFB $09
+ $C90E DEFB $F0
+ $C90F DEFB $04
+ $C910 DEFB $09
+ $C911 DEFB $C7
+ $C912 DEFB $FD
+ $C913 DEFB $F0
+ $C914 DEFB $01
+ $C915 DEFB $0A
+ $C916 DEFB $F0
+ $C917 DEFB $02
+ $C918 DEFB $09
+ $C919 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_79
+b$C91A DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C91D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C91F DEFB $00
+ $C920 DEFB $01
+ $C921 DEFB $01
+ $C922 DEFB $02
+ $C923 DEFB $C4
+ $C924 DEFB $01
+ $C925 DEFB $F0
+ $C926 DEFB $04
+ $C927 DEFB $07
+ $C928 DEFB $CB
+ $C929 DEFB $FC
+ $C92A DEFB $F0
+ $C92B DEFB $04
+ $C92C DEFB $08
+ $C92D DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_80
+b$C92E DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C931 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C933 DEFB $13
+ $C934 DEFB $FD
+ $C935 DEFB $12
+ $C936 DEFB $14
+ $C937 DEFB $F0
+ $C938 DEFB $01
+ $C939 DEFB $15
+ $C93A DEFB $F0
+ $C93B DEFB $05
+ $C93C DEFB $17
+ $C93D DEFB $B5
+ $C93E DEFB $FB,$F0,$05 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C941 DEFB $16
+ $C942 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_81
+b$C943 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C946 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C948 DEFB $13
+ $C949 DEFB $14
+ $C94A DEFB $14
+ $C94B DEFB $15
+ $C94C DEFB $C4
+ $C94D DEFB $01
+ $C94E DEFB $F0
+ $C94F DEFB $04
+ $C950 DEFB $16
+ $C951 DEFB $CB
+ $C952 DEFB $FC
+ $C953 DEFB $F0
+ $C954 DEFB $04
+ $C955 DEFB $17
+ $C956 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_82
+b$C957 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C95A DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C95C DEFB $FD
+ $C95D DEFB $1E
+ $C95E DEFB $09
+ $C95F DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_83
+b$C960 DEFB $FB,$14,$D5             ; Screen co-ordinates:
+                                    ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C963 DEFB $FE,$46                 ; Attribute=#COLOUR(#PC+$01)
+ $C965 DEFB $F2
+ $C966 DEFB $02
+ $C967 DEFB $09
+ $C968 DEFB $0A
+ $C969 DEFB $C3
+ $C96A DEFB $01
+ $C96B DEFB $F2
+ $C96C DEFB $02
+ $C96D DEFB $09
+ $C96E DEFB $0A
+ $C96F DEFB $C5
+ $C970 DEFB $01
+ $C971 DEFB $09
+ $C972 DEFB $0A
+ $C973 DEFB $C5
+ $C974 DEFB $00
+ $C975 DEFB $FE,$44                 ; Attribute=#COLOUR(#PC+$01)
+ $C977 DEFB $FB,$EC,$DF             ; Screen co-ordinates:
+                                    ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C97A DEFB $08
+ $C97B DEFB $C8
+ $C97C DEFB $01
+ $C97D DEFB $08
+ $C97E DEFB $08
+ $C97F DEFB $C8
+ $C980 DEFB $FF,$08,$C8,$FF,$08,$FF ; Terminator.
+
+; Graphic ID
+@label=graphic_84
+b$C986 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C989 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C98B DEFB $F2
+ $C98C DEFB $04
+ $C98D DEFB $09
+ $C98E DEFB $0A
+ $C98F DEFB $C0
+ $C990 DEFB $01
+ $C991 DEFB $F2
+ $C992 DEFB $04
+ $C993 DEFB $0A
+ $C994 DEFB $09
+ $C995 DEFB $C0
+ $C996 DEFB $01
+ $C997 DEFB $F2
+ $C998 DEFB $04
+ $C999 DEFB $09
+ $C99A DEFB $0A
+ $C99B DEFB $C0
+ $C99C DEFB $01
+ $C99D DEFB $F2
+ $C99E DEFB $04
+ $C99F DEFB $0A
+ $C9A0 DEFB $09
+ $C9A1 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_85
+b$C9A2 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C9A5 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C9A7 DEFB $F2
+ $C9A8 DEFB $08
+ $C9A9 DEFB $09
+ $C9AA DEFB $0A
+ $C9AB DEFB $B8
+ $C9AC DEFB $01
+ $C9AD DEFB $F2
+ $C9AE DEFB $08
+ $C9AF DEFB $0A
+ $C9B0 DEFB $09
+ $C9B1 DEFB $B8
+ $C9B2 DEFB $01
+ $C9B3 DEFB $F2
+ $C9B4 DEFB $08
+ $C9B5 DEFB $09
+ $C9B6 DEFB $0A
+ $C9B7 DEFB $B8
+ $C9B8 DEFB $01
+ $C9B9 DEFB $F2
+ $C9BA DEFB $08
+ $C9BB DEFB $0A
+ $C9BC DEFB $09
+ $C9BD DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_86
+b$C9BE DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C9C1 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C9C3 DEFB $04
+ $C9C4 DEFB $05
+ $C9C5 DEFB $05
+ $C9C6 DEFB $05
+ $C9C7 DEFB $04
+ $C9C8 DEFB $05
+ $C9C9 DEFB $05
+ $C9CA DEFB $05
+ $C9CB DEFB $04
+ $C9CC DEFB $05
+ $C9CD DEFB $05
+ $C9CE DEFB $05
+ $C9CF DEFB $04
+ $C9D0 DEFB $05
+ $C9D1 DEFB $05
+ $C9D2 DEFB $05
+ $C9D3 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_87
+b$C9D4 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C9D7 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C9D9 DEFB $FD
+ $C9DA DEFB $10
+ $C9DB DEFB $11
+ $C9DC DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_88
+b$C9DD DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C9E0 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C9E2 DEFB $F0
+ $C9E3 DEFB $01
+ $C9E4 DEFB $06
+ $C9E5 DEFB $F0
+ $C9E6 DEFB $02
+ $C9E7 DEFB $07
+ $C9E8 DEFB $F0
+ $C9E9 DEFB $01
+ $C9EA DEFB $08
+ $C9EB DEFB $F0
+ $C9EC DEFB $02
+ $C9ED DEFB $07
+ $C9EE DEFB $F0
+ $C9EF DEFB $01
+ $C9F0 DEFB $08
+ $C9F1 DEFB $F0
+ $C9F2 DEFB $02
+ $C9F3 DEFB $07
+ $C9F4 DEFB $F0
+ $C9F5 DEFB $01
+ $C9F6 DEFB $08
+ $C9F7 DEFB $F0
+ $C9F8 DEFB $02
+ $C9F9 DEFB $07
+ $C9FA DEFB $08
+ $C9FB DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_89
+b$C9FC DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $C9FF DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CA01 DEFB $0B
+ $CA02 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA04 DEFB $C6
+ $CA05 DEFB $01
+ $CA06 DEFB $08
+ $CA07 DEFB $09
+ $CA08 DEFB $0A
+ $CA09 DEFB $C5
+ $CA0A DEFB $01
+ $CA0B DEFB $05
+ $CA0C DEFB $06
+ $CA0D DEFB $07
+ $CA0E DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CA10 DEFB $C6
+ $CA11 DEFB $01
+ $CA12 DEFB $04
+ $CA13 DEFB $C6
+ $CA14 DEFB $01
+ $CA15 DEFB $01
+ $CA16 DEFB $00
+ $CA17 DEFB $02
+ $CA18 DEFB $C6
+ $CA19 DEFB $01
+ $CA1A DEFB $F0
+ $CA1B DEFB $08
+ $CA1C DEFB $04
+ $CA1D DEFB $03
+ $CA1E DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_90
+b$CA1F DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CA22 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA24 DEFB $0A
+ $CA25 DEFB $0B
+ $CA26 DEFB $F1
+ $CA27 DEFB $0A
+ $CA28 DEFB $0B
+ $CA29 DEFB $C3
+ $CA2A DEFB $01
+ $CA2B DEFB $0C
+ $CA2C DEFB $0D
+ $CA2D DEFB $F1
+ $CA2E DEFB $0C
+ $CA2F DEFB $0D
+ $CA30 DEFB $C3
+ $CA31 DEFB $02
+ $CA32 DEFB $0A
+ $CA33 DEFB $0B
+ $CA34 DEFB $F1
+ $CA35 DEFB $0A
+ $CA36 DEFB $0B
+ $CA37 DEFB $C3
+ $CA38 DEFB $01
+ $CA39 DEFB $0C
+ $CA3A DEFB $0D
+ $CA3B DEFB $F1
+ $CA3C DEFB $0C
+ $CA3D DEFB $0D
+ $CA3E DEFB $C2
+ $CA3F DEFB $FE,$FE     ; Attribute=#COLOUR(#PC+$01)
+ $CA41 DEFB $43
+ $CA42 DEFB $00
+ $CA43 DEFB $FD
+ $CA44 DEFB $05
+ $CA45 DEFB $01
+ $CA46 DEFB $02
+ $CA47 DEFB $C1
+ $CA48 DEFB $01
+ $CA49 DEFB $F0
+ $CA4A DEFB $02
+ $CA4B DEFB $08
+ $CA4C DEFB $00
+ $CA4D DEFB $FD
+ $CA4E DEFB $05
+ $CA4F DEFB $01
+ $CA50 DEFB $02
+ $CA51 DEFB $C7
+ $CA52 DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CA54 DEFB $02
+ $CA55 DEFB $09
+ $CA56 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_91
+b$CA57 DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CA5A DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CA5C DEFB $00
+ $CA5D DEFB $FD
+ $CA5E DEFB $08
+ $CA5F DEFB $01
+ $CA60 DEFB $F0
+ $CA61 DEFB $01
+ $CA62 DEFB $02
+ $CA63 DEFB $F0
+ $CA64 DEFB $07
+ $CA65 DEFB $09
+ $CA66 DEFB $BF
+ $CA67 DEFB $F9
+ $CA68 DEFB $F0
+ $CA69 DEFB $07
+ $CA6A DEFB $08
+ $CA6B DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA6D DEFB $C9
+ $CA6E DEFB $F8
+ $CA6F DEFB $F0
+ $CA70 DEFB $01
+ $CA71 DEFB $03
+ $CA72 DEFB $F0
+ $CA73 DEFB $05
+ $CA74 DEFB $04
+ $CA75 DEFB $CA
+ $CA76 DEFB $FA
+ $CA77 DEFB $F0
+ $CA78 DEFB $01
+ $CA79 DEFB $03
+ $CA7A DEFB $F0
+ $CA7B DEFB $05
+ $CA7C DEFB $04
+ $CA7D DEFB $CB
+ $CA7E DEFB $FA
+ $CA7F DEFB $F0
+ $CA80 DEFB $01
+ $CA81 DEFB $03
+ $CA82 DEFB $F0
+ $CA83 DEFB $05
+ $CA84 DEFB $04
+ $CA85 DEFB $CA
+ $CA86 DEFB $FA
+ $CA87 DEFB $F0
+ $CA88 DEFB $01
+ $CA89 DEFB $03
+ $CA8A DEFB $F0
+ $CA8B DEFB $05
+ $CA8C DEFB $04
+ $CA8D DEFB $C1
+ $CA8E DEFB $00
+ $CA8F DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $CA91 DEFB $05
+ $CA92 DEFB $06
+ $CA93 DEFB $07
+ $CA94 DEFB $F1
+ $CA95 DEFB $F1
+ $CA96 DEFB $05
+ $CA97 DEFB $06
+ $CA98 DEFB $07
+ $CA99 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_92
+b$CA9A DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CA9D DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA9F DEFB $F0
+ $CAA0 DEFB $01
+ $CAA1 DEFB $0B
+ $CAA2 DEFB $F0
+ $CAA3 DEFB $07
+ $CAA4 DEFB $04
+ $CAA5 DEFB $03
+ $CAA6 DEFB $C6
+ $CAA7 DEFB $FA
+ $CAA8 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CAAA DEFB $0C
+ $CAAB DEFB $0D
+ $CAAC DEFB $0E
+ $CAAD DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_93
+b$CAAE DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CAB1 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CAB3 DEFB $F2
+ $CAB4 DEFB $08
+ $CAB5 DEFB $1B
+ $CAB6 DEFB $1C
+ $CAB7 DEFB $B8
+ $CAB8 DEFB $01
+ $CAB9 DEFB $F2
+ $CABA DEFB $08
+ $CABB DEFB $1B
+ $CABC DEFB $1C
+ $CABD DEFB $B8
+ $CABE DEFB $01
+ $CABF DEFB $F2
+ $CAC0 DEFB $08
+ $CAC1 DEFB $1B
+ $CAC2 DEFB $1C
+ $CAC3 DEFB $B8
+ $CAC4 DEFB $01
+ $CAC5 DEFB $F2
+ $CAC6 DEFB $08
+ $CAC7 DEFB $1B
+ $CAC8 DEFB $1C
+ $CAC9 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_94
+b$CACA DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CACD DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CACF DEFB $FD
+ $CAD0 DEFB $10
+ $CAD1 DEFB $10
+ $CAD2 DEFB $B8
+ $CAD3 DEFB $01
+ $CAD4 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CAD7 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CAD9 DEFB $FD
+ $CADA DEFB $10
+ $CADB DEFB $1A
+ $CADC DEFB $B8
+ $CADD DEFB $01
+ $CADE DEFB $FD
+ $CADF DEFB $10
+ $CAE0 DEFB $1A
+ $CAE1 DEFB $B8
+ $CAE2 DEFB $01
+ $CAE3 DEFB $FD
+ $CAE4 DEFB $10
+ $CAE5 DEFB $1A
+ $CAE6 DEFB $B8
+ $CAE7 DEFB $01
+ $CAE8 DEFB $FD
+ $CAE9 DEFB $10
+ $CAEA DEFB $1A
+ $CAEB DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_95
+b$CAEC DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CAEF DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CAF1 DEFB $00
+ $CAF2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CAF4 DEFB $FD
+ $CAF5 DEFB $0D
+ $CAF6 DEFB $01
+ $CAF7 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CAF9 DEFB $F0
+ $CAFA DEFB $01
+ $CAFB DEFB $02
+ $CAFC DEFB $F0
+ $CAFD DEFB $0A
+ $CAFE DEFB $09
+ $CAFF DEFB $BA
+ $CB00 DEFB $F6
+ $CB01 DEFB $F0
+ $CB02 DEFB $0A
+ $CB03 DEFB $08
+ $CB04 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_96
+b$CB05 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CB08 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CB0A DEFB $07
+ $CB0B DEFB $FD
+ $CB0C DEFB $06
+ $CB0D DEFB $01
+ $CB0E DEFB $F0
+ $CB0F DEFB $01
+ $CB10 DEFB $02
+ $CB11 DEFB $F0
+ $CB12 DEFB $02
+ $CB13 DEFB $03
+ $CB14 DEFB $C1
+ $CB15 DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CB17 DEFB $02
+ $CB18 DEFB $04
+ $CB19 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_97
+b$CB1A DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CB1D DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CB1F DEFB $07
+ $CB20 DEFB $FD
+ $CB21 DEFB $06
+ $CB22 DEFB $01
+ $CB23 DEFB $F0
+ $CB24 DEFB $01
+ $CB25 DEFB $02
+ $CB26 DEFB $F0
+ $CB27 DEFB $02
+ $CB28 DEFB $0E
+ $CB29 DEFB $C1
+ $CB2A DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CB2C DEFB $02
+ $CB2D DEFB $0E
+ $CB2E DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_98
+b$CB2F DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CB32 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB34 DEFB $08
+ $CB35 DEFB $09
+ $CB36 DEFB $0A
+ $CB37 DEFB $C5
+ $CB38 DEFB $01
+ $CB39 DEFB $00
+ $CB3A DEFB $04
+ $CB3B DEFB $01
+ $CB3C DEFB $C5
+ $CB3D DEFB $01
+ $CB3E DEFB $07
+ $CB3F DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CB41 DEFB $0B
+ $CB42 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB44 DEFB $05
+ $CB45 DEFB $C5
+ $CB46 DEFB $01
+ $CB47 DEFB $02
+ $CB48 DEFB $06
+ $CB49 DEFB $03
+ $CB4A DEFB $C5
+ $CB4B DEFB $01
+ $CB4C DEFB $00
+ $CB4D DEFB $04
+ $CB4E DEFB $01
+ $CB4F DEFB $C5
+ $CB50 DEFB $01
+ $CB51 DEFB $02
+ $CB52 DEFB $06
+ $CB53 DEFB $03
+ $CB54 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_99
+b$CB55 DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CB58 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB5A DEFB $12
+ $CB5B DEFB $13
+ $CB5C DEFB $C6
+ $CB5D DEFB $01
+ $CB5E DEFB $10
+ $CB5F DEFB $11
+ $CB60 DEFB $C6
+ $CB61 DEFB $01
+ $CB62 DEFB $0E
+ $CB63 DEFB $0F
+ $CB64 DEFB $C6
+ $CB65 DEFB $01
+ $CB66 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CB68 DEFB $0C
+ $CB69 DEFB $0D
+ $CB6A DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_100
+b$CB6B DEFB $FB,$74,$D8 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CB6E DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB70 DEFB $06
+ $CB71 DEFB $FE,$56     ; Attribute=#COLOUR(#PC+$01)
+ $CB73 DEFB $00
+ $CB74 DEFB $01
+ $CB75 DEFB $02
+ $CB76 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB78 DEFB $08
+ $CB79 DEFB $C3
+ $CB7A DEFB $01
+ $CB7B DEFB $07
+ $CB7C DEFB $FE,$56     ; Attribute=#COLOUR(#PC+$01)
+ $CB7E DEFB $03
+ $CB7F DEFB $04
+ $CB80 DEFB $05
+ $CB81 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB83 DEFB $09
+ $CB84 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_101
+b$CB85 DEFB $FB,$E4,$D9                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CB88 DEFB $FE,$42                         ; Attribute=#COLOUR(#PC+$01)
+ $CB8A DEFB $0B
+ $CB8B DEFB $0B
+ $CB8C DEFB $0B
+ $CB8D DEFB $C5
+ $CB8E DEFB $01
+ $CB8F DEFB $0B
+ $CB90 DEFB $F1
+ $CB91 DEFB $0B
+ $CB92 DEFB $C5
+ $CB93 DEFB $01
+ $CB94 DEFB $0B
+ $CB95 DEFB $0B
+ $CB96 DEFB $0B
+ $CB97 DEFB $C6
+ $CB98 DEFB $FF,$FE,$56,$FB,$74,$D8,$0A,$FF ; Terminator.
+
+; Graphic ID
+@label=graphic_102
+b$CBA0 DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CBA3 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $CBA5 DEFB $F0
+ $CBA6 DEFB $01
+ $CBA7 DEFB $0B
+ $CBA8 DEFB $F0
+ $CBA9 DEFB $0C
+ $CBAA DEFB $04
+ $CBAB DEFB $F0
+ $CBAC DEFB $01
+ $CBAD DEFB $03
+ $CBAE DEFB $C6
+ $CBAF DEFB $F3
+ $CBB0 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CBB3 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CBB5 DEFB $00
+ $CBB6 DEFB $01
+ $CBB7 DEFB $01
+ $CBB8 DEFB $01
+ $CBB9 DEFB $02
+ $CBBA DEFB $C3
+ $CBBB DEFB $04
+ $CBBC DEFB $03
+ $CBBD DEFB $04
+ $CBBE DEFB $04
+ $CBBF DEFB $04
+ $CBC0 DEFB $05
+ $CBC1 DEFB $C3
+ $CBC2 DEFB $FD
+ $CBC3 DEFB $F0
+ $CBC4 DEFB $03
+ $CBC5 DEFB $07
+ $CBC6 DEFB $CC
+ $CBC7 DEFB $FD
+ $CBC8 DEFB $F0
+ $CBC9 DEFB $03
+ $CBCA DEFB $08
+ $CBCB DEFB $FB,$74,$D8 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CBCE DEFB $FE,$7A     ; Attribute=#COLOUR(#PC+$01)
+ $CBD0 DEFB $C5
+ $CBD1 DEFB $FD
+ $CBD2 DEFB $0C
+ $CBD3 DEFB $0D
+ $CBD4 DEFB $0E
+ $CBD5 DEFB $C5
+ $CBD6 DEFB $01
+ $CBD7 DEFB $0F
+ $CBD8 DEFB $10
+ $CBD9 DEFB $11
+ $CBDA DEFB $C5
+ $CBDB DEFB $01
+ $CBDC DEFB $12
+ $CBDD DEFB $13
+ $CBDE DEFB $14
+ $CBDF DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_103
+b$CBE0 DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CBE3 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CBE5 DEFB $14
+ $CBE6 DEFB $15
+ $CBE7 DEFB $C6
+ $CBE8 DEFB $01
+ $CBE9 DEFB $10
+ $CBEA DEFB $11
+ $CBEB DEFB $C6
+ $CBEC DEFB $01
+ $CBED DEFB $0E
+ $CBEE DEFB $0F
+ $CBEF DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_104
+b$CBF0 DEFB $FB,$1C,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CBF3 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CBF5 DEFB $00
+ $CBF6 DEFB $01
+ $CBF7 DEFB $02
+ $CBF8 DEFB $C5
+ $CBF9 DEFB $01
+ $CBFA DEFB $03
+ $CBFB DEFB $04
+ $CBFC DEFB $05
+ $CBFD DEFB $C5
+ $CBFE DEFB $01
+ $CBFF DEFB $06
+ $CC00 DEFB $07
+ $CC01 DEFB $08
+ $CC02 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_105
+b$CC03 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC06 DEFB $FE,$4F                         ; Attribute=#COLOUR(#PC+$01)
+ $CC08 DEFB $FD
+ $CC09 DEFB $0F
+ $CC0A DEFB $20
+ $CC0B DEFB $B9
+ $CC0C DEFB $02
+ $CC0D DEFB $FD
+ $CC0E DEFB $0F
+ $CC0F DEFB $20
+ $CC10 DEFB $B9
+ $CC11 DEFB $FF,$FD,$0F,$20,$BC,$00,$FB,$1C ; {Terminator.
+ $CC19 DEFB $D9,$0F,$10,$11,$12,$17,$18,$13 ;
+ $CC21 DEFB $14,$15,$16,$FF                 ; }
+
+; Graphic ID
+@label=graphic_106
+b$CC25 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC28 DEFB $FE,$57     ; Attribute=#COLOUR(#PC+$01)
+ $CC2A DEFB $FD
+ $CC2B DEFB $10
+ $CC2C DEFB $20
+ $CC2D DEFB $BE
+ $CC2E DEFB $00
+ $CC2F DEFB $FB,$1C,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC32 DEFB $09
+ $CC33 DEFB $0A
+ $CC34 DEFB $0B
+ $CC35 DEFB $0C
+ $CC36 DEFB $0D
+ $CC37 DEFB $0E
+ $CC38 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_107
+b$CC39 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC3C DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CC3E DEFB $F0
+ $CC3F DEFB $05
+ $CC40 DEFB $15
+ $CC41 DEFB $C9
+ $CC42 DEFB $FB,$F0,$05 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC45 DEFB $16
+ $CC46 DEFB $C9
+ $CC47 DEFB $FB,$F0,$05 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC4A DEFB $17
+ $CC4B DEFB $C9
+ $CC4C DEFB $FB,$F0,$05 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC4F DEFB $15
+ $CC50 DEFB $C9
+ $CC51 DEFB $FB,$F0,$05 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC54 DEFB $16
+ $CC55 DEFB $C9
+ $CC56 DEFB $FB,$F0,$05 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC59 DEFB $17
+ $CC5A DEFB $C9
+ $CC5B DEFB $FB,$FF     ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+
+; Graphic ID
+@label=graphic_108
+b$CC5D DEFB $FB                     ; Screen co-ordinates:
+                                    ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC5E DEFB $E4
+ $CC5F DEFB $D9
+ $CC60 DEFB $FE,$45                 ; Attribute=#COLOUR(#PC+$01)
+ $CC62 DEFB $0D
+ $CC63 DEFB $0E
+ $CC64 DEFB $0F
+ $CC65 DEFB $C5
+ $CC66 DEFB $01
+ $CC67 DEFB $FE,$44                 ; Attribute=#COLOUR(#PC+$01)
+ $CC69 DEFB $F0
+ $CC6A DEFB $01
+ $CC6B DEFB $07
+ $CC6C DEFB $FE,$47                 ; Attribute=#COLOUR(#PC+$01)
+ $CC6E DEFB $04
+ $CC6F DEFB $0A
+ $CC70 DEFB $05
+ $CC71 DEFB $C5
+ $CC72 DEFB $01
+ $CC73 DEFB $02
+ $CC74 DEFB $F1
+ $CC75 DEFB $03
+ $CC76 DEFB $C5
+ $CC77 DEFB $01
+ $CC78 DEFB $00
+ $CC79 DEFB $09
+ $CC7A DEFB $01
+ $CC7B DEFB $C8
+ $CC7C DEFB $FE,$FE                 ; Attribute=#COLOUR(#PC+$01)
+ $CC7E DEFB $45
+ $CC7F DEFB $F0
+ $CC80 DEFB $01
+ $CC81 DEFB $06
+ $CC82 DEFB $F0
+ $CC83 DEFB $01
+ $CC84 DEFB $07
+ $CC85 DEFB $08
+ $CC86 DEFB $C5
+ $CC87 DEFB $FF,$FB,$DC,$DF,$50,$FF ; Terminator.
+
+; Graphic ID
+@label=graphic_109
+b$CC8D DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC90 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CC92 DEFB $F0
+ $CC93 DEFB $01
+ $CC94 DEFB $18
+ $CC95 DEFB $14
+ $CC96 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_110
+b$CC97 DEFB $FB,$64,$DB ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CC9A DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CC9C DEFB $00
+ $CC9D DEFB $01
+ $CC9E DEFB $02
+ $CC9F DEFB $C5
+ $CCA0 DEFB $01
+ $CCA1 DEFB $03
+ $CCA2 DEFB $04
+ $CCA3 DEFB $05
+ $CCA4 DEFB $C5
+ $CCA5 DEFB $01
+ $CCA6 DEFB $06
+ $CCA7 DEFB $07
+ $CCA8 DEFB $08
+ $CCA9 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_111
+b$CCAA DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CCAD DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CCAF DEFB $20
+ $CCB0 DEFB $20
+ $CCB1 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_112
+b$CCB2 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CCB5 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $CCB7 DEFB $0A
+ $CCB8 DEFB $0B
+ $CCB9 DEFB $0B
+ $CCBA DEFB $0C
+ $CCBB DEFB $C4
+ $CCBC DEFB $01
+ $CCBD DEFB $0D
+ $CCBE DEFB $F1
+ $CCBF DEFB $F1
+ $CCC0 DEFB $0E
+ $CCC1 DEFB $C4
+ $CCC2 DEFB $01
+ $CCC3 DEFB $0D
+ $CCC4 DEFB $F1
+ $CCC5 DEFB $F1
+ $CCC6 DEFB $0E
+ $CCC7 DEFB $C4
+ $CCC8 DEFB $01
+ $CCC9 DEFB $0A
+ $CCCA DEFB $0B
+ $CCCB DEFB $0B
+ $CCCC DEFB $0C
+ $CCCD DEFB $C4
+ $CCCE DEFB $01
+ $CCCF DEFB $0D
+ $CCD0 DEFB $F1
+ $CCD1 DEFB $F1
+ $CCD2 DEFB $0E
+ $CCD3 DEFB $C4
+ $CCD4 DEFB $01
+ $CCD5 DEFB $0F
+ $CCD6 DEFB $F1
+ $CCD7 DEFB $F1
+ $CCD8 DEFB $11
+ $CCD9 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_113
+b$CCDA DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CCDD DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CCDF DEFB $00
+ $CCE0 DEFB $01
+ $CCE1 DEFB $02
+ $CCE2 DEFB $C5
+ $CCE3 DEFB $01
+ $CCE4 DEFB $03
+ $CCE5 DEFB $04
+ $CCE6 DEFB $05
+ $CCE7 DEFB $C5
+ $CCE8 DEFB $01
+ $CCE9 DEFB $03
+ $CCEA DEFB $06
+ $CCEB DEFB $05
+ $CCEC DEFB $C5
+ $CCED DEFB $01
+ $CCEE DEFB $07
+ $CCEF DEFB $08
+ $CCF0 DEFB $09
+ $CCF1 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_114
+b$CCF2 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CCF5 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CCF7 DEFB $12
+ $CCF8 DEFB $0A
+ $CCF9 DEFB $0B
+ $CCFA DEFB $0C
+ $CCFB DEFB $C4
+ $CCFC DEFB $01
+ $CCFD DEFB $13
+ $CCFE DEFB $0D
+ $CCFF DEFB $F1
+ $CD00 DEFB $0E
+ $CD01 DEFB $C5
+ $CD02 DEFB $01
+ $CD03 DEFB $0D
+ $CD04 DEFB $F1
+ $CD05 DEFB $0E
+ $CD06 DEFB $C5
+ $CD07 DEFB $01
+ $CD08 DEFB $0F
+ $CD09 DEFB $10
+ $CD0A DEFB $11
+ $CD0B DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CD0E DEFB $C6
+ $CD0F DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CD11 DEFB $02
+ $CD12 DEFB $20
+ $CD13 DEFB $FF         ; Terminator.
+
+; Graphic ID
+@label=graphic_115
+b$CD14 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
+                                            ; #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CD17 DEFB $FE,$72                         ; Attribute=#COLOUR(#PC+$01)
+ $CD19 DEFB $FD
+ $CD1A DEFB $05
+ $CD1B DEFB $20
+ $CD1C DEFB $C3
+ $CD1D DEFB $01
+ $CD1E DEFB $FD
+ $CD1F DEFB $05
+ $CD20 DEFB $20
+ $CD21 DEFB $C3
+ $CD22 DEFB $01
+ $CD23 DEFB $FD
+ $CD24 DEFB $05
+ $CD25 DEFB $20
+ $CD26 DEFB $C4
+ $CD27 DEFB $FF,$FB,$DC,$DE,$0B,$0C,$0C,$FF ; Terminator.
+
+; Graphic ID
+@label=graphic_116
+b$CD2F DEFB $FB,$CC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CD32 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CD34 DEFB $FD
+ $CD35 DEFB $06
+ $CD36 DEFB $01
+ $CD37 DEFB $C1
+ $CD38 DEFB $01
+ $CD39 DEFB $03
+ $CD3A DEFB $C8
+ $CD3B DEFB $01
+ $CD3C DEFB $FD
+ $CD3D DEFB $06
+ $CD3E DEFB $00
+ $CD3F DEFB $C8
+ $CD40 DEFB $FF,$02,$FF ; Terminator.
+
+; Graphic ID
+@label=graphic_117
+b$CD43 DEFB $FB,$E4,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CD46 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CD48 DEFB $04
+ $CD49 DEFB $FD
+ $CD4A DEFB $1E
+ $CD4B DEFB $0A
+ $CD4C DEFB $05
+ $CD4D DEFB $A8
+ $CD4E DEFB $01
+ $CD4F DEFB $02
+ $CD50 DEFB $FD
+ $CD51 DEFB $1E
+ $CD52 DEFB $0B
+ $CD53 DEFB $03
+ $CD54 DEFB $A8
+ $CD55 DEFB $01
+ $CD56 DEFB $00
+ $CD57 DEFB $FD
+ $CD58 DEFB $1E
+ $CD59 DEFB $09
+ $CD5A DEFB $01
+ $CD5B DEFB $A8
+ $CD5C DEFB $01
+ $CD5D DEFB $FE,$06     ; Attribute=#COLOUR(#PC+$01)
+ $CD5F DEFB $F2
+ $CD60 DEFB $10
+ $CD61 DEFB $16
+ $CD62 DEFB $15
+ $CD63 DEFB $A8
+ $CD64 DEFB $01
+ $CD65 DEFB $F2
+ $CD66 DEFB $10
+ $CD67 DEFB $15
+ $CD68 DEFB $16
+ $CD69 DEFB $A8
+ $CD6A DEFB $01
+ $CD6B DEFB $F2
+ $CD6C DEFB $10
+ $CD6D DEFB $16
+ $CD6E DEFB $15
+ $CD6F DEFB $A8
+ $CD70 DEFB $01
+ $CD71 DEFB $F2
+ $CD72 DEFB $10
+ $CD73 DEFB $15
+ $CD74 DEFB $16
+ $CD75 DEFB $A8
+ $CD76 DEFB $01
+ $CD77 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CD79 DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CD7C DEFB $FD
+ $CD7D DEFB $20
+ $CD7E DEFB $0C
+ $CD7F DEFB $C3
+ $CD80 DEFB $00
+ $CD81 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CD83 DEFB $F0
+ $CD84 DEFB $01
+ $CD85 DEFB $02
+ $CD86 DEFB $F0
+ $CD87 DEFB $04
+ $CD88 DEFB $04
+ $CD89 DEFB $BC
+ $CD8A DEFB $FB,$F0,$01 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CD8D DEFB $02
+ $CD8E DEFB $F0
+ $CD8F DEFB $04
+ $CD90 DEFB $04
+ $CD91 DEFB $BC
+ $CD92 DEFB $FB,$F0,$01 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CD95 DEFB $02
+ $CD96 DEFB $F0
+ $CD97 DEFB $04
+ $CD98 DEFB $04
+ $CD99 DEFB $FE,$5F     ; Attribute=#COLOUR(#PC+$01)
+ $CD9B DEFB $CA
+ $CD9C DEFB $F5
+ $CD9D DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+ $CDA0 DEFB $4D
+ $CDA1 DEFB $49
+ $CDA2 DEFB $4B
+ $CDA3 DEFB $52
+ $CDA4 DEFB $4F
+ $CDA5 DEFB $2D
+ $CDA6 DEFB $47
+ $CDA7 DEFB $45
+ $CDA8 DEFB $4E
+ $CDA9 DEFB $CC
+ $CDAA DEFB $00
+ $CDAB DEFB $4D
+ $CDAC DEFB $49
+ $CDAD DEFB $4B
+ $CDAE DEFB $52
+ $CDAF DEFB $4F
+ $CDB0 DEFB $2D
+ $CDB1 DEFB $47
+ $CDB2 DEFB $45
+ $CDB3 DEFB $4E
+ $CDB4 DEFB $FF         ; Terminator.
+
+; Room Data
+@label=Data_Rooms
+w$CDB5 DEFW $CDF7    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDB7 DEFW $CE01    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDB9 DEFW $CE25    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDBB DEFW $CE37    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDBD DEFW $CE69    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDBF DEFW $CE7B    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDC1 DEFW $CE89    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDC3 DEFW $CEAD    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDC5 DEFW $CEC9    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDC7 DEFW $CEE1    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDC9 DEFW $CEF9    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDCB DEFW $CF09    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDCD DEFW $CF29    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDCF DEFW $CF49    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDD1 DEFW $CF71    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDD3 DEFW $CF97    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDD5 DEFW $CFB5    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDD7 DEFW $CFD9    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDD9 DEFW $CFEF    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDDB DEFW $D009    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDDD DEFW $D039    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDDF DEFW $D057    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDE1 DEFW $D08B    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDE3 DEFW $D0AF    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDE5 DEFW $D0C3    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDE7 DEFW $D0E7    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDE9 DEFW $D109    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDEB DEFW $D125    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDED DEFW $D135    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDEF DEFW $D153    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDF1 DEFW $D16D    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDF3 DEFW $D17D    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+ $CDF5 DEFW $D191    ; Room
+                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+
+; Data block at CDF7
+b$CDF7 DEFB $80,$07,$86,$B0,$84,$4B,$85
+ $CDFE DEFW $7FAF
+ $CE00 DEFB $00                         ; Terminator.
+
+; Data block at CE01
+b$CE01 DEFB $80,$07,$08,$E7,$30,$DE,$8A,$87
  $CE09 DEFB $8A,$9F,$0C,$03,$0D,$01,$8F,$03
  $CE11 DEFB $0C,$05,$0C,$07,$14,$37,$A4,$2E
  $CE19 DEFB $B2,$84,$27,$5E,$34,$0F,$BB,$28
@@ -6722,412 +9729,412 @@ b$CDB5 DEFW $CDF7
  $D31B DEFB $FF,$FF,$FF,$CC,$D5,$CC,$D5,$C5
  $D323 DEFB $FF,$FF,$FF,$C6,$5D,$C4,$5D,$45
  $D32B DEFB $FF,$FF,$FF,$CF,$57,$57,$57,$4F
- $D333 DEFB $FF,$08,$08,$18,$1C,$3C,$BB,$BB
- $D33B DEFB $3C,$34,$2C,$2C,$BB,$BB,$3C,$34
- $D343 DEFB $2C,$3C,$34,$34,$2C,$2C,$34,$34
- $D34B DEFB $3C,$7D,$81,$81,$81,$81,$81,$81
- $D353 DEFB $7D,$81,$80,$C2,$C2,$80,$81,$81
- $D35B DEFB $7D,$20,$64,$44,$16,$B2,$D0,$46
- $D363 DEFB $0C,$00,$20,$64,$46,$02,$10,$30
- $D36B DEFB $00,$81,$C3,$4A,$18,$10,$C6,$63
- $D373 DEFB $00,$00,$00,$03,$06,$00,$09,$1B
- $D37B DEFB $12,$00,$00,$60,$30,$00,$88,$CC
- $D383 DEFB $44,$60,$64,$CC,$08,$20,$60,$40
- $D38B DEFB $00,$02,$33,$19,$00,$00,$0C,$06
- $D393 DEFB $00,$DD,$CD,$6E,$6E,$77,$77,$6F
- $D39B DEFB $EF,$EE,$EE,$FE,$B7,$B7,$77,$7B
- $D3A3 DEFB $7B,$F0,$3C,$0E,$07,$03,$03,$01
- $D3AB DEFB $01,$18,$38,$74,$F6,$F7,$EF,$ED
- $D3B3 DEFB $DE,$10,$10,$30,$78,$BD,$BD,$DB
- $D3BB DEFB $DB,$03,$06,$0E,$3C,$F8,$E0,$C0
- $D3C3 DEFB $80,$01,$01,$03,$03,$07,$0E,$3C
- $D3CB DEFB $F0,$DE,$ED,$EF,$F7,$F6,$74,$38
- $D3D3 DEFB $18,$DB,$DB,$BD,$BD,$78,$30,$10
- $D3DB DEFB $10,$80,$C0,$E0,$F8,$3C,$0E,$06
- $D3E3 DEFB $03,$6F,$EF,$E0,$E0,$E0,$E0,$E0
- $D3EB DEFB $80,$FF,$E7,$18,$18,$18,$18,$18
- $D3F3 DEFB $18,$F6,$F7,$07,$07,$07,$07,$07
- $D3FB DEFB $01,$70,$F8,$98,$60,$60,$6F,$9F
- $D403 DEFB $FF,$18,$18,$18,$18,$00,$FF,$FF
- $D40B DEFB $FF,$0E,$1F,$19,$06,$06,$F6,$F9
- $D413 DEFB $FF,$38,$38,$38,$70,$70,$70,$E0
- $D41B DEFB $E0,$1C,$1C,$1C,$0E,$0E,$0E,$07
- $D423 DEFB $07,$00,$7F,$80,$FF,$7F,$00,$0E
- $D42B DEFB $03,$00,$FF,$00,$FF,$FF,$00,$AA
- $D433 DEFB $55,$00,$FE,$01,$FF,$FE,$00,$F0
- $D43B DEFB $C0,$EA,$35,$1A,$0D,$0E,$07,$06
- $D443 DEFB $07,$AF,$5C,$B8,$50,$B0,$60,$A0
- $D44B DEFB $60,$AA,$55,$AA,$55,$AA,$55,$AA
- $D453 DEFB $55,$00,$03,$0F,$09,$06,$03,$0F
- $D45B DEFB $07,$00,$80,$C0,$E0,$E0,$60,$C0
- $D463 DEFB $A0,$80,$C1,$A3,$93,$8A,$85,$43
- $D46B DEFB $4C,$78,$7C,$AC,$9C,$78,$E0,$98
- $D473 DEFB $78,$32,$C2,$22,$25,$25,$15,$14
- $D47B DEFB $0A,$F8,$F0,$F0,$E0,$C0,$E3,$FA
- $D483 DEFB $F9,$03,$01,$01,$01,$00,$00,$03
- $D48B DEFB $07,$73,$83,$C1,$C0,$E0,$00,$60
- $D493 DEFB $A0,$BF,$5E,$2C,$2C,$2C,$2C,$5E
- $D49B DEFB $5E,$2C,$2C,$2C,$AB,$AB,$2C,$2C
- $D4A3 DEFB $2C,$00,$60,$90,$B7,$B7,$90,$60
- $D4AB DEFB $00,$00,$06,$09,$EB,$EB,$09,$06
- $D4B3 DEFB $00,$2C,$2C,$2C,$5E,$5E,$BF,$FF
- $D4BB DEFB $00,$2C,$2C,$2C,$2C,$2C,$2C,$2C
- $D4C3 DEFB $2C,$0B,$05,$05,$05,$05,$04,$03
- $D4CB DEFB $03,$E7,$FF,$D3,$D3,$FF,$00,$FF
- $D4D3 DEFB $C3,$D0,$A0,$A0,$A0,$A0,$20,$C0
- $D4DB DEFB $C0,$00,$03,$0E,$19,$37,$2B,$0B
- $D4E3 DEFB $0B,$FF,$81,$7E,$FF,$FF,$E7,$C3
- $D4EB DEFB $D3,$00,$C0,$70,$98,$EC,$D4,$D0
- $D4F3 DEFB $D0,$3C,$5E,$5E,$2C,$18,$2C,$5E
- $D4FB DEFB $00,$1F,$71,$F7,$FB,$FB,$FD,$71
- $D503 DEFB $1F,$FF,$11,$B5,$B5,$B5,$B5,$B1
- $D50B DEFB $FF,$F8,$1E,$5F,$5F,$1F,$7F,$7E
- $D513 DEFB $F8,$00,$DF,$DF,$DF,$00,$FB,$FB
- $D51B DEFB $FB,$FF,$FF,$FE,$00,$7F,$7F,$3F
- $D523 DEFB $80,$7F,$7F,$3F,$80,$FF,$FF,$FE
- $D52B DEFB $00,$00,$00,$70,$97,$D7,$D7,$F7
- $D533 DEFB $00,$3C,$18,$00,$FF,$C3,$DB,$18
- $D53B DEFB $00,$00,$00,$00,$FF,$FF,$FF,$00
- $D543 DEFB $00,$00,$00,$FF,$7F,$7F,$7F,$D2
- $D54B DEFB $2C,$16,$16,$16,$16,$16,$16,$16
- $D553 DEFB $16,$16,$96,$C9,$BF,$BF,$C9,$96
- $D55B DEFB $16,$00,$55,$2A,$55,$2A,$55,$2A
- $D563 DEFB $7F,$00,$55,$AB,$55,$AB,$55,$AB
- $D56B DEFB $FF,$00,$33,$67,$33,$00,$67,$CF
- $D573 DEFB $CF,$00,$FC,$FE,$FC,$00,$FE,$FF
- $D57B DEFB $FF,$67,$CF,$CF,$67,$00,$67,$67
- $D583 DEFB $00,$FE,$FF,$FF,$FE,$00,$FE,$FE
- $D58B DEFB $00,$33,$33,$33,$33,$33,$33,$33
- $D593 DEFB $33,$7C,$7C,$7C,$7C,$7C,$7C,$7C
- $D59B DEFB $7C,$EF,$9C,$38,$70,$66,$6E,$3C
- $D5A3 DEFB $00,$FF,$80,$90,$A2,$84,$88,$92
- $D5AB DEFB $A4,$FF,$01,$21,$41,$05,$09,$11
- $D5B3 DEFB $21,$80,$88,$90,$A1,$82,$84,$88
- $D5BB DEFB $80,$09,$11,$21,$41,$09,$11,$21
- $D5C3 DEFB $01,$80,$80,$80,$B8,$B8,$B8,$B8
- $D5CB DEFB $B8,$80,$88,$90,$A2,$84,$88,$80
- $D5D3 DEFB $FF,$01,$11,$21,$41,$05,$09,$01
- $D5DB DEFB $FF,$3E,$7F,$7F,$38,$C7,$EF,$EF
- $D5E3 DEFB $C0,$3C,$FF,$3F,$BF,$3F,$BF,$7F
- $D5EB DEFB $C3,$F7,$F7,$D7,$F7,$EF,$EF,$EF
- $D5F3 DEFB $EF,$EF,$EF,$EF,$EF,$EF,$F7,$B7
- $D5FB DEFB $EF,$00,$7F,$60,$5F,$50,$50,$50
- $D603 DEFB $50,$00,$FF,$00,$FF,$00,$00,$00
- $D60B DEFB $00,$00,$FE,$06,$FA,$0A,$0A,$0A
- $D613 DEFB $0A,$50,$50,$50,$50,$5F,$60,$7F
- $D61B DEFB $00,$00,$00,$00,$00,$FF,$00,$FF
- $D623 DEFB $00,$0A,$0A,$0A,$0A,$FA,$06,$FE
- $D62B DEFB $00,$02,$24,$48,$10,$22,$44,$88
- $D633 DEFB $10,$50,$50,$50,$50,$50,$50,$50
- $D63B DEFB $50,$0A,$0A,$0A,$0A,$0A,$0A,$0A
- $D643 DEFB $0A,$FF,$81,$BD,$AD,$A5,$BD,$81
- $D64B DEFB $FF,$FF,$81,$FD,$CD,$A5,$A5,$CD
- $D653 DEFB $FF,$00,$79,$67,$4F,$1C,$38,$38
- $D65B DEFB $70,$3C,$FF,$FF,$00,$00,$00,$00
- $D663 DEFB $00,$00,$8F,$E7,$F3,$38,$1C,$1C
- $D66B DEFB $0E,$70,$00,$70,$70,$70,$70,$70
- $D673 DEFB $70,$0E,$00,$0E,$0E,$0E,$0E,$0E
- $D67B DEFB $0E,$50,$50,$50,$00,$7F,$FF,$FF
- $D683 DEFB $00,$00,$00,$00,$00,$FF,$FF,$FF
- $D68B DEFB $00,$0A,$0A,$0A,$00,$FE,$FF,$FF
- $D693 DEFB $00,$FF,$7F,$80,$BF,$CF,$D0,$D8
- $D69B DEFB $D8,$FF,$FF,$00,$FF,$FF,$00,$00
- $D6A3 DEFB $00,$FF,$FE,$01,$FD,$F3,$0B,$1B
- $D6AB DEFB $1B,$D8,$D8,$D8,$D8,$D8,$D8,$D8
- $D6B3 DEFB $D8,$1B,$1B,$1B,$1B,$1B,$1B,$1B
- $D6BB DEFB $1B,$E0,$DF,$DF,$E0,$E0,$E0,$E0
- $D6C3 DEFB $E0,$00,$FF,$FF,$00,$00,$00,$00
- $D6CB DEFB $00,$07,$FB,$FB,$07,$07,$07,$07
- $D6D3 DEFB $07,$3C,$BD,$A5,$18,$3C,$18,$24
- $D6DB DEFB $24,$18,$18,$18,$18,$24,$24,$24
- $D6E3 DEFB $24,$18,$18,$18,$18,$67,$7F,$67
- $D6EB DEFB $18,$00,$00,$00,$00,$00,$FF,$FF
- $D6F3 DEFB $FF,$18,$18,$18,$18,$E6,$FE,$E6
- $D6FB DEFB $18,$E0,$E0,$E0,$E0,$E0,$E0,$E0
- $D703 DEFB $E0,$07,$07,$07,$07,$07,$07,$07
- $D70B DEFB $07,$38,$01,$7F,$81,$BE,$BF,$BF
- $D713 DEFB $BF,$C0,$F0,$9C,$87,$61,$99,$E7
- $D71B DEFB $FB,$A2,$AB,$AB,$A2,$BF,$BF,$80
- $D723 DEFB $7F,$2D,$6D,$6D,$25,$FD,$FD,$01
- $D72B DEFB $FE,$18,$18,$18,$0C,$0C,$06,$06
- $D733 DEFB $46,$54,$3A,$67,$6F,$76,$3C,$18
- $D73B DEFB $18,$10,$28,$34,$3C,$3E,$7E,$7E
- $D743 DEFB $FF,$00,$01,$01,$03,$03,$07,$07
- $D74B DEFB $03,$E3,$97,$4F,$BF,$FF,$FC,$E3
- $D753 DEFB $DF,$80,$C0,$C0,$A0,$60,$E0,$C0
- $D75B DEFB $00,$AA,$DB,$00,$7F,$7F,$7F,$80
- $D763 DEFB $FF,$AA,$6D,$00,$FF,$FF,$FF,$00
- $D76B DEFB $FF,$55,$B7,$00,$FE,$FE,$FE,$01
- $D773 DEFB $FF,$00,$0F,$00,$06,$06,$00,$0F
- $D77B DEFB $00,$00,$F0,$00,$60,$60,$00,$F0
- $D783 DEFB $00,$1A,$0B,$00,$0F,$0F,$0F,$10
- $D78B DEFB $1F,$A8,$50,$00,$F0,$F0,$F0,$08
- $D793 DEFB $F8,$00,$C1,$77,$7A,$38,$3C,$18
- $D79B DEFB $00,$00,$7F,$03,$01,$01,$01,$07
- $D7A3 DEFB $3F,$00,$FE,$C0,$80,$80,$80,$E0
- $D7AB DEFB $FC,$00,$00,$7B,$CD,$B5,$BB,$C0
- $D7B3 DEFB $7E,$00,$00,$F8,$FC,$FC,$F8,$00
- $D7BB DEFB $FF,$EF,$EF,$F7,$F8,$F0,$F0,$F0
- $D7C3 DEFB $F0,$F7,$F7,$EF,$1F,$0F,$0F,$0F
- $D7CB DEFB $0F,$F0,$F0,$F0,$F0,$F8,$F7,$EF
- $D7D3 DEFB $EF,$0F,$0F,$0F,$0F,$1F,$EF,$F7
- $D7DB DEFB $F7,$FF,$FF,$FF,$00,$00,$00,$00
- $D7E3 DEFB $00,$0F,$0F,$0F,$0F,$0F,$0F,$0F
- $D7EB DEFB $0F,$00,$00,$00,$00,$00,$FF,$FF
- $D7F3 DEFB $FF,$F0,$F0,$F0,$F0,$F0,$F0,$F0
- $D7FB DEFB $F0,$00,$FF,$FF,$81,$D5,$D0,$FF
- $D803 DEFB $00,$00,$FF,$FF,$04,$40,$14,$FF
- $D80B DEFB $00,$00,$FF,$FF,$11,$83,$11,$FF
- $D813 DEFB $00,$62,$F0,$67,$67,$67,$67,$F0
- $D81B DEFB $62,$3F,$6C,$48,$48,$48,$48,$48
- $D823 DEFB $7F,$FC,$06,$02,$02,$02,$02,$02
- $D82B DEFB $FE,$28,$2B,$29,$2B,$28,$2F,$20
- $D833 DEFB $3F,$34,$54,$34,$54,$54,$F4,$04
- $D83B DEFB $FC,$3F,$20,$2F,$2F,$2F,$2F,$2F
- $D843 DEFB $2F,$FC,$04,$F4,$F4,$F4,$D4,$D4
- $D84B DEFB $F4,$07,$3F,$FF,$7F,$00,$3F,$30
- $D853 DEFB $30,$E0,$FC,$FF,$FE,$00,$FC,$0C
- $D85B DEFB $0C,$3F,$3F,$3F,$30,$30,$30,$3F
- $D863 DEFB $3F,$FC,$FC,$FC,$0C,$0C,$0C,$FC
- $D86B DEFB $FC,$00,$00,$00,$00,$00,$00,$00
- $D873 DEFB $00,$00,$0E,$09,$09,$0E,$08,$08
- $D87B DEFB $00,$00,$00,$31,$4A,$49,$48,$33
- $D883 DEFB $00,$00,$20,$B0,$20,$20,$A0,$18
- $D88B DEFB $00,$00,$18,$25,$25,$25,$25,$19
- $D893 DEFB $00,$00,$DA,$20,$B2,$22,$22,$22
- $D89B DEFB $00,$00,$00,$66,$89,$8E,$88,$66
- $D8A3 DEFB $00,$03,$EF,$DF,$BF,$BF,$7F,$7F
- $D8AB DEFB $7F,$7F,$7F,$7F,$BF,$BF,$DF,$EF
- $D8B3 DEFB $03,$C0,$F0,$F8,$FC,$FC,$FE,$FE
- $D8BB DEFB $FE,$FE,$FE,$FE,$FC,$FC,$F8,$F0
- $D8C3 DEFB $C0,$30,$18,$FF,$18,$30,$FF,$30
- $D8CB DEFB $18,$00,$4A,$52,$42,$7E,$42,$4A
- $D8D3 DEFB $52,$00,$00,$00,$0C,$1F,$1F,$3B
- $D8DB DEFB $3F,$00,$00,$00,$00,$80,$C0,$F0
- $D8E3 DEFB $F8,$00,$00,$30,$70,$78,$2C,$06
- $D8EB DEFB $06,$7F,$7F,$3F,$1F,$07,$07,$03
- $D8F3 DEFB $03,$F8,$FC,$FF,$FF,$FF,$FF,$FF
- $D8FB DEFB $FF,$06,$1E,$FC,$FC,$FC,$F8,$F8
- $D903 DEFB $F8,$01,$03,$03,$06,$06,$1C,$00
- $D90B DEFB $00,$C7,$80,$80,$00,$00,$00,$00
- $D913 DEFB $00,$F8,$7C,$3C,$18,$30,$60,$C0
- $D91B DEFB $00,$00,$7F,$62,$6E,$6E,$6E,$62
- $D923 DEFB $7F,$00,$FF,$10,$D7,$10,$DE,$D0
- $D92B DEFB $FF,$00,$FE,$B6,$B6,$86,$B6,$B6
- $D933 DEFB $FE,$60,$60,$6F,$68,$6A,$68,$69
- $D93B DEFB $6A,$00,$01,$F9,$08,$49,$89,$08
- $D943 DEFB $29,$06,$56,$56,$06,$56,$56,$06
- $D94B DEFB $56,$68,$6F,$60,$60,$7F,$7F,$7F
- $D953 DEFB $00,$09,$F8,$01,$00,$FF,$FF,$FF
- $D95B DEFB $00,$56,$06,$F6,$06,$FE,$FE,$FE
- $D963 DEFB $00,$00,$F3,$49,$49,$71,$59,$CF
- $D96B DEFB $00,$00,$EF,$04,$C4,$04,$24,$EF
- $D973 DEFB $00,$00,$0C,$84,$84,$84,$84,$0F
- $D97B DEFB $00,$00,$39,$12,$12,$12,$92,$B9
- $D983 DEFB $00,$00,$C8,$2C,$2A,$29,$28,$C8
- $D98B DEFB $00,$00,$80,$80,$80,$80,$80,$80
- $D993 DEFB $00,$00,$79,$6D,$6D,$79,$61,$61
- $D99B DEFB $00,$00,$9C,$B6,$B0,$B6,$B6,$9E
- $D9A3 DEFB $00,$00,$73,$DB,$C1,$D8,$D8,$78
- $D9AB DEFB $00,$00,$30,$30,$E0,$C0,$C0,$C0
- $D9B3 DEFB $00,$00,$83,$83,$03,$03,$03,$03
- $D9BB DEFB $00,$00,$C7,$2D,$CF,$2D,$2D,$CD
- $D9C3 DEFB $00,$00,$33,$BB,$BF,$B7,$B3,$B3
- $D9CB DEFB $00,$00,$66,$6C,$78,$78,$6C,$66
- $D9D3 DEFB $00,$1B,$0F,$1B,$7F,$6F,$1F,$06
- $D9DB DEFB $0C,$E1,$F8,$FC,$FF,$FC,$F8,$18
- $D9E3 DEFB $0C,$BF,$BF,$BF,$BF,$8F,$EF,$E0
- $D9EB DEFB $7F,$FD,$FD,$FD,$FD,$F1,$F7,$07
- $D9F3 DEFB $FE,$BF,$BF,$BF,$BF,$BF,$BF,$BF
- $D9FB DEFB $BF,$FD,$FD,$FD,$FD,$FD,$FD,$FD
- $DA03 DEFB $FD,$7F,$E0,$EF,$8F,$BF,$BF,$BF
- $DA0B DEFB $BF,$FE,$07,$F7,$F1,$FD,$FD,$FD
- $DA13 DEFB $FD,$40,$60,$30,$18,$1C,$3C,$2C
- $DA1B DEFB $1C,$0C,$00,$0C,$0C,$0C,$0C,$0C
- $DA23 DEFB $0C,$8C,$8C,$CC,$CC,$6C,$74,$3C
- $DA2B DEFB $18,$FF,$FF,$FF,$FF,$FF,$FF,$00
- $DA33 DEFB $FF,$FF,$00,$FF,$FF,$FF,$FF,$FF
- $DA3B DEFB $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
- $DA43 DEFB $FF,$C0,$C0,$C0,$C0,$C0,$C0,$C0
- $DA4B DEFB $00,$7F,$BF,$C0,$D9,$D1,$C0,$BF
- $DA53 DEFB $7F,$FF,$FF,$00,$19,$D9,$00,$FF
- $DA5B DEFB $FF,$FE,$FD,$03,$D3,$1B,$03,$FD
- $DA63 DEFB $FE,$7C,$7E,$66,$7C,$7C,$66,$7E
- $DA6B DEFB $7C,$7E,$7E,$60,$7E,$7E,$60,$7E
- $DA73 DEFB $7E,$00,$60,$78,$7E,$7E,$78,$60
- $DA7B DEFB $00,$7C,$7E,$66,$7E,$7C,$60,$60
- $DA83 DEFB $60,$18,$18,$10,$08,$18,$18,$10
- $DA8B DEFB $08,$7E,$BD,$DB,$DB,$E7,$E7,$E7
- $DA93 DEFB $E7,$00,$FF,$FF,$FF,$FF,$FF,$FF
- $DA9B DEFB $FF,$FF,$C0,$9F,$BF,$1F,$DF,$DF
- $DAA3 DEFB $1F,$FF,$00,$FF,$FF,$66,$81,$99
- $DAAB DEFB $24,$FF,$03,$F9,$FD,$FD,$FD,$FD
- $DAB3 DEFB $FD,$BF,$BF,$BF,$BF,$BF,$BF,$BF
- $DABB DEFB $BF,$24,$99,$81,$66,$FF,$FF,$FF
- $DAC3 DEFB $FF,$FD,$FD,$FD,$FD,$FD,$FD,$FD
- $DACB DEFB $FD,$FF,$FF,$FF,$FF,$FF,$FF,$FF
- $DAD3 DEFB $FF,$1F,$DF,$DF,$1F,$BF,$9F,$C0
- $DADB DEFB $FF,$FF,$FF,$FF,$FF,$FF,$FF,$00
- $DAE3 DEFB $FF,$FD,$FD,$FD,$FD,$FD,$F9,$03
- $DAEB DEFB $FF,$FF,$3F,$80,$D0,$D0,$D0,$D0
- $DAF3 DEFB $D0,$FF,$FF,$00,$00,$00,$00,$00
- $DAFB DEFB $00,$FF,$FF,$07,$03,$03,$03,$03
- $DB03 DEFB $03,$D0,$D0,$D0,$D0,$D0,$D0,$D0
- $DB0B DEFB $D0,$03,$03,$03,$03,$03,$03,$03
- $DB13 DEFB $03,$D0,$D0,$D0,$D0,$D0,$80,$3F
- $DB1B DEFB $FF,$00,$00,$00,$00,$00,$00,$FF
- $DB23 DEFB $FF,$03,$03,$03,$03,$03,$07,$FF
- $DB2B DEFB $FF,$00,$00,$00,$00,$02,$12,$16
- $DB33 DEFB $16,$16,$16,$12,$02,$00,$00,$00
- $DB3B DEFB $00,$0C,$18,$10,$00,$2C,$5E,$FF
- $DB43 DEFB $00,$30,$30,$30,$30,$30,$30,$CF
- $DB4B DEFB $30,$C3,$C3,$C3,$C3,$C3,$C3,$3C
- $DB53 DEFB $C3,$0C,$0C,$0C,$0C,$0C,$0C,$F3
- $DB5B DEFB $0C,$00,$00,$00,$03,$03,$06,$06
- $DB63 DEFB $0C,$00,$F3,$EF,$DE,$B8,$B3,$74
- $DB6B DEFB $64,$7E,$FF,$C3,$3C,$E7,$E7,$7F
- $DB73 DEFB $7F,$00,$CF,$F7,$7B,$9D,$ED,$EE
- $DB7B DEFB $96,$6C,$EF,$DF,$D3,$D3,$DF,$EF
- $DB83 DEFB $69,$3F,$1F,$9F,$E7,$E7,$EF,$E7
- $DB8B DEFB $E7,$96,$F7,$FB,$CB,$CB,$FB,$F7
- $DB93 DEFB $96,$69,$77,$B7,$B9,$DE,$EF,$F3
- $DB9B DEFB $00,$E7,$C3,$E7,$FF,$3C,$C3,$FF
- $DBA3 DEFB $7E,$96,$EE,$ED,$9D,$7B,$F7,$CF
- $DBAB DEFB $00,$00,$01,$03,$06,$0C,$18,$37
- $DBB3 DEFB $6F,$FF,$E7,$18,$36,$63,$C0,$3F
- $DBBB DEFB $FF,$30,$30,$61,$61,$51,$DB,$CD
- $DBC3 DEFB $C5,$C0,$C0,$80,$80,$80,$00,$00
- $DBCB DEFB $00,$06,$0C,$0A,$0B,$19,$18,$18
- $DBD3 DEFB $30,$18,$30,$30,$30,$A0,$A0,$60
- $DBDB DEFB $C0,$01,$01,$01,$03,$03,$03,$06
- $DBE3 DEFB $06,$80,$80,$80,$C0,$C0,$C0,$60
- $DBEB DEFB $60,$18,$0C,$0C,$0C,$05,$05,$06
- $DBF3 DEFB $03,$60,$30,$50,$D0,$98,$18,$18
- $DBFB DEFB $0C,$03,$03,$01,$01,$01,$00,$00
- $DC03 DEFB $00,$0C,$0C,$86,$86,$8A,$DB,$B3
- $DC0B DEFB $A3,$00,$80,$C0,$60,$30,$18,$EC
- $DC13 DEFB $F6,$B0,$BC,$CF,$C3,$CC,$BC,$B0
- $DC1B DEFB $C0,$0D,$3D,$33,$C3,$F3,$3D,$0D
- $DC23 DEFB $03,$AA,$55,$AA,$55,$AA,$55,$AA
- $DC2B DEFB $55,$FF,$FF,$FF,$FF,$00,$00,$00
- $DC33 DEFB $00,$FF,$C3,$99,$3C,$66,$66,$3C
- $DC3B DEFB $18,$FF,$81,$FF,$81,$FF,$81,$FF
- $DC43 DEFB $FF,$60,$E0,$D0,$28,$14,$0A,$05
- $DC4B DEFB $02,$00,$00,$00,$00,$00,$18,$30
- $DC53 DEFB $60,$00,$01,$03,$06,$04,$00,$00
- $DC5B DEFB $00,$00,$F8,$FC,$00,$C0,$C0,$C0
- $DC63 DEFB $00,$38,$1F,$0F,$00,$01,$01,$01
- $DC6B DEFB $00,$00,$00,$40,$E0,$E0,$70,$70
- $DC73 DEFB $38,$0F,$09,$0F,$09,$0F,$09,$0F
- $DC7B DEFB $09,$0F,$69,$6F,$09,$0F,$69,$6F
- $DC83 DEFB $09,$FF,$FF,$F3,$FF,$F3,$FF,$F3
- $DC8B DEFB $FF,$FF,$C0,$BF,$BF,$BF,$BF,$C0
- $DC93 DEFB $FF,$FF,$03,$FD,$FD,$FD,$FD,$03
- $DC9B DEFB $FF,$00,$0F,$79,$E1,$9F,$FE,$FE
- $DCA3 DEFB $FE,$FE,$FE,$FE,$FF,$FF,$7F,$0F
- $DCAB DEFB $00,$F3,$CE,$9D,$31,$61,$61,$C1
- $DCB3 DEFB $BE,$CF,$73,$B9,$8C,$86,$86,$83
- $DCBB DEFB $7D,$BE,$C1,$61,$61,$31,$9D,$CE
- $DCC3 DEFB $F3,$7D,$83,$86,$86,$8C,$B9,$73
- $DCCB DEFB $CF,$00,$E0,$F8,$9C,$CE,$66,$73
- $DCD3 DEFB $7F,$7F,$7F,$7E,$FE,$FC,$F8,$E0
- $DCDB DEFB $00,$00,$07,$07,$07,$07,$07,$07
- $DCE3 DEFB $00,$00,$E0,$E0,$E0,$E0,$E0,$E0
- $DCEB DEFB $00,$38,$00,$FF,$00,$FF,$DF,$8F
- $DCF3 DEFB $DF,$1C,$00,$FF,$00,$FF,$FF,$F1
- $DCFB DEFB $FF,$E4,$C2,$81,$8F,$9A,$BF,$EA
- $DD03 DEFB $FF,$07,$03,$01,$F1,$99,$FD,$97
- $DD0B DEFB $FF,$80,$80,$80,$80,$80,$80,$80
- $DD13 DEFB $80,$C0,$C0,$C0,$C0,$E0,$E0,$E0
- $DD1B DEFB $E0,$F0,$F0,$F0,$F0,$F0,$F0,$F8
- $DD23 DEFB $F8,$F8,$F8,$F8,$FC,$FC,$FC,$FC
- $DD2B DEFB $FE,$1F,$3F,$3F,$3F,$3F,$7F,$7F
- $DD33 DEFB $7F,$07,$07,$0F,$0F,$0F,$1F,$1F
- $DD3B DEFB $1F,$03,$03,$03,$03,$03,$03,$07
- $DD43 DEFB $07,$01,$01,$01,$01,$01,$03,$03
- $DD4B DEFB $03,$00,$00,$00,$01,$01,$01,$01
- $DD53 DEFB $01,$FF,$00,$FF,$00,$FF,$00,$FF
- $DD5B DEFB $00,$F7,$0E,$DC,$38,$70,$E0,$C0
- $DD63 DEFB $80,$FF,$00,$FF,$00,$FF,$C3,$81
- $DD6B DEFB $81,$00,$00,$00,$03,$7E,$FF,$00
- $DD73 DEFB $00,$00,$01,$3F,$EA,$55,$FF,$00
- $DD7B DEFB $00,$18,$FC,$56,$AB,$55,$AA,$D4
- $DD83 DEFB $78,$FF,$00,$FF,$00,$FF,$E7,$DB
- $DD8B DEFB $DB,$E7,$FF,$FF,$00,$FF,$FF,$FF
- $DD93 DEFB $00,$C0,$80,$00,$80,$00,$00,$00
- $DD9B DEFB $00,$E0,$70,$38,$1C,$0E,$07,$03
- $DDA3 DEFB $01,$FF,$00,$4E,$4E,$4E,$4E,$4E
- $DDAB DEFB $4E,$81,$81,$81,$81,$81,$81,$81
- $DDB3 DEFB $00,$F8,$07,$DE,$2F,$BC,$78,$71
- $DDBB DEFB $50,$1F,$E0,$7B,$F4,$3D,$1E,$EE
- $DDC3 DEFB $0A,$EA,$0E,$DE,$2C,$FD,$78,$E7
- $DDCB DEFB $00,$53,$70,$B9,$34,$DF,$2E,$F3
- $DDD3 DEFB $00,$3C,$5E,$52,$5A,$52,$5A,$52
- $DDDB DEFB $5A,$52,$5A,$52,$5E,$5E,$5E,$2C
- $DDE3 DEFB $2C,$2C,$18,$18,$7E,$2C,$18,$18
- $DDEB DEFB $00,$7C,$5C,$5C,$5C,$28,$10,$38
- $DDF3 DEFB $5C,$5A,$31,$31,$00,$3F,$55,$FF
- $DDFB DEFB $00,$D6,$8C,$8C,$00,$FC,$56,$FF
- $DE03 DEFB $00,$31,$5A,$5A,$5A,$5A,$5A,$31
- $DE0B DEFB $31,$8C,$D6,$D6,$D6,$D6,$D6,$8C
- $DE13 DEFB $8C,$FB,$FB,$C3,$FB,$FB,$1B,$FB
- $DE1B DEFB $FB,$F6,$F6,$36,$36,$F6,$F6,$37
- $DE23 DEFB $37,$1F,$1F,$18,$1F,$1F,$18,$DF
- $DE2B DEFB $DF,$71,$DB,$DB,$DB,$79,$18,$DB
- $DE33 DEFB $71,$CB,$6B,$63,$66,$E6,$6C,$6D
- $DE3B DEFB $CD,$3F,$3F,$33,$33,$33,$33,$3F
- $DE43 DEFB $3F,$7D,$7D,$61,$7D,$7D,$61,$61
- $DE4B DEFB $61,$F0,$F0,$80,$F0,$F0,$80,$80
- $DE53 DEFB $80,$00,$63,$77,$7F,$6B,$63,$63
- $DE5B DEFB $00,$00,$7C,$61,$61,$79,$61,$7C
- $DE63 DEFB $00,$00,$F1,$9B,$83,$BB,$9B,$F3
- $DE6B DEFB $00,$00,$E3,$36,$36,$F3,$30,$37
- $DE73 DEFB $00,$00,$DE,$0C,$0C,$8C,$CC,$8C
- $DE7B DEFB $00,$00,$79,$CD,$CD,$CD,$CD,$79
- $DE83 DEFB $00,$00,$F3,$9B,$9B,$F3,$B3,$9B
- $DE8B DEFB $00,$00,$E0,$00,$00,$C0,$00,$E0
- $DE93 DEFB $00,$00,$F1,$4A,$73,$4A,$4A,$F2
- $DE9B DEFB $00,$00,$92,$54,$D8,$54,$52,$52
- $DEA3 DEFB $00,$00,$F7,$84,$E7,$86,$85,$F4
- $DEAB DEFB $00,$00,$18,$A0,$18,$04,$24,$98
- $DEB3 DEFB $00,$FC,$30,$30,$30,$30,$30,$36
- $DEBB DEFB $36,$7C,$66,$66,$7C,$66,$66,$66
- $DEC3 DEFB $7C,$79,$CD,$CD,$CD,$CD,$CD,$CD
- $DECB DEFB $79,$9B,$DB,$FB,$BB,$9B,$9B,$9B
- $DED3 DEFB $9B,$E0,$00,$00,$C0,$00,$00,$00
- $DEDB DEFB $E0,$7C,$66,$66,$7C,$66,$66,$66
- $DEE3 DEFB $7C,$CD,$CC,$CC,$CC,$CC,$CC,$CC
- $DEEB DEFB $78,$F9,$63,$63,$63,$63,$63,$63
- $DEF3 DEFB $61,$E6,$36,$06,$07,$06,$06,$36
- $DEFB DEFB $E6,$6F,$6C,$6C,$EF,$6C,$6C,$6C
- $DF03 DEFB $6F,$BE,$33,$33,$3E,$38,$3C,$36
- $DF0B DEFB $B3,$33,$33,$36,$7C,$78,$6C,$C6
- $DF13 DEFB $C6,$3E,$3C,$30,$7D,$79,$61,$FB
- $DF1B DEFB $F3,$61,$F7,$FF,$DB,$86,$86,$0C
- $DF23 DEFB $0C,$9E,$BF,$33,$60,$60,$66,$7E
- $DF2B DEFB $3C,$3C,$7E,$66,$E6,$CC,$CC,$FC
- $DF33 DEFB $78,$00,$7E,$7E,$1C,$38,$7E,$7E
- $DF3B DEFB $00,$00,$3C,$7E,$66,$66,$7E,$3C
- $DF43 DEFB $00,$8F,$8F,$8F,$47,$47,$23,$18
- $DF4B DEFB $07,$FF,$FF,$FF,$FE,$FE,$FC,$F8
- $DF53 DEFB $E0,$00,$00,$00,$07,$18,$23,$47
- $DF5B DEFB $47,$2C,$2C,$58,$B8,$70,$EC,$DE
- $DF63 DEFB $DE,$18,$18,$18,$18,$18,$18,$18
- $DF6B DEFB $18,$00,$00,$00,$FF,$FF,$00,$00
- $DF73 DEFB $00,$00,$00,$00,$0F,$1F,$18,$18
- $DF7B DEFB $18,$00,$00,$00,$F0,$F8,$18,$18
- $DF83 DEFB $18,$18,$18,$18,$F8,$F0,$00,$00
- $DF8B DEFB $00,$18,$18,$18,$1F,$0F,$00,$00
- $DF93 DEFB $00,$30,$58,$D8,$D8,$8D,$8D,$0D
- $DF9B DEFB $06,$3C,$0E,$01,$0F,$7E,$F0,$80
- $DFA3 DEFB $70,$36,$68,$36,$68,$36,$68,$36
- $DFAB DEFB $68,$0E,$07,$13,$38,$6D,$D9,$B3
- $DFB3 DEFB $E3,$2D,$35,$BD,$01,$FD,$AD,$55
- $DFBB DEFB $FD,$00,$90,$38,$6C,$36,$9B,$CE
- $DFC3 DEFB $C4,$07,$33,$39,$2D,$34,$2C,$B4
- $DFCB DEFB $BD,$FF,$7E,$00,$00,$00,$00,$00
- $DFD3 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $DFDB DEFB $7E
+ $D333 DEFB $FF
+ $D334 DEFB $08,$08,$18,$1C,$3C,$BB,$BB,$3C ; #UDG(#PC,attr=$45)
+ $D33C DEFB $34,$2C,$2C,$BB,$BB,$3C,$34,$2C ; #UDG(#PC,attr=$45)
+ $D344 DEFB $3C,$34,$34,$2C,$2C,$34,$34,$3C ; #UDG(#PC,attr=$45)
+ $D34C DEFB $7D,$81,$81,$81,$81,$81,$81,$7D ; #UDG(#PC,attr=$45)
+ $D354 DEFB $81,$80,$C2,$C2,$80,$81,$81,$7D ; #UDG(#PC,attr=$45)
+ $D35C DEFB $20,$64,$44,$16,$B2,$D0,$46,$0C
+ $D364 DEFB $00,$20,$64,$46,$02,$10,$30,$00
+ $D36C DEFB $81,$C3,$4A,$18,$10,$C6,$63,$00
+ $D374 DEFB $00,$00,$03,$06,$00,$09,$1B,$12
+ $D37C DEFB $00,$00,$60,$30,$00,$88,$CC,$44
+ $D384 DEFB $60,$64,$CC,$08,$20,$60,$40,$00
+ $D38C DEFB $02,$33,$19,$00,$00,$0C,$06,$00
+ $D394 DEFB $DD,$CD,$6E,$6E,$77,$77,$6F,$EF
+ $D39C DEFB $EE,$EE,$FE,$B7,$B7,$77,$7B,$7B
+ $D3A4 DEFB $F0,$3C,$0E,$07,$03,$03,$01,$01
+ $D3AC DEFB $18,$38,$74,$F6,$F7,$EF,$ED,$DE
+ $D3B4 DEFB $10,$10,$30,$78,$BD,$BD,$DB,$DB
+ $D3BC DEFB $03,$06,$0E,$3C,$F8,$E0,$C0,$80
+ $D3C4 DEFB $01,$01,$03,$03,$07,$0E,$3C,$F0
+ $D3CC DEFB $DE,$ED,$EF,$F7,$F6,$74,$38,$18
+ $D3D4 DEFB $DB,$DB,$BD,$BD,$78,$30,$10,$10
+ $D3DC DEFB $80,$C0,$E0,$F8,$3C,$0E,$06,$03
+ $D3E4 DEFB $6F,$EF,$E0,$E0,$E0,$E0,$E0,$80
+ $D3EC DEFB $FF,$E7,$18,$18,$18,$18,$18,$18
+ $D3F4 DEFB $F6,$F7,$07,$07,$07,$07,$07,$01
+ $D3FC DEFB $70,$F8,$98,$60,$60,$6F,$9F,$FF
+ $D404 DEFB $18,$18,$18,$18,$00,$FF,$FF,$FF
+ $D40C DEFB $0E,$1F,$19,$06,$06,$F6,$F9,$FF
+ $D414 DEFB $38,$38,$38,$70,$70,$70,$E0,$E0
+ $D41C DEFB $1C,$1C,$1C,$0E,$0E,$0E,$07,$07
+ $D424 DEFB $00,$7F,$80,$FF,$7F,$00,$0E,$03
+ $D42C DEFB $00,$FF,$00,$FF,$FF,$00,$AA,$55
+ $D434 DEFB $00,$FE,$01,$FF,$FE,$00,$F0,$C0
+ $D43C DEFB $EA,$35,$1A,$0D,$0E,$07,$06,$07
+ $D444 DEFB $AF,$5C,$B8,$50,$B0,$60,$A0,$60
+ $D44C DEFB $AA,$55,$AA,$55,$AA,$55,$AA,$55
+ $D454 DEFB $00,$03,$0F,$09,$06,$03,$0F,$07
+ $D45C DEFB $00,$80,$C0,$E0,$E0,$60,$C0,$A0
+ $D464 DEFB $80,$C1,$A3,$93,$8A,$85,$43,$4C
+ $D46C DEFB $78,$7C,$AC,$9C,$78,$E0,$98,$78
+ $D474 DEFB $32,$C2,$22,$25,$25,$15,$14,$0A
+ $D47C DEFB $F8,$F0,$F0,$E0,$C0,$E3,$FA,$F9
+ $D484 DEFB $03,$01,$01,$01,$00,$00,$03,$07
+ $D48C DEFB $73,$83,$C1,$C0,$E0,$00,$60,$A0
+ $D494 DEFB $BF,$5E,$2C,$2C,$2C,$2C,$5E,$5E
+ $D49C DEFB $2C,$2C,$2C,$AB,$AB,$2C,$2C,$2C
+ $D4A4 DEFB $00,$60,$90,$B7,$B7,$90,$60,$00
+ $D4AC DEFB $00,$06,$09,$EB,$EB,$09,$06,$00
+ $D4B4 DEFB $2C,$2C,$2C,$5E,$5E,$BF,$FF,$00
+ $D4BC DEFB $2C,$2C,$2C,$2C,$2C,$2C,$2C,$2C
+ $D4C4 DEFB $0B,$05,$05,$05,$05,$04,$03,$03
+ $D4CC DEFB $E7,$FF,$D3,$D3,$FF,$00,$FF,$C3
+ $D4D4 DEFB $D0,$A0,$A0,$A0,$A0,$20,$C0,$C0
+ $D4DC DEFB $00,$03,$0E,$19,$37,$2B,$0B,$0B
+ $D4E4 DEFB $FF,$81,$7E,$FF,$FF,$E7,$C3,$D3
+ $D4EC DEFB $00,$C0,$70,$98,$EC,$D4,$D0,$D0
+ $D4F4 DEFB $3C,$5E,$5E,$2C,$18,$2C,$5E,$00
+ $D4FC DEFB $1F,$71,$F7,$FB,$FB,$FD,$71,$1F
+ $D504 DEFB $FF,$11,$B5,$B5,$B5,$B5,$B1,$FF
+ $D50C DEFB $F8,$1E,$5F,$5F,$1F,$7F,$7E,$F8
+ $D514 DEFB $00,$DF,$DF,$DF,$00,$FB,$FB,$FB
+ $D51C DEFB $FF,$FF,$FE,$00,$7F,$7F,$3F,$80
+ $D524 DEFB $7F,$7F,$3F,$80,$FF,$FF,$FE,$00
+ $D52C DEFB $00,$00,$70,$97,$D7,$D7,$F7,$00
+ $D534 DEFB $3C,$18,$00,$FF,$C3,$DB,$18,$00
+ $D53C DEFB $00,$00,$00,$FF,$FF,$FF,$00,$00
+ $D544 DEFB $00,$00,$FF,$7F,$7F,$7F,$D2,$2C
+ $D54C DEFB $16,$16,$16,$16,$16,$16,$16,$16
+ $D554 DEFB $16,$96,$C9,$BF,$BF,$C9,$96,$16
+ $D55C DEFB $00,$55,$2A,$55,$2A,$55,$2A,$7F
+ $D564 DEFB $00,$55,$AB,$55,$AB,$55,$AB,$FF
+ $D56C DEFB $00,$33,$67,$33,$00,$67,$CF,$CF
+ $D574 DEFB $00,$FC,$FE,$FC,$00,$FE,$FF,$FF
+ $D57C DEFB $67,$CF,$CF,$67,$00,$67,$67,$00
+ $D584 DEFB $FE,$FF,$FF,$FE,$00,$FE,$FE,$00
+ $D58C DEFB $33,$33,$33,$33,$33,$33,$33,$33
+ $D594 DEFB $7C,$7C,$7C,$7C,$7C,$7C,$7C,$7C
+ $D59C DEFB $EF,$9C,$38,$70,$66,$6E,$3C,$00
+ $D5A4 DEFB $FF,$80,$90,$A2,$84,$88,$92,$A4
+ $D5AC DEFB $FF,$01,$21,$41,$05,$09,$11,$21
+ $D5B4 DEFB $80,$88,$90,$A1,$82,$84,$88,$80
+ $D5BC DEFB $09,$11,$21,$41,$09,$11,$21,$01
+ $D5C4 DEFB $80,$80,$80,$B8,$B8,$B8,$B8,$B8
+ $D5CC DEFB $80,$88,$90,$A2,$84,$88,$80,$FF
+ $D5D4 DEFB $01,$11,$21,$41,$05,$09,$01,$FF
+ $D5DC DEFB $3E,$7F,$7F,$38,$C7,$EF,$EF,$C0
+ $D5E4 DEFB $3C,$FF,$3F,$BF,$3F,$BF,$7F,$C3
+ $D5EC DEFB $F7,$F7,$D7,$F7,$EF,$EF,$EF,$EF
+ $D5F4 DEFB $EF,$EF,$EF,$EF,$EF,$F7,$B7,$EF
+ $D5FC DEFB $00,$7F,$60,$5F,$50,$50,$50,$50
+ $D604 DEFB $00,$FF,$00,$FF,$00,$00,$00,$00
+ $D60C DEFB $00,$FE,$06,$FA,$0A,$0A,$0A,$0A
+ $D614 DEFB $50,$50,$50,$50,$5F,$60,$7F,$00
+ $D61C DEFB $00,$00,$00,$00,$FF,$00,$FF,$00
+ $D624 DEFB $0A,$0A,$0A,$0A,$FA,$06,$FE,$00
+ $D62C DEFB $02,$24,$48,$10,$22,$44,$88,$10
+ $D634 DEFB $50,$50,$50,$50,$50,$50,$50,$50
+ $D63C DEFB $0A,$0A,$0A,$0A,$0A,$0A,$0A,$0A
+ $D644 DEFB $FF,$81,$BD,$AD,$A5,$BD,$81,$FF
+ $D64C DEFB $FF,$81,$FD,$CD,$A5,$A5,$CD,$FF
+ $D654 DEFB $00,$79,$67,$4F,$1C,$38,$38,$70
+ $D65C DEFB $3C,$FF,$FF,$00,$00,$00,$00,$00
+ $D664 DEFB $00,$8F,$E7,$F3,$38,$1C,$1C,$0E
+ $D66C DEFB $70,$00,$70,$70,$70,$70,$70,$70
+ $D674 DEFB $0E,$00,$0E,$0E,$0E,$0E,$0E,$0E
+ $D67C DEFB $50,$50,$50,$00,$7F,$FF,$FF,$00
+ $D684 DEFB $00,$00,$00,$00,$FF,$FF,$FF,$00
+ $D68C DEFB $0A,$0A,$0A,$00,$FE,$FF,$FF,$00
+ $D694 DEFB $FF,$7F,$80,$BF,$CF,$D0,$D8,$D8
+ $D69C DEFB $FF,$FF,$00,$FF,$FF,$00,$00,$00
+ $D6A4 DEFB $FF,$FE,$01,$FD,$F3,$0B,$1B,$1B
+ $D6AC DEFB $D8,$D8,$D8,$D8,$D8,$D8,$D8,$D8
+ $D6B4 DEFB $1B,$1B,$1B,$1B,$1B,$1B,$1B,$1B
+ $D6BC DEFB $E0,$DF,$DF,$E0,$E0,$E0,$E0,$E0
+ $D6C4 DEFB $00,$FF,$FF,$00,$00,$00,$00,$00
+ $D6CC DEFB $07,$FB,$FB,$07,$07,$07,$07,$07
+ $D6D4 DEFB $3C,$BD,$A5,$18,$3C,$18,$24,$24
+ $D6DC DEFB $18,$18,$18,$18,$24,$24,$24,$24
+ $D6E4 DEFB $18,$18,$18,$18,$67,$7F,$67,$18
+ $D6EC DEFB $00,$00,$00,$00,$00,$FF,$FF,$FF
+ $D6F4 DEFB $18,$18,$18,$18,$E6,$FE,$E6,$18
+ $D6FC DEFB $E0,$E0,$E0,$E0,$E0,$E0,$E0,$E0
+ $D704 DEFB $07,$07,$07,$07,$07,$07,$07,$07
+ $D70C DEFB $38,$01,$7F,$81,$BE,$BF,$BF,$BF
+ $D714 DEFB $C0,$F0,$9C,$87,$61,$99,$E7,$FB
+ $D71C DEFB $A2,$AB,$AB,$A2,$BF,$BF,$80,$7F
+ $D724 DEFB $2D,$6D,$6D,$25,$FD,$FD,$01,$FE
+ $D72C DEFB $18,$18,$18,$0C,$0C,$06,$06,$46
+ $D734 DEFB $54,$3A,$67,$6F,$76,$3C,$18,$18
+ $D73C DEFB $10,$28,$34,$3C,$3E,$7E,$7E,$FF
+ $D744 DEFB $00,$01,$01,$03,$03,$07,$07,$03
+ $D74C DEFB $E3,$97,$4F,$BF,$FF,$FC,$E3,$DF
+ $D754 DEFB $80,$C0,$C0,$A0,$60,$E0,$C0,$00
+ $D75C DEFB $AA,$DB,$00,$7F,$7F,$7F,$80,$FF
+ $D764 DEFB $AA,$6D,$00,$FF,$FF,$FF,$00,$FF
+ $D76C DEFB $55,$B7,$00,$FE,$FE,$FE,$01,$FF
+ $D774 DEFB $00,$0F,$00,$06,$06,$00,$0F,$00
+ $D77C DEFB $00,$F0,$00,$60,$60,$00,$F0,$00
+ $D784 DEFB $1A,$0B,$00,$0F,$0F,$0F,$10,$1F
+ $D78C DEFB $A8,$50,$00,$F0,$F0,$F0,$08,$F8
+ $D794 DEFB $00,$C1,$77,$7A,$38,$3C,$18,$00
+ $D79C DEFB $00,$7F,$03,$01,$01,$01,$07,$3F
+ $D7A4 DEFB $00,$FE,$C0,$80,$80,$80,$E0,$FC
+ $D7AC DEFB $00,$00,$7B,$CD,$B5,$BB,$C0,$7E
+ $D7B4 DEFB $00,$00,$F8,$FC,$FC,$F8,$00,$FF
+ $D7BC DEFB $EF,$EF,$F7,$F8,$F0,$F0,$F0,$F0
+ $D7C4 DEFB $F7,$F7,$EF,$1F,$0F,$0F,$0F,$0F
+ $D7CC DEFB $F0,$F0,$F0,$F0,$F8,$F7,$EF,$EF
+ $D7D4 DEFB $0F,$0F,$0F,$0F,$1F,$EF,$F7,$F7
+ $D7DC DEFB $FF,$FF,$FF,$00,$00,$00,$00,$00
+ $D7E4 DEFB $0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F
+ $D7EC DEFB $00,$00,$00,$00,$00,$FF,$FF,$FF
+ $D7F4 DEFB $F0,$F0,$F0,$F0,$F0,$F0,$F0,$F0
+ $D7FC DEFB $00,$FF,$FF,$81,$D5,$D0,$FF,$00
+ $D804 DEFB $00,$FF,$FF,$04,$40,$14,$FF,$00
+ $D80C DEFB $00,$FF,$FF,$11,$83,$11,$FF,$00
+ $D814 DEFB $62,$F0,$67,$67,$67,$67,$F0,$62
+ $D81C DEFB $3F,$6C,$48,$48,$48,$48,$48,$7F
+ $D824 DEFB $FC,$06,$02,$02,$02,$02,$02,$FE
+ $D82C DEFB $28,$2B,$29,$2B,$28,$2F,$20,$3F
+ $D834 DEFB $34,$54,$34,$54,$54,$F4,$04,$FC
+ $D83C DEFB $3F,$20,$2F,$2F,$2F,$2F,$2F,$2F
+ $D844 DEFB $FC,$04,$F4,$F4,$F4,$D4,$D4,$F4
+ $D84C DEFB $07,$3F,$FF,$7F,$00,$3F,$30,$30
+ $D854 DEFB $E0,$FC,$FF,$FE,$00,$FC,$0C,$0C
+ $D85C DEFB $3F,$3F,$3F,$30,$30,$30,$3F,$3F
+ $D864 DEFB $FC,$FC,$FC,$0C,$0C,$0C,$FC,$FC
+ $D86C DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $D874 DEFB $00,$0E,$09,$09,$0E,$08,$08,$00
+ $D87C DEFB $00,$00,$31,$4A,$49,$48,$33,$00
+ $D884 DEFB $00,$20,$B0,$20,$20,$A0,$18,$00
+ $D88C DEFB $00,$18,$25,$25,$25,$25,$19,$00
+ $D894 DEFB $00,$DA,$20,$B2,$22,$22,$22,$00
+ $D89C DEFB $00,$00,$66,$89,$8E,$88,$66,$00
+ $D8A4 DEFB $03,$EF,$DF,$BF,$BF,$7F,$7F,$7F
+ $D8AC DEFB $7F,$7F,$7F,$BF,$BF,$DF,$EF,$03
+ $D8B4 DEFB $C0,$F0,$F8,$FC,$FC,$FE,$FE,$FE
+ $D8BC DEFB $FE,$FE,$FE,$FC,$FC,$F8,$F0,$C0
+ $D8C4 DEFB $30,$18,$FF,$18,$30,$FF,$30,$18
+ $D8CC DEFB $00,$4A,$52,$42,$7E,$42,$4A,$52
+ $D8D4 DEFB $00,$00,$00,$0C,$1F,$1F,$3B,$3F
+ $D8DC DEFB $00,$00,$00,$00,$80,$C0,$F0,$F8
+ $D8E4 DEFB $00,$00,$30,$70,$78,$2C,$06,$06
+ $D8EC DEFB $7F,$7F,$3F,$1F,$07,$07,$03,$03
+ $D8F4 DEFB $F8,$FC,$FF,$FF,$FF,$FF,$FF,$FF
+ $D8FC DEFB $06,$1E,$FC,$FC,$FC,$F8,$F8,$F8
+ $D904 DEFB $01,$03,$03,$06,$06,$1C,$00,$00
+ $D90C DEFB $C7,$80,$80,$00,$00,$00,$00,$00
+ $D914 DEFB $F8,$7C,$3C,$18,$30,$60,$C0,$00
+ $D91C DEFB $00,$7F,$62,$6E,$6E,$6E,$62,$7F
+ $D924 DEFB $00,$FF,$10,$D7,$10,$DE,$D0,$FF
+ $D92C DEFB $00,$FE,$B6,$B6,$86,$B6,$B6,$FE
+ $D934 DEFB $60,$60,$6F,$68,$6A,$68,$69,$6A
+ $D93C DEFB $00,$01,$F9,$08,$49,$89,$08,$29
+ $D944 DEFB $06,$56,$56,$06,$56,$56,$06,$56
+ $D94C DEFB $68,$6F,$60,$60,$7F,$7F,$7F,$00
+ $D954 DEFB $09,$F8,$01,$00,$FF,$FF,$FF,$00
+ $D95C DEFB $56,$06,$F6,$06,$FE,$FE,$FE,$00
+ $D964 DEFB $00,$F3,$49,$49,$71,$59,$CF,$00
+ $D96C DEFB $00,$EF,$04,$C4,$04,$24,$EF,$00
+ $D974 DEFB $00,$0C,$84,$84,$84,$84,$0F,$00
+ $D97C DEFB $00,$39,$12,$12,$12,$92,$B9,$00
+ $D984 DEFB $00,$C8,$2C,$2A,$29,$28,$C8,$00
+ $D98C DEFB $00,$80,$80,$80,$80,$80,$80,$00
+ $D994 DEFB $00,$79,$6D,$6D,$79,$61,$61,$00
+ $D99C DEFB $00,$9C,$B6,$B0,$B6,$B6,$9E,$00
+ $D9A4 DEFB $00,$73,$DB,$C1,$D8,$D8,$78,$00
+ $D9AC DEFB $00,$30,$30,$E0,$C0,$C0,$C0,$00
+ $D9B4 DEFB $00,$83,$83,$03,$03,$03,$03,$00
+ $D9BC DEFB $00,$C7,$2D,$CF,$2D,$2D,$CD,$00
+ $D9C4 DEFB $00,$33,$BB,$BF,$B7,$B3,$B3,$00
+ $D9CC DEFB $00,$66,$6C,$78,$78,$6C,$66,$00
+ $D9D4 DEFB $1B,$0F,$1B,$7F,$6F,$1F,$06,$0C
+ $D9DC DEFB $E1,$F8,$FC,$FF,$FC,$F8,$18,$0C
+ $D9E4 DEFB $BF,$BF,$BF,$BF,$8F,$EF,$E0,$7F
+ $D9EC DEFB $FD,$FD,$FD,$FD,$F1,$F7,$07,$FE
+ $D9F4 DEFB $BF,$BF,$BF,$BF,$BF,$BF,$BF,$BF
+ $D9FC DEFB $FD,$FD,$FD,$FD,$FD,$FD,$FD,$FD
+ $DA04 DEFB $7F,$E0,$EF,$8F,$BF,$BF,$BF,$BF
+ $DA0C DEFB $FE,$07,$F7,$F1,$FD,$FD,$FD,$FD
+ $DA14 DEFB $40,$60,$30,$18,$1C,$3C,$2C,$1C
+ $DA1C DEFB $0C,$00,$0C,$0C,$0C,$0C,$0C,$0C
+ $DA24 DEFB $8C,$8C,$CC,$CC,$6C,$74,$3C,$18
+ $DA2C DEFB $FF,$FF,$FF,$FF,$FF,$FF,$00,$FF
+ $DA34 DEFB $FF,$00,$FF,$FF,$FF,$FF,$FF,$FF
+ $DA3C DEFB $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+ $DA44 DEFB $C0,$C0,$C0,$C0,$C0,$C0,$C0,$00
+ $DA4C DEFB $7F,$BF,$C0,$D9,$D1,$C0,$BF,$7F
+ $DA54 DEFB $FF,$FF,$00,$19,$D9,$00,$FF,$FF
+ $DA5C DEFB $FE,$FD,$03,$D3,$1B,$03,$FD,$FE
+ $DA64 DEFB $7C,$7E,$66,$7C,$7C,$66,$7E,$7C
+ $DA6C DEFB $7E,$7E,$60,$7E,$7E,$60,$7E,$7E
+ $DA74 DEFB $00,$60,$78,$7E,$7E,$78,$60,$00
+ $DA7C DEFB $7C,$7E,$66,$7E,$7C,$60,$60,$60
+ $DA84 DEFB $18,$18,$10,$08,$18,$18,$10,$08
+ $DA8C DEFB $7E,$BD,$DB,$DB,$E7,$E7,$E7,$E7
+ $DA94 DEFB $00,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+ $DA9C DEFB $FF,$C0,$9F,$BF,$1F,$DF,$DF,$1F
+ $DAA4 DEFB $FF,$00,$FF,$FF,$66,$81,$99,$24
+ $DAAC DEFB $FF,$03,$F9,$FD,$FD,$FD,$FD,$FD
+ $DAB4 DEFB $BF,$BF,$BF,$BF,$BF,$BF,$BF,$BF
+ $DABC DEFB $24,$99,$81,$66,$FF,$FF,$FF,$FF
+ $DAC4 DEFB $FD,$FD,$FD,$FD,$FD,$FD,$FD,$FD
+ $DACC DEFB $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+ $DAD4 DEFB $1F,$DF,$DF,$1F,$BF,$9F,$C0,$FF
+ $DADC DEFB $FF,$FF,$FF,$FF,$FF,$FF,$00,$FF
+ $DAE4 DEFB $FD,$FD,$FD,$FD,$FD,$F9,$03,$FF
+ $DAEC DEFB $FF,$3F,$80,$D0,$D0,$D0,$D0,$D0
+ $DAF4 DEFB $FF,$FF,$00,$00,$00,$00,$00,$00
+ $DAFC DEFB $FF,$FF,$07,$03,$03,$03,$03,$03
+ $DB04 DEFB $D0,$D0,$D0,$D0,$D0,$D0,$D0,$D0
+ $DB0C DEFB $03,$03,$03,$03,$03,$03,$03,$03
+ $DB14 DEFB $D0,$D0,$D0,$D0,$D0,$80,$3F,$FF
+ $DB1C DEFB $00,$00,$00,$00,$00,$00,$FF,$FF
+ $DB24 DEFB $03,$03,$03,$03,$03,$07,$FF,$FF
+ $DB2C DEFB $00,$00,$00,$00,$02,$12,$16,$16
+ $DB34 DEFB $16,$16,$12,$02,$00,$00,$00,$00
+ $DB3C DEFB $0C,$18,$10,$00,$2C,$5E,$FF,$00
+ $DB44 DEFB $30,$30,$30,$30,$30,$30,$CF,$30
+ $DB4C DEFB $C3,$C3,$C3,$C3,$C3,$C3,$3C,$C3
+ $DB54 DEFB $0C,$0C,$0C,$0C,$0C,$0C,$F3,$0C
+ $DB5C DEFB $00,$00,$00,$03,$03,$06,$06,$0C
+ $DB64 DEFB $00,$F3,$EF,$DE,$B8,$B3,$74,$64
+ $DB6C DEFB $7E,$FF,$C3,$3C,$E7,$E7,$7F,$7F
+ $DB74 DEFB $00,$CF,$F7,$7B,$9D,$ED,$EE,$96
+ $DB7C DEFB $6C,$EF,$DF,$D3,$D3,$DF,$EF,$69
+ $DB84 DEFB $3F,$1F,$9F,$E7,$E7,$EF,$E7,$E7
+ $DB8C DEFB $96,$F7,$FB,$CB,$CB,$FB,$F7,$96
+ $DB94 DEFB $69,$77,$B7,$B9,$DE,$EF,$F3,$00
+ $DB9C DEFB $E7,$C3,$E7,$FF,$3C,$C3,$FF,$7E
+ $DBA4 DEFB $96,$EE,$ED,$9D,$7B,$F7,$CF,$00
+ $DBAC DEFB $00,$01,$03,$06,$0C,$18,$37,$6F
+ $DBB4 DEFB $FF,$E7,$18,$36,$63,$C0,$3F,$FF
+ $DBBC DEFB $30,$30,$61,$61,$51,$DB,$CD,$C5
+ $DBC4 DEFB $C0,$C0,$80,$80,$80,$00,$00,$00
+ $DBCC DEFB $06,$0C,$0A,$0B,$19,$18,$18,$30
+ $DBD4 DEFB $18,$30,$30,$30,$A0,$A0,$60,$C0
+ $DBDC DEFB $01,$01,$01,$03,$03,$03,$06,$06
+ $DBE4 DEFB $80,$80,$80,$C0,$C0,$C0,$60,$60
+ $DBEC DEFB $18,$0C,$0C,$0C,$05,$05,$06,$03
+ $DBF4 DEFB $60,$30,$50,$D0,$98,$18,$18,$0C
+ $DBFC DEFB $03,$03,$01,$01,$01,$00,$00,$00
+ $DC04 DEFB $0C,$0C,$86,$86,$8A,$DB,$B3,$A3
+ $DC0C DEFB $00,$80,$C0,$60,$30,$18,$EC,$F6
+ $DC14 DEFB $B0,$BC,$CF,$C3,$CC,$BC,$B0,$C0
+ $DC1C DEFB $0D,$3D,$33,$C3,$F3,$3D,$0D,$03
+ $DC24 DEFB $AA,$55,$AA,$55,$AA,$55,$AA,$55
+ $DC2C DEFB $FF,$FF,$FF,$FF,$00,$00,$00,$00
+ $DC34 DEFB $FF,$C3,$99,$3C,$66,$66,$3C,$18
+ $DC3C DEFB $FF,$81,$FF,$81,$FF,$81,$FF,$FF
+ $DC44 DEFB $60,$E0,$D0,$28,$14,$0A,$05,$02
+ $DC4C DEFB $00,$00,$00,$00,$00,$18,$30,$60
+ $DC54 DEFB $00,$01,$03,$06,$04,$00,$00,$00
+ $DC5C DEFB $00,$F8,$FC,$00,$C0,$C0,$C0,$00
+ $DC64 DEFB $38,$1F,$0F,$00,$01,$01,$01,$00
+ $DC6C DEFB $00,$00,$40,$E0,$E0,$70,$70,$38
+ $DC74 DEFB $0F,$09,$0F,$09,$0F,$09,$0F,$09
+ $DC7C DEFB $0F,$69,$6F,$09,$0F,$69,$6F,$09
+ $DC84 DEFB $FF,$FF,$F3,$FF,$F3,$FF,$F3,$FF
+ $DC8C DEFB $FF,$C0,$BF,$BF,$BF,$BF,$C0,$FF
+ $DC94 DEFB $FF,$03,$FD,$FD,$FD,$FD,$03,$FF
+ $DC9C DEFB $00,$0F,$79,$E1,$9F,$FE,$FE,$FE
+ $DCA4 DEFB $FE,$FE,$FE,$FF,$FF,$7F,$0F,$00
+ $DCAC DEFB $F3,$CE,$9D,$31,$61,$61,$C1,$BE
+ $DCB4 DEFB $CF,$73,$B9,$8C,$86,$86,$83,$7D
+ $DCBC DEFB $BE,$C1,$61,$61,$31,$9D,$CE,$F3
+ $DCC4 DEFB $7D,$83,$86,$86,$8C,$B9,$73,$CF
+ $DCCC DEFB $00,$E0,$F8,$9C,$CE,$66,$73,$7F
+ $DCD4 DEFB $7F,$7F,$7E,$FE,$FC,$F8,$E0,$00
+ $DCDC DEFB $00,$07,$07,$07,$07,$07,$07,$00
+ $DCE4 DEFB $00,$E0,$E0,$E0,$E0,$E0,$E0,$00
+ $DCEC DEFB $38,$00,$FF,$00,$FF,$DF,$8F,$DF
+ $DCF4 DEFB $1C,$00,$FF,$00,$FF,$FF,$F1,$FF
+ $DCFC DEFB $E4,$C2,$81,$8F,$9A,$BF,$EA,$FF
+ $DD04 DEFB $07,$03,$01,$F1,$99,$FD,$97,$FF
+ $DD0C DEFB $80,$80,$80,$80,$80,$80,$80,$80
+ $DD14 DEFB $C0,$C0,$C0,$C0,$E0,$E0,$E0,$E0
+ $DD1C DEFB $F0,$F0,$F0,$F0,$F0,$F0,$F8,$F8
+ $DD24 DEFB $F8,$F8,$F8,$FC,$FC,$FC,$FC,$FE
+ $DD2C DEFB $1F,$3F,$3F,$3F,$3F,$7F,$7F,$7F
+ $DD34 DEFB $07,$07,$0F,$0F,$0F,$1F,$1F,$1F
+ $DD3C DEFB $03,$03,$03,$03,$03,$03,$07,$07
+ $DD44 DEFB $01,$01,$01,$01,$01,$03,$03,$03
+ $DD4C DEFB $00,$00,$00,$01,$01,$01,$01,$01
+ $DD54 DEFB $FF,$00,$FF,$00,$FF,$00,$FF,$00
+ $DD5C DEFB $F7,$0E,$DC,$38,$70,$E0,$C0,$80
+ $DD64 DEFB $FF,$00,$FF,$00,$FF,$C3,$81,$81
+ $DD6C DEFB $00,$00,$00,$03,$7E,$FF,$00,$00
+ $DD74 DEFB $00,$01,$3F,$EA,$55,$FF,$00,$00
+ $DD7C DEFB $18,$FC,$56,$AB,$55,$AA,$D4,$78
+ $DD84 DEFB $FF,$00,$FF,$00,$FF,$E7,$DB,$DB
+ $DD8C DEFB $E7,$FF,$FF,$00,$FF,$FF,$FF,$00
+ $DD94 DEFB $C0,$80,$00,$80,$00,$00,$00,$00
+ $DD9C DEFB $E0,$70,$38,$1C,$0E,$07,$03,$01
+ $DDA4 DEFB $FF,$00,$4E,$4E,$4E,$4E,$4E,$4E
+ $DDAC DEFB $81,$81,$81,$81,$81,$81,$81,$00
+ $DDB4 DEFB $F8,$07,$DE,$2F,$BC,$78,$71,$50
+ $DDBC DEFB $1F,$E0,$7B,$F4,$3D,$1E,$EE,$0A
+ $DDC4 DEFB $EA,$0E,$DE,$2C,$FD,$78,$E7,$00
+ $DDCC DEFB $53,$70,$B9,$34,$DF,$2E,$F3,$00
+ $DDD4 DEFB $3C,$5E,$52,$5A,$52,$5A,$52,$5A
+ $DDDC DEFB $52,$5A,$52,$5E,$5E,$5E,$2C,$2C
+ $DDE4 DEFB $2C,$18,$18,$7E,$2C,$18,$18,$00
+ $DDEC DEFB $7C,$5C,$5C,$5C,$28,$10,$38,$5C
+ $DDF4 DEFB $5A,$31,$31,$00,$3F,$55,$FF,$00
+ $DDFC DEFB $D6,$8C,$8C,$00,$FC,$56,$FF,$00
+ $DE04 DEFB $31,$5A,$5A,$5A,$5A,$5A,$31,$31
+ $DE0C DEFB $8C,$D6,$D6,$D6,$D6,$D6,$8C,$8C
+ $DE14 DEFB $FB,$FB,$C3,$FB,$FB,$1B,$FB,$FB
+ $DE1C DEFB $F6,$F6,$36,$36,$F6,$F6,$37,$37
+ $DE24 DEFB $1F,$1F,$18,$1F,$1F,$18,$DF,$DF
+ $DE2C DEFB $71,$DB,$DB,$DB,$79,$18,$DB,$71
+ $DE34 DEFB $CB,$6B,$63,$66,$E6,$6C,$6D,$CD
+ $DE3C DEFB $3F,$3F,$33,$33,$33,$33,$3F,$3F
+ $DE44 DEFB $7D,$7D,$61,$7D,$7D,$61,$61,$61
+ $DE4C DEFB $F0,$F0,$80,$F0,$F0,$80,$80,$80
+ $DE54 DEFB $00,$63,$77,$7F,$6B,$63,$63,$00
+ $DE5C DEFB $00,$7C,$61,$61,$79,$61,$7C,$00
+ $DE64 DEFB $00,$F1,$9B,$83,$BB,$9B,$F3,$00
+ $DE6C DEFB $00,$E3,$36,$36,$F3,$30,$37,$00
+ $DE74 DEFB $00,$DE,$0C,$0C,$8C,$CC,$8C,$00
+ $DE7C DEFB $00,$79,$CD,$CD,$CD,$CD,$79,$00
+ $DE84 DEFB $00,$F3,$9B,$9B,$F3,$B3,$9B,$00
+ $DE8C DEFB $00,$E0,$00,$00,$C0,$00,$E0,$00
+ $DE94 DEFB $00,$F1,$4A,$73,$4A,$4A,$F2,$00
+ $DE9C DEFB $00,$92,$54,$D8,$54,$52,$52,$00
+ $DEA4 DEFB $00,$F7,$84,$E7,$86,$85,$F4,$00
+ $DEAC DEFB $00,$18,$A0,$18,$04,$24,$98,$00
+ $DEB4 DEFB $FC,$30,$30,$30,$30,$30,$36,$36
+ $DEBC DEFB $7C,$66,$66,$7C,$66,$66,$66,$7C
+ $DEC4 DEFB $79,$CD,$CD,$CD,$CD,$CD,$CD,$79
+ $DECC DEFB $9B,$DB,$FB,$BB,$9B,$9B,$9B,$9B
+ $DED4 DEFB $E0,$00,$00,$C0,$00,$00,$00,$E0
+ $DEDC DEFB $7C,$66,$66,$7C,$66,$66,$66,$7C
+ $DEE4 DEFB $CD,$CC,$CC,$CC,$CC,$CC,$CC,$78
+ $DEEC DEFB $F9,$63,$63,$63,$63,$63,$63,$61
+ $DEF4 DEFB $E6,$36,$06,$07,$06,$06,$36,$E6
+ $DEFC DEFB $6F,$6C,$6C,$EF,$6C,$6C,$6C,$6F
+ $DF04 DEFB $BE,$33,$33,$3E,$38,$3C,$36,$B3
+ $DF0C DEFB $33,$33,$36,$7C,$78,$6C,$C6,$C6
+ $DF14 DEFB $3E,$3C,$30,$7D,$79,$61,$FB,$F3
+ $DF1C DEFB $61,$F7,$FF,$DB,$86,$86,$0C,$0C
+ $DF24 DEFB $9E,$BF,$33,$60,$60,$66,$7E,$3C
+ $DF2C DEFB $3C,$7E,$66,$E6,$CC,$CC,$FC,$78
+ $DF34 DEFB $00,$7E,$7E,$1C,$38,$7E,$7E,$00
+ $DF3C DEFB $00,$3C,$7E,$66,$66,$7E,$3C,$00
+ $DF44 DEFB $8F,$8F,$8F,$47,$47,$23,$18,$07
+ $DF4C DEFB $FF,$FF,$FF,$FE,$FE,$FC,$F8,$E0
+ $DF54 DEFB $00,$00,$00,$07,$18,$23,$47,$47
+ $DF5C DEFB $2C,$2C,$58,$B8,$70,$EC,$DE,$DE
+ $DF64 DEFB $18,$18,$18,$18,$18,$18,$18,$18
+ $DF6C DEFB $00,$00,$00,$FF,$FF,$00,$00,$00
+ $DF74 DEFB $00,$00,$00,$0F,$1F,$18,$18,$18
+ $DF7C DEFB $00,$00,$00,$F0,$F8,$18,$18,$18
+ $DF84 DEFB $18,$18,$18,$F8,$F0,$00,$00,$00
+ $DF8C DEFB $18,$18,$18,$1F,$0F,$00,$00,$00
+ $DF94 DEFB $30,$58,$D8,$D8,$8D,$8D,$0D,$06
+ $DF9C DEFB $3C,$0E,$01,$0F,$7E,$F0,$80,$70
+ $DFA4 DEFB $36,$68,$36,$68,$36,$68,$36,$68
+ $DFAC DEFB $0E,$07,$13,$38,$6D,$D9,$B3,$E3
+ $DFB4 DEFB $2D,$35,$BD,$01,$FD,$AD,$55,$FD
+ $DFBC DEFB $00,$90,$38,$6C,$36,$9B,$CE,$C4
+ $DFC4 DEFB $07,$33,$39,$2D,$34,$2C,$B4,$BD
+ $DFCC DEFB $FF,$7E,$00,$00,$00,$00,$00,$00
+ $DFD4 DEFB $00,$00,$00,$00,$00,$00,$00,$7E
 
 ; Data block at DFDC
 b$DFDC DEFB $00,$80,$80,$80,$80,$80,$80,$00
@@ -7270,7 +10277,7 @@ c$E329 LD A,($A838)    ;
  $E33A SUB $1C         ;
  $E33C CP $D6          ;
  $E33E RET C           ;
-; This entry point is used by the routines at #R$EFC7 and #R$F5F1.
+; This entry point is used by the routines at #R$EFC7, #R$F5F1 and #R$F814.
 *$E33F LD A,($B55F)    ;
  $E342 OR A            ;
  $E343 RET NZ          ;
@@ -7291,7 +10298,7 @@ c$E329 LD A,($A838)    ;
  $E366 DEC (IY+$2D)    ;
  $E369 JP Z,$B451      ;
 *$E36C EXX             ;
-; This entry point is used by the routines at #R$E3FD and #R$F5F1.
+; This entry point is used by the routines at #R$E3FD and #R$F814.
 *$E36D EXX             ;
  $E36E LD C,$46        ;
  $E370 LD HL,$DFDC     ;
@@ -7349,7 +10356,7 @@ c$E329 LD A,($A838)    ;
  $E3CD CALL $B7BA      ;
  $E3D0 INC E           ;
  $E3D1 JR $E3AE        ;
-; This entry point is used by the routines at #R$AA7F, #R$E2FC and #R$F5F1.
+; This entry point is used by the routines at #R$AA7F, #R$E2FC and #R$F814.
 *$E3D3 LD A,B          ;
  $E3D4 SUB H           ;
  $E3D5 LD B,A          ;
@@ -8942,9 +11949,12 @@ b$EC5C DEFB $00,$50,$01,$01,$00,$01,$02,$20
  $ECF5 DEFB $00
  $ECF6 DEFB $00,$06,$00,$13,$00,$21,$00,$40
  $ECFE DEFB $00
- $ECFF DEFB $00,$71,$7E,$9F,$7E,$CC,$7E,$30
- $ED07 DEFB $78,$02,$02,$78,$44,$FE,$02,$C0
- $ED0F DEFB $8C,$02,$FE,$7C
+ $ECFF DEFB $00
+ $ED00 DEFW $7E71
+ $ED02 DEFW $7E9F
+ $ED04 DEFW $7ECC
+ $ED06 DEFB $30,$78,$02,$02,$78,$44,$FE,$02
+ $ED0E DEFB $C0,$8C,$02,$FE,$7C
 
 ; Routine at ED13
 ;
@@ -8963,13 +11973,13 @@ c$ED13 LD A,$02      ;
 ; Routine at ED2A
 ;
 ; Used by the routine at #R$8184.
-c$ED2A LD A,($ECF5)    ;
+c$ED2A LD A,($ECF5)    ; {#REGe=*#R$ECF5*#N$02.
  $ED2D ADD A,A         ;
- $ED2E LD E,A          ;
- $ED2F LD D,$00        ;
- $ED31 LD HL,$ECF6     ;
- $ED34 ADD HL,DE       ;
- $ED35 LD A,($ECFF)    ;
+ $ED2E LD E,A          ; }
+ $ED2F LD D,$00        ; #REGd=#N$00.
+ $ED31 LD HL,$ECF6     ; {#REGhl=#R$ECF6+#REGde.
+ $ED34 ADD HL,DE       ; }
+ $ED35 LD A,($ECFF)    ; #REGa=*#R$ECFF.
  $ED38 SUB (HL)        ;
  $ED39 INC HL          ;
  $ED3A LD A,($ECFE)    ;
@@ -8983,14 +11993,14 @@ c$ED2A LD A,($ECF5)    ;
  $ED46 OR C            ;
  $ED47 JR NZ,$ED42     ;
  $ED49 CALL $B902      ;
- $ED4C LD HL,$ED00     ;
+ $ED4C LD HL,$ED00     ; #REGhl=#R$ED00.
  $ED4F ADD HL,DE       ;
  $ED50 LD E,(HL)       ;
  $ED51 INC HL          ;
  $ED52 LD D,(HL)       ;
  $ED53 EX DE,HL        ;
- $ED54 LD DE,$0000     ;
- $ED57 CALL $B8C4      ;
+ $ED54 LD DE,$0000     ; #REGde=#N($0000,$04,$04).
+ $ED57 CALL $B8C4      ; Call #R$B8C4.
  $ED5A CALL $B9AC      ;
 *$ED5D CALL $EEA2      ;
  $ED60 LD A,($ECF5)    ;
@@ -9224,7 +12234,8 @@ c$EEC1 CALL $EEA2    ;
  $EF32 DI            ;
  $EF33 LD C,A        ;
  $EF34 PUSH AF       ;
-; This entry point is used by the routines at #R$ED2A, #R$EFC7 and #R$F5F1.
+; This entry point is used by the routines at #R$ED2A, #R$EFC7, #R$F5F1 and
+; #R$F814.
 *$EF35 LD E,(IX+$02) ;
  $EF38 LD D,(IX+$03) ;
  $EF3B PUSH BC       ;
@@ -9272,7 +12283,7 @@ c$EEC1 CALL $EEA2    ;
  $EF83 LD (IX+$03),D ;
  $EF86 POP AF        ;
  $EF87 POP BC        ;
-; This entry point is used by the routine at #R$F5F1.
+; This entry point is used by the routine at #R$F814.
 *$EF88 INC IX        ;
  $EF8A INC IX        ;
  $EF8C INC IX        ;
@@ -10043,299 +13054,265 @@ b$F5BE DEFB $28,$46,$02,$02
 ; Routine at F5F1
 ;
 ; Used by the routine at #R$EEC1.
-c$F5F1 LD HL,$5DE7     ;
- $F5F4 LD DE,$0020     ;
- $F5F7 LD BC,$F5D3     ;
-*$F5FA LD (HL),$00     ;
- $F5FC ADD HL,DE       ;
- $F5FD LD (HL),$FF     ;
- $F5FF ADD HL,DE       ;
- $F600 LD (HL),$00     ;
- $F602 AND A           ;
- $F603 SBC HL,DE       ;
- $F605 SBC HL,DE       ;
- $F607 LD A,(BC)       ;
- $F608 INC BC          ;
- $F609 CP $FF          ;
- $F60B JR Z,$F61D      ;
- $F60D OR A            ;
- $F60E JR Z,$F61A      ;
- $F610 CP $01          ;
- $F612 JR NZ,$F617     ;
- $F614 ADD HL,DE       ;
- $F615 JR $F61A        ;
-*$F617 AND A           ;
- $F618 SBC HL,DE       ;
-*$F61A INC HL          ;
- $F61B JR $F5FA        ;
-*$F61D LD A,$06        ;
- $F61F LD ($F26E),A    ;
- $F622 LD IX,$F5BE     ;
- $F626 LD B,$03        ;
-*$F628 PUSH BC         ;
- $F629 LD A,$0D        ;
- $F62B CALL $EC1D      ;
- $F62E LD BC,$F5CA     ;
- $F631 JR NZ,$F636     ;
- $F633 LD BC,$F5CE     ;
-*$F636 CALL $EF35      ;
- $F639 LD A,($F5D2)    ;
- $F63C XOR $02         ;
- $F63E LD ($F5D2),A    ;
- $F641 CALL $A8A0      ;
- $F644 CALL $E329      ;
- $F647 POP BC          ;
- $F648 DJNZ $F628      ;
- $F64A RET             ;
- $F64B LD BC,$FF01     ;
- $F64E LD BC,$FFFF     ;
- $F651 LD BC,$28FF     ;
- $F654 LD B,(HL)       ;
- $F655 LD BC,$0501     ;
- $F658 INC B           ;
- $F659 RET Z           ;
- $F65A LD A,B          ;
- $F65B RST $38         ;
- $F65C LD BC,$0223     ;
- $F65F LD H,$64        ;
- $F661 LD BC,$26FF     ;
- $F664 NOP             ;
- $F665 RET Z           ;
- $F666 LD A,B          ;
- $F667 RST $38         ;
- $F668 LD BC,$0223     ;
- $F66B LD H,$64        ;
- $F66D LD BC,$26FF     ;
- $F670 NOP             ;
- $F671 INC A           ;
- $F672 NOP             ;
- $F673 NOP             ;
- $F674 LD A,$04        ;
- $F676 LD ($F26E),A    ;
- $F679 LD B,$05        ;
- $F67B LD IX,$F653     ;
-*$F67F PUSH BC         ;
- $F680 LD BC,$F5CA     ;
- $F683 CALL $EF35      ;
- $F686 DEC (IX+$00)    ;
- $F689 JR NZ,$F6BB     ;
- $F68B LD A,($F673)    ;
- $F68E LD B,A          ;
- $F68F LD A,($F672)    ;
- $F692 OR B            ;
- $F693 JR NZ,$F6BB     ;
- $F695 LD A,R          ;
- $F697 AND $3F         ;
- $F699 ADD A,$14       ;
- $F69B LD (IX+$00),A   ;
- $F69E LD A,(IX+$01)   ;
- $F6A1 ADD A,$02       ;
- $F6A3 CP $08          ;
- $F6A5 JR NZ,$F6A8     ;
- $F6A7 XOR A           ;
-*$F6A8 LD (IX+$01),A   ;
- $F6AB LD E,A          ;
- $F6AC LD D,$00        ;
- $F6AE LD HL,$F64B     ;
- $F6B1 ADD HL,DE       ;
- $F6B2 LD A,(HL)       ;
- $F6B3 LD (IX-$02),A   ;
- $F6B6 INC HL          ;
- $F6B7 LD A,(HL)       ;
- $F6B8 LD (IX-$01),A   ;
-*$F6BB LD A,($F671)    ;
- $F6BE XOR $02         ;
- $F6C0 LD ($F671),A    ;
- $F6C3 CALL $A8A0      ;
- $F6C6 CALL $E329      ;
- $F6C9 INC IX          ;
- $F6CB INC IX          ;
- $F6CD POP BC          ;
- $F6CE DJNZ $F67F      ;
- $F6D0 RET             ;
- $F6D1 LD B,B          ;
- $F6D2 INC DE          ;
- $F6D3 LD H,B          ;
- $F6D4 LD E,$80        ;
- $F6D6 LD A,(DE)       ;
- $F6D7 AND B           ;
- $F6D8 LD BC,$05C0     ;
- $F6DB NOP             ;
- $F6DC LD B,B          ;
- $F6DD LD H,H          ;
- $F6DE LD (BC),A       ;
- $F6DF INC B           ;
- $F6E0 OR H            ;
- $F6E1 SBC A,B         ;
- $F6E2 LD (BC),A       ;
- $F6E3 CALL M,$4420    ;
- $F6E6 LD (BC),A       ;
- $F6E7 INC B           ;
- $F6E8 RET Z           ;
- $F6E9 LD A,B          ;
- $F6EA LD (BC),A       ;
- $F6EB CALL M,$C53A    ;
- $F6EE DEFB $ED,$FE    ;
- $F6F0 LD B,$20        ;
- $F6F2 INC C           ;
- $F6F3 LD A,($F6DB)    ;
- $F6F6 XOR $01         ;
- $F6F8 LD ($F6DB),A    ;
- $F6FB JR Z,$F716      ;
- $F6FD LD A,$06        ;
- $F6FF DEC A           ;
- $F700 JR Z,$F716      ;
- $F702 LD B,A          ;
- $F703 LD HL,$F6D1     ;
- $F706 LD DE,$4800     ;
-*$F709 LD E,(HL)       ;
- $F70A INC HL          ;
- $F70B LD ($A838),DE   ;
- $F70F LD A,(HL)       ;
- $F710 INC HL          ;
- $F711 CALL $A83D      ;
- $F714 DJNZ $F709      ;
-*$F716 LD A,($EDC5)    ;
- $F719 CP $06          ;
- $F71B RET Z           ;
- $F71C LD A,$06        ;
- $F71E LD ($F26E),A    ;
- $F721 LD IX,$F6DC     ;
- $F725 LD B,$04        ;
-*$F727 PUSH BC         ;
- $F728 LD BC,$F2F7     ;
- $F72B CALL $EF35      ;
- $F72E LD A,$76        ;
- $F730 CALL $A8A0      ;
- $F733 CALL $E329      ;
- $F736 POP BC          ;
- $F737 DJNZ $F727      ;
- $F739 RET             ;
- $F73A INC (HL)        ;
- $F73B LD B,B          ;
- $F73C NOP             ;
- $F73D LD (BC),A       ;
- $F73E LD (HL),H       ;
- $F73F LD L,H          ;
- $F740 NOP             ;
- $F741 LD (BC),A       ;
- $F742 OR H            ;
- $F743 AND B           ;
- $F744 NOP             ;
- $F745 LD (BC),A       ;
- $F746 LD A,$08        ;
- $F748 LD ($F26E),A    ;
- $F74B LD IX,$F73A     ;
- $F74F LD B,$03        ;
-*$F751 PUSH BC         ;
- $F752 LD BC,$F2F7     ;
- $F755 CALL $EF35      ;
- $F758 LD A,(IX-$01)   ;
- $F75B CP $02          ;
- $F75D JR Z,$F767      ;
- $F75F LD (IX-$01),$02 ;
- $F763 LD (IX-$03),$40 ;
-*$F767 LD A,$56        ;
- $F769 CALL $A83D      ;
- $F76C CALL $E329      ;
- $F76F POP BC          ;
- $F770 DJNZ $F751      ;
- $F772 RET             ;
- $F773 LD A,$02        ;
- $F775 LD ($F26E),A    ;
- $F778 LD A,(IY+$0A)   ;
- $F77B CP $98          ;
- $F77D JR NZ,$F78D     ;
- $F77F LD A,(IY+$05)   ;
- $F782 CP $28          ;
- $F784 JR C,$F78D      ;
- $F786 CP $E6          ;
- $F788 JR NC,$F78D     ;
- $F78A CALL $E33F      ;
-*$F78D LD B,$05        ;
- $F78F LD A,($F7DE)    ;
- $F792 INC A           ;
- $F793 CP $5B          ;
- $F795 JR NZ,$F799     ;
- $F797 LD A,$57        ;
-*$F799 LD ($F7DE),A    ;
- $F79C LD HL,$F7DF     ;
- $F79F LD D,$98        ;
-*$F7A1 LD E,(HL)       ;
- $F7A2 LD ($A838),DE   ;
- $F7A6 INC HL          ;
- $F7A7 DEC (HL)        ;
- $F7A8 JR NZ,$F7AC     ;
- $F7AA LD (HL),$28     ;
-*$F7AC LD A,(HL)       ;
- $F7AD INC HL          ;
- $F7AE CP $09          ;
- $F7B0 JR NC,$F7D6     ;
- $F7B2 LD A,(IY+$0A)   ;
- $F7B5 CP $80          ;
- $F7B7 JR NZ,$F7D1     ;
- $F7B9 LD A,($A838)    ;
- $F7BC SUB (IY+$05)    ;
- $F7BF SUB $10         ;
- $F7C1 CP $E0          ;
- $F7C3 JR C,$F7D1      ;
- $F7C5 LD A,(IY+$0A)   ;
- $F7C8 ADD A,$04       ;
- $F7CA LD (IY+$0A),A   ;
- $F7CD LD (IY+$37),$01 ;
-*$F7D1 LD A,($F7DE)    ;
- $F7D4 JR $F7D8        ;
-*$F7D6 LD A,$57        ;
-*$F7D8 CALL $A83D      ;
- $F7DB DJNZ $F7A1      ;
- $F7DD RET             ;
- $F7DE LD E,D          ;
- $F7DF JR C,$F80A      ;
- $F7E1 LD H,B          ;
- $F7E2 LD HL,$1988     ;
- $F7E5 OR B            ;
- $F7E6 LD DE,$09D8     ;
- $F7E9 LD C,$90        ;
- $F7EB AND B           ;
- $F7EC LD E,E          ;
- $F7ED LD A,(BC)       ;
- $F7EE EX AF,AF'       ;
- $F7EF XOR B           ;
- $F7F0 LD E,H          ;
- $F7F1 RRCA            ;
- $F7F2 RET P           ;
- $F7F3 XOR B           ;
- $F7F4 LD E,(HL)       ;
- $F7F5 ADD HL,DE       ;
- $F7F6 SUB B           ;
- $F7F7 AND B           ;
- $F7F8 LD E,L          ;
- $F7F9 RLA             ;
- $F7FA JR NZ,$F78C     ;
- $F7FC LD E,A          ;
- $F7FD RST $38         ;
- $F7FE RRCA            ;
- $F7FF RET P           ;
- $F800 XOR B           ;
- $F801 LD E,(HL)       ;
- $F802 ADD HL,DE       ;
- $F803 SUB B           ;
- $F804 AND B           ;
- $F805 LD E,L          ;
- $F806 RLA             ;
- $F807 JR NZ,$F799     ;
- $F809 LD E,A          ;
-*$F80A LD C,$90        ;
- $F80C AND B           ;
- $F80D LD E,E          ;
- $F80E LD A,(BC)       ;
- $F80F EX AF,AF'       ;
- $F810 XOR B           ;
- $F811 LD E,H          ;
- $F812 JP (HL)         ;
- $F813 RST $30         ;
-; This entry point is used by the routine at #R$81AE.
-*$F814 LD HL,($F812)   ;
+c$F5F1 LD HL,$5DE7                          ; #REGhl=#N$5DE7.
+ $F5F4 LD DE,$0020                          ; #REGde=#N($0020,$04,$04).
+ $F5F7 LD BC,$F5D3                          ; #REGbc=#N$F5D3.
+*$F5FA LD (HL),$00                          ; Write #N$00 to *#REGhl.
+ $F5FC ADD HL,DE                            ; #REGhl+=#REGde.
+ $F5FD LD (HL),$FF                          ; Write #N$FF to *#REGhl.
+ $F5FF ADD HL,DE                            ; #REGhl+=#REGde.
+ $F600 LD (HL),$00                          ; Write #N$00 to *#REGhl.
+ $F602 AND A                                ;
+ $F603 SBC HL,DE                            ;
+ $F605 SBC HL,DE                            ;
+ $F607 LD A,(BC)                            ;
+ $F608 INC BC                               ;
+ $F609 CP $FF                               ;
+ $F60B JR Z,$F61D                           ;
+ $F60D OR A                                 ;
+ $F60E JR Z,$F61A                           ;
+ $F610 CP $01                               ;
+ $F612 JR NZ,$F617                          ;
+ $F614 ADD HL,DE                            ;  #REGhl+=#REGde.
+ $F615 JR $F61A                             ; Jump to #R$F61A.
+*$F617 AND A                                ;
+ $F618 SBC HL,DE                            ; #REGhl-=#REGde.
+*$F61A INC HL                               ; Increment #REGhl by one.
+ $F61B JR $F5FA                             ; Jump to #R$F5FA.
+*$F61D LD A,$06                             ; {Write #N$06 to #R$F26E.
+ $F61F LD ($F26E),A                         ; }
+ $F622 LD IX,$F5BE                          ; #REGix=#R$F5BE.
+ $F626 LD B,$03                             ;
+*$F628 PUSH BC                              ;
+ $F629 LD A,$0D                             ;
+ $F62B CALL $EC1D                           ;
+ $F62E LD BC,$F5CA                          ;
+ $F631 JR NZ,$F636                          ;
+ $F633 LD BC,$F5CE                          ;
+*$F636 CALL $EF35                           ;
+ $F639 LD A,($F5D2)                         ;
+ $F63C XOR $02                              ;
+ $F63E LD ($F5D2),A                         ;
+ $F641 CALL $A8A0                           ;
+ $F644 CALL $E329                           ;
+ $F647 POP BC                               ;
+ $F648 DJNZ $F628                           ;
+ $F64A RET                                  ;
+ $F64B LD BC,$FF01                          ;
+ $F64E LD BC,$FFFF                          ;
+ $F651 LD BC,$28FF                          ;
+ $F654 LD B,(HL)                            ;
+ $F655 LD BC,$0501                          ;
+ $F658 INC B                                ;
+ $F659 RET Z                                ;
+ $F65A LD A,B                               ;
+ $F65B RST $38                              ;
+ $F65C LD BC,$0223                          ;
+ $F65F LD H,$64                             ;
+ $F661 LD BC,$26FF                          ;
+ $F664 NOP                                  ;
+ $F665 RET Z                                ;
+ $F666 LD A,B                               ;
+ $F667 RST $38                              ;
+ $F668 LD BC,$0223                          ;
+ $F66B LD H,$64                             ;
+ $F66D LD BC,$26FF                          ;
+ $F670 NOP                                  ;
+ $F671 INC A                                ;
+ $F672 NOP                                  ;
+ $F673 NOP                                  ;
+ $F674 LD A,$04                             ;
+ $F676 LD ($F26E),A                         ;
+ $F679 LD B,$05                             ;
+ $F67B LD IX,$F653                          ;
+*$F67F PUSH BC                              ;
+ $F680 LD BC,$F5CA                          ;
+ $F683 CALL $EF35                           ;
+ $F686 DEC (IX+$00)                         ;
+ $F689 JR NZ,$F6BB                          ;
+ $F68B LD A,($F673)                         ;
+ $F68E LD B,A                               ;
+ $F68F LD A,($F672)                         ;
+ $F692 OR B                                 ;
+ $F693 JR NZ,$F6BB                          ;
+ $F695 LD A,R                               ;
+ $F697 AND $3F                              ;
+ $F699 ADD A,$14                            ;
+ $F69B LD (IX+$00),A                        ;
+ $F69E LD A,(IX+$01)                        ;
+ $F6A1 ADD A,$02                            ;
+ $F6A3 CP $08                               ;
+ $F6A5 JR NZ,$F6A8                          ;
+ $F6A7 XOR A                                ;
+*$F6A8 LD (IX+$01),A                        ;
+ $F6AB LD E,A                               ;
+ $F6AC LD D,$00                             ;
+ $F6AE LD HL,$F64B                          ;
+ $F6B1 ADD HL,DE                            ;
+ $F6B2 LD A,(HL)                            ;
+ $F6B3 LD (IX-$02),A                        ;
+ $F6B6 INC HL                               ;
+ $F6B7 LD A,(HL)                            ;
+ $F6B8 LD (IX-$01),A                        ;
+*$F6BB LD A,($F671)                         ;
+ $F6BE XOR $02                              ;
+ $F6C0 LD ($F671),A                         ;
+ $F6C3 CALL $A8A0                           ;
+ $F6C6 CALL $E329                           ;
+ $F6C9 INC IX                               ;
+ $F6CB INC IX                               ;
+ $F6CD POP BC                               ;
+ $F6CE DJNZ $F67F                           ;
+ $F6D0 RET                                  ;
+ $F6D1 LD B,B                               ;
+ $F6D2 INC DE                               ;
+ $F6D3 LD H,B                               ;
+ $F6D4 LD E,$80                             ;
+ $F6D6 LD A,(DE)                            ;
+ $F6D7 AND B                                ;
+ $F6D8 LD BC,$05C0                          ;
+ $F6DB NOP                                  ;
+ $F6DC LD B,B                               ;
+ $F6DD LD H,H                               ;
+ $F6DE LD (BC),A                            ;
+ $F6DF INC B                                ;
+ $F6E0 OR H                                 ;
+ $F6E1 SBC A,B                              ;
+ $F6E2 LD (BC),A                            ;
+ $F6E3 CALL M,$4420                         ;
+ $F6E6 LD (BC),A                            ;
+ $F6E7 INC B                                ;
+ $F6E8 RET Z                                ;
+ $F6E9 LD A,B                               ;
+ $F6EA LD (BC),A                            ;
+ $F6EB CALL M,$C53A                         ;
+ $F6EE DEFB $ED,$FE                         ;
+ $F6F0 LD B,$20                             ;
+ $F6F2 INC C                                ;
+ $F6F3 LD A,($F6DB)                         ;
+ $F6F6 XOR $01                              ;
+ $F6F8 LD ($F6DB),A                         ;
+ $F6FB JR Z,$F716                           ;
+ $F6FD LD A,$06                             ;
+ $F6FF DEC A                                ;
+ $F700 JR Z,$F716                           ;
+ $F702 LD B,A                               ;
+ $F703 LD HL,$F6D1                          ;
+ $F706 LD DE,$4800                          ;
+*$F709 LD E,(HL)                            ;
+ $F70A INC HL                               ;
+ $F70B LD ($A838),DE                        ;
+ $F70F LD A,(HL)                            ;
+ $F710 INC HL                               ;
+ $F711 CALL $A83D                           ;
+ $F714 DJNZ $F709                           ;
+*$F716 LD A,($EDC5)                         ;
+ $F719 CP $06                               ;
+ $F71B RET Z                                ;
+ $F71C LD A,$06                             ;
+ $F71E LD ($F26E),A                         ;
+ $F721 LD IX,$F6DC                          ;
+ $F725 LD B,$04                             ;
+*$F727 PUSH BC                              ;
+ $F728 LD BC,$F2F7                          ;
+ $F72B CALL $EF35                           ;
+ $F72E LD A,$76                             ;
+ $F730 CALL $A8A0                           ;
+ $F733 CALL $E329                           ;
+ $F736 POP BC                               ;
+ $F737 DJNZ $F727                           ;
+ $F739 RET                                  ;
+ $F73A INC (HL)                             ;
+ $F73B LD B,B                               ;
+ $F73C NOP                                  ;
+ $F73D LD (BC),A                            ;
+ $F73E LD (HL),H                            ;
+ $F73F LD L,H                               ;
+ $F740 NOP                                  ;
+ $F741 LD (BC),A                            ;
+ $F742 OR H                                 ;
+ $F743 AND B                                ;
+ $F744 NOP                                  ;
+ $F745 LD (BC),A                            ;
+ $F746 LD A,$08                             ;
+ $F748 LD ($F26E),A                         ;
+ $F74B LD IX,$F73A                          ;
+ $F74F LD B,$03                             ;
+*$F751 PUSH BC                              ;
+ $F752 LD BC,$F2F7                          ;
+ $F755 CALL $EF35                           ;
+ $F758 LD A,(IX-$01)                        ;
+ $F75B CP $02                               ;
+ $F75D JR Z,$F767                           ;
+ $F75F LD (IX-$01),$02                      ;
+ $F763 LD (IX-$03),$40                      ;
+*$F767 LD A,$56                             ;
+ $F769 CALL $A83D                           ;
+ $F76C CALL $E329                           ;
+ $F76F POP BC                               ;
+ $F770 DJNZ $F751                           ;
+ $F772 RET                                  ;
+ $F773 LD A,$02                             ;
+ $F775 LD ($F26E),A                         ;
+ $F778 LD A,(IY+$0A)                        ;
+ $F77B CP $98                               ;
+ $F77D JR NZ,$F78D                          ;
+ $F77F LD A,(IY+$05)                        ;
+ $F782 CP $28                               ;
+ $F784 JR C,$F78D                           ;
+ $F786 CP $E6                               ;
+ $F788 JR NC,$F78D                          ;
+ $F78A CALL $E33F                           ;
+*$F78D LD B,$05                             ;
+ $F78F LD A,($F7DE)                         ;
+ $F792 INC A                                ;
+ $F793 CP $5B                               ;
+ $F795 JR NZ,$F799                          ;
+ $F797 LD A,$57                             ;
+*$F799 LD ($F7DE),A                         ;
+ $F79C LD HL,$F7DF                          ;
+ $F79F LD D,$98                             ;
+*$F7A1 LD E,(HL)                            ;
+ $F7A2 LD ($A838),DE                        ;
+ $F7A6 INC HL                               ;
+ $F7A7 DEC (HL)                             ;
+ $F7A8 JR NZ,$F7AC                          ;
+ $F7AA LD (HL),$28                          ;
+*$F7AC LD A,(HL)                            ;
+ $F7AD INC HL                               ;
+ $F7AE CP $09                               ;
+ $F7B0 JR NC,$F7D6                          ;
+ $F7B2 LD A,(IY+$0A)                        ;
+ $F7B5 CP $80                               ;
+ $F7B7 JR NZ,$F7D1                          ;
+ $F7B9 LD A,($A838)                         ;
+ $F7BC SUB (IY+$05)                         ;
+ $F7BF SUB $10                              ;
+ $F7C1 CP $E0                               ;
+ $F7C3 JR C,$F7D1                           ;
+ $F7C5 LD A,(IY+$0A)                        ;
+ $F7C8 ADD A,$04                            ;
+ $F7CA LD (IY+$0A),A                        ;
+ $F7CD LD (IY+$37),$01                      ;
+*$F7D1 LD A,($F7DE)                         ;
+ $F7D4 JR $F7D8                             ;
+*$F7D6 LD A,$57                             ;
+*$F7D8 CALL $A83D                           ;
+ $F7DB DJNZ $F7A1                           ;
+ $F7DD RET                                  ;
+ $F7DE DEFB $5A,$38,$29,$60,$21,$88,$19,$B0 ;
+ $F7E6 DEFB $11,$D8,$09,$0E,$90,$A0,$5B,$0A ;
+ $F7EE DEFB $08,$A8,$5C,$0F,$F0,$A8,$5E,$19 ;
+ $F7F6 DEFB $90,$A0,$5D,$17,$20,$90,$5F,$FF ;
+ $F7FE DEFB $0F,$F0,$A8,$5E,$19,$90,$A0,$5D ;
+ $F806 DEFB $17,$20,$90,$5F,$0E,$90,$A0,$5B ;
+ $F80E DEFB $0A,$08,$A8,$5C                 ;
+ $F812 DEFW $F7E9                           ;
+
+; Routine at F814
+;
+; Used by the routine at #R$81AE.
+c$F814 LD HL,($F812)   ;
  $F817 LD A,(IY+$0F)   ;
  $F81A CP (HL)         ;
  $F81B JR Z,$F823      ;
@@ -10595,11 +13572,11 @@ c$F5F1 LD HL,$5DE7     ;
  $F9ED POP BC          ;
  $F9EE POP AF          ;
  $F9EF RET             ;
- $F9F0 RST $38         ;
- $F9F1 RST $38         ;
- $F9F2 NOP             ;
- $F9F3 NOP             ;
- $F9F4 INC D           ;
+ $F9F0 DEFB $FF        ;
+ $F9F1 DEFB $FF        ;
+ $F9F2 DEFB $00        ;
+ $F9F3 DEFB $00        ;
+ $F9F4 DEFB $14        ;
 ; This entry point is used by the routine at #R$ED2A.
 *$F9F5 LD IX,$F9F0     ;
  $F9F9 LD A,(IX+$00)   ;
