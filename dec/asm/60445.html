@@ -33,7 +33,7 @@ Next: <a href="60459.html">60459</a>
 </td>
 </tr>
 </table>
-<div class="description">60445: Routine at EC1D</div>
+<div class="description">60445: Handler: Is A Given Task Completed</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,55 +42,75 @@ Next: <a href="60459.html">60459</a>
 Used by the routines at <a href="47442.html">DrawRoom</a>, <a href="58397.html">58397</a>, <a href="60714.html">60714</a>, <a href="61383.html">61383</a> and <a href="62961.html">62961</a>.
 </div>
 </div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Task ID</td>
+</tr>
+</table>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Handler_TaskCompleted</td>
 <td class="address-2"><span id="60445"></span>60445</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="2">Stash <span class="register">HL</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60446"></span>60446</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60447"></span>60447</td>
 <td class="instruction">LD E,A</td>
 <td class="comment-1" rowspan="2">Create an offset in <span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60448"></span>60448</td>
 <td class="instruction">LD D,0</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60450"></span>60450</td>
 <td class="instruction">LD HL,60431</td>
 <td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="60431.html">Flag_Bottle_Full</a>+<span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60453"></span>60453</td>
 <td class="instruction">ADD HL,DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60454"></span>60454</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60455"></span>60455</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="2">Restore <span class="register">DE</span> and <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60456"></span>60456</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60457"></span>60457</td>
 <td class="instruction">OR A</td>
 <td class="comment-1" rowspan="1">Set flags.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="60458"></span>60458</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

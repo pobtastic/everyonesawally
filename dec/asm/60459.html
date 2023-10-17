@@ -29,7 +29,7 @@ Prev: <a href="60445.html">60445</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#60459">Map</a></td>
 <td class="next">
-Next: <a href="60508.html">60508</a>
+Next: <a href="60490.html">60490</a>
 </td>
 </tr>
 </table>
@@ -44,162 +44,86 @@ Next: <a href="60508.html">60508</a>
 <tr>
 <td class="address-2"><span id="60459"></span>60459</td>
 <td class="instruction">CALL <a href="60459.html#60477">60477</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="60459.html#60477">60477</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60462"></span>60462</td>
 <td class="instruction">JP Z,<a href="60095.html#60107">60107</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">If the return zero flag is zero, jump to <a href="60095.html#60107">60107</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60465"></span>60465</td>
 <td class="instruction">JP <a href="60095.html#60131">60131</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="60095.html#60131">60131</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60468"></span>60468</td>
 <td class="instruction">CALL <a href="60459.html#60477">60477</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="60459.html#60477">60477</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60471"></span>60471</td>
 <td class="instruction">JP NZ,<a href="60095.html#60107">60107</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">If the return zero flag is not zero, jump to <a href="60095.html#60107">60107</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60474"></span>60474</td>
 <td class="instruction">JP <a href="60095.html#60131">60131</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="60095.html#60131">60131</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="60477"></span>60477</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60478"></span>60478</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60479"></span>60479</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60480"></span>60480</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60481"></span>60481</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Stash <span class="register">AF</span> and <span class="register">HL</span> on the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60482"></span>60482</td>
 <td class="instruction">PUSH AF</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="60483"></span>60483</td>
 <td class="instruction">CALL <a href="43660.html">43660</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="43660.html">43660</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60486"></span>60486</td>
 <td class="instruction">POP AF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">AF</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60487"></span>60487</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Compare <span class="register">A</span> against *<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60488"></span>60488</td>
 <td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="60489"></span>60489</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="60490"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="60714.html">60714</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="60490"></span>60490</td>
-<td class="instruction">LD E,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60491"></span>60491</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="60492"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="60714.html">60714</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="60492"></span>60492</td>
-<td class="instruction">PUSH HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60493"></span>60493</td>
-<td class="instruction">LD D,0</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60495"></span>60495</td>
-<td class="instruction">LD HL,60431</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60498"></span>60498</td>
-<td class="instruction">ADD HL,DE</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60499"></span>60499</td>
-<td class="instruction">CP (HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60500"></span>60500</td>
-<td class="instruction">LD (HL),A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60501"></span>60501</td>
-<td class="instruction">CALL NZ,<a href="58397.html">58397</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60504"></span>60504</td>
-<td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="60505"></span>60505</td>
-<td class="instruction">JP <a href="60095.html#60139">60139</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -209,7 +133,7 @@ Prev: <a href="60445.html">60445</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#60459">Map</a></td>
 <td class="next">
-Next: <a href="60508.html">60508</a>
+Next: <a href="60490.html">60490</a>
 </td>
 </tr>
 </table>

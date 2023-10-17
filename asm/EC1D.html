@@ -33,7 +33,7 @@ Next: <a href="EC2B.html">EC2B</a>
 </td>
 </tr>
 </table>
-<div class="description">EC1D: Routine at EC1D</div>
+<div class="description">EC1D: Handler: Is A Given Task Completed</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,55 +42,75 @@ Next: <a href="EC2B.html">EC2B</a>
 Used by the routines at <a href="B952.html">DrawRoom</a>, <a href="E41D.html">E41D</a>, <a href="ED2A.html">ED2A</a>, <a href="EFC7.html">EFC7</a> and <a href="F5F1.html">F5F1</a>.
 </div>
 </div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Task ID</td>
+</tr>
+</table>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Handler_TaskCompleted</td>
 <td class="address-2"><span id="ec1d"></span>EC1D</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="2">Stash <span class="register">HL</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec1e"></span>EC1E</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec1f"></span>EC1F</td>
 <td class="instruction">LD E,A</td>
 <td class="comment-1" rowspan="2">Create an offset in <span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec20"></span>EC20</td>
 <td class="instruction">LD D,$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec22"></span>EC22</td>
 <td class="instruction">LD HL,$EC0F</td>
 <td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="EC0F.html">Flag_Bottle_Full</a>+<span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec25"></span>EC25</td>
 <td class="instruction">ADD HL,DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec26"></span>EC26</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec27"></span>EC27</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="2">Restore <span class="register">DE</span> and <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec28"></span>EC28</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec29"></span>EC29</td>
 <td class="instruction">OR A</td>
 <td class="comment-1" rowspan="1">Set flags.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ec2a"></span>EC2A</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

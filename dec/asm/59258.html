@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 59258</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59176.html">59176</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59258">Map</a></td>
+<td class="next">
+Next: <a href="59291.html">59291</a>
+</td>
+</tr>
+</table>
+<div class="description">59258: Routine at E77A</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="58397.html">58397</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59258"></span>59258</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="3">Stash <span class="register">HL</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59259"></span>59259</td>
+<td class="instruction">PUSH BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59260"></span>59260</td>
+<td class="instruction">PUSH DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59261"></span>59261</td>
+<td class="instruction">LD IX,33272</td>
+<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="33272.html">33272</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59265"></span>59265</td>
+<td class="instruction">LD C,32</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=32.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59267"></span>59267</td>
+<td class="instruction">LD L,(IX+0)</td>
+<td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">IX</span>+0.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59270"></span>59270</td>
+<td class="instruction">LD H,(IX+1)</td>
+<td class="comment-1" rowspan="1"><span class="register">H</span>=<span class="register">IX</span>+1.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59273"></span>59273</td>
+<td class="instruction">LD B,15</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=15.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59275"></span>59275</td>
+<td class="instruction">LD (HL),0</td>
+<td class="comment-1" rowspan="1">Write 0 to *<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59277"></span>59277</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59278"></span>59278</td>
+<td class="instruction">DJNZ <a href="59258.html#59275">59275</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="59258.html#59275">59275</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59280"></span>59280</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="2">Increment <span class="register">IX</span> by two.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59282"></span>59282</td>
+<td class="instruction">INC IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59284"></span>59284</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">C</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59285"></span>59285</td>
+<td class="instruction">JR NZ,<a href="59258.html#59267">59267</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="59258.html#59267">59267</a> until <span class="register">C</span> is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59287"></span>59287</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="3">Restore <span class="register">DE</span>, <span class="register">BC</span> and <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59288"></span>59288</td>
+<td class="instruction">POP BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59289"></span>59289</td>
+<td class="instruction">POP HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59290"></span>59290</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59176.html">59176</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59258">Map</a></td>
+<td class="next">
+Next: <a href="59291.html">59291</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../../asm/E77A.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>
