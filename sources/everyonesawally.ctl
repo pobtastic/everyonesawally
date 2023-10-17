@@ -45,12 +45,10 @@ t $7C15 Messaging: Harry
 
 t $7C1B Messaging: Wages
 @ $7C1B label=Messaging_Wages
-B $7C1B,$01
-B $7C1C,$01 #COLOUR(#PEEK(#PC)).
+B $7C1B,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7C1D,$0D "TODAY'S WAGES".
 B $7C2A,$02
-B $7C2C,$01
-B $7C2D,$01 #COLOUR(#PEEK(#PC)).
+B $7C2C,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7C2E,$0B "WALLY'S PAY".
 B $7C39,$02
   $7C3B,$0B "WILMA'S PAY".
@@ -60,16 +58,14 @@ B $7C51,$02
   $7C53,$0A "DICK'S PAY".
 B $7C5D,$02
   $7C5F,$0B "HARRY'S PAY".
-B $7C6A,$01
-B $7C6B,$01 #COLOUR(#PEEK(#PC)).
+B $7C6A,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
 B $7C6C,$02
   $7C6E,$07 "OVERALL".
 B $7C75,$01 Terminator.
 
 t $7C76 Messaging: Congratulations
 @ $7C76 label=Messaging_Congratulations
-B $7C76,$01
-B $7C77,$01 #COLOUR(#PEEK(#PC)).
+B $7C76,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7C78,$1B "YOU CLEVER DICK  (PLUS TOM,".
 B $7C93,$02
   $7C95,$18 "HARRY, WILMA AND WALLY).".
@@ -89,8 +85,7 @@ B $7D47,$01 Terminator.
 
 t $7D48 Messaging: Tough Luck
 @ $7D48 label=Messaging_ToughLuck
-B $7D48,$01
-B $7D49,$01 #COLOUR(#PEEK(#PC)).
+B $7D48,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7D4A,$19 "TOUGH LUCK.  THE GANG HAS".
 B $7D63,$02
   $7D65,$06 "EARNED".
@@ -106,54 +101,46 @@ B $7DC5,$01 Terminator.
 
 t $7DC6 Messaging: Splash Screen
 @ $7DC6 label=Messaging_Splash
-B $7DC6,$01
-B $7DC7,$01 #COLOUR(#PEEK(#PC)).
+B $7DC6,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7DC8,$05 "KEY:-".
-B $7DCD,$01
-B $7DCE,$01 #COLOUR(#PEEK(#PC)).
+B $7DCD,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7DCF,$16 "   1.SINCLAIR JOYSTICK".
 B $7DE5,$02
-B $7DE7,$01
-B $7DE8,$01 #COLOUR(#PEEK(#PC)).
+B $7DE7,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7DE9,$05 "KEY:-".
-B $7DEE,$01
-B $7DEF,$01 #COLOUR(#PEEK(#PC)).
+B $7DEE,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7DF0,$16 "   2.KEMPSTON JOYSTICK".
 B $7E06,$02
-B $7E08,$01
-B $7E09,$01 #COLOUR(#PEEK(#PC)).
+B $7E08,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7E0A,$05 "KEY:-".
-B $7E0F,$01
-B $7E10,$01 #COLOUR(#PEEK(#PC)).
+B $7E0F,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7E11,$0D "   3.KEYBOARD".
 B $7E1E,$02
-B $7E20,$01
-B $7E21,$01 #COLOUR(#PEEK(#PC)).
+B $7E20,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7E22,$14 "PRESS KEY 4 TO START".
 B $7E36,$01 Terminator.
 
 t $7E37 Messaging: Key
 @ $7E37 label=Messaging_Key
-B $7E37,$01
-B $7E38,$01 #COLOUR(#PEEK(#PC)).
+B $7E37,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7E39,$06 "#STR$7E39,$08($b==$FF)".
 
 b $7E3F
 
 t $7E42 Messaging: Character
 @ $7E42 label=Messaging_Character
-B $7E42,$01
-B $7E43,$01 #COLOUR(#PEEK(#PC)).
+B $7E42,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7E44,$0A "CHARACTER:".
-B $7E4E,$03
-B $7E51,$01 #COLOUR(#PEEK(#PC)).
+B $7E4E,$02
+B $7E50,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7E52,$0A "ENDURANCE:".
 B $7E5C,$02
-B $7E5E,$01
-B $7E5F,$01 #COLOUR(#PEEK(#PC)).
+B $7E5E,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7E60,$02 "  " (whitespace).
 B $7E62
 B $7E68
+B $7E6B,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E6D
   $7E70,$01 Terminator.
 
 t $7E71 Messaging: Tea Break
@@ -184,7 +171,9 @@ B $7EEC,$02
 B $7F01,$01 Terminator.
 
 b $7F02
+  $7F02,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7F0E,$01 Terminator.
+  $7F19,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
   $7F1E,$01 Terminator.
 
 t $7F1F Messaging: The Town Square
@@ -773,6 +762,24 @@ b $B4E9
   $B4EA
 
 c $B4EB
+  $B4EB,$03 Stash #REGaf, #REGbc and #REGde on the stack.
+  $B4EE,$01 Decrease #REGbc by one.
+  $B4EF,$04 Jump to #R$B4EE until #REGbc is #N($0000,$04,$04).
+
+  $B4F3,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$F7 | 1 | 2 | 3 | 4 | 5 }
+. TABLE#
+
+  $B4F7,$02,b$01 Set bits 4-7.
+
+  $B501,$03 Restore #REGde, #REGbc and #REGaf from the stack.
+  $B504,$01 Return.
+
+c $B505
+  $B536,$01 Return.
 
 b $B537
 
@@ -868,8 +875,37 @@ N $B7E8 This is modified from #R$B872.
   $B7F8,$01 Return.
 
 c $B7F9
+  $B7F9,$04 Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
+  $B7FD,$01 Switch the #REGde and #REGhl registers.
+  $B7FE,$01 Stash #REGhl on the stack.
+  $B7FF,$02 #REGd=#N$FD.
+  $B801,$01 #REGe=#REGl.
+  $B802,$01 #REGl=#REGh.
+  $B803,$02 #REGh=#N$00.
+  $B805,$06 #REGhl*=(#N$20)+#REGde.
+  $B80B,$01 Write #REGc to *#REGhl.
+  $B80C,$01 Restore #REGhl from the stack.
+  $B80D,$04 #REGhl+=#R$5300.
+  $B811,$01 Switch the #REGde and #REGhl registers.
+  $B812,$03 Create an offset in #REGhl.
+  $B815,$03 #REGhl*=#N$08.
+  $B818,$05 #REGhl+=*#R$B7E8(#N$B7E9).
+  $B81D,$02 Write *#REGhl to *#REGde, increment both #REGde and #REGhl by one, and decrease #REGbc by one.
+  $B81F,$01 Decrease #REGb by one.
+  $B820,$04 #REGe+=#N$20.
+  $B824,$02
+  $B826,$04 Restore #REGde, #REGbc, #REGhl and #REGaf from the stack.
+  $B82A,$01 Return.
 
 c $B82B
+  $B82B,$01 Stash #REGhl on the stack.
+  $B82C,$0C Write #R$B7F9 to: #LIST { #R$B8BD(#N$B8BE) } { #R$B8B4(#N$B8B5) } { #R$B894(#N$B895) } LIST#
+  $B838,$01 Restore #REGhl from the stack.
+  $B839,$03 Call #R$B84B.
+  $B83C,$01 Stash #REGhl on the stack.
+  $B83D,$0C Write #R$B7BA to: #LIST { #R$B894(#N$B895) } { #R$B8BD(#N$B8BE) } { #R$B8B4(#N$B8B5) } LIST#
+  $B849,$01 Restore #REGhl from the stack.
+  $B84A,$01 Return.
 
 c $B84B Handler: Sprite Controller
 @ $B84B label=Handler_SpriteController
@@ -4731,7 +4767,266 @@ c $E3FD
 
 c $E41D
 
+t $E484 Messaging: The Plunger
+  $E484,$0B "#STR$E484,$08($b==$FF)".
+B $E48F,$01 Terminator.
+
+t $E490 Messaging: The Letter A
+  $E490,$0D,c$0A,h$02,c$01 "#STR$E490,$08($b==$FF)".
+B $E49D,$01 Terminator.
+
+t $E49E Messaging: Book Two
+  $E49E,$08 "#STR$E49E,$08($b==$FF)".
+B $E4A6,$01 Terminator.
+
+t $E4A7 Messaging: The Sand
+  $E4A7,$08 "#STR$E4A7,$08($b==$FF)".
+B $E4AF,$01 Terminator.
+
+t $E4B0 Messaging: The Battery
+  $E4B0,$0D,c$0B,h$02 "#STR$E4B0,$08($b==$FF)".
+B $E4BD,$01 Terminator.
+
+t $E4BE Messaging: Charged
+  $E4BE,$09,h$02,c$07 "#STR$E4C0,$08($b==$FF)".
+B $E4C7,$01 Terminator.
+
+t $E4C8 Messaging: Flat
+  $E4C8,$04 "#STR$E4C8,$08($b==$FF)".
+B $E4CC,$01 Terminator.
+
+t $E4CD Messaging: The Letter K
+  $E4CD,$0D,c$0A,h$02,c$01 "#STR$E4CD,$08($b==$FF)".
+B $E4DA,$01 Terminator.
+
+t $E4DB Messaging: The Cement
+  $E4DB,$0A "#STR$E4DB,$08($b==$FF)".
+B $E4E5,$01 Terminator.
+
+t $E4E6 Messaging: Book Three
+  $E4E6,$0A "#STR$E4E6,$08($b==$FF)".
+B $E4F0,$01 Terminator.
+
+t $E4F1 Messaging: The Trowel
+  $E4F1,$0A "#STR$E4F1,$08($b==$FF)".
+B $E4FB,$01 Terminator.
+
+t $E4FC Messaging: The Matches
+  $E4FC,$0B "#STR$E4FC,$08($b==$FF)".
+B $E507,$01 Terminator.
+
+t $E508 Messaging: The Cracked Insulator
+  $E508,$16,c$0B,h$02,c$09 "#STR$E508,$08($b==$FF)".
+B $E51E,$01 Terminator.
+
+t $E51F Messaging: Book One
+  $E51F,$08 "#STR$E51F,$08($b==$FF)".
+B $E527,$01 Terminator.
+
+t $E528 Messaging: The Monkey Nuts
+  $E528,$10,c$0A,h$02,c$04 "#STR$E528,$08($b==$FF)".
+B $E538,$01 Terminator.
+
+t $E539 Messaging: The Money
+  $E539,$09 "#STR$E539,$08($b==$FF)".
+B $E542,$01 Terminator.
+
+t $E543 Messaging: Superglue
+  $E543,$09 "#STR$E543,$08($b==$FF)".
+B $E54C,$01 Terminator.
+
+t $E54D Messaging: The Chewing Gum
+  $E54D,$10,c$0B,h$02,c$03 "#STR$E54D,$08($b==$FF)".
+B $E55D,$01 Terminator.
+
+t $E55E Messaging: The Bucket
+  $E55E,$0C,c$0A,h$02 "#STR$E55E,$08($b==$FF)".
+B $E56A,$01 Terminator.
+
+t $E56B Messaging: Full
+  $E56B,$06,h$02,c$04 "#STR$E56D,$08($b==$FF)".
+B $E571,$01 Terminator.
+
+t $E572 Messaging: Empty
+  $E572,$05 "#STR$E572,$08($b==$FF)".
+B $E577,$01 Terminator.
+
+t $E578 Messaging: The Jump Leads
+  $E578,$0F,c$08,h$02,c$05 "#STR$E578,$08($b==$FF)".
+B $E587,$01 Terminator.
+
+t $E588 Messaging: The Bunsen Burner
+  $E588,$12,c$0A,h$02,c$06 "#STR$E588,$08($b==$FF)".
+B $E59A,$01 Terminator.
+
+t $E59B Messaging: The Letter B
+  $E59B,$0D,c$0A,h$02,c$01 "#STR$E59B,$08($b==$FF)".
+B $E5A8,$01 Terminator.
+
+t $E5A9 Messaging: Gas Mask
+  $E5A9,$08 "#STR$E5A9,$08($b==$FF)".
+B $E5B1,$01 Terminator.
+
+t $E5B2 Messaging: The Parcel
+  $E5B2,$0C,c$0A,h$02 "#STR$E5B2,$08($b==$FF)".
+B $E5BE,$01 Terminator.
+
+t $E5BF Messaging: Stamped
+  $E5BF,$09,h$02,c$07 "#STR$E5C1,$08($b==$FF)".
+B $E5C8,$01 Terminator.
+
+t $E5C9 Messaging: Unstamped
+  $E5C9,$09 "#STR$E5C9,$08($b==$FF)".
+B $E5D2,$01 Terminator.
+
+t $E5D3 Messaging: The Fuse
+  $E5D3,$0A,c$08,h$02 "#STR$E5D3,$08($b==$FF)".
+B $E5DD,$01 Terminator.
+
+t $E5DE Messaging: Rewired
+  $E5DE,$09,h$02,c$07 "#STR$E5E0,$08($b==$FF)".
+B $E5E7,$01 Terminator.
+
+t $E5E8 Messaging: Blown
+  $E5E8,$05 "#STR$E5E8,$08($b==$FF)".
+B $E5ED,$01 Terminator.
+
+t $E5EE Messaging: The Meat
+  $E5EE,$08 "#STR$E5EE,$08($b==$FF)".
+B $E5F6,$01 Terminator.
+
+t $E5F7 Messaging: The Monkey Wrench
+  $E5F7,$12,c$0A,h$02,c$06 "#STR$E5F7,$08($b==$FF)".
+B $E609,$01 Terminator.
+
+t $E60A Messaging: Screwdriver
+  $E60A,$0B "#STR$E60A,$08($b==$FF)".
+B $E615,$01 Terminator.
+
+t $E616 Messaging: The Letter E
+  $E616,$0D,c$0A,h$02,c$01 "#STR$E616,$08($b==$FF)".
+B $E623,$01 Terminator.
+
+t $E624 Messaging: The Hook
+  $E624,$0A,c$08,h$02 "#STR$E624,$08($b==$FF)".
+B $E62E,$01 Terminator.
+
+t $E62F Messaging: Working
+  $E62F,$09,h$02,c$07 "#STR$E631,$08($b==$FF)".
+B $E638,$01 Terminator.
+
+t $E639 Messaging: Broken
+  $E639,$06 "#STR$E639,$08($b==$FF)".
+B $E63F,$01 Terminator.
+
+t $E640 Messaging: The Patch
+  $E640,$09 "#STR$E640,$08($b==$FF)".
+B $E649,$01 Terminator.
+
+t $E64A Messaging: The Pipe
+  $E64A,$0A,c$08,h$02 "#STR$E64A,$08($b==$FF)".
+B $E654,$01 Terminator.
+
+t $E655 Messaging: Patched
+  $E655,$09,h$02,c$07 "#STR$E657,$08($b==$FF)".
+B $E65E,$01 Terminator.
+
+t $E65F Messaging: Leaking
+  $E65F,$07 "#STR$E65F,$08($b==$FF)".
+B $E666,$01 Terminator.
+
+t $E667 Messaging: The Letter R
+  $E667,$0D,c$0A,h$02,c$01 "#STR$E667,$08($b==$FF)".
+B $E674,$01 Terminator.
+
+t $E675 Messaging: The Oil Can
+  $E675,$0D,c$07,h$02,c$04 "#STR$E675,$08($b==$FF)".
+B $E682,$01 Terminator.
+
+t $E683 Messaging: Full
+  $E683,$06,h$02,c$04 "#STR$E685,$08($b==$FF)".
+B $E689,$01 Terminator.
+
+t $E68A Messaging: Empty
+  $E68A,$05 "#STR$E68A,$08($b==$FF)".
+B $E68F,$01 Terminator.
+
+t $E690 Messaging: The Fuse Wire
+  $E690,$0E,c$08,h$02,c$04 "#STR$E690,$08($b==$FF)".
+B $E69E,$01 Terminator.
+
+t $E69F Messaging: The Good Insulator
+  $E69F,$13,c$08,h$02,c$09 "#STR$E69F,$08($b==$FF)".
+B $E6B2,$01 Terminator.
+
+t $E6B3 Messaging: The Bottle
+  $E6B3,$0C,c$0A,h$02 "#STR$E6B3,$08($b==$FF)".
+B $E6BF,$01 Terminator.
+
+t $E6C0 Messaging: Full
+  $E6C0,$06,h$02,c$04 "#STR$E6C2,$08($b==$FF)".
+B $E6C6,$01 Terminator.
+
+t $E6C7 Messaging: Empty
+  $E6C7,$05 "#STR$E6C7,$08($b==$FF)".
+B $E6CC,$01 Terminator.
+
+t $E6CD Messaging: The Red Herring
+  $E6CD,$10,c$07,h$02,c$07 "#STR$E6CD,$08($b==$FF)".
+B $E6DD,$01 Terminator.
+
+t $E6DE Messaging: The Test Tube
+  $E6DE,$0E,c$08,h$02,c$04 "#STR$E6DE,$08($b==$FF)".
+B $E6EC,$01 Terminator.
+
+t $E6ED Messaging: The Can Of Beans
+  $E6ED,$11,c$0A,h$02,c$05 "#STR$E6ED,$08($b==$FF)".
+B $E6FE,$01 Terminator.
+
+t $E6FF Messaging: The Rubber Stamp
+  $E6FF,$11,c$0A,h$02,c$05 "#STR$E6FF,$08($b==$FF)".
+B $E710,$01 Terminator.
+
+t $E711 Messaging: The Pliers
+  $E711,$0A "#STR$E711,$08($b==$FF)".
+B $E71B,$01 Terminator.
+
+t $E71C Messaging: The Whistle
+  $E71C,$0B "#STR$E71C,$08($b==$FF)".
+B $E727,$01 Terminator.
+
+w $E728 Item Table
+@ $E728 label=ItemTable
+  $E728,$02 #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+L $E728,$02,$29
+
+c $E77A
+  $E77A,$03 Stash #REGhl, #REGbc and #REGde on the stack.
+  $E77D,$04 #REGix=#R$81F8.
+  $E781,$02 #REGc=#N$20.
+  $E783,$03 #REGl=#REGix+#N$00.
+  $E786,$03 #REGh=#REGix+#N$01.
+  $E789,$02 #REGb=#N$0F.
+  $E78B,$02 Write #N$00 to *#REGhl.
+  $E78D,$01 Increment #REGhl by one.
+  $E78E,$02 Decrease counter by one and loop back to #R$E78B until counter is zero.
+  $E790,$04 Increment #REGix by two.
+  $E794,$01 Decrease #REGc by one.
+  $E795,$02 Jump to #R$E783 until #REGc is zero.
+  $E797,$03 Restore #REGde, #REGbc and #REGhl from the stack.
+  $E79A,$01 Return.
+
 c $E79B
+  $E79B,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$F7 | 1 | 2 | 3 | 4 | 5 }
+. TABLE#
+  $E79F,$02,b$01 Set bits 5-7.
+  $E7A1,$02,b$01
+
+  $E7BF,$01 Return.
 
 c $EABF
 
@@ -4764,7 +5059,9 @@ g $EC0F Game Flags
 @ $EC1C label=Flag_PhoneBox_Completed
   $EC1C,$01
 
-c $EC1D
+c $EC1D Handler: Is A Given Task Completed
+@ $EC1D label=Handler_TaskCompleted
+R $EC1D A Task ID
   $EC1D,$02 Stash #REGhl and #REGde on the stack.
   $EC1F,$03 Create an offset in #REGde.
   $EC22,$04 #REGhl=#R$EC0F+#REGde.
@@ -4774,6 +5071,26 @@ c $EC1D
   $EC2A,$01 Return.
 
 c $EC2B
+  $EC2B,$03 Call #R$EC3D.
+  $EC2E,$03 If the return zero flag is zero, jump to #R$EACB.
+  $EC31,$03 Jump to #R$EAE3.
+N $EC34
+  $EC34,$03 Call #R$EC3D.
+  $EC37,$03 If the return zero flag is not zero, jump to #R$EACB.
+  $EC3A,$03 Jump to #R$EAE3.
+N $EC3D
+  $EC3D,$01 #REGb=*#REGhl.
+  $EC3E,$01 Increment #REGhl by one.
+  $EC3F,$01 #REGa=*#REGhl.
+  $EC40,$01 Increment #REGhl by one.
+  $EC41,$02 Stash #REGaf and #REGhl on the stack.
+  $EC43,$03 Call #R$AA8C.
+  $EC46,$01 Restore #REGaf from the stack.
+  $EC47,$01 Compare #REGa against *#REGhl.
+  $EC48,$01 Restore #REGhl from the stack.
+  $EC49,$01 Return.
+
+c $EC4A
 
 b $EC5C
   $ECF5

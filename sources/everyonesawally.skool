@@ -1318,12 +1318,10 @@ t$7C15 DEFM "HARRY",$FF ; "#STR$7C15,$08($b==$FF)".
 
 ; Messaging: Wages
 @label=Messaging_Wages
-t$7C1B DEFB $FE
- $7C1C DEFB $43             ; #COLOUR(#PEEK(#PC)).
+t$7C1B DEFB $FE,$43         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7C1D DEFM "TODAY'S WAGES" ; "TODAY'S WAGES".
  $7C2A DEFB $B8,$04
- $7C2C DEFB $FE
- $7C2D DEFB $46             ; #COLOUR(#PEEK(#PC)).
+ $7C2C DEFB $FE,$46         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7C2E DEFM "WALLY'S PAY"   ; "WALLY'S PAY".
  $7C39 DEFB $BD,$03
  $7C3B DEFM "WILMA'S PAY"   ; "WILMA'S PAY".
@@ -1333,16 +1331,14 @@ t$7C1B DEFB $FE
  $7C53 DEFM "DICK'S PAY"    ; "DICK'S PAY".
  $7C5D DEFB $BE,$03
  $7C5F DEFM "HARRY'S PAY"   ; "HARRY'S PAY".
- $7C6A DEFB $FE
- $7C6B DEFB $43             ; #COLOUR(#PEEK(#PC)).
+ $7C6A DEFB $FE,$43         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7C6C DEFB $BF,$04
  $7C6E DEFM "OVERALL"       ; "OVERALL".
  $7C75 DEFB $FF             ; Terminator.
 
 ; Messaging: Congratulations
 @label=Messaging_Congratulations
-t$7C76 DEFB $FE
- $7C77 DEFB $44                           ; #COLOUR(#PEEK(#PC)).
+t$7C76 DEFB $FE,$44                       ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7C78 DEFM "YOU CLEVER DICK  (PLUS TOM," ; "YOU CLEVER DICK  (PLUS TOM,".
  $7C93 DEFB $AD,$03
  $7C95 DEFM "HARRY, WILMA AND WALLY)."    ; "HARRY, WILMA AND WALLY).".
@@ -1362,8 +1358,7 @@ t$7C76 DEFB $FE
 
 ; Messaging: Tough Luck
 @label=Messaging_ToughLuck
-t$7D48 DEFB $FE
- $7D49 DEFB $44                         ; #COLOUR(#PEEK(#PC)).
+t$7D48 DEFB $FE,$44                     ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7D4A DEFM "TOUGH LUCK.  THE GANG HAS" ; "TOUGH LUCK.  THE GANG HAS".
  $7D63 DEFB $AF,$03
  $7D65 DEFM "EARNED"                    ; "EARNED".
@@ -1379,36 +1374,28 @@ t$7D48 DEFB $FE
 
 ; Messaging: Splash Screen
 @label=Messaging_Splash
-t$7DC6 DEFB $FE
- $7DC7 DEFB $42                      ; #COLOUR(#PEEK(#PC)).
+t$7DC6 DEFB $FE,$42                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7DC8 DEFM "KEY:-"                  ; "KEY:-".
- $7DCD DEFB $FE
- $7DCE DEFB $46                      ; #COLOUR(#PEEK(#PC)).
+ $7DCD DEFB $FE,$46                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7DCF DEFM "   1.SINCLAIR JOYSTICK" ; "   1.SINCLAIR JOYSTICK".
  $7DE5 DEFB $AD,$07
- $7DE7 DEFB $FE
- $7DE8 DEFB $42                      ; #COLOUR(#PEEK(#PC)).
+ $7DE7 DEFB $FE,$42                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7DE9 DEFM "KEY:-"                  ; "KEY:-".
- $7DEE DEFB $FE
- $7DEF DEFB $46                      ; #COLOUR(#PEEK(#PC)).
+ $7DEE DEFB $FE,$46                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7DF0 DEFM "   2.KEMPSTON JOYSTICK" ; "   2.KEMPSTON JOYSTICK".
  $7E06 DEFB $AD,$07
- $7E08 DEFB $FE
- $7E09 DEFB $42                      ; #COLOUR(#PEEK(#PC)).
+ $7E08 DEFB $FE,$42                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7E0A DEFM "KEY:-"                  ; "KEY:-".
- $7E0F DEFB $FE
- $7E10 DEFB $46                      ; #COLOUR(#PEEK(#PC)).
+ $7E0F DEFB $FE,$46                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7E11 DEFM "   3.KEYBOARD"          ; "   3.KEYBOARD".
  $7E1E DEFB $BA,$08
- $7E20 DEFB $FE
- $7E21 DEFB $45                      ; #COLOUR(#PEEK(#PC)).
+ $7E20 DEFB $FE,$45                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7E22 DEFM "PRESS KEY 4 TO START"   ; "PRESS KEY 4 TO START".
  $7E36 DEFB $FF                      ; Terminator.
 
 ; Messaging: Key
 @label=Messaging_Key
-t$7E37 DEFB $FE
- $7E38 DEFB $47         ; #COLOUR(#PEEK(#PC)).
+t$7E37 DEFB $FE,$47     ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7E39 DEFM "KEY:-",$FF ; "#STR$7E39,$08($b==$FF)".
 
 ; Data block at 7E3F
@@ -1416,19 +1403,19 @@ b$7E3F DEFB $FB,$DC,$DF
 
 ; Messaging: Character
 @label=Messaging_Character
-t$7E42 DEFB $FE
- $7E43 DEFB $44                             ; #COLOUR(#PEEK(#PC)).
- $7E44 DEFM "CHARACTER:"                    ; "CHARACTER:".
- $7E4E DEFB $BE,$02,$FE
- $7E51 DEFB $47                             ; #COLOUR(#PEEK(#PC)).
- $7E52 DEFM "ENDURANCE:"                    ; "ENDURANCE:".
+t$7E42 DEFB $FE,$44                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E44 DEFM "CHARACTER:"            ; "CHARACTER:".
+ $7E4E DEFB $BE,$02
+ $7E50 DEFB $FE,$47                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E52 DEFM "ENDURANCE:"            ; "ENDURANCE:".
  $7E5C DEFB $AE,$00
- $7E5E DEFB $FE
- $7E5F DEFB $47                             ; #COLOUR(#PEEK(#PC)).
- $7E60 DEFM "  "                            ; "  " (whitespace).
+ $7E5E DEFB $FE,$47                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E60 DEFM "  "                    ; "  " (whitespace).
  $7E62 DEFB $C6,$01,$20,$20,$C6,$01
- $7E68 DEFB $FB,$DC,$DF,$FE,$42,$FD,$20,$5B
- $7E70 DEFM $FF                             ; Terminator.
+ $7E68 DEFB $FB,$DC,$DF
+ $7E6B DEFB $FE,$42                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E6D DEFB $FD,$20,$5B
+ $7E70 DEFM $FF                     ; Terminator.
 
 ; Messaging: Tea Break
 @label=Messaging_TeaBreak
@@ -1458,11 +1445,14 @@ t$7ECC DEFB $FE,$46                        ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7F01 DEFB $FF                            ; Terminator.
 
 ; Data block at 7F02
-b$7F02 DEFB $FE,$42,$FB,$BC,$D7,$00,$01,$C6
- $7F0A DEFB $01,$02,$03,$DC
+b$7F02 DEFB $FE,$42                         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7F04 DEFB $FB,$BC,$D7,$00,$01,$C6,$01,$02
+ $7F0C DEFB $03,$DC
  $7F0E DEFB $FF                             ; Terminator.
  $7F0F DEFB $00,$01,$C6,$01,$02,$03,$FF,$FB
- $7F17 DEFB $DC,$DF,$FE,$46,$FD,$04,$20
+ $7F17 DEFB $DC,$DF
+ $7F19 DEFB $FE,$46                         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7F1B DEFB $FD,$04,$20
  $7F1E DEFB $FF                             ; Terminator.
 
 ; Messaging: The Town Square
@@ -4922,27 +4912,34 @@ b$B4E9 DEFB $FF
 
 ; Routine at B4EB
 ;
-; Used by the routine at #R$B482.
-c$B4EB PUSH AF       ;
+; Used by the routines at #R$B482 and #R$B505.
+c$B4EB PUSH AF       ; {Stash #REGaf, #REGbc and #REGde on the stack.
  $B4EC PUSH BC       ;
- $B4ED PUSH DE       ;
-*$B4EE DEC BC        ;
- $B4EF LD A,B        ;
+ $B4ED PUSH DE       ; }
+*$B4EE DEC BC        ; Decrease #REGbc by one.
+ $B4EF LD A,B        ; {Jump to #R$B4EE until #REGbc is #N($0000,$04,$04).
  $B4F0 OR C          ;
- $B4F1 JR NZ,$B4EE   ;
- $B4F3 LD A,$F7      ;
- $B4F5 IN A,($FE)    ;
- $B4F7 OR $F0        ;
+ $B4F1 JR NZ,$B4EE   ; }
+ $B4F3 LD A,$F7      ; {Read from the keyboard;
+ $B4F5 IN A,($FE)    ; #TABLE(default,centre,centre,centre,centre,centre,centre)
+                     ; { =h,r2 Port Number | =h,c5 Bit }
+                     ; { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+                     ; { #N$F7 | 1 | 2 | 3 | 4 | 5 }
+                     ; TABLE#}
+ $B4F7 OR %11110000  ; Set bits 4-7.
  $B4F9 LD E,A        ;
  $B4FA LD A,($B4E9)  ;
  $B4FD AND E         ;
  $B4FE LD ($B4E9),A  ;
- $B501 POP DE        ;
+ $B501 POP DE        ; {Restore #REGde, #REGbc and #REGaf from the stack.
  $B502 POP BC        ;
- $B503 POP AF        ;
- $B504 RET           ;
-; This entry point is used by the routine at #R$B482.
-*$B505 LD A,($B4EA)  ;
+ $B503 POP AF        ; }
+ $B504 RET           ; Return.
+
+; Routine at B505
+;
+; Used by the routine at #R$B482.
+c$B505 LD A,($B4EA)  ;
  $B508 OR A          ;
  $B509 JR Z,$B50F    ;
  $B50B LD H,B        ;
@@ -4973,7 +4970,7 @@ c$B4EB PUSH AF       ;
  $B532 LD A,D        ;
  $B533 OR E          ;
  $B534 JR NZ,$B520   ;
- $B536 RET           ;
+ $B536 RET           ; Return.
 
 ; Data block at B537
 b$B537 DEFB $00,$00,$EC,$1C,$DF,$1C,$D3,$1E
@@ -5238,63 +5235,64 @@ c$B7BA PUSH AF       ; {Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
 ; Routine at B7F9
 ;
 ; Used by the routine at #R$EFC7.
-c$B7F9 PUSH AF       ;
+c$B7F9 PUSH AF       ; {Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
  $B7FA PUSH HL       ;
  $B7FB PUSH BC       ;
- $B7FC PUSH DE       ;
- $B7FD EX DE,HL      ;
- $B7FE PUSH HL       ;
- $B7FF LD D,$FD      ;
- $B801 LD E,L        ;
- $B802 LD L,H        ;
- $B803 LD H,$00      ;
- $B805 ADD HL,HL     ;
+ $B7FC PUSH DE       ; }
+ $B7FD EX DE,HL      ; Switch the #REGde and #REGhl registers.
+ $B7FE PUSH HL       ; Stash #REGhl on the stack.
+ $B7FF LD D,$FD      ; #REGd=#N$FD.
+ $B801 LD E,L        ; #REGe=#REGl.
+ $B802 LD L,H        ; #REGl=#REGh.
+ $B803 LD H,$00      ; #REGh=#N$00.
+ $B805 ADD HL,HL     ; {#REGhl*=(#N$20)+#REGde.
  $B806 ADD HL,HL     ;
  $B807 ADD HL,HL     ;
  $B808 ADD HL,HL     ;
  $B809 ADD HL,HL     ;
- $B80A ADD HL,DE     ;
- $B80B LD (HL),C     ;
- $B80C POP HL        ;
- $B80D LD DE,$5300   ;
- $B810 ADD HL,DE     ;
- $B811 EX DE,HL      ;
- $B812 LD L,A        ;
- $B813 LD H,$00      ;
- $B815 ADD HL,HL     ;
+ $B80A ADD HL,DE     ; }
+ $B80B LD (HL),C     ; Write #REGc to *#REGhl.
+ $B80C POP HL        ; Restore #REGhl from the stack.
+ $B80D LD DE,$5300   ; {#REGhl+=#R$5300.
+ $B810 ADD HL,DE     ; }
+ $B811 EX DE,HL      ; Switch the #REGde and #REGhl registers.
+ $B812 LD L,A        ; {Create an offset in #REGhl.
+ $B813 LD H,$00      ; }
+ $B815 ADD HL,HL     ; {#REGhl*=#N$08.
  $B816 ADD HL,HL     ;
- $B817 ADD HL,HL     ;
- $B818 LD BC,($B7E9) ;
- $B81C ADD HL,BC     ;
-*$B81D LDI           ;
- $B81F DEC E         ;
- $B820 LD A,E        ;
+ $B817 ADD HL,HL     ; }
+ $B818 LD BC,($B7E9) ; {#REGhl+=*#R$B7E8(#N$B7E9).
+ $B81C ADD HL,BC     ; }
+*$B81D LDI           ; Write *#REGhl to *#REGde, increment both #REGde and
+                     ; #REGhl by one, and decrease #REGbc by one.
+ $B81F DEC E         ; Decrease #REGb by one.
+ $B820 LD A,E        ; {#REGe+=#N$20.
  $B821 ADD A,$20     ;
- $B823 LD E,A        ;
+ $B823 LD E,A        ; }
  $B824 JR NC,$B81D   ;
- $B826 POP DE        ;
- $B827 POP BC        ;
+ $B826 POP DE        ; {Restore #REGde, #REGbc, #REGhl and #REGaf from the
+ $B827 POP BC        ; stack.
  $B828 POP HL        ;
- $B829 POP AF        ;
- $B82A RET           ;
+ $B829 POP AF        ; }
+ $B82A RET           ; Return.
 
 ; Routine at B82B
 ;
 ; Used by the routines at #R$B34B, #R$EB55 and #R$EFC7.
-c$B82B PUSH HL       ;
- $B82C LD HL,$B7F9   ;
- $B82F LD ($B8BE),HL ;
+c$B82B PUSH HL       ; Stash #REGhl on the stack.
+ $B82C LD HL,$B7F9   ; {Write #R$B7F9 to: #LIST { #R$B8BD(#N$B8BE) } {
+ $B82F LD ($B8BE),HL ; #R$B8B4(#N$B8B5) } { #R$B894(#N$B895) } LIST#
  $B832 LD ($B8B5),HL ;
- $B835 LD ($B895),HL ;
- $B838 POP HL        ;
- $B839 CALL $B84B    ;
- $B83C PUSH HL       ;
- $B83D LD HL,$B7BA   ;
- $B840 LD ($B895),HL ;
+ $B835 LD ($B895),HL ; }
+ $B838 POP HL        ; Restore #REGhl from the stack.
+ $B839 CALL $B84B    ; Call #R$B84B.
+ $B83C PUSH HL       ; Stash #REGhl on the stack.
+ $B83D LD HL,$B7BA   ; {Write #R$B7BA to: #LIST { #R$B894(#N$B895) } {
+ $B840 LD ($B895),HL ; #R$B8BD(#N$B8BE) } { #R$B8B4(#N$B8B5) } LIST#
  $B843 LD ($B8BE),HL ;
- $B846 LD ($B8B5),HL ;
- $B849 POP HL        ;
- $B84A RET           ;
+ $B846 LD ($B8B5),HL ; }
+ $B849 POP HL        ; Restore #REGhl from the stack.
+ $B84A RET           ; Return.
 
 ; Handler: Sprite Controller
 ;
@@ -10464,7 +10462,7 @@ c$E3FD CALL $B931    ; Call #R$B931.
 
 ; Routine at E41D
 ;
-; Used by the routines at #R$AA30, #R$EABF and #R$EC2B.
+; Used by the routines at #R$AA30, #R$EABF and #R$EC4A.
 c$E41D CALL $E77A    ;
 ; This entry point is used by the routine at #R$E3FD.
 *$E420 LD A,(IY+$50) ;
@@ -10519,668 +10517,365 @@ c$E41D CALL $E77A    ;
  $E47E CPIR          ;
  $E480 POP BC        ;
  $E481 JP $B84B      ;
- $E484 LD D,H        ;
- $E485 LD C,B        ;
- $E486 LD B,L        ;
- $E487 JR NZ,$E4D9   ;
- $E489 LD C,H        ;
- $E48A LD D,L        ;
- $E48B LD C,(HL)     ;
- $E48C LD B,A        ;
- $E48D LD B,L        ;
- $E48E LD D,D        ;
- $E48F RST $38       ;
-*$E490 LD D,H        ;
- $E491 LD C,B        ;
- $E492 LD B,L        ;
- $E493 JR NZ,$E4E1   ;
- $E495 LD B,L        ;
- $E496 LD D,H        ;
- $E497 LD D,H        ;
- $E498 LD B,L        ;
- $E499 LD D,D        ;
- $E49A CP (HL)       ;
- $E49B LD BC,$FF41   ;
- $E49E LD B,D        ;
- $E49F LD C,A        ;
- $E4A0 LD C,A        ;
- $E4A1 LD C,E        ;
- $E4A2 JR NZ,$E4F8   ;
- $E4A4 LD D,A        ;
- $E4A5 LD C,A        ;
- $E4A6 RST $38       ;
-*$E4A7 LD D,H        ;
- $E4A8 LD C,B        ;
- $E4A9 LD B,L        ;
- $E4AA JR NZ,$E4FF   ;
- $E4AC LD B,C        ;
- $E4AD LD C,(HL)     ;
- $E4AE LD B,H        ;
- $E4AF RST $38       ;
- $E4B0 LD D,H        ;
- $E4B1 LD C,B        ;
- $E4B2 LD B,L        ;
- $E4B3 JR NZ,$E4F7   ;
- $E4B5 LD B,C        ;
- $E4B6 LD D,H        ;
- $E4B7 LD D,H        ;
- $E4B8 LD B,L        ;
- $E4B9 LD D,D        ;
- $E4BA LD E,C        ;
- $E4BB CP L          ;
- $E4BC LD BC,$F4FF   ;
- $E4BF LD B,$43      ;
- $E4C1 LD C,B        ;
- $E4C2 LD B,C        ;
- $E4C3 LD D,D        ;
- $E4C4 LD B,A        ;
- $E4C5 LD B,L        ;
- $E4C6 LD B,H        ;
- $E4C7 RST $38       ;
- $E4C8 LD B,(HL)     ;
- $E4C9 LD C,H        ;
- $E4CA LD B,C        ;
- $E4CB LD D,H        ;
- $E4CC RST $38       ;
-*$E4CD LD D,H        ;
- $E4CE LD C,B        ;
- $E4CF LD B,L        ;
- $E4D0 JR NZ,$E51E   ;
- $E4D2 LD B,L        ;
- $E4D3 LD D,H        ;
- $E4D4 LD D,H        ;
- $E4D5 LD B,L        ;
- $E4D6 LD D,D        ;
- $E4D7 CP (HL)       ;
- $E4D8 LD BC,$FF4B   ;
- $E4DB LD D,H        ;
- $E4DC LD C,B        ;
- $E4DD LD B,L        ;
- $E4DE JR NZ,$E523   ;
- $E4E0 LD B,L        ;
-*$E4E1 LD C,L        ;
- $E4E2 LD B,L        ;
- $E4E3 LD C,(HL)     ;
- $E4E4 LD D,H        ;
- $E4E5 RST $38       ;
- $E4E6 LD B,D        ;
- $E4E7 LD C,A        ;
- $E4E8 LD C,A        ;
- $E4E9 LD C,E        ;
- $E4EA JR NZ,$E540   ;
- $E4EC LD C,B        ;
- $E4ED LD D,D        ;
- $E4EE LD B,L        ;
- $E4EF LD B,L        ;
- $E4F0 RST $38       ;
- $E4F1 LD D,H        ;
- $E4F2 LD C,B        ;
- $E4F3 LD B,L        ;
- $E4F4 JR NZ,$E54A   ;
- $E4F6 LD D,D        ;
-*$E4F7 LD C,A        ;
-*$E4F8 LD D,A        ;
- $E4F9 LD B,L        ;
- $E4FA LD C,H        ;
- $E4FB RST $38       ;
-*$E4FC LD D,H        ;
- $E4FD LD C,B        ;
- $E4FE LD B,L        ;
-*$E4FF JR NZ,$E54E   ;
- $E501 LD B,C        ;
- $E502 LD D,H        ;
- $E503 LD B,E        ;
- $E504 LD C,B        ;
- $E505 LD B,L        ;
- $E506 LD D,E        ;
- $E507 RST $38       ;
- $E508 LD D,H        ;
- $E509 LD C,B        ;
- $E50A LD B,L        ;
- $E50B JR NZ,$E550   ;
- $E50D LD D,D        ;
- $E50E LD B,C        ;
- $E50F LD B,E        ;
- $E510 LD C,E        ;
- $E511 LD B,L        ;
- $E512 LD B,H        ;
- $E513 CP L          ;
- $E514 LD BC,$4E49   ;
- $E517 LD D,E        ;
- $E518 LD D,L        ;
- $E519 LD C,H        ;
- $E51A LD B,C        ;
- $E51B LD D,H        ;
- $E51C LD C,A        ;
- $E51D LD D,D        ;
-*$E51E RST $38       ;
- $E51F LD B,D        ;
- $E520 LD C,A        ;
- $E521 LD C,A        ;
- $E522 LD C,E        ;
-*$E523 JR NZ,$E574   ;
- $E525 LD C,(HL)     ;
- $E526 LD B,L        ;
- $E527 RST $38       ;
- $E528 LD D,H        ;
- $E529 LD C,B        ;
- $E52A LD B,L        ;
- $E52B JR NZ,$E57A   ;
- $E52D LD C,A        ;
- $E52E LD C,(HL)     ;
- $E52F LD C,E        ;
- $E530 LD B,L        ;
- $E531 LD E,C        ;
- $E532 CP (HL)       ;
- $E533 LD BC,$554E   ;
- $E536 LD D,H        ;
- $E537 LD D,E        ;
- $E538 RST $38       ;
- $E539 LD D,H        ;
- $E53A LD C,B        ;
- $E53B LD B,L        ;
- $E53C JR NZ,$E58B   ;
- $E53E LD C,A        ;
- $E53F LD C,(HL)     ;
-*$E540 LD B,L        ;
- $E541 LD E,C        ;
- $E542 RST $38       ;
- $E543 LD D,E        ;
- $E544 LD D,L        ;
- $E545 LD D,B        ;
- $E546 LD B,L        ;
- $E547 LD D,D        ;
- $E548 LD B,A        ;
- $E549 LD C,H        ;
-*$E54A LD D,L        ;
- $E54B LD B,L        ;
- $E54C RST $38       ;
- $E54D LD D,H        ;
-*$E54E LD C,B        ;
- $E54F LD B,L        ;
-*$E550 JR NZ,$E595   ;
- $E552 LD C,B        ;
- $E553 LD B,L        ;
- $E554 LD D,A        ;
- $E555 LD C,C        ;
- $E556 LD C,(HL)     ;
- $E557 LD B,A        ;
- $E558 CP L          ;
- $E559 LD BC,$5547   ;
- $E55C LD C,L        ;
- $E55D RST $38       ;
- $E55E LD D,H        ;
- $E55F LD C,B        ;
- $E560 LD B,L        ;
- $E561 JR NZ,$E5A5   ;
- $E563 LD D,L        ;
- $E564 LD B,E        ;
- $E565 LD C,E        ;
- $E566 LD B,L        ;
- $E567 LD D,H        ;
- $E568 CP (HL)       ;
- $E569 LD BC,$F4FF   ;
- $E56C INC B         ;
- $E56D LD B,(HL)     ;
- $E56E LD D,L        ;
- $E56F LD C,H        ;
- $E570 LD C,H        ;
- $E571 RST $38       ;
- $E572 LD B,L        ;
- $E573 LD C,L        ;
-*$E574 LD D,B        ;
- $E575 LD D,H        ;
- $E576 LD E,C        ;
- $E577 RST $38       ;
- $E578 LD D,H        ;
- $E579 LD C,B        ;
-*$E57A LD B,L        ;
- $E57B JR NZ,$E5C7   ;
- $E57D LD D,L        ;
- $E57E LD C,L        ;
- $E57F LD D,B        ;
- $E580 RET NZ        ;
- $E581 LD BC,$454C   ;
- $E584 LD B,C        ;
- $E585 LD B,H        ;
- $E586 LD D,E        ;
- $E587 RST $38       ;
- $E588 LD D,H        ;
- $E589 LD C,B        ;
- $E58A LD B,L        ;
-*$E58B JR NZ,$E5CF   ;
- $E58D LD D,L        ;
- $E58E LD C,(HL)     ;
- $E58F LD D,E        ;
- $E590 LD B,L        ;
- $E591 LD C,(HL)     ;
- $E592 CP (HL)       ;
- $E593 LD BC,$5542   ;
- $E596 LD D,D        ;
- $E597 LD C,(HL)     ;
- $E598 LD B,L        ;
- $E599 LD D,D        ;
- $E59A RST $38       ;
- $E59B LD D,H        ;
- $E59C LD C,B        ;
- $E59D LD B,L        ;
- $E59E JR NZ,$E5EC   ;
- $E5A0 LD B,L        ;
- $E5A1 LD D,H        ;
- $E5A2 LD D,H        ;
- $E5A3 LD B,L        ;
- $E5A4 LD D,D        ;
-*$E5A5 CP (HL)       ;
- $E5A6 LD BC,$FF42   ;
- $E5A9 LD B,A        ;
- $E5AA LD B,C        ;
- $E5AB LD D,E        ;
- $E5AC JR NZ,$E5FB   ;
- $E5AE LD B,C        ;
- $E5AF LD D,E        ;
- $E5B0 LD C,E        ;
- $E5B1 RST $38       ;
- $E5B2 LD D,H        ;
- $E5B3 LD C,B        ;
- $E5B4 LD B,L        ;
- $E5B5 JR NZ,$E607   ;
- $E5B7 LD B,C        ;
- $E5B8 LD D,D        ;
- $E5B9 LD B,E        ;
- $E5BA LD B,L        ;
- $E5BB LD C,H        ;
- $E5BC CP (HL)       ;
- $E5BD LD BC,$F4FF   ;
- $E5C0 LD (BC),A     ;
- $E5C1 LD D,E        ;
- $E5C2 LD D,H        ;
- $E5C3 LD B,C        ;
- $E5C4 LD C,L        ;
- $E5C5 LD D,B        ;
- $E5C6 LD B,L        ;
-*$E5C7 LD B,H        ;
- $E5C8 RST $38       ;
- $E5C9 LD D,L        ;
- $E5CA LD C,(HL)     ;
- $E5CB LD D,E        ;
- $E5CC LD D,H        ;
- $E5CD LD B,C        ;
- $E5CE LD C,L        ;
-*$E5CF LD D,B        ;
- $E5D0 LD B,L        ;
- $E5D1 LD B,H        ;
- $E5D2 RST $38       ;
- $E5D3 LD D,H        ;
- $E5D4 LD C,B        ;
- $E5D5 LD B,L        ;
- $E5D6 JR NZ,$E61E   ;
- $E5D8 LD D,L        ;
- $E5D9 LD D,E        ;
- $E5DA LD B,L        ;
- $E5DB RET NZ        ;
- $E5DC LD BC,$F4FF   ;
- $E5DF LD BC,$4552   ;
- $E5E2 LD D,A        ;
- $E5E3 LD C,C        ;
- $E5E4 LD D,D        ;
- $E5E5 LD B,L        ;
- $E5E6 LD B,H        ;
- $E5E7 RST $38       ;
- $E5E8 LD B,D        ;
- $E5E9 LD C,H        ;
- $E5EA LD C,A        ;
- $E5EB LD D,A        ;
-*$E5EC LD C,(HL)     ;
- $E5ED RST $38       ;
- $E5EE LD D,H        ;
- $E5EF LD C,B        ;
- $E5F0 LD B,L        ;
- $E5F1 JR NZ,$E640   ;
- $E5F3 LD B,L        ;
- $E5F4 LD B,C        ;
- $E5F5 LD D,H        ;
- $E5F6 RST $38       ;
- $E5F7 LD D,H        ;
- $E5F8 LD C,B        ;
- $E5F9 LD B,L        ;
- $E5FA JR NZ,$E649   ;
- $E5FC LD C,A        ;
- $E5FD LD C,(HL)     ;
- $E5FE LD C,E        ;
- $E5FF LD B,L        ;
- $E600 LD E,C        ;
- $E601 CP (HL)       ;
- $E602 LD BC,$5257   ;
- $E605 LD B,L        ;
- $E606 LD C,(HL)     ;
-*$E607 LD B,E        ;
- $E608 LD C,B        ;
- $E609 RST $38       ;
- $E60A LD D,E        ;
- $E60B LD B,E        ;
- $E60C LD D,D        ;
- $E60D LD B,L        ;
- $E60E LD D,A        ;
- $E60F LD B,H        ;
- $E610 LD D,D        ;
- $E611 LD C,C        ;
- $E612 LD D,(HL)     ;
- $E613 LD B,L        ;
- $E614 LD D,D        ;
- $E615 RST $38       ;
- $E616 LD D,H        ;
- $E617 LD C,B        ;
- $E618 LD B,L        ;
- $E619 JR NZ,$E667   ;
- $E61B LD B,L        ;
- $E61C LD D,H        ;
- $E61D LD D,H        ;
-*$E61E LD B,L        ;
- $E61F LD D,D        ;
- $E620 CP (HL)       ;
- $E621 LD BC,$FF45   ;
- $E624 LD D,H        ;
- $E625 LD C,B        ;
- $E626 LD B,L        ;
- $E627 JR NZ,$E671   ;
- $E629 LD C,A        ;
- $E62A LD C,A        ;
- $E62B LD C,E        ;
- $E62C RET NZ        ;
- $E62D LD BC,$F4FF   ;
- $E630 INC BC        ;
- $E631 LD D,A        ;
- $E632 LD C,A        ;
- $E633 LD D,D        ;
- $E634 LD C,E        ;
- $E635 LD C,C        ;
- $E636 LD C,(HL)     ;
- $E637 LD B,A        ;
- $E638 RST $38       ;
- $E639 LD B,D        ;
- $E63A LD D,D        ;
- $E63B LD C,A        ;
- $E63C LD C,E        ;
- $E63D LD B,L        ;
- $E63E LD C,(HL)     ;
- $E63F RST $38       ;
-*$E640 LD D,H        ;
- $E641 LD C,B        ;
- $E642 LD B,L        ;
- $E643 JR NZ,$E695   ;
- $E645 LD B,C        ;
- $E646 LD D,H        ;
- $E647 LD B,E        ;
- $E648 LD C,B        ;
-*$E649 RST $38       ;
- $E64A LD D,H        ;
- $E64B LD C,B        ;
- $E64C LD B,L        ;
- $E64D JR NZ,$E69F   ;
- $E64F LD C,C        ;
- $E650 LD D,B        ;
- $E651 LD B,L        ;
- $E652 RET NZ        ;
- $E653 LD BC,$F4FF   ;
- $E656 DEC B         ;
- $E657 LD D,B        ;
- $E658 LD B,C        ;
- $E659 LD D,H        ;
- $E65A LD B,E        ;
- $E65B LD C,B        ;
- $E65C LD B,L        ;
- $E65D LD B,H        ;
- $E65E RST $38       ;
- $E65F LD C,H        ;
- $E660 LD B,L        ;
- $E661 LD B,C        ;
- $E662 LD C,E        ;
- $E663 LD C,C        ;
- $E664 LD C,(HL)     ;
- $E665 LD B,A        ;
- $E666 RST $38       ;
-*$E667 LD D,H        ;
- $E668 LD C,B        ;
- $E669 LD B,L        ;
- $E66A JR NZ,$E6B8   ;
- $E66C LD B,L        ;
- $E66D LD D,H        ;
- $E66E LD D,H        ;
- $E66F LD B,L        ;
- $E670 LD D,D        ;
-*$E671 CP (HL)       ;
- $E672 LD BC,$FF52   ;
- $E675 LD D,H        ;
- $E676 LD C,B        ;
- $E677 LD B,L        ;
- $E678 JR NZ,$E6C9   ;
- $E67A LD C,C        ;
- $E67B LD C,H        ;
- $E67C POP BC        ;
- $E67D LD BC,$4143   ;
- $E680 LD C,(HL)     ;
- $E681 JR NZ,$E682   ;
- $E683 CALL P,$4607  ;
- $E686 LD D,L        ;
- $E687 LD C,H        ;
- $E688 LD C,H        ;
- $E689 RST $38       ;
- $E68A LD B,L        ;
- $E68B LD C,L        ;
- $E68C LD D,B        ;
- $E68D LD D,H        ;
- $E68E LD E,C        ;
- $E68F RST $38       ;
- $E690 LD D,H        ;
- $E691 LD C,B        ;
- $E692 LD B,L        ;
- $E693 JR NZ,$E6DB   ;
-*$E695 LD D,L        ;
- $E696 LD D,E        ;
- $E697 LD B,L        ;
- $E698 RET NZ        ;
- $E699 LD BC,$4957   ;
- $E69C LD D,D        ;
- $E69D LD B,L        ;
- $E69E RST $38       ;
-*$E69F LD D,H        ;
- $E6A0 LD C,B        ;
- $E6A1 LD B,L        ;
- $E6A2 JR NZ,$E6EB   ;
- $E6A4 LD C,A        ;
- $E6A5 LD C,A        ;
- $E6A6 LD B,H        ;
- $E6A7 RET NZ        ;
- $E6A8 LD BC,$4E49   ;
- $E6AB LD D,E        ;
- $E6AC LD D,L        ;
- $E6AD LD C,H        ;
- $E6AE LD B,C        ;
- $E6AF LD D,H        ;
- $E6B0 LD C,A        ;
- $E6B1 LD D,D        ;
- $E6B2 RST $38       ;
- $E6B3 LD D,H        ;
- $E6B4 LD C,B        ;
- $E6B5 LD B,L        ;
- $E6B6 JR NZ,$E6FA   ;
-*$E6B8 LD C,A        ;
- $E6B9 LD D,H        ;
- $E6BA LD D,H        ;
- $E6BB LD C,H        ;
- $E6BC LD B,L        ;
- $E6BD CP (HL)       ;
- $E6BE LD BC,$F4FF   ;
- $E6C1 NOP           ;
- $E6C2 LD B,(HL)     ;
- $E6C3 LD D,L        ;
- $E6C4 LD C,H        ;
- $E6C5 LD C,H        ;
- $E6C6 RST $38       ;
- $E6C7 LD B,L        ;
- $E6C8 LD C,L        ;
-*$E6C9 LD D,B        ;
- $E6CA LD D,H        ;
- $E6CB LD E,C        ;
- $E6CC RST $38       ;
- $E6CD LD D,H        ;
- $E6CE LD C,B        ;
- $E6CF LD B,L        ;
- $E6D0 JR NZ,$E724   ;
- $E6D2 LD B,L        ;
- $E6D3 LD B,H        ;
- $E6D4 POP BC        ;
- $E6D5 LD BC,$4548   ;
- $E6D8 LD D,D        ;
- $E6D9 LD D,D        ;
- $E6DA LD C,C        ;
-*$E6DB LD C,(HL)     ;
- $E6DC LD B,A        ;
- $E6DD RST $38       ;
- $E6DE LD D,H        ;
- $E6DF LD C,B        ;
- $E6E0 LD B,L        ;
- $E6E1 JR NZ,$E737   ;
- $E6E3 LD B,L        ;
- $E6E4 LD D,E        ;
- $E6E5 LD D,H        ;
- $E6E6 RET NZ        ;
- $E6E7 LD BC,$5554   ;
- $E6EA LD B,D        ;
-*$E6EB LD B,L        ;
- $E6EC RST $38       ;
- $E6ED LD D,H        ;
- $E6EE LD C,B        ;
- $E6EF LD B,L        ;
- $E6F0 JR NZ,$E735   ;
- $E6F2 LD B,C        ;
- $E6F3 LD C,(HL)     ;
- $E6F4 JR NZ,$E745   ;
- $E6F6 LD B,(HL)     ;
- $E6F7 CP (HL)       ;
- $E6F8 LD BC,$4542   ;
- $E6FB LD B,C        ;
- $E6FC LD C,(HL)     ;
- $E6FD LD D,E        ;
- $E6FE RST $38       ;
- $E6FF LD D,H        ;
- $E700 LD C,B        ;
- $E701 LD B,L        ;
- $E702 JR NZ,$E756   ;
- $E704 LD D,L        ;
- $E705 LD B,D        ;
- $E706 LD B,D        ;
- $E707 LD B,L        ;
- $E708 LD D,D        ;
- $E709 CP (HL)       ;
- $E70A LD BC,$5453   ;
- $E70D LD B,C        ;
- $E70E LD C,L        ;
- $E70F LD D,B        ;
- $E710 RST $38       ;
- $E711 LD D,H        ;
- $E712 LD C,B        ;
- $E713 LD B,L        ;
- $E714 JR NZ,$E766   ;
- $E716 LD C,H        ;
- $E717 LD C,C        ;
- $E718 LD B,L        ;
- $E719 LD D,D        ;
- $E71A LD D,E        ;
- $E71B RST $38       ;
- $E71C LD D,H        ;
- $E71D LD C,B        ;
- $E71E LD B,L        ;
- $E71F JR NZ,$E778   ;
- $E721 LD C,B        ;
- $E722 LD C,C        ;
- $E723 LD D,E        ;
-*$E724 LD D,H        ;
- $E725 LD C,H        ;
- $E726 LD B,L        ;
-*$E727 RST $38       ;
- $E728 ADD A,H       ;
- $E729 CALL PO,$E490 ;
- $E72C SBC A,(HL)    ;
- $E72D CALL PO,$E4A7 ;
- $E730 OR B          ;
- $E731 CALL PO,$E4CD ;
- $E734 IN A,($E4)    ;
- $E736 AND $E4       ;
- $E738 POP AF        ;
- $E739 CALL PO,$E4FC ;
- $E73C EX AF,AF'     ;
- $E73D PUSH HL       ;
- $E73E RRA           ;
- $E73F PUSH HL       ;
- $E740 JR Z,$E727    ;
- $E742 ADD HL,SP     ;
- $E743 PUSH HL       ;
- $E744 LD B,E        ;
-*$E745 PUSH HL       ;
- $E746 LD C,L        ;
- $E747 PUSH HL       ;
- $E748 LD E,(HL)     ;
- $E749 PUSH HL       ;
- $E74A LD A,B        ;
- $E74B PUSH HL       ;
- $E74C ADC A,B       ;
- $E74D PUSH HL       ;
- $E74E SBC A,E       ;
- $E74F PUSH HL       ;
- $E750 XOR C         ;
- $E751 PUSH HL       ;
- $E752 OR D          ;
- $E753 PUSH HL       ;
- $E754 OUT ($E5),A   ;
-*$E756 XOR $E5       ;
- $E758 RST $30       ;
- $E759 PUSH HL       ;
- $E75A LD A,(BC)     ;
- $E75B AND $16       ;
- $E75D AND $24       ;
- $E75F AND $40       ;
- $E761 AND $4A       ;
- $E763 AND $67       ;
- $E765 AND $75       ;
- $E767 AND $90       ;
- $E769 AND $9F       ;
- $E76B AND $B3       ;
- $E76D AND $CD       ;
- $E76F AND $DE       ;
- $E771 AND $ED       ;
- $E773 AND $FF       ;
- $E775 AND $11       ;
- $E777 RST $20       ;
-*$E778 INC E         ;
- $E779 RST $20       ;
-*$E77A PUSH HL       ;
+
+; Messaging: The Plunger
+t$E484 DEFM "THE PLUNGER" ; "#STR$E484,$08($b==$FF)".
+ $E48F DEFB $FF           ; Terminator.
+
+; Messaging: The Letter A
+t$E490 DEFM "THE LETTER" ; {"#STR$E490,$08($b==$FF)".
+ $E49A DEFM $BE,$01      ;
+ $E49C DEFM "A"          ; }
+ $E49D DEFB $FF          ; Terminator.
+
+; Messaging: Book Two
+t$E49E DEFM "BOOK TWO" ; "#STR$E49E,$08($b==$FF)".
+ $E4A6 DEFB $FF        ; Terminator.
+
+; Messaging: The Sand
+t$E4A7 DEFM "THE SAND" ; "#STR$E4A7,$08($b==$FF)".
+ $E4AF DEFB $FF        ; Terminator.
+
+; Messaging: The Battery
+t$E4B0 DEFM "THE BATTERY" ; {"#STR$E4B0,$08($b==$FF)".
+ $E4BB DEFM $BD,$01       ; }
+ $E4BD DEFB $FF           ; Terminator.
+
+; Messaging: Charged
+t$E4BE DEFM $F4,$06   ; {"#STR$E4C0,$08($b==$FF)".
+ $E4C0 DEFM "CHARGED" ; }
+ $E4C7 DEFB $FF       ; Terminator.
+
+; Messaging: Flat
+t$E4C8 DEFM "FLAT"   ; "#STR$E4C8,$08($b==$FF)".
+ $E4CC DEFB $FF      ; Terminator.
+
+; Messaging: The Letter K
+t$E4CD DEFM "THE LETTER" ; {"#STR$E4CD,$08($b==$FF)".
+ $E4D7 DEFM $BE,$01      ;
+ $E4D9 DEFM "K"          ; }
+ $E4DA DEFB $FF          ; Terminator.
+
+; Messaging: The Cement
+t$E4DB DEFM "THE CEMENT" ; "#STR$E4DB,$08($b==$FF)".
+ $E4E5 DEFB $FF          ; Terminator.
+
+; Messaging: Book Three
+t$E4E6 DEFM "BOOK THREE" ; "#STR$E4E6,$08($b==$FF)".
+ $E4F0 DEFB $FF          ; Terminator.
+
+; Messaging: The Trowel
+t$E4F1 DEFM "THE TROWEL" ; "#STR$E4F1,$08($b==$FF)".
+ $E4FB DEFB $FF          ; Terminator.
+
+; Messaging: The Matches
+t$E4FC DEFM "THE MATCHES" ; "#STR$E4FC,$08($b==$FF)".
+ $E507 DEFB $FF           ; Terminator.
+
+; Messaging: The Cracked Insulator
+t$E508 DEFM "THE CRACKED" ; {"#STR$E508,$08($b==$FF)".
+ $E513 DEFM $BD,$01       ;
+ $E515 DEFM "INSULATOR"   ; }
+ $E51E DEFB $FF           ; Terminator.
+
+; Messaging: Book One
+t$E51F DEFM "BOOK ONE" ; "#STR$E51F,$08($b==$FF)".
+ $E527 DEFB $FF        ; Terminator.
+
+; Messaging: The Monkey Nuts
+t$E528 DEFM "THE MONKEY" ; {"#STR$E528,$08($b==$FF)".
+ $E532 DEFM $BE,$01      ;
+ $E534 DEFM "NUTS"       ; }
+ $E538 DEFB $FF          ; Terminator.
+
+; Messaging: The Money
+t$E539 DEFM "THE MONEY" ; "#STR$E539,$08($b==$FF)".
+ $E542 DEFB $FF         ; Terminator.
+
+; Messaging: Superglue
+t$E543 DEFM "SUPERGLUE" ; "#STR$E543,$08($b==$FF)".
+ $E54C DEFB $FF         ; Terminator.
+
+; Messaging: The Chewing Gum
+t$E54D DEFM "THE CHEWING" ; {"#STR$E54D,$08($b==$FF)".
+ $E558 DEFM $BD,$01       ;
+ $E55A DEFM "GUM"         ; }
+ $E55D DEFB $FF           ; Terminator.
+
+; Messaging: The Bucket
+t$E55E DEFM "THE BUCKET" ; {"#STR$E55E,$08($b==$FF)".
+ $E568 DEFM $BE,$01      ; }
+ $E56A DEFB $FF          ; Terminator.
+
+; Messaging: Full
+t$E56B DEFM $F4,$04  ; {"#STR$E56D,$08($b==$FF)".
+ $E56D DEFM "FULL"   ; }
+ $E571 DEFB $FF      ; Terminator.
+
+; Messaging: Empty
+t$E572 DEFM "EMPTY"  ; "#STR$E572,$08($b==$FF)".
+ $E577 DEFB $FF      ; Terminator.
+
+; Messaging: The Jump Leads
+t$E578 DEFM "THE JUMP" ; {"#STR$E578,$08($b==$FF)".
+ $E580 DEFM $C0,$01    ;
+ $E582 DEFM "LEADS"    ; }
+ $E587 DEFB $FF        ; Terminator.
+
+; Messaging: The Bunsen Burner
+t$E588 DEFM "THE BUNSEN" ; {"#STR$E588,$08($b==$FF)".
+ $E592 DEFM $BE,$01      ;
+ $E594 DEFM "BURNER"     ; }
+ $E59A DEFB $FF          ; Terminator.
+
+; Messaging: The Letter B
+t$E59B DEFM "THE LETTER" ; {"#STR$E59B,$08($b==$FF)".
+ $E5A5 DEFM $BE,$01      ;
+ $E5A7 DEFM "B"          ; }
+ $E5A8 DEFB $FF          ; Terminator.
+
+; Messaging: Gas Mask
+t$E5A9 DEFM "GAS MASK" ; "#STR$E5A9,$08($b==$FF)".
+ $E5B1 DEFB $FF        ; Terminator.
+
+; Messaging: The Parcel
+t$E5B2 DEFM "THE PARCEL" ; {"#STR$E5B2,$08($b==$FF)".
+ $E5BC DEFM $BE,$01      ; }
+ $E5BE DEFB $FF          ; Terminator.
+
+; Messaging: Stamped
+t$E5BF DEFM $F4,$02   ; {"#STR$E5C1,$08($b==$FF)".
+ $E5C1 DEFM "STAMPED" ; }
+ $E5C8 DEFB $FF       ; Terminator.
+
+; Messaging: Unstamped
+t$E5C9 DEFM "UNSTAMPED" ; "#STR$E5C9,$08($b==$FF)".
+ $E5D2 DEFB $FF         ; Terminator.
+
+; Messaging: The Fuse
+t$E5D3 DEFM "THE FUSE" ; {"#STR$E5D3,$08($b==$FF)".
+ $E5DB DEFM $C0,$01    ; }
+ $E5DD DEFB $FF        ; Terminator.
+
+; Messaging: Rewired
+t$E5DE DEFM $F4,$01   ; {"#STR$E5E0,$08($b==$FF)".
+ $E5E0 DEFM "REWIRED" ; }
+ $E5E7 DEFB $FF       ; Terminator.
+
+; Messaging: Blown
+t$E5E8 DEFM "BLOWN"  ; "#STR$E5E8,$08($b==$FF)".
+ $E5ED DEFB $FF      ; Terminator.
+
+; Messaging: The Meat
+t$E5EE DEFM "THE MEAT" ; "#STR$E5EE,$08($b==$FF)".
+ $E5F6 DEFB $FF        ; Terminator.
+
+; Messaging: The Monkey Wrench
+t$E5F7 DEFM "THE MONKEY" ; {"#STR$E5F7,$08($b==$FF)".
+ $E601 DEFM $BE,$01      ;
+ $E603 DEFM "WRENCH"     ; }
+ $E609 DEFB $FF          ; Terminator.
+
+; Messaging: Screwdriver
+t$E60A DEFM "SCREWDRIVER" ; "#STR$E60A,$08($b==$FF)".
+ $E615 DEFB $FF           ; Terminator.
+
+; Messaging: The Letter E
+t$E616 DEFM "THE LETTER" ; {"#STR$E616,$08($b==$FF)".
+ $E620 DEFM $BE,$01      ;
+ $E622 DEFM "E"          ; }
+ $E623 DEFB $FF          ; Terminator.
+
+; Messaging: The Hook
+t$E624 DEFM "THE HOOK" ; {"#STR$E624,$08($b==$FF)".
+ $E62C DEFM $C0,$01    ; }
+ $E62E DEFB $FF        ; Terminator.
+
+; Messaging: Working
+t$E62F DEFM $F4,$03   ; {"#STR$E631,$08($b==$FF)".
+ $E631 DEFM "WORKING" ; }
+ $E638 DEFB $FF       ; Terminator.
+
+; Messaging: Broken
+t$E639 DEFM "BROKEN" ; "#STR$E639,$08($b==$FF)".
+ $E63F DEFB $FF      ; Terminator.
+
+; Messaging: The Patch
+t$E640 DEFM "THE PATCH" ; "#STR$E640,$08($b==$FF)".
+ $E649 DEFB $FF         ; Terminator.
+
+; Messaging: The Pipe
+t$E64A DEFM "THE PIPE" ; {"#STR$E64A,$08($b==$FF)".
+ $E652 DEFM $C0,$01    ; }
+ $E654 DEFB $FF        ; Terminator.
+
+; Messaging: Patched
+t$E655 DEFM $F4,$05   ; {"#STR$E657,$08($b==$FF)".
+ $E657 DEFM "PATCHED" ; }
+ $E65E DEFB $FF       ; Terminator.
+
+; Messaging: Leaking
+t$E65F DEFM "LEAKING" ; "#STR$E65F,$08($b==$FF)".
+ $E666 DEFB $FF       ; Terminator.
+
+; Messaging: The Letter R
+t$E667 DEFM "THE LETTER" ; {"#STR$E667,$08($b==$FF)".
+ $E671 DEFM $BE,$01      ;
+ $E673 DEFM "R"          ; }
+ $E674 DEFB $FF          ; Terminator.
+
+; Messaging: The Oil Can
+t$E675 DEFM "THE OIL" ; {"#STR$E675,$08($b==$FF)".
+ $E67C DEFM $C1,$01   ;
+ $E67E DEFM "CAN "    ; }
+ $E682 DEFB $FF       ; Terminator.
+
+; Messaging: Full
+t$E683 DEFM $F4,$07  ; {"#STR$E685,$08($b==$FF)".
+ $E685 DEFM "FULL"   ; }
+ $E689 DEFB $FF      ; Terminator.
+
+; Messaging: Empty
+t$E68A DEFM "EMPTY"  ; "#STR$E68A,$08($b==$FF)".
+ $E68F DEFB $FF      ; Terminator.
+
+; Messaging: The Fuse Wire
+t$E690 DEFM "THE FUSE" ; {"#STR$E690,$08($b==$FF)".
+ $E698 DEFM $C0,$01    ;
+ $E69A DEFM "WIRE"     ; }
+ $E69E DEFB $FF        ; Terminator.
+
+; Messaging: The Good Insulator
+t$E69F DEFM "THE GOOD"  ; {"#STR$E69F,$08($b==$FF)".
+ $E6A7 DEFM $C0,$01     ;
+ $E6A9 DEFM "INSULATOR" ; }
+ $E6B2 DEFB $FF         ; Terminator.
+
+; Messaging: The Bottle
+t$E6B3 DEFM "THE BOTTLE" ; {"#STR$E6B3,$08($b==$FF)".
+ $E6BD DEFM $BE,$01      ; }
+ $E6BF DEFB $FF          ; Terminator.
+
+; Messaging: Full
+t$E6C0 DEFM $F4,$00  ; {"#STR$E6C2,$08($b==$FF)".
+ $E6C2 DEFM "FULL"   ; }
+ $E6C6 DEFB $FF      ; Terminator.
+
+; Messaging: Empty
+t$E6C7 DEFM "EMPTY"  ; "#STR$E6C7,$08($b==$FF)".
+ $E6CC DEFB $FF      ; Terminator.
+
+; Messaging: The Red Herring
+t$E6CD DEFM "THE RED" ; {"#STR$E6CD,$08($b==$FF)".
+ $E6D4 DEFM $C1,$01   ;
+ $E6D6 DEFM "HERRING" ; }
+ $E6DD DEFB $FF       ; Terminator.
+
+; Messaging: The Test Tube
+t$E6DE DEFM "THE TEST" ; {"#STR$E6DE,$08($b==$FF)".
+ $E6E6 DEFM $C0,$01    ;
+ $E6E8 DEFM "TUBE"     ; }
+ $E6EC DEFB $FF        ; Terminator.
+
+; Messaging: The Can Of Beans
+t$E6ED DEFM "THE CAN OF" ; {"#STR$E6ED,$08($b==$FF)".
+ $E6F7 DEFM $BE,$01      ;
+ $E6F9 DEFM "BEANS"      ; }
+ $E6FE DEFB $FF          ; Terminator.
+
+; Messaging: The Rubber Stamp
+t$E6FF DEFM "THE RUBBER" ; {"#STR$E6FF,$08($b==$FF)".
+ $E709 DEFM $BE,$01      ;
+ $E70B DEFM "STAMP"      ; }
+ $E710 DEFB $FF          ; Terminator.
+
+; Messaging: The Pliers
+t$E711 DEFM "THE PLIERS" ; "#STR$E711,$08($b==$FF)".
+ $E71B DEFB $FF          ; Terminator.
+
+; Messaging: The Whistle
+t$E71C DEFM "THE WHISTLE" ; "#STR$E71C,$08($b==$FF)".
+ $E727 DEFB $FF           ; Terminator.
+
+; Item Table
+@label=ItemTable
+w$E728 DEFW $E484    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E72A DEFW $E490    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E72C DEFW $E49E    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E72E DEFW $E4A7    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E730 DEFW $E4B0    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E732 DEFW $E4CD    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E734 DEFW $E4DB    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E736 DEFW $E4E6    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E738 DEFW $E4F1    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E73A DEFW $E4FC    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E73C DEFW $E508    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E73E DEFW $E51F    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E740 DEFW $E528    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E742 DEFW $E539    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E744 DEFW $E543    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E746 DEFW $E54D    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E748 DEFW $E55E    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E74A DEFW $E578    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E74C DEFW $E588    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E74E DEFW $E59B    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E750 DEFW $E5A9    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E752 DEFW $E5B2    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E754 DEFW $E5D3    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E756 DEFW $E5EE    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E758 DEFW $E5F7    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E75A DEFW $E60A    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E75C DEFW $E616    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E75E DEFW $E624    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E760 DEFW $E640    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E762 DEFW $E64A    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E764 DEFW $E667    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E766 DEFW $E675    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E768 DEFW $E690    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E76A DEFW $E69F    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E76C DEFW $E6B3    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E76E DEFW $E6CD    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E770 DEFW $E6DE    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E772 DEFW $E6ED    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E774 DEFW $E6FF    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E776 DEFW $E711    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+ $E778 DEFW $E71C    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+
+; Routine at E77A
+;
+; Used by the routine at #R$E41D.
+c$E77A PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $E77B PUSH BC       ;
- $E77C PUSH DE       ;
- $E77D LD IX,$81F8   ;
- $E781 LD C,$20      ;
-*$E783 LD L,(IX+$00) ;
- $E786 LD H,(IX+$01) ;
- $E789 LD B,$0F      ;
-*$E78B LD (HL),$00   ;
- $E78D INC HL        ;
- $E78E DJNZ $E78B    ;
- $E790 INC IX        ;
- $E792 INC IX        ;
- $E794 DEC C         ;
- $E795 JR NZ,$E783   ;
- $E797 POP DE        ;
+ $E77C PUSH DE       ; }
+ $E77D LD IX,$81F8   ; #REGix=#R$81F8.
+ $E781 LD C,$20      ; #REGc=#N$20.
+*$E783 LD L,(IX+$00) ; #REGl=#REGix+#N$00.
+ $E786 LD H,(IX+$01) ; #REGh=#REGix+#N$01.
+ $E789 LD B,$0F      ; #REGb=#N$0F.
+*$E78B LD (HL),$00   ; Write #N$00 to *#REGhl.
+ $E78D INC HL        ; Increment #REGhl by one.
+ $E78E DJNZ $E78B    ; Decrease counter by one and loop back to #R$E78B until
+                     ; counter is zero.
+ $E790 INC IX        ; {Increment #REGix by two.
+ $E792 INC IX        ; }
+ $E794 DEC C         ; Decrease #REGc by one.
+ $E795 JR NZ,$E783   ; Jump to #R$E783 until #REGc is zero.
+ $E797 POP DE        ; {Restore #REGde, #REGbc and #REGhl from the stack.
  $E798 POP BC        ;
- $E799 POP HL        ;
- $E79A RET           ;
+ $E799 POP HL        ; }
+ $E79A RET           ; Return.
 
 ; Routine at E79B
 ;
 ; Used by the routine at #R$8184.
-c$E79B LD A,$F7        ;
- $E79D IN A,($FE)      ;
- $E79F OR $E0          ;
- $E7A1 XOR $FF         ;
+c$E79B LD A,$F7        ; {Read from the keyboard;
+ $E79D IN A,($FE)      ; #TABLE(default,centre,centre,centre,centre,centre,centre)
+                       ; { =h,r2 Port Number | =h,c5 Bit }
+                       ; { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+                       ; { #N$F7 | 1 | 2 | 3 | 4 | 5 }
+                       ; TABLE#}
+ $E79F OR %11100000    ; Set bits 5-7.
+ $E7A1 XOR %11111111   ;
  $E7A3 RET Z           ;
  $E7A4 LD B,(IY+$0F)   ;
  $E7A7 PUSH IY         ;
@@ -11194,7 +10889,7 @@ c$E79B LD A,$F7        ;
  $E7B8 JR Z,$E7C0      ;
  $E7BA CALL $BA6E      ;
 *$E7BD POP IY          ;
- $E7BF RET             ;
+ $E7BF RET             ; Return.
 *$E7C0 CALL $A921      ;
  $E7C3 JR Z,$E7BD      ;
  $E7C5 LD ($B09D),IY   ;
@@ -11754,7 +11449,7 @@ c$EABF LD A,(IY+$0F) ;
  $EAE5 CP $F6        ;
  $EAE7 JR Z,$EACB    ;
  $EAE9 JR $EAE3      ;
-; This entry point is used by the routines at #R$EB55, #R$EC2B and #R$ED2A.
+; This entry point is used by the routines at #R$EB55, #R$EC4A and #R$ED2A.
 *$EAEB LD A,(HL)     ;
  $EAEC INC HL        ;
  $EAED CP $F6        ;
@@ -11950,9 +11645,12 @@ g$EC0F DEFB $00
 @label=Flag_PhoneBox_Completed
  $EC1C DEFB $0D
 
-; Routine at EC1D
+; Handler: Is A Given Task Completed
 ;
 ; Used by the routines at #R$B952, #R$E41D, #R$ED2A, #R$EFC7 and #R$F5F1.
+;
+; A Task ID
+@label=Handler_TaskCompleted
 c$EC1D PUSH HL       ; {Stash #REGhl and #REGde on the stack.
  $EC1E PUSH DE       ; }
  $EC1F LD E,A        ; {Create an offset in #REGde.
@@ -11966,25 +11664,28 @@ c$EC1D PUSH HL       ; {Stash #REGhl and #REGde on the stack.
  $EC2A RET           ; Return.
 
 ; Routine at EC2B
-c$EC2B CALL $EC3D    ;
- $EC2E JP Z,$EACB    ;
- $EC31 JP $EAE3      ;
- $EC34 CALL $EC3D    ;
- $EC37 JP NZ,$EACB   ;
- $EC3A JP $EAE3      ;
-*$EC3D LD B,(HL)     ;
- $EC3E INC HL        ;
- $EC3F LD A,(HL)     ;
- $EC40 INC HL        ;
- $EC41 PUSH HL       ;
- $EC42 PUSH AF       ;
- $EC43 CALL $AA8C    ;
- $EC46 POP AF        ;
- $EC47 CP (HL)       ;
- $EC48 POP HL        ;
- $EC49 RET           ;
-; This entry point is used by the routine at #R$ED2A.
-*$EC4A LD E,(HL)     ;
+c$EC2B CALL $EC3D    ; Call #R$EC3D.
+ $EC2E JP Z,$EACB    ; If the return zero flag is zero, jump to #R$EACB.
+ $EC31 JP $EAE3      ; Jump to #R$EAE3.
+ $EC34 CALL $EC3D    ; Call #R$EC3D.
+ $EC37 JP NZ,$EACB   ; If the return zero flag is not zero, jump to #R$EACB.
+ $EC3A JP $EAE3      ; Jump to #R$EAE3.
+*$EC3D LD B,(HL)     ; #REGb=*#REGhl.
+ $EC3E INC HL        ; Increment #REGhl by one.
+ $EC3F LD A,(HL)     ; #REGa=*#REGhl.
+ $EC40 INC HL        ; Increment #REGhl by one.
+ $EC41 PUSH HL       ; {Stash #REGaf and #REGhl on the stack.
+ $EC42 PUSH AF       ; }
+ $EC43 CALL $AA8C    ; Call #R$AA8C.
+ $EC46 POP AF        ; Restore #REGaf from the stack.
+ $EC47 CP (HL)       ; Compare #REGa against *#REGhl.
+ $EC48 POP HL        ; Restore #REGhl from the stack.
+ $EC49 RET           ; Return.
+
+; Routine at EC4A
+;
+; Used by the routine at #R$ED2A.
+c$EC4A LD E,(HL)     ;
  $EC4B INC HL        ;
 ; This entry point is used by the routine at #R$ED2A.
 *$EC4C PUSH HL       ;
