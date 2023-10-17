@@ -4593,8 +4593,10 @@ b $CD2F Graphic ID
 
 b $CD43 Graphic ID
 @ $CD43 label=graphic_117
-  $CD43,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CD46,$02 Attribute=#COLOUR(#PC+$01)
+M $CD43,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $CD43,$01
+W $CD44,$02
+  $CD46,$02 Attribute: #COLOUR(#PC+$01)
   $CD48,$01
   $CD49,$01
   $CD4A,$01
@@ -4641,8 +4643,10 @@ b $CD43 Graphic ID
   $CD74,$01
   $CD75,$01
   $CD76,$01
-  $CD77,$02 Attribute=#COLOUR(#PC+$01)
-  $CD79,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+  $CD77,$02 Attribute: #COLOUR(#PC+$01)
+M $CD79,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $CD79,$01
+W $CD7A,$02
   $CD7C,$01
   $CD7D,$01
   $CD7E,$01
@@ -4656,13 +4660,17 @@ b $CD43 Graphic ID
   $CD87,$01
   $CD88,$01
   $CD89,$01
-  $CD8A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+M $CD8A,$03 Sprite Data: #N(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $CD8A,$01
+W $CD8B,$02
   $CD8D,$01
   $CD8E,$01
   $CD8F,$01
   $CD90,$01
   $CD91,$01
-  $CD92,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+M $CD92,$03 Sprite Data: #N(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $CD92,$01
+W $CD93,$02
   $CD95,$01
   $CD96,$01
   $CD97,$01
@@ -4670,7 +4678,9 @@ b $CD43 Graphic ID
   $CD99,$02 Attribute=#COLOUR(#PC+$01)
   $CD9B,$01
   $CD9C,$01
-  $CD9D,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
+M $CD9D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $CD9D,$01
+W $CD9E,$02
   $CDA0,$01
   $CDA1,$01
   $CDA2,$01
@@ -4745,7 +4755,12 @@ b $CE01
   $D34C,$08 #UDG(#PC,attr=$45)
   $D354,$08 #UDG(#PC,attr=$45)
 
-b $DFDC
+  $D9E4,$08 #UDG(#PC,attr=$43)
+
+b $DFDC Sprites
+@ $DFDC label=Sprites
+  $DFDC,$08 #UDG(#PC)
+L $DFDC,$08,$64
 
 c $E2FC
 
