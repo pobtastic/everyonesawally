@@ -33,7 +33,7 @@ Next: <a href="45463.html">45463</a>
 </td>
 </tr>
 </table>
-<div class="description">45286: Routine at B0E6</div>
+<div class="description">45286: Draws Sprites To The Shadow Buffer</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,66 +45,78 @@ Used by the routines at <a href="47574.html">47574</a> and <a href="61383.html">
 </td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer</td>
 <td class="address-2"><span id="45286"></span>45286</td>
 <td class="instruction">EXX</td>
 <td class="comment-1" rowspan="1">Switch to the shadow registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45287"></span>45287</td>
 <td class="instruction">LD E,(IY+35)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=*<span class="register">IY</span>+35.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45290"></span>45290</td>
 <td class="instruction">LD D,(IY+40)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=*<span class="register">IY</span>+40.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45293"></span>45293</td>
 <td class="instruction">LD (43067),SP</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">SP</span> to <a href="43067.html">Temp_StackPointer_Storage</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45297"></span>45297</td>
 <td class="instruction">LD H,(IY+0)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">H</span>=*<span class="register">IY</span>+0.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45300"></span>45300</td>
 <td class="instruction">LD L,0</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">L</span>=0.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45302"></span>45302</td>
 <td class="instruction">SRL H</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45304"></span>45304</td>
 <td class="instruction">RR L</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45306"></span>45306</td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45307"></span>45307</td>
 <td class="instruction">LD SP,HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45308"></span>45308</td>
 <td class="instruction">LD A,(IY+5)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">B</span>=*<span class="register">IY</span>+5.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45311"></span>45311</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45312"></span>45312</td>
 <td class="instruction">AND %00000111</td>
 <td class="comment-1" rowspan="1">Keep only bits 0-2.</td>
@@ -120,439 +132,552 @@ Self-modifying code.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45314"></span>45314</td>
 <td class="instruction">LD (45449),A</td>
 <td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="45286.html#45448">45449</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45317"></span>45317</td>
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45318"></span>45318</td>
 <td class="instruction">LD (45353),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45321"></span>45321</td>
 <td class="instruction">LD (45381),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45324"></span>45324</td>
 <td class="instruction">LD A,B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45325"></span>45325</td>
-<td class="instruction">AND 248</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %11111000</td>
+<td class="comment-1" rowspan="1">Keep only bits 3-7.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45327"></span>45327</td>
 <td class="instruction">RRCA</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45328"></span>45328</td>
 <td class="instruction">RRCA</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45329"></span>45329</td>
 <td class="instruction">RRCA</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="address-1"><span id="45330"></span>45330</td>
-<td class="instruction">LD (45435),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="routine-comment" colspan="5">
+<span id="45330"></span>
+<div class="comments">
+<div class="paragraph">
+Self-modifying code.
+</div>
+</div>
+</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="45330"></span>45330</td>
+<td class="instruction">LD (45435),A</td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="45286.html#45434">45435</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45333"></span>45333</td>
 <td class="instruction">ADD A,2</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45335"></span>45335</td>
 <td class="instruction">LD E,A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45336"></span>45336</td>
 <td class="instruction">LD C,32</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45338"></span>45338</td>
 <td class="instruction">LD L,(IY+10)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45341"></span>45341</td>
 <td class="instruction">LD H,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45343"></span>45343</td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45344"></span>45344</td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45345"></span>45345</td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45346"></span>45346</td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45347"></span>45347</td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45348"></span>45348</td>
 <td class="instruction">LD D,99</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45350"></span>45350</td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_0</td>
 <td class="address-2"><span id="45351"></span>45351</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45352"></span>45352</td>
 <td class="instruction">LD B,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45354"></span>45354</td>
 <td class="instruction">DEC B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45355"></span>45355</td>
-<td class="instruction">JR Z,<a href="45286.html#45369">45369</a></td>
+<td class="instruction">JR Z,<a href="45286.html#45369">WriteSprite_ShadowBuffer_2</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45357"></span>45357</td>
 <td class="instruction">SCF</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45358"></span>45358</td>
 <td class="instruction">LD A,255</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_1</td>
 <td class="address-2"><span id="45360"></span>45360</td>
 <td class="instruction">RR E</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45362"></span>45362</td>
 <td class="instruction">RR D</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45364"></span>45364</td>
 <td class="instruction">RRA</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45365"></span>45365</td>
-<td class="instruction">DJNZ <a href="45286.html#45360">45360</a></td>
+<td class="instruction">DJNZ <a href="45286.html#45360">WriteSprite_ShadowBuffer_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45367"></span>45367</td>
 <td class="instruction">AND (HL)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45368"></span>45368</td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_2</td>
 <td class="address-2"><span id="45369"></span>45369</td>
 <td class="instruction">DEC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45370"></span>45370</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45371"></span>45371</td>
 <td class="instruction">AND D</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45372"></span>45372</td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45373"></span>45373</td>
 <td class="instruction">DEC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45374"></span>45374</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45375"></span>45375</td>
 <td class="instruction">AND E</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45376"></span>45376</td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45377"></span>45377</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45378"></span>45378</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45379"></span>45379</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45380"></span>45380</td>
 <td class="instruction">LD B,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45382"></span>45382</td>
 <td class="instruction">DEC B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45383"></span>45383</td>
-<td class="instruction">JR Z,<a href="45286.html#45395">45395</a></td>
+<td class="instruction">JR Z,<a href="45286.html#45395">WriteSprite_ShadowBuffer_4</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45385"></span>45385</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_3</td>
 <td class="address-2"><span id="45386"></span>45386</td>
 <td class="instruction">SRL E</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45388"></span>45388</td>
 <td class="instruction">RR D</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45390"></span>45390</td>
 <td class="instruction">RRA</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45391"></span>45391</td>
-<td class="instruction">DJNZ <a href="45286.html#45386">45386</a></td>
+<td class="instruction">DJNZ <a href="45286.html#45386">WriteSprite_ShadowBuffer_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45393"></span>45393</td>
 <td class="instruction">OR (HL)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45394"></span>45394</td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_4</td>
 <td class="address-2"><span id="45395"></span>45395</td>
 <td class="instruction">DEC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45396"></span>45396</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45397"></span>45397</td>
 <td class="instruction">OR D</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45398"></span>45398</td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45399"></span>45399</td>
 <td class="instruction">DEC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45400"></span>45400</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45401"></span>45401</td>
 <td class="instruction">OR E</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45402"></span>45402</td>
 <td class="instruction">LD (HL),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45403"></span>45403</td>
 <td class="instruction">LD DE,34</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45406"></span>45406</td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45407"></span>45407</td>
 <td class="instruction">DEC C</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45408"></span>45408</td>
-<td class="instruction">JP NZ,<a href="45286.html#45351">45351</a></td>
+<td class="instruction">JP NZ,<a href="45286.html#45351">WriteSprite_ShadowBuffer_0</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45411"></span>45411</td>
 <td class="instruction">LD A,(IY+10)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45414"></span>45414</td>
-<td class="instruction">AND 7</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %00000111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45416"></span>45416</td>
-<td class="instruction">JR Z,<a href="45286.html#45422">45422</a></td>
+<td class="instruction">JR Z,<a href="45286.html#45422">WriteSprite_ShadowBuffer_5</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45418"></span>45418</td>
 <td class="instruction">LD B,5</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45420"></span>45420</td>
-<td class="instruction">JR <a href="45286.html#45424">45424</a></td>
+<td class="instruction">JR <a href="45286.html#45424">WriteSprite_ShadowBuffer_6</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="45422"></span>
+<div class="comments">
+<div class="paragraph">
+Characters are 4 characters tall.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_5</td>
 <td class="address-2"><span id="45422"></span>45422</td>
 <td class="instruction">LD B,4</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=4 (counter).</td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_6</td>
 <td class="address-2"><span id="45424"></span>45424</td>
 <td class="instruction">LD A,(IY+10)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+10.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45427"></span>45427</td>
-<td class="instruction">AND 248</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %11111000</td>
+<td class="comment-1" rowspan="1">Keep only bits 3-7.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45429"></span>45429</td>
 <td class="instruction">LD H,0</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Create an offset in <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45431"></span>45431</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45432"></span>45432</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="4"><span class="register">HL</span>=<a href="64239.html#64256">64256</a>+(<span class="register">HL</span>*4).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45433"></span>45433</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45434"></span>45434</td>
 <td class="instruction">LD DE,64256</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45437"></span>45437</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45438"></span>45438</td>
 <td class="instruction">LD DE,30</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=0030.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="45441"></span>
+<div class="comments">
+<div class="paragraph">
+Grab the characters attribute byte.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45441"></span>45441</td>
 <td class="instruction">LD C,(IY+30)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=*<span class="register">IY</span>+30.</td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_7</td>
 <td class="address-2"><span id="45444"></span>45444</td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write the attribute byte to the attribute buffer (*<span class="register">HL</span>).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45445"></span>45445</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45446"></span>45446</td>
 <td class="instruction">LD (HL),C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write the attribute byte to the attribute buffer (*<span class="register">HL</span>).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45447"></span>45447</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -565,46 +690,55 @@ This is modified from <a href="45286.html#45314">45314</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45448"></span>45448</td>
 <td class="instruction">LD A,255</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=255.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45450"></span>45450</td>
 <td class="instruction">OR A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45451"></span>45451</td>
-<td class="instruction">JR Z,<a href="45286.html#45454">45454</a></td>
+<td class="instruction">JR Z,<a href="45286.html#45454">WriteSprite_ShadowBuffer_8</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45453"></span>45453</td>
 <td class="instruction">LD (HL),C</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">WriteSprite_ShadowBuffer_8</td>
 <td class="address-2"><span id="45454"></span>45454</td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45455"></span>45455</td>
-<td class="instruction">DJNZ <a href="45286.html#45444">45444</a></td>
+<td class="instruction">DJNZ <a href="45286.html#45444">WriteSprite_ShadowBuffer_7</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45457"></span>45457</td>
 <td class="instruction">EXX</td>
 <td class="comment-1" rowspan="1">Switch to the normal registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45458"></span>45458</td>
 <td class="instruction">LD SP,(43067)</td>
 <td class="comment-1" rowspan="1">Restore <span class="register">SP</span> from <a href="43067.html">Temp_StackPointer_Storage</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45462"></span>45462</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

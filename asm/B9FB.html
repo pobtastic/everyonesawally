@@ -33,7 +33,7 @@ Next: <a href="BA25.html">BA25</a>
 </td>
 </tr>
 </table>
-<div class="description">B9FB: Handler: Sprites</div>
+<div class="description">B9FB: Copy Shadow Buffer To Screen</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -49,16 +49,16 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="B9D6.html">B9D6</
 <span id="b9fb"></span>
 <div class="comments">
 <div class="paragraph">
-Draw Sprites.
+Copy the shadow screen buffer.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">Handler_Sprites</td>
+<td class="asm-label">Copy_ShadowBuffer</td>
 <td class="address-2"><span id="b9fb"></span>B9FB</td>
 <td class="instruction">LD HL,$6B00</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="6B00.html">6B00</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="6B00.html">ShadowBuffer</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -73,7 +73,7 @@ Draw Sprites.
 <td class="comment-1" rowspan="1"><span class="register">BC</span>=1000.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_Sprites_Loop</td>
+<td class="asm-label">Copy_ShadowBuffer_Loop</td>
 <td class="address-2"><span id="ba05"></span>BA05</td>
 <td class="instruction">LD E,(IX+$00)</td>
 <td class="comment-1" rowspan="1"><span class="register">E</span>=*<span class="register">IX</span>+00.</td>
@@ -104,15 +104,15 @@ Draw Sprites.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ba12"></span>BA12</td>
-<td class="instruction">JP PE,<a href="B9FB.html#ba05">Handler_Sprites_Loop</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba05">Handler_Sprites_Loop</a> until <span class="register">BC</span> is zero.</td>
+<td class="instruction">JP PE,<a href="B9FB.html#ba05">Copy_ShadowBuffer_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba05">Copy_ShadowBuffer_Loop</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
 <span id="ba15"></span>
 <div class="comments">
 <div class="paragraph">
-Draw Sprite attributes.
+Copy the shadow attribute buffer.
 </div>
 </div>
 </td>
@@ -127,7 +127,7 @@ Draw Sprite attributes.
 <td class="asm-label"></td>
 <td class="address-1"><span id="ba18"></span>BA18</td>
 <td class="instruction">LD HL,$FC00</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="FC00.html">FC00</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="FC00.html">ShadowBuffer_Attribute</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -136,7 +136,7 @@ Draw Sprite attributes.
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="4000.html#5900">5900</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_Sprites_Attributes_Loop</td>
+<td class="asm-label">Copy_ShadowBuffer_Attributes_Loop</td>
 <td class="address-2"><span id="ba1e"></span>BA1E</td>
 <td class="instruction">CALL <a href="BA25.html">CopyRoutine</a></td>
 <td class="comment-1" rowspan="1">Call <a href="BA25.html">CopyRoutine</a>.</td>
@@ -144,8 +144,8 @@ Draw Sprite attributes.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ba21"></span>BA21</td>
-<td class="instruction">JP PE,<a href="B9FB.html#ba1e">Handler_Sprites_Attributes_Loop</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba1e">Handler_Sprites_Attributes_Loop</a> until <span class="register">BC</span> is zero.</td>
+<td class="instruction">JP PE,<a href="B9FB.html#ba1e">Copy_ShadowBuffer_Attributes_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba1e">Copy_ShadowBuffer_Attributes_Loop</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
