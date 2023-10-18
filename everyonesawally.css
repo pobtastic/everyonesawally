@@ -1,0 +1,30 @@
+body {
+  color: #000;
+  background-color: #ccc7cd;
+}
+a {
+  color: #c50001;
+}
+table.gallery {
+  border-collapse: collapse;
+}
+table.map td {
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000;
+  padding: 5px;
+  background-color: #ffe;
+}
+table.map td.transparent {
+  border-style: none;
+}
+table.boxData td {
+  background-color: #99bbdd;
+}
+table.boxData th {
+  background-color: #7799bb;
+}
+table.centre {
+  margin: 0 auto;
+}

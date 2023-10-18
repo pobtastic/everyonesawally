@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 47822</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47795.html">47795</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47822">Map</a></td>
+<td class="next">
+Next: <a href="47832.html">47832</a>
+</td>
+</tr>
+</table>
+<div class="description">47822: Routine at BACE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="47718.html">47718</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47822"></span>47822</td>
+<td class="instruction">LD B,0</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=0.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47824"></span>47824</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47825"></span>47825</td>
+<td class="instruction">CP 255</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is 255 then return.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47827"></span>47827</td>
+<td class="instruction">RET Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47828"></span>47828</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">B</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47829"></span>47829</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47830"></span>47830</td>
+<td class="instruction">JR <a href="47822.html#47824">47824</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47822.html#47824">47824</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47795.html">47795</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47822">Map</a></td>
+<td class="next">
+Next: <a href="47832.html">47832</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../../asm/BACE.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

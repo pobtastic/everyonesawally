@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -44,7 +45,7 @@ Next: <a href="7F1F.html">7F1F</a>
 <tr>
 <td class="address-1"><span id="7f02"></span>7F02</td>
 <td class="instruction">DEFB $FE,$42</td>
-<td class="comment-1" rowspan="1">Attribute=INK:
+<td class="comment-1" rowspan="1">Attribute: INK:
 RED,
 PAPER:
 BLACK
@@ -53,12 +54,16 @@ BLACK
 </tr>
 <tr>
 <td class="address-1"><span id="7f04"></span>7F04</td>
-<td class="instruction">DEFB $FB,$BC,$D7,$00,$01,$C6,$01,$02</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Bank: <a href="CE01.html#d7bc">D7BC</a>.</td>
 </tr>
 <tr>
-<td class="address-1"><span id="7f0c"></span>7F0C</td>
-<td class="instruction">DEFB $03,$DC</td>
+<td class="address-1"><span id="7f05"></span>7F05</td>
+<td class="instruction">DEFW <a href="CE01.html#d7bc">$D7BC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="7f07"></span>7F07</td>
+<td class="instruction">DEFB $00,$01,$C6,$01,$02,$03,$DC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -68,18 +73,27 @@ BLACK
 </tr>
 <tr>
 <td class="address-1"><span id="7f0f"></span>7F0F</td>
-<td class="instruction">DEFB $00,$01,$C6,$01,$02,$03,$FF,$FB</td>
+<td class="instruction">DEFB $00,$01,$C6,$01,$02,$03</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="address-1"><span id="7f15"></span>7F15</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="7f16"></span>7F16</td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Bank: <a href="DFDC.html">Sprites</a>.</td>
+</tr>
+<tr>
 <td class="address-1"><span id="7f17"></span>7F17</td>
-<td class="instruction">DEFB $DC,$DF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFW <a href="DFDC.html">Sprites</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="7f19"></span>7F19</td>
 <td class="instruction">DEFB $FE,$46</td>
-<td class="comment-1" rowspan="1">Attribute=INK:
+<td class="comment-1" rowspan="1">Attribute: INK:
 YELLOW,
 PAPER:
 BLACK

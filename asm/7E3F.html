@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Everyone's a Wally: Data at 7E3F</title>
+<title>Everyone's a Wally: Text at 7E3F</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -15,11 +16,11 @@ gtag('js', new Date());
 gtag('config', 'G-75RERFCHBG');
 </script>
 </head>
-<body class="Asm-b">
+<body class="Asm-t">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Data</td>
+<td class="page-header">Messages</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -29,11 +30,11 @@ Prev: <a href="7E37.html">7E37</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#7e3f">Map</a></td>
 <td class="next">
-Next: <a href="7E42.html">7E42</a>
+Next: <a href="7E71.html">7E71</a>
 </td>
 </tr>
 </table>
-<div class="description">7E3F: Data block at 7E3F</div>
+<div class="description">7E3F: Messaging: Character</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,9 +43,118 @@ Next: <a href="7E42.html">7E42</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Messaging_Character</td>
 <td class="address-1"><span id="7e3f"></span>7E3F</td>
-<td class="instruction">DEFB $FB,$DC,$DF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Bank: <a href="DFDC.html">Sprites</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e40"></span>7E40</td>
+<td class="instruction">DEFW <a href="DFDC.html">Sprites</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e42"></span>7E42</td>
+<td class="instruction">DEFB $FE,$44</td>
+<td class="comment-1" rowspan="1">Attribute: INK:
+GREEN,
+PAPER:
+BLACK
+(BRIGHT)
+.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e44"></span>7E44</td>
+<td class="instruction">DEFM "CHARACTER:"</td>
+<td class="comment-1" rowspan="1">"CHARACTER:".</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e4e"></span>7E4E</td>
+<td class="instruction">DEFB $BE,$02</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e50"></span>7E50</td>
+<td class="instruction">DEFB $FE,$47</td>
+<td class="comment-1" rowspan="1">Attribute: INK:
+WHITE,
+PAPER:
+BLACK
+(BRIGHT)
+.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e52"></span>7E52</td>
+<td class="instruction">DEFM "ENDURANCE:"</td>
+<td class="comment-1" rowspan="1">"ENDURANCE:".</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e5c"></span>7E5C</td>
+<td class="instruction">DEFB $AE,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e5e"></span>7E5E</td>
+<td class="instruction">DEFB $FE,$47</td>
+<td class="comment-1" rowspan="1">Attribute: INK:
+WHITE,
+PAPER:
+BLACK
+(BRIGHT)
+.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e60"></span>7E60</td>
+<td class="instruction">DEFM "  "</td>
+<td class="comment-1" rowspan="1">"  " (whitespace).</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e62"></span>7E62</td>
+<td class="instruction">DEFB $C6,$01,$20,$20,$C6,$01</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e68"></span>7E68</td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Bank: <a href="DFDC.html">Sprites</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e69"></span>7E69</td>
+<td class="instruction">DEFW <a href="DFDC.html">Sprites</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e6b"></span>7E6B</td>
+<td class="instruction">DEFB $FE,$42</td>
+<td class="comment-1" rowspan="1">Attribute: INK:
+RED,
+PAPER:
+BLACK
+(BRIGHT)
+.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e6d"></span>7E6D</td>
+<td class="instruction">DEFB $FD,$20,$5B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="7e70"></span>7E70</td>
+<td class="instruction">DEFM $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -54,7 +164,7 @@ Prev: <a href="7E37.html">7E37</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#7e3f">Map</a></td>
 <td class="next">
-Next: <a href="7E42.html">7E42</a>
+Next: <a href="7E71.html">7E71</a>
 </td>
 </tr>
 </table>

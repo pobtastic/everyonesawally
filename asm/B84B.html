@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -33,19 +34,19 @@ Next: <a href="B8C4.html">B8C4</a>
 </td>
 </tr>
 </table>
-<div class="description">B84B: Handler: Sprite Controller</div>
+<div class="description">B84B: Handler: Graphics Controller</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="B34B.html">B34B</a>, <a href="B82B.html">B82B</a>, <a href="B952.html">DrawRoom</a>, <a href="BA66.html">BA66</a>, <a href="E3FD.html">E3FD</a>, <a href="E41D.html">E41D</a> and <a href="ED2A.html">ED2A</a>.
+Used by the routines at <a href="B34B.html">B34B</a>, <a href="B82B.html">B82B</a>, <a href="B952.html">DrawRoom</a>, <a href="BA66.html">BA66</a>, <a href="BAB3.html">BAB3</a>, <a href="E3FD.html">E3FD</a>, <a href="E41D.html">E41D</a> and <a href="ED2A.html">ED2A</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController</td>
+<td class="asm-label">Controller_Tile</td>
 <td class="address-2"><span id="b84b"></span>B84B</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
@@ -60,12 +61,12 @@ Used by the routines at <a href="B34B.html">B34B</a>, <a href="B82B.html">B82B</
 <td class="asm-label"></td>
 <td class="address-1"><span id="b84d"></span>B84D</td>
 <td class="instruction">CP $80</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is lower than 80 jump to <a href="B84B.html#b8bd">Handler_SpriteController_8</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is lower than 80 jump to <a href="B84B.html#b8bd">Controller_Tile_Draw_Move_Down</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b84f"></span>B84F</td>
-<td class="instruction">JR C,<a href="B84B.html#b8bd">Handler_SpriteController_8</a></td>
+<td class="instruction">JR C,<a href="B84B.html#b8bd">Controller_Tile_Draw_Move_Down</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -102,12 +103,12 @@ Check for the FE control character. This signifies that the subsequent byte is t
 <td class="asm-label"></td>
 <td class="address-1"><span id="b854"></span>B854</td>
 <td class="instruction">CP $FE</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is not FE jump to <a href="B84B.html#b85c">Handler_SpriteController_NotAttribute</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not FE jump to <a href="B84B.html#b85c">Controller_Tile_Screen_Instructions</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b856"></span>B856</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b85c">Handler_SpriteController_NotAttribute</a></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b85c">Controller_Tile_Screen_Instructions</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -124,23 +125,12 @@ Check for the FE control character. This signifies that the subsequent byte is t
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b85a"></span>B85A</td>
-<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
-</tr>
-<tr>
-<td class="asm-label">Handler_SpriteController_NotAttribute</td>
-<td class="address-2"><span id="b85c"></span>B85C</td>
-<td class="instruction">CP $A8</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is lower than A8 jump to <a href="B84B.html#b8bd">Handler_SpriteController_8</a>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="b85e"></span>B85E</td>
-<td class="instruction">JR C,<a href="B84B.html#b8bd">Handler_SpriteController_8</a></td>
+<td class="instruction">JR <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-<span id="b860"></span>
+<span id="b85c"></span>
 <div class="comments">
 <div class="paragraph">
 If the value is between A8-E8 then it is screen co-ordinates.
@@ -149,15 +139,26 @@ If the value is between A8-E8 then it is screen co-ordinates.
 </td>
 </tr>
 <tr>
+<td class="asm-label">Controller_Tile_Screen_Instructions</td>
+<td class="address-2"><span id="b85c"></span>B85C</td>
+<td class="instruction">CP $A8</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is lower than A8 jump to <a href="B84B.html#b8bd">Controller_Tile_Draw_Move_Down</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b85e"></span>B85E</td>
+<td class="instruction">JR C,<a href="B84B.html#b8bd">Controller_Tile_Draw_Move_Down</a></td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b860"></span>B860</td>
 <td class="instruction">CP $E8</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is higher than E8 jump to <a href="B84B.html#b86e">Handler_SpriteController_0</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is higher than E8 jump to <a href="B84B.html#b86e">Controller_Tile_Bank</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b862"></span>B862</td>
-<td class="instruction">JR NC,<a href="B84B.html#b86e">Handler_SpriteController_0</a></td>
+<td class="instruction">JR NC,<a href="B84B.html#b86e">Controller_Tile_Bank</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -210,19 +211,29 @@ Remove the control number, then we're left with the desired screen co-ordinate d
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b86c"></span>B86C</td>
-<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
+<td class="instruction">JR <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_0</td>
+<td class="routine-comment" colspan="5">
+<span id="b86e"></span>
+<div class="comments">
+<div class="paragraph">
+Check for the FB control character. This signifies that the following two bytes should be set as the sprite bank address.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controller_Tile_Bank</td>
 <td class="address-2"><span id="b86e"></span>B86E</td>
 <td class="instruction">CP $FB</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is not FB jump to <a href="B84B.html#b87e">Handler_SpriteController_1</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not FB jump to <a href="B84B.html#b87e">Controller_Tile_Check_Move_Down</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b870"></span>B870</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b87e">Handler_SpriteController_1</a></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b87e">Controller_Tile_Check_Move_Down</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -261,101 +272,138 @@ Remove the control number, then we're left with the desired screen co-ordinate d
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b87c"></span>B87C</td>
-<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
+<td class="instruction">JR <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_1</td>
+<td class="routine-comment" colspan="5">
+<span id="b87e"></span>
+<div class="comments">
+<div class="paragraph">
+Check for the F1 control character. This signifies that the screen location should move down one block.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controller_Tile_Check_Move_Down</td>
 <td class="address-2"><span id="b87e"></span>B87E</td>
 <td class="instruction">CP $F1</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is F1 jump to <a href="B84B.html#b8c0">Controller_Tile_Move_Down</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b880"></span>B880</td>
-<td class="instruction">JR Z,<a href="B84B.html#b8c0">Handler_SpriteController_9</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="B84B.html#b8c0">Controller_Tile_Move_Down</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b882"></span>
+<div class="comments">
+<div class="paragraph">
+Check for the F3 control character. This alters the current message pointer (<span class="register">HL</span>).
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b882"></span>B882</td>
 <td class="instruction">CP $F3</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not F3 jump to <a href="B84B.html#b88c">Controller_Tile_Repeaters</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b884"></span>B884</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b88c">Handler_SpriteController_2</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b88c">Controller_Tile_Repeaters</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b886"></span>B886</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b887"></span>B887</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b888"></span>B888</td>
 <td class="instruction">LD H,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">H</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b889"></span>B889</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b88a"></span>B88A</td>
-<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
+<td class="instruction">JR <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_2</td>
+<td class="routine-comment" colspan="5">
+<span id="b88c"></span>
+<div class="comments">
+<div class="paragraph">
+Anything from here involves repetition.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controller_Tile_Repeaters</td>
 <td class="address-2"><span id="b88c"></span>B88C</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=*<span class="register">HL</span> (counter).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b88d"></span>B88D</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b88e"></span>
+<div class="comments">
+<div class="paragraph">
+Check for the F0 control character. Tile sprite to the screen vertically, the number of times indicated in <span class="register">B</span>.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b88e"></span>B88E</td>
 <td class="instruction">CP $F0</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not F0 jump to <a href="B84B.html#b89c">Controller_Tile_0</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b890"></span>B890</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b89c">Handler_SpriteController_4</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b89c">Controller_Tile_0</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b892"></span>B892</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b893"></span>B893</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_3</td>
+<td class="asm-label">Controller_Tile_Vertical_Loop</td>
 <td class="address-2"><span id="b894"></span>B894</td>
 <td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
 <td class="comment-1" rowspan="1">Call <a href="B7BA.html">DrawSprite</a>.</td>
@@ -369,29 +417,38 @@ Remove the control number, then we're left with the desired screen co-ordinate d
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b898"></span>B898</td>
-<td class="instruction">DJNZ <a href="B84B.html#b894">Handler_SpriteController_3</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="B84B.html#b894">Controller_Tile_Vertical_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="B84B.html#b894">Controller_Tile_Vertical_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b89a"></span>B89A</td>
-<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
+<td class="instruction">JR <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_4</td>
+<td class="routine-comment" colspan="5">
+<span id="b89c"></span>
+<div class="comments">
+<div class="paragraph">
+Check for the F2 control character.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controller_Tile_0</td>
 <td class="address-2"><span id="b89c"></span>B89C</td>
 <td class="instruction">CP $F2</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not F2 jump to <a href="B84B.html#b8b2">Controller_Tile_Horizontal</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b89e"></span>B89E</td>
-<td class="instruction">JR NZ,<a href="B84B.html#b8b2">Handler_SpriteController_6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B84B.html#b8b2">Controller_Tile_Horizontal</a></td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_5</td>
+<td class="asm-label">Controller_Tile_1</td>
 <td class="address-2"><span id="b8a0"></span>B8A0</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"></td>
@@ -441,7 +498,7 @@ Remove the control number, then we're left with the desired screen co-ordinate d
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b8ac"></span>B8AC</td>
-<td class="instruction">DJNZ <a href="B84B.html#b8a0">Handler_SpriteController_5</a></td>
+<td class="instruction">DJNZ <a href="B84B.html#b8a0">Controller_Tile_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -459,53 +516,83 @@ Remove the control number, then we're left with the desired screen co-ordinate d
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b8b0"></span>B8B0</td>
-<td class="instruction">JR <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
+<td class="instruction">JR <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_6</td>
+<td class="routine-comment" colspan="5">
+<span id="b8b2"></span>
+<div class="comments">
+<div class="paragraph">
+Tile sprite to the screen horizontally, the number of times indicated in <span class="register">B</span>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controller_Tile_Horizontal</td>
 <td class="address-2"><span id="b8b2"></span>B8B2</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b8b3"></span>B8B3</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_7</td>
+<td class="asm-label">Controller_Tile_Horizontal_Loop</td>
 <td class="address-2"><span id="b8b4"></span>B8B4</td>
 <td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="B7BA.html">DrawSprite</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b8b7"></span>
+<div class="comments">
+<div class="paragraph">
+Move to the next screen buffer column.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b8b7"></span>B8B7</td>
 <td class="instruction">INC E</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b8b8"></span>B8B8</td>
-<td class="instruction">DJNZ <a href="B84B.html#b8b4">Handler_SpriteController_7</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="B84B.html#b8b4">Controller_Tile_Horizontal_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="B84B.html#b8b4">Controller_Tile_Horizontal_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b8ba"></span>B8BA</td>
-<td class="instruction">JP <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
+<td class="instruction">JP <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_8</td>
+<td class="routine-comment" colspan="5">
+<span id="b8bd"></span>
+<div class="comments">
+<div class="paragraph">
+Draw a tile, and move the screen position down one character block.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controller_Tile_Draw_Move_Down</td>
 <td class="address-2"><span id="b8bd"></span>B8BD</td>
 <td class="instruction">CALL <a href="B7BA.html">DrawSprite</a></td>
 <td class="comment-1" rowspan="1">Call <a href="B7BA.html">DrawSprite</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Handler_SpriteController_9</td>
+<td class="asm-label">Controller_Tile_Move_Down</td>
 <td class="address-2"><span id="b8c0"></span>B8C0</td>
 <td class="instruction">INC E</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
@@ -513,8 +600,8 @@ Remove the control number, then we're left with the desired screen co-ordinate d
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b8c1"></span>B8C1</td>
-<td class="instruction">JP <a href="B84B.html#b84b">Handler_SpriteController</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Handler_SpriteController</a>.</td>
+<td class="instruction">JP <a href="B84B.html#b84b">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
