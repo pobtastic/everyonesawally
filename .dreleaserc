@@ -1,0 +1,3 @@
+GAME=everyonesawally
+SRCFILES=$(echo everyonesawally.skool {analytics,bases,everyonesawally,pokes}.ref {everyonesawally}.css everyonesawally.py COPYING)
+SKOOL2BINOPTS="-i -S 65271"
