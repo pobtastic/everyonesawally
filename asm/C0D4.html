@@ -33,7 +33,7 @@ Next: <a href="C0DC.html">C0DC</a>
 </td>
 </tr>
 </table>
-<div class="description">C0D4: Graphic ID</div>
+<div class="description">C0D4: Graphic ID 15</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,10 +42,15 @@ Next: <a href="C0DC.html">C0DC</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">graphic_21</td>
+<td class="asm-label">graphic_15</td>
 <td class="address-1"><span id="c0d4"></span>C0D4</td>
-<td class="instruction">DEFB $FB,$14,$D5</td>
-<td class="comment-1" rowspan="1">Screen co-ordinates: 20,213.</td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Data: <a href="CE01.html#d514">D514</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0d5"></span>C0D5</td>
+<td class="instruction">DEFW <a href="CE01.html#d514">$D514</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -62,19 +67,12 @@ FLASH: ON</td>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0d9"></span>C0D9</td>
 <td class="instruction">DEFB $F3</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Switch <span class="register">HL</span> to <a href="CACA.html#cad9">CAD9</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0da"></span>C0DA</td>
-<td class="instruction">DEFB $D9</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="c0db"></span>C0DB</td>
-<td class="instruction">DEFB $CA</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFW <a href="CACA.html#cad9">$CAD9</a></td>
 </tr>
 </table>
 <table class="asm-navigation">

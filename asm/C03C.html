@@ -33,7 +33,7 @@ Next: <a href="C045.html">C045</a>
 </td>
 </tr>
 </table>
-<div class="description">C03C: Graphic ID</div>
+<div class="description">C03C: Graphic ID 0D</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,10 +42,15 @@ Next: <a href="C045.html">C045</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">graphic_13</td>
+<td class="asm-label">graphic_0d</td>
 <td class="address-1"><span id="c03c"></span>C03C</td>
-<td class="instruction">DEFB $FB,$14,$DE</td>
-<td class="comment-1" rowspan="1">Screen co-ordinates: 20,222.</td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Data: <a href="CE01.html#de14">DE14</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c03d"></span>C03D</td>
+<td class="instruction">DEFW <a href="CE01.html#de14">$DE14</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -62,19 +67,31 @@ BLACK
 <td class="asm-label"></td>
 <td class="address-1"><span id="c041"></span>C041</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 00: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg56852_71x4" src="../images/udgs/udg56852_71x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c042"></span>C042</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 01: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg56860_71x4" src="../images/udgs/udg56860_71x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c043"></span>C043</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 02: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg56868_71x4" src="../images/udgs/udg56868_71x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>

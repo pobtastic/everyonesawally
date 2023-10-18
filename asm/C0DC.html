@@ -33,7 +33,7 @@ Next: <a href="C0F1.html">C0F1</a>
 </td>
 </tr>
 </table>
-<div class="description">C0DC: Graphic ID</div>
+<div class="description">C0DC: Graphic ID 16</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,22 +42,21 @@ Next: <a href="C0F1.html">C0F1</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">graphic_22</td>
+<td class="asm-label">graphic_16</td>
 <td class="address-1"><span id="c0dc"></span>C0DC</td>
-<td class="instruction">DEFB $FB,$AC,$DF</td>
-<td class="comment-1" rowspan="1">Screen co-ordinates: 172,223.</td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Data: <a href="CE01.html#dfac">DFAC</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0dd"></span>C0DD</td>
+<td class="instruction">DEFW <a href="CE01.html#dfac">$DFAC</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0df"></span>C0DF</td>
-<td class="instruction">DEFB $C8</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="c0e0"></span>C0E0</td>
-<td class="instruction">DEFB $03</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $C8,$03</td>
+<td class="comment-1" rowspan="1">Screen: 00, 03.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -74,42 +73,108 @@ FLASH: ON</td>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0e3"></span>C0E3</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 01: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57268_66x4" src="../images/udgs/udg57268_66x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0e4"></span>C0E4</td>
 <td class="instruction">DEFB $03</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 03: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57284_66x4" src="../images/udgs/udg57284_66x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0e5"></span>C0E5</td>
 <td class="instruction">DEFB $01</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 01: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57268_66x4" src="../images/udgs/udg57268_66x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0e6"></span>C0E6</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 02: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57276_66x4" src="../images/udgs/udg57276_66x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0e7"></span>C0E7</td>
 <td class="instruction">DEFB $02</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 02: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57276_66x4" src="../images/udgs/udg57276_66x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0e8"></span>C0E8</td>
-<td class="instruction">DEFB $C4</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $C4,$FF</td>
+<td class="comment-1" rowspan="1">Screen: -004, FF.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="c0e9"></span>C0E9</td>
-<td class="instruction">DEFB $FF,$00,$03,$01,$C6,$FF,$02,$FF</td>
+<td class="address-1"><span id="c0ea"></span>C0EA</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1">Tile 00: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57260_66x4" src="../images/udgs/udg57260_66x4.png" /></td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0eb"></span>C0EB</td>
+<td class="instruction">DEFB $03</td>
+<td class="comment-1" rowspan="1">Tile 03: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57284_66x4" src="../images/udgs/udg57284_66x4.png" /></td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0ec"></span>C0EC</td>
+<td class="instruction">DEFB $01</td>
+<td class="comment-1" rowspan="1">Tile 01: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57268_66x4" src="../images/udgs/udg57268_66x4.png" /></td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0ed"></span>C0ED</td>
+<td class="instruction">DEFB $C6,$FF</td>
+<td class="comment-1" rowspan="1">Screen: -002, FF.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0ef"></span>C0EF</td>
+<td class="instruction">DEFB $02</td>
+<td class="comment-1" rowspan="1">Tile 02: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57276_66x4" src="../images/udgs/udg57276_66x4.png" /></td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0f0"></span>C0F0</td>
+<td class="instruction">DEFB $FF</td>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 </table>

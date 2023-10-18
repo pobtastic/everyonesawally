@@ -33,7 +33,7 @@ Next: <a href="C0AA.html">C0AA</a>
 </td>
 </tr>
 </table>
-<div class="description">C0A0: Graphic ID</div>
+<div class="description">C0A0: Graphic ID 12</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,22 +42,21 @@ Next: <a href="C0AA.html">C0AA</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">graphic_18</td>
+<td class="asm-label">graphic_12</td>
 <td class="address-1"><span id="c0a0"></span>C0A0</td>
-<td class="instruction">DEFB $FB,$2C,$D7</td>
-<td class="comment-1" rowspan="1">Screen co-ordinates: 44,215.</td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Data: <a href="CE01.html#d72c">D72C</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c0a1"></span>C0A1</td>
+<td class="instruction">DEFW <a href="CE01.html#d72c">$D72C</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0a3"></span>C0A3</td>
-<td class="instruction">DEFB $C8</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="c0a4"></span>C0A4</td>
-<td class="instruction">DEFB $03</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $C8,$03</td>
+<td class="comment-1" rowspan="1">Screen: 00, 03.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -74,13 +73,21 @@ FLASH: ON</td>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0a7"></span>C0A7</td>
 <td class="instruction">DEFB $10</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 10: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg55212_69x4" src="../images/udgs/udg55212_69x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c0a8"></span>C0A8</td>
 <td class="instruction">DEFB $11</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Tile 11: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg55220_69x4" src="../images/udgs/udg55220_69x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>

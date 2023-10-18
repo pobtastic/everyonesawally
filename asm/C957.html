@@ -33,7 +33,7 @@ Next: <a href="C960.html">C960</a>
 </td>
 </tr>
 </table>
-<div class="description">C957: Graphic ID</div>
+<div class="description">C957: Graphic ID 52</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,10 +42,15 @@ Next: <a href="C960.html">C960</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">graphic_82</td>
+<td class="asm-label">graphic_52</td>
 <td class="address-1"><span id="c957"></span>C957</td>
-<td class="instruction">DEFB $FB,$EC,$DF</td>
-<td class="comment-1" rowspan="1">Screen co-ordinates: 236,223.</td>
+<td class="instruction">DEFB $FB</td>
+<td class="comment-1" rowspan="2">Sprite Data: <a href="DFDC.html#dfec">DFEC</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="c958"></span>C958</td>
+<td class="instruction">DEFW <a href="DFDC.html#dfec">$DFEC</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -61,20 +66,76 @@ MAGENTA
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="c95c"></span>C95C</td>
-<td class="instruction">DEFB $FD</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $FD,$1E,$09</td>
+<td class="comment-1" rowspan="1">Tile sprite 09 horizontally 1E times. <table class="">
+<tr>
+<th colspan="30" rowspan="1">Columns</th>
 </tr>
 <tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="c95d"></span>C95D</td>
-<td class="instruction">DEFB $1E</td>
-<td class="comment-1" rowspan="1"></td>
+<th colspan="1" rowspan="1">01</th>
+<th colspan="1" rowspan="1">02</th>
+<th colspan="1" rowspan="1">03</th>
+<th colspan="1" rowspan="1">04</th>
+<th colspan="1" rowspan="1">05</th>
+<th colspan="1" rowspan="1">06</th>
+<th colspan="1" rowspan="1">07</th>
+<th colspan="1" rowspan="1">08</th>
+<th colspan="1" rowspan="1">09</th>
+<th colspan="1" rowspan="1">0A</th>
+<th colspan="1" rowspan="1">0B</th>
+<th colspan="1" rowspan="1">0C</th>
+<th colspan="1" rowspan="1">0D</th>
+<th colspan="1" rowspan="1">0E</th>
+<th colspan="1" rowspan="1">0F</th>
+<th colspan="1" rowspan="1">10</th>
+<th colspan="1" rowspan="1">11</th>
+<th colspan="1" rowspan="1">12</th>
+<th colspan="1" rowspan="1">13</th>
+<th colspan="1" rowspan="1">14</th>
+<th colspan="1" rowspan="1">15</th>
+<th colspan="1" rowspan="1">16</th>
+<th colspan="1" rowspan="1">17</th>
+<th colspan="1" rowspan="1">18</th>
+<th colspan="1" rowspan="1">19</th>
+<th colspan="1" rowspan="1">1A</th>
+<th colspan="1" rowspan="1">1B</th>
+<th colspan="1" rowspan="1">1C</th>
+<th colspan="1" rowspan="1">1D</th>
+<th colspan="1" rowspan="1">1E</th>
 </tr>
 <tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="c95e"></span>C95E</td>
-<td class="instruction">DEFB $09</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+<td class="" colspan="1" rowspan="1"><img alt="udg57396_68x4" src="../images/udgs/udg57396_68x4.png" /></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
