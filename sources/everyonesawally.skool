@@ -1318,10 +1318,10 @@ t$7C15 DEFM "HARRY",$FF ; "#STR$7C15,$08($b==$FF)".
 
 ; Messaging: Wages
 @label=Messaging_Wages
-t$7C1B DEFB $FE,$43         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7C1B DEFB $FE,$43         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7C1D DEFM "TODAY'S WAGES" ; "TODAY'S WAGES".
  $7C2A DEFB $B8,$04
- $7C2C DEFB $FE,$46         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7C2C DEFB $FE,$46         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7C2E DEFM "WALLY'S PAY"   ; "WALLY'S PAY".
  $7C39 DEFB $BD,$03
  $7C3B DEFM "WILMA'S PAY"   ; "WILMA'S PAY".
@@ -1331,14 +1331,14 @@ t$7C1B DEFB $FE,$43         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7C53 DEFM "DICK'S PAY"    ; "DICK'S PAY".
  $7C5D DEFB $BE,$03
  $7C5F DEFM "HARRY'S PAY"   ; "HARRY'S PAY".
- $7C6A DEFB $FE,$43         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7C6A DEFB $FE,$43         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7C6C DEFB $BF,$04
  $7C6E DEFM "OVERALL"       ; "OVERALL".
  $7C75 DEFB $FF             ; Terminator.
 
 ; Messaging: Congratulations
 @label=Messaging_Congratulations
-t$7C76 DEFB $FE,$44                       ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7C76 DEFB $FE,$44                       ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7C78 DEFM "YOU CLEVER DICK  (PLUS TOM," ; "YOU CLEVER DICK  (PLUS TOM,".
  $7C93 DEFB $AD,$03
  $7C95 DEFM "HARRY, WILMA AND WALLY)."    ; "HARRY, WILMA AND WALLY).".
@@ -1358,7 +1358,7 @@ t$7C76 DEFB $FE,$44                       ; Attribute=#COLOUR(#PEEK(#PC+$01)).
 
 ; Messaging: Tough Luck
 @label=Messaging_ToughLuck
-t$7D48 DEFB $FE,$44                     ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7D48 DEFB $FE,$44                     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7D4A DEFM "TOUGH LUCK.  THE GANG HAS" ; "TOUGH LUCK.  THE GANG HAS".
  $7D63 DEFB $AF,$03
  $7D65 DEFM "EARNED"                    ; "EARNED".
@@ -1374,52 +1374,52 @@ t$7D48 DEFB $FE,$44                     ; Attribute=#COLOUR(#PEEK(#PC+$01)).
 
 ; Messaging: Splash Screen
 @label=Messaging_Splash
-t$7DC6 DEFB $FE,$42                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7DC6 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7DC8 DEFM "KEY:-"                  ; "KEY:-".
- $7DCD DEFB $FE,$46                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7DCD DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7DCF DEFM "   1.SINCLAIR JOYSTICK" ; "   1.SINCLAIR JOYSTICK".
  $7DE5 DEFB $AD,$07
- $7DE7 DEFB $FE,$42                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7DE7 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7DE9 DEFM "KEY:-"                  ; "KEY:-".
- $7DEE DEFB $FE,$46                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7DEE DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7DF0 DEFM "   2.KEMPSTON JOYSTICK" ; "   2.KEMPSTON JOYSTICK".
  $7E06 DEFB $AD,$07
- $7E08 DEFB $FE,$42                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E08 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E0A DEFM "KEY:-"                  ; "KEY:-".
- $7E0F DEFB $FE,$46                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E0F DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E11 DEFM "   3.KEYBOARD"          ; "   3.KEYBOARD".
  $7E1E DEFB $BA,$08
- $7E20 DEFB $FE,$45                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E20 DEFB $FE,$45                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E22 DEFM "PRESS KEY 4 TO START"   ; "PRESS KEY 4 TO START".
  $7E36 DEFB $FF                      ; Terminator.
 
 ; Messaging: Key
 @label=Messaging_Key
-t$7E37 DEFB $FE,$47     ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7E37 DEFB $FE,$47     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E39 DEFM "KEY:-",$FF ; "#STR$7E39,$08($b==$FF)".
-
-; Data block at 7E3F
-b$7E3F DEFB $FB,$DC,$DF
 
 ; Messaging: Character
 @label=Messaging_Character
-t$7E42 DEFB $FE,$44                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7E3F DEFB $FB                     ; {Sprite Bank:
+ $7E40 DEFW $DFDC                   ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
+ $7E42 DEFB $FE,$44                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E44 DEFM "CHARACTER:"            ; "CHARACTER:".
  $7E4E DEFB $BE,$02
- $7E50 DEFB $FE,$47                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E50 DEFB $FE,$47                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E52 DEFM "ENDURANCE:"            ; "ENDURANCE:".
  $7E5C DEFB $AE,$00
- $7E5E DEFB $FE,$47                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E5E DEFB $FE,$47                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E60 DEFM "  "                    ; "  " (whitespace).
  $7E62 DEFB $C6,$01,$20,$20,$C6,$01
- $7E68 DEFB $FB,$DC,$DF
- $7E6B DEFB $FE,$42                 ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+ $7E68 DEFB $FB                     ; {Sprite Bank:
+ $7E69 DEFW $DFDC                   ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
+ $7E6B DEFB $FE,$42                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E6D DEFB $FD,$20,$5B
  $7E70 DEFM $FF                     ; Terminator.
 
 ; Messaging: Tea Break
 @label=Messaging_TeaBreak
-t$7E71 DEFB $FE,$45                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7E71 DEFB $FE,$45                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E73 DEFB $CD,$0C
  $7E75 DEFM "HO HUM, TIME FOR A BUN" ; "HO HUM, TIME FOR A BUN".
  $7E8B DEFB $B4,$04
@@ -1428,7 +1428,8 @@ t$7E71 DEFB $FE,$45                  ; Attribute=#COLOUR(#PEEK(#PC+$01)).
 
 ; Messaging: Lunch Time
 @label=Messaging_LunchTime
-t$7E9F DEFB $FE,$43                        ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7E9F DEFB $FE,$43                        ; Attribute:
+                                           ; #COLOUR(#PEEK(#PC+$01)).
  $7EA1 DEFB $CA,$0C
  $7EA3 DEFM "RUBBA DUB DUB, TIME FOR GRUB" ; "RUBBA DUB DUB, TIME FOR GRUB".
  $7EBF DEFB $B5,$04
@@ -1437,7 +1438,8 @@ t$7E9F DEFB $FE,$43                        ; Attribute=#COLOUR(#PEEK(#PC+$01)).
 
 ; Messaging: Afternoon Tea Break
 @label=Messaging_AfternoonTeaBreak
-t$7ECC DEFB $FE,$46                        ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+t$7ECC DEFB $FE,$46                        ; Attribute:
+                                           ; #COLOUR(#PEEK(#PC+$01)).
  $7ECE DEFB $CA,$0C
  $7ED0 DEFM "FIDDLE DEE DEE, TIME FOR TEA" ; "FIDDLE DEE DEE, TIME FOR TEA".
  $7EEC DEFB $B1,$04
@@ -1445,15 +1447,20 @@ t$7ECC DEFB $FE,$46                        ; Attribute=#COLOUR(#PEEK(#PC+$01)).
  $7F01 DEFB $FF                            ; Terminator.
 
 ; Data block at 7F02
-b$7F02 DEFB $FE,$42                         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
- $7F04 DEFB $FB,$BC,$D7,$00,$01,$C6,$01,$02
- $7F0C DEFB $03,$DC
- $7F0E DEFB $FF                             ; Terminator.
- $7F0F DEFB $00,$01,$C6,$01,$02,$03,$FF,$FB
- $7F17 DEFB $DC,$DF
- $7F19 DEFB $FE,$46                         ; Attribute=#COLOUR(#PEEK(#PC+$01)).
+b$7F02 DEFB $FE,$42                     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
+ $7F04 DEFB $FB                         ; {Sprite Bank:
+ $7F05 DEFW $D7BC                       ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+                                        ; }
+ $7F07 DEFB $00,$01,$C6,$01,$02,$03,$DC
+ $7F0E DEFB $FF                         ; Terminator.
+ $7F0F DEFB $00,$01,$C6,$01,$02,$03
+ $7F15 DEFB $FF                         ; Terminator.
+ $7F16 DEFB $FB                         ; {Sprite Bank:
+ $7F17 DEFW $DFDC                       ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+                                        ; }
+ $7F19 DEFB $FE,$46                     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7F1B DEFB $FD,$04,$20
- $7F1E DEFB $FF                             ; Terminator.
+ $7F1E DEFB $FF                         ; Terminator.
 
 ; Messaging: The Town Square
 @label=Messaging_TownSquare
@@ -5294,11 +5301,11 @@ c$B82B PUSH HL       ; Stash #REGhl on the stack.
  $B849 POP HL        ; Restore #REGhl from the stack.
  $B84A RET           ; Return.
 
-; Handler: Sprite Controller
+; Handler: Graphics Controller
 ;
-; Used by the routines at #R$B34B, #R$B82B, #R$B952, #R$BA66, #R$E3FD, #R$E41D
-; and #R$ED2A.
-@label=Handler_SpriteController
+; Used by the routines at #R$B34B, #R$B82B, #R$B952, #R$BA66, #R$BAB3, #R$E3FD,
+; #R$E41D and #R$ED2A.
+@label=Controller_Tile
 c$B84B LD A,(HL)     ; #REGa=*#REGhl.
  $B84C INC HL        ; Increment #REGhl by one.
  $B84D CP $80        ; {If #REGa is lower than #N$80, jump to #R$B8BD.
@@ -5313,10 +5320,10 @@ c$B84B LD A,(HL)     ; #REGa=*#REGhl.
  $B858 LD C,(HL)     ; #REGc=*#REGhl (set the attribute).
  $B859 INC HL        ; Increment #REGhl by one.
  $B85A JR $B84B      ; Jump to #R$B84B.
-@label=Handler_SpriteController_NotAttribute
+; If the value is between #N$A8-#N$E8 then it is screen co-ordinates.
+@label=Controller_Tile_Screen_Instructions
 *$B85C CP $A8        ; {If #REGa is lower than #N$A8, jump to #R$B8BD.
  $B85E JR C,$B8BD    ; }
-; If the value is between #N$A8-#N$E8 then it is screen co-ordinates.
  $B860 CP $E8        ; {If #REGa is higher than #N$E8, jump to #R$B86E.
  $B862 JR NC,$B86E   ; }
 ; Remove the control number, then we're left with the desired screen
@@ -5329,6 +5336,9 @@ c$B84B LD A,(HL)     ; #REGa=*#REGhl.
  $B86A LD D,A        ; }
  $B86B INC HL        ; Increment #REGhl by one.
  $B86C JR $B84B      ; Jump to #R$B84B.
+; Check for the #N$FB control character. This signifies that the following two
+; bytes should be set as the sprite bank address.
+@label=Controller_Tile_Bank
 *$B86E CP $FB        ; {If #REGa is not #N$FB, jump to #R$B87E.
  $B870 JR NZ,$B87E   ; }
  $B872 LD A,(HL)     ; {Write *#REGhl to #R$B7E8(#N$B7E9).
@@ -5338,27 +5348,39 @@ c$B84B LD A,(HL)     ; #REGa=*#REGhl.
  $B878 LD ($B7EA),A  ; }
  $B87B INC HL        ; Increment #REGhl by one.
  $B87C JR $B84B      ; Jump to #R$B84B.
-*$B87E CP $F1        ;
- $B880 JR Z,$B8C0    ;
- $B882 CP $F3        ;
- $B884 JR NZ,$B88C   ;
- $B886 LD A,(HL)     ;
- $B887 INC HL        ;
- $B888 LD H,(HL)     ;
- $B889 LD L,A        ;
+; Check for the #N$F1 control character. This signifies that the screen
+; location should move down one block.
+@label=Controller_Tile_Check_Move_Down
+*$B87E CP $F1        ; {If #REGa is #N$F1, jump to #R$B8C0.
+ $B880 JR Z,$B8C0    ; }
+; Check for the #N$F3 control character. This alters the current message
+; pointer (#REGhl).
+ $B882 CP $F3        ; {If #REGa is not #N$F3, jump to #R$B88C.
+ $B884 JR NZ,$B88C   ; }
+ $B886 LD A,(HL)     ; #REGa=*#REGhl.
+ $B887 INC HL        ; Increment #REGhl by one.
+ $B888 LD H,(HL)     ; #REGh=*#REGhl.
+ $B889 LD L,A        ; #REGl=#REGa.
  $B88A JR $B84B      ; Jump to #R$B84B.
-*$B88C LD B,(HL)     ;
- $B88D INC HL        ;
- $B88E CP $F0        ;
- $B890 JR NZ,$B89C   ;
- $B892 LD A,(HL)     ;
- $B893 INC HL        ;
+; Anything from here involves repetition.
+@label=Controller_Tile_Repeaters
+*$B88C LD B,(HL)     ; #REGb=*#REGhl (counter).
+ $B88D INC HL        ; Increment #REGhl by one.
+; Check for the #N$F0 control character.
+; Tile sprite to the screen vertically, the number of times indicated in #REGb.
+ $B88E CP $F0        ; {If #REGa is not #N$F0, jump to #R$B89C.
+ $B890 JR NZ,$B89C   ; }
+ $B892 LD A,(HL)     ; #REGa=*#REGhl.
+ $B893 INC HL        ; Increment #REGhl by one.
+@label=Controller_Tile_Vertical_Loop
 *$B894 CALL $B7BA    ; Call #R$B7BA.
  $B897 INC D         ; Increment #REGd by one.
- $B898 DJNZ $B894    ;
+ $B898 DJNZ $B894    ; Decrease counter by one and loop back to #R$B894 until
+                     ; counter is zero.
  $B89A JR $B84B      ; Jump to #R$B84B.
-*$B89C CP $F2        ;
- $B89E JR NZ,$B8B2   ;
+; Check for the #N$F2 control character.
+*$B89C CP $F2        ; {If #REGa is not #N$F2, jump to #R$B8B2.
+ $B89E JR NZ,$B8B2   ; }
 *$B8A0 LD A,(HL)     ;
  $B8A1 INC HL        ;
  $B8A2 CALL $B7BA    ;
@@ -5371,13 +5393,22 @@ c$B84B LD A,(HL)     ; #REGa=*#REGhl.
  $B8AE INC HL        ;
  $B8AF INC HL        ;
  $B8B0 JR $B84B      ; Jump to #R$B84B.
-*$B8B2 LD A,(HL)     ;
- $B8B3 INC HL        ;
-*$B8B4 CALL $B7BA    ;
- $B8B7 INC E         ;
- $B8B8 DJNZ $B8B4    ;
+; Tile sprite to the screen horizontally, the number of times indicated in
+; #REGb.
+@label=Controller_Tile_Horizontal
+*$B8B2 LD A,(HL)     ; #REGa=*#REGhl.
+ $B8B3 INC HL        ; Increment #REGhl by one.
+@label=Controller_Tile_Horizontal_Loop
+*$B8B4 CALL $B7BA    ; Call #R$B7BA.
+; Move to the next screen buffer column.
+ $B8B7 INC E         ; Increment #REGe by one.
+ $B8B8 DJNZ $B8B4    ; Decrease counter by one and loop back to #R$B8B4 until
+                     ; counter is zero.
  $B8BA JP $B84B      ; Jump to #R$B84B.
+; Draw a tile, and move the screen position down one character block.
+@label=Controller_Tile_Draw_Move_Down
 *$B8BD CALL $B7BA    ; Call #R$B7BA.
+@label=Controller_Tile_Move_Down
 *$B8C0 INC E         ; Increment #REGe by one.
  $B8C1 JP $B84B      ; Jump to #R$B84B.
 
@@ -5700,28 +5731,34 @@ c$BA66 JR NZ,$BAB1   ;
  $BAAD LD A,$1E      ;
  $BAAF LD ($BAB3),A  ;
  $BAB2 RET           ;
- $BAB3 NOP           ;
-; This entry point is used by the routines at #R$81AE and #R$ED2A.
-*$BAB4 LD HL,$BAB3   ;
- $BAB7 LD A,(HL)     ;
- $BAB8 OR A          ;
- $BAB9 RET Z         ;
- $BABA DEC (HL)      ;
- $BABB RET NZ        ;
- $BABC LD C,$42      ;
- $BABE LD HL,$DFDC   ;
- $BAC1 LD ($B7E9),HL ;
- $BAC4 LD DE,$0400   ;
- $BAC7 LD HL,$7E68   ;
- $BACA CALL $B84B    ;
- $BACD RET           ;
-*$BACE LD B,$00      ;
-*$BAD0 LD A,(HL)     ;
- $BAD1 CP $FF        ;
- $BAD3 RET Z         ;
- $BAD4 INC B         ;
- $BAD5 INC HL        ;
- $BAD6 JR $BAD0      ;
+
+; Routine at BAB3
+c$BAB3 DEFB $00      ;
+; This entry point is used by the routines at #R$81AE, #R$BA66 and #R$ED2A.
+*$BAB4 LD HL,$BAB3   ; #REGhl=#R$BAB3.
+ $BAB7 LD A,(HL)     ; #REGa=*#REGhl.
+ $BAB8 OR A          ; {Return if #REGa is zero.
+ $BAB9 RET Z         ; }
+ $BABA DEC (HL)      ; Decrease *#REGhl by one.
+ $BABB RET NZ        ; Return if the result is not zero.
+ $BABC LD C,$42      ; #REGc=#N$42.
+ $BABE LD HL,$DFDC   ; {Write #R$DFDC to #R$B7E8(#N$B7E9).
+ $BAC1 LD ($B7E9),HL ; }
+ $BAC4 LD DE,$0400   ; #REGde=#N$0400.
+ $BAC7 LD HL,$7E68   ; #REGhl=#R$7E68.
+ $BACA CALL $B84B    ; Call #R$B84B.
+ $BACD RET           ; Return.
+
+; Routine at BACE
+;
+; Used by the routine at #R$BA66.
+c$BACE LD B,$00      ; #REGb=#N$00.
+*$BAD0 LD A,(HL)     ; #REGa=*#REGhl.
+ $BAD1 CP $FF        ; {If #REGa is #N$FF then return.
+ $BAD3 RET Z         ; }
+ $BAD4 INC B         ; Increment #REGb by one.
+ $BAD5 INC HL        ; Increment #REGhl by one.
+ $BAD6 JR $BAD0      ; Jump to #R$BAD0.
 
 ; Routine at BAD8
 ;
@@ -6183,7 +6220,7 @@ b$BD86 DEFW $C352    ; Sprite ID:
 @label=graphic_0
 b$BE72 DEFB $FB,$EC,$DF                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BE75 DEFB $FE,$46                         ; Attribute=#COLOUR(#PC+$01)
+ $BE75 DEFB $FE,$46                         ; Attribute: #COLOUR(#PC+$01)
  $BE77 DEFB $09
  $BE78 DEFB $09
  $BE79 DEFB $F1
@@ -6197,7 +6234,7 @@ b$BE72 DEFB $FB,$EC,$DF                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_1
 b$BE8F DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BE92 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $BE92 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $BE94 DEFB $07
  $BE95 DEFB $FD
  $BE96 DEFB $17
@@ -6236,7 +6273,7 @@ b$BE8F DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $BEB9 DEFB $B0
  $BEBA DEFB $01
  $BEBB DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BEBE DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $BEBE DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $BEC0 DEFB $00
  $BEC1 DEFB $01
  $BEC2 DEFB $01
@@ -6268,7 +6305,7 @@ b$BE8F DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_2
 b$BEDA DEFB $FB,$D4,$DD                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BEDD DEFB $FE,$43                         ; Attribute=#COLOUR(#PC+$01)
+ $BEDD DEFB $FE,$43                         ; Attribute: #COLOUR(#PC+$01)
  $BEDF DEFB $F0
  $BEE0 DEFB $01
  $BEE1 DEFB $00
@@ -6282,14 +6319,14 @@ b$BEDA DEFB $FB,$D4,$DD                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_3
 b$BF03 DEFB $FB,$D4,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BF06 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $BF06 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $BF08 DEFB $FD
  $BF09 DEFB $06
  $BF0A DEFB $03
  $BF0B DEFB $C2
  $BF0C DEFB $01
  $BF0D DEFB $FB,$BC,$D1 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BF10 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $BF10 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $BF12 DEFB $00
  $BF13 DEFB $01
  $BF14 DEFB $02
@@ -6301,12 +6338,12 @@ b$BF03 DEFB $FB,$D4,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_4
 b$BF19 DEFB $FB,$D4,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BF1C DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $BF1C DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $BF1E DEFB $06
  $BF1F DEFB $07
  $BF20 DEFB $C6
  $BF21 DEFB $01
- $BF22 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $BF22 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $BF24 DEFB $04
  $BF25 DEFB $05
  $BF26 DEFB $FF         ; Terminator.
@@ -6315,7 +6352,7 @@ b$BF19 DEFB $FB,$D4,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_5
 b$BF27 DEFB $FB,$54,$DD                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BF2A DEFB $FE,$45                         ; Attribute=#COLOUR(#PC+$01)
+ $BF2A DEFB $FE,$45                         ; Attribute: #COLOUR(#PC+$01)
  $BF2C DEFB $F0
  $BF2D DEFB $03
  $BF2E DEFB $0A
@@ -6339,7 +6376,7 @@ b$BF27 DEFB $FB,$54,$DD                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_6
 b$BF81 DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BF84 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $BF84 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $BF86 DEFB $F0
  $BF87 DEFB $01
  $BF88 DEFB $06
@@ -6372,7 +6409,7 @@ b$BF81 DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 b$BFA4 DEFB $FB,$EC,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $BFA7 DEFB $C8
  $BFA8 DEFB $03
- $BFA9 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $BFA9 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $BFAB DEFB $00
  $BFAC DEFB $01
  $BFAD DEFB $C6
@@ -6384,7 +6421,7 @@ b$BFA4 DEFB $FB,$EC,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_8
 b$BFB2 DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BFB5 DEFB $FE,$28     ; Attribute=#COLOUR(#PC+$01)
+ $BFB5 DEFB $FE,$28     ; Attribute: #COLOUR(#PC+$01)
  $BFB7 DEFB $00
  $BFB8 DEFB $08
  $BFB9 DEFB $C6
@@ -6424,7 +6461,7 @@ b$BFB2 DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_9
 b$BFDA DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BFDD DEFB $FE,$50     ; Attribute=#COLOUR(#PC+$01)
+ $BFDD DEFB $FE,$50     ; Attribute: #COLOUR(#PC+$01)
  $BFDF DEFB $F3
  $BFE0 DEFB $C7
  $BFE1 DEFB $BF
@@ -6432,7 +6469,7 @@ b$BFDA DEFB $FB,$0C,$DD ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_10
 b$BFE2 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $BFE5 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $BFE5 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $BFE7 DEFB $0F
  $BFE8 DEFB $11
  $BFE9 DEFB $12
@@ -6449,7 +6486,7 @@ b$BFE2 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $BFF4 DEFB $18
  $BFF5 DEFB $C5
  $BFF6 DEFB $01
- $BFF7 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $BFF7 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $BFF9 DEFB $02
  $BFFA DEFB $01
  $BFFB DEFB $01
@@ -6460,7 +6497,7 @@ b$BFE2 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_11
 b$BFFE DEFB $FB,$E4,$D9                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C001 DEFB $FE,$79                         ; Attribute=#COLOUR(#PC+$01)
+ $C001 DEFB $FE,$79                         ; Attribute: #COLOUR(#PC+$01)
  $C003 DEFB $FD
  $C004 DEFB $10
  $C005 DEFB $09
@@ -6478,7 +6515,7 @@ b$BFFE DEFB $FB,$E4,$D9                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_12
 b$C026 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C029 DEFB $FE,$4E     ; Attribute=#COLOUR(#PC+$01)
+ $C029 DEFB $FE,$4E     ; Attribute: #COLOUR(#PC+$01)
  $C02B DEFB $FD
  $C02C DEFB $18
  $C02D DEFB $20
@@ -6498,7 +6535,7 @@ b$C026 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_13
 b$C03C DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C03F DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C03F DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C041 DEFB $00
  $C042 DEFB $01
  $C043 DEFB $02
@@ -6507,7 +6544,7 @@ b$C03C DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_14
 b$C045 DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C048 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C048 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C04A DEFB $03
  $C04B DEFB $04
  $C04C DEFB $05
@@ -6518,7 +6555,7 @@ b$C045 DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_15
 b$C050 DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C053 DEFB $FE,$60     ; Attribute=#COLOUR(#PC+$01)
+ $C053 DEFB $FE,$60     ; Attribute: #COLOUR(#PC+$01)
  $C055 DEFB $10
  $C056 DEFB $11
  $C057 DEFB $12
@@ -6529,7 +6566,7 @@ b$C050 DEFB $FB,$14,$DE ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_16
 b$C05A DEFB $FB,$14,$DE                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C05D DEFB $FE,$4F                         ; Attribute=#COLOUR(#PC+$01)
+ $C05D DEFB $FE,$4F                         ; Attribute: #COLOUR(#PC+$01)
  $C05F DEFB $14
  $C060 DEFB $15
  $C061 DEFB $16
@@ -6560,7 +6597,7 @@ b$C05A DEFB $FB,$14,$DE                     ; Screen co-ordinates:
 @label=graphic_17
 b$C082 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C085 DEFB $FE,$57                         ; Attribute=#COLOUR(#PC+$01)
+ $C085 DEFB $FE,$57                         ; Attribute: #COLOUR(#PC+$01)
  $C087 DEFB $FD
  $C088 DEFB $07
  $C089 DEFB $20
@@ -6584,7 +6621,7 @@ b$C082 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
 b$C0A0 DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C0A3 DEFB $C8
  $C0A4 DEFB $03
- $C0A5 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C0A5 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C0A7 DEFB $10
  $C0A8 DEFB $11
  $C0A9 DEFB $FF         ; Terminator.
@@ -6592,12 +6629,12 @@ b$C0A0 DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_19
 b$C0AA DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C0AD DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C0AD DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C0AF DEFB $06
  $C0B0 DEFB $08
  $C0B1 DEFB $C6
  $C0B2 DEFB $01
- $C0B3 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C0B3 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $C0B5 DEFB $0E
  $C0B6 DEFB $0F
  $C0B7 DEFB $FF         ; Terminator.
@@ -6605,7 +6642,7 @@ b$C0AA DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_20
 b$C0B8 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C0BB DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C0BB DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C0BD DEFB $F2
  $C0BE DEFB $08
  $C0BF DEFB $07
@@ -6633,7 +6670,7 @@ b$C0B8 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_21
 b$C0D4 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C0D7 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C0D7 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C0D9 DEFB $F3
  $C0DA DEFB $D9
  $C0DB DEFB $CA
@@ -6644,7 +6681,7 @@ b$C0DC DEFB $FB,$AC,$DF                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C0DF DEFB $C8
  $C0E0 DEFB $03
- $C0E1 DEFB $FE,$42                         ; Attribute=#COLOUR(#PC+$01)
+ $C0E1 DEFB $FE,$42                         ; Attribute: #COLOUR(#PC+$01)
  $C0E3 DEFB $01
  $C0E4 DEFB $03
  $C0E5 DEFB $01
@@ -6656,7 +6693,7 @@ b$C0DC DEFB $FB,$AC,$DF                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_23
 b$C0F1 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C0F4 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C0F4 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C0F6 DEFB $F0
  $C0F7 DEFB $09
  $C0F8 DEFB $0A
@@ -6666,7 +6703,7 @@ b$C0F1 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C0FC DEFB $C7
  $C0FD DEFB $02
  $C0FE DEFB $0B
- $C0FF DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C0FF DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C101 DEFB $C2
  $C102 DEFB $FC
  $C103 DEFB $05
@@ -6680,7 +6717,7 @@ b$C0F1 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C10B DEFB $08
  $C10C DEFB $07
  $C10D DEFB $F1
- $C10E DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C10E DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C110 DEFB $00
  $C111 DEFB $0D
  $C112 DEFB $0E
@@ -6705,7 +6742,7 @@ b$C0F1 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C125 DEFB $0C
  $C126 DEFB $C1
  $C127 DEFB $01
- $C128 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C128 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C12A DEFB $01
  $C12B DEFB $02
  $C12C DEFB $01
@@ -6719,7 +6756,7 @@ b$C0F1 DEFB $FB,$24,$DC ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_24
 b$C132 DEFB $FB,$AC,$DB                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C135 DEFB $FE,$45                         ; Attribute=#COLOUR(#PC+$01)
+ $C135 DEFB $FE,$45                         ; Attribute: #COLOUR(#PC+$01)
  $C137 DEFB $00
  $C138 DEFB $0C
  $C139 DEFB $C6
@@ -6759,7 +6796,7 @@ b$C132 DEFB $FB,$AC,$DB                     ; Screen co-ordinates:
 @label=graphic_25
 b$C19D DEFB $FB,$AC,$DB                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C1A0 DEFB $FE,$07                         ; Attribute=#COLOUR(#PC+$01)
+ $C1A0 DEFB $FE,$07                         ; Attribute: #COLOUR(#PC+$01)
  $C1A2 DEFB $00
  $C1A3 DEFB $0C
  $C1A4 DEFB $C6
@@ -6854,15 +6891,15 @@ b$C19D DEFB $FB,$AC,$DB                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_26
 b$C20A DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C20D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C20D DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C20F DEFB $F0
  $C210 DEFB $01
  $C211 DEFB $00
- $C212 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C212 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C214 DEFB $F0
  $C215 DEFB $01
  $C216 DEFB $01
- $C217 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C217 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $C219 DEFB $02
  $C21A DEFB $C6
  $C21B DEFB $01
@@ -6874,9 +6911,9 @@ b$C20A DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_27
 b$C220 DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C223 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C223 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C225 DEFB $0D
- $C226 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C226 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C228 DEFB $C6
  $C229 DEFB $01
  $C22A DEFB $0B
@@ -6884,13 +6921,13 @@ b$C220 DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C22C DEFB $0C
  $C22D DEFB $C5
  $C22E DEFB $01
- $C22F DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C22F DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C231 DEFB $09
  $C232 DEFB $F1
  $C233 DEFB $0A
  $C234 DEFB $C5
  $C235 DEFB $01
- $C236 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C236 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C238 DEFB $06
  $C239 DEFB $07
  $C23A DEFB $08
@@ -6899,12 +6936,12 @@ b$C220 DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_28
 b$C23C DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C23F DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C23F DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C241 DEFB $0D
  $C242 DEFB $F0
  $C243 DEFB $01
  $C244 DEFB $0E
- $C245 DEFB $FE,$07     ; Attribute=#COLOUR(#PC+$01)
+ $C245 DEFB $FE,$07     ; Attribute: #COLOUR(#PC+$01)
  $C247 DEFB $F0
  $C248 DEFB $0A
  $C249 DEFB $10
@@ -6913,7 +6950,7 @@ b$C23C DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C24C DEFB $F0
  $C24D DEFB $0A
  $C24E DEFB $0F
- $C24F DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C24F DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C251 DEFB $0B
  $C252 DEFB $0C
  $C253 DEFB $FF         ; Terminator.
@@ -6921,25 +6958,25 @@ b$C23C DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_29
 b$C254 DEFB $FB,$BC,$D1 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C257 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C257 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C259 DEFB $03
- $C25A DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C25A DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C25C DEFB $04
- $C25D DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C25D DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $C25F DEFB $05
- $C260 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C260 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C262 DEFB $03
- $C263 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C263 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C265 DEFB $04
- $C266 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C266 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C268 DEFB $05
- $C269 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C269 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C26B DEFB $05
- $C26C DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C26C DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C26E DEFB $03
  $C26F DEFB $C0
  $C270 DEFB $01
- $C271 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C271 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C273 DEFB $00
  $C274 DEFB $01
  $C275 DEFB $02
@@ -6953,13 +6990,13 @@ b$C254 DEFB $FB,$BC,$D1 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_30
 b$C27C DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C27F DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C27F DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C281 DEFB $09
  $C282 DEFB $0A
  $C283 DEFB $C6
  $C284 DEFB $01
  $C285 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C288 DEFB $FE,$72     ; Attribute=#COLOUR(#PC+$01)
+ $C288 DEFB $FE,$72     ; Attribute: #COLOUR(#PC+$01)
  $C28A DEFB $00
  $C28B DEFB $00
  $C28C DEFB $C6
@@ -6971,7 +7008,7 @@ b$C27C DEFB $FB,$2C,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_31
 b$C291 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C294 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C294 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C296 DEFB $FD
  $C297 DEFB $20
  $C298 DEFB $07
@@ -6980,7 +7017,7 @@ b$C291 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_32
 b$C29A DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C29D DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C29D DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C29F DEFB $11
  $C2A0 DEFB $12
  $C2A1 DEFB $13
@@ -6994,7 +7031,7 @@ b$C29A DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_33
 b$C2A8 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C2AB DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C2AB DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C2AD DEFB $13
  $C2AE DEFB $FD
  $C2AF DEFB $16
@@ -7069,7 +7106,7 @@ b$C2A8 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C2FA DEFB $18
  $C2FB DEFB $B1
  $C2FC DEFB $01
- $C2FD DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C2FD DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C2FF DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C302 DEFB $07
  $C303 DEFB $FD
@@ -7082,7 +7119,7 @@ b$C2A8 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C30A DEFB $02
  $C30B DEFB $03
  $C30C DEFB $AD
- $C30D DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $C30D DEFB $FE,$F0     ; Attribute: #COLOUR(#PC+$01)
  $C30F DEFB $02
  $C310 DEFB $04
  $C311 DEFB $FF         ; Terminator.
@@ -7092,7 +7129,7 @@ b$C2A8 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 b$C312 DEFB $FB,$E4,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C315 DEFB $C8
  $C316 DEFB $03
- $C317 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C317 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C319 DEFB $02
  $C31A DEFB $0B
  $C31B DEFB $03
@@ -7123,48 +7160,50 @@ b$C312 DEFB $FB,$E4,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 
 ; Graphic ID
 @label=graphic_35
-b$C334 DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C337 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+b$C334 DEFB $FB,$BC,$D6 ; Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+ $C337 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C339 DEFB $F0
  $C33A DEFB $01
  $C33B DEFB $02
  $C33C DEFB $F0
  $C33D DEFB $07
  $C33E DEFB $09
- $C33F DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
- $C341 DEFB $FB,$BC,$D1 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C344 DEFB $01
- $C345 DEFB $02
+ $C33F DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
+ $C341 DEFB $FB,$BC,$D1 ; Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+ $C344 DEFB $01         ; Tile sprite: #N(#PEEK(#PC)).
+ $C345 DEFB $02         ; Tile sprite: #N(#PEEK(#PC)).
  $C346 DEFB $FF         ; Terminator.
 
-; Graphic ID
+; Graphic ID 36
 @label=graphic_36
-b$C347 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C34A DEFB $C8
- $C34B DEFB $03
- $C34C DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
- $C34E DEFB $FD
- $C34F DEFB $17
- $C350 DEFB $0F
+b$C347 DEFB $FB,$EC,$DF ; Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+ $C34A DEFB $C8,$03     ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $C34C DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
+ $C34E DEFB $FD,$17,$0F ; Tile sprite #N(#PEEK(#PC+$02)) x #N(#PEEK(#PC+$01))
+                        ; times.
  $C351 DEFB $FF         ; Terminator.
+; #UDGTABLE(centre)
+; { #FOR$00,$17,,4(n,#UDG($E064,attr=$45)) }
+; UDGTABLE#
 
-; Graphic ID
+; Graphic ID 37
 @label=graphic_37
-b$C352 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C355 DEFB $C8
- $C356 DEFB $03
- $C357 DEFB $FE,$05     ; Attribute=#COLOUR(#PC+$01)
- $C359 DEFB $FD
- $C35A DEFB $20
- $C35B DEFB $00
+b$C352 DEFB $FB,$EC,$DF ; Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+ $C355 DEFB $C8,$03     ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $C357 DEFB $FE,$05     ; Attribute: #COLOUR(#PC+$01)
+ $C359 DEFB $FD,$20,$00 ; Tile sprite #N(#PEEK(#PC+$02)) horizontally
+                        ; #N(#PEEK(#PC+$01)) times.
  $C35C DEFB $FF         ; Terminator.
+; #UDGTABLE(centre)
+; { #FOR$00,$20,,4(n,#UDG($DFEC,attr=$05)) }
+; UDGTABLE#
 
 ; Graphic ID
 @label=graphic_38
 b$C35D DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C360 DEFB $C8
  $C361 DEFB $03
- $C362 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C362 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C364 DEFB $F2
  $C365 DEFB $10
  $C366 DEFB $05
@@ -7174,7 +7213,7 @@ b$C35D DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_39
 b$C369 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C36C DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C36C DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C36E DEFB $F0
  $C36F DEFB $01
  $C370 DEFB $00
@@ -7193,7 +7232,7 @@ b$C369 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_40
 b$C37C DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C37F DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C37F DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C381 DEFB $01
  $C382 DEFB $02
  $C383 DEFB $01
@@ -7210,70 +7249,70 @@ b$C37C DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C38E DEFB $05
  $C38F DEFB $C1
  $C390 DEFB $01
- $C391 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C391 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C393 DEFB $FD
  $C394 DEFB $04
  $C395 DEFB $00
  $C396 DEFB $03
- $C397 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C397 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C399 DEFB $04
  $C39A DEFB $07
  $C39B DEFB $05
  $C39C DEFB $C5
  $C39D DEFB $01
- $C39E DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C39E DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3A0 DEFB $03
  $C3A1 DEFB $F1
- $C3A2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3A2 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3A4 DEFB $06
  $C3A5 DEFB $05
  $C3A6 DEFB $C5
  $C3A7 DEFB $01
- $C3A8 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3A8 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3AA DEFB $03
- $C3AB DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3AB DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3AD DEFB $04
  $C3AE DEFB $07
  $C3AF DEFB $05
  $C3B0 DEFB $C5
  $C3B1 DEFB $01
- $C3B2 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3B2 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3B4 DEFB $03
  $C3B5 DEFB $F1
- $C3B6 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3B6 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3B8 DEFB $06
  $C3B9 DEFB $05
  $C3BA DEFB $C5
  $C3BB DEFB $01
- $C3BC DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3BC DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3BE DEFB $03
- $C3BF DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3BF DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3C1 DEFB $04
  $C3C2 DEFB $07
  $C3C3 DEFB $05
  $C3C4 DEFB $C5
  $C3C5 DEFB $01
- $C3C6 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3C6 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3C8 DEFB $03
  $C3C9 DEFB $F1
- $C3CA DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3CA DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3CC DEFB $06
  $C3CD DEFB $C6
  $C3CE DEFB $01
- $C3CF DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3CF DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3D1 DEFB $03
- $C3D2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3D2 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3D4 DEFB $F0
  $C3D5 DEFB $01
  $C3D6 DEFB $04
- $C3D7 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3D7 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3D9 DEFB $03
  $C3DA DEFB $FF         ; Terminator.
 
 ; Graphic ID
 @label=graphic_41
 b$C3DB DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C3DE DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3DE DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3E0 DEFB $08
  $C3E1 DEFB $01
  $C3E2 DEFB $02
@@ -7293,56 +7332,56 @@ b$C3DB DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C3F0 DEFB $08
  $C3F1 DEFB $0B
  $C3F2 DEFB $04
- $C3F3 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C3F3 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C3F5 DEFB $09
  $C3F6 DEFB $FD
  $C3F7 DEFB $04
  $C3F8 DEFB $0C
- $C3F9 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C3F9 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C3FB DEFB $BF
  $C3FC DEFB $01
  $C3FD DEFB $08
  $C3FE DEFB $0A
  $C3FF DEFB $F1
- $C400 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C400 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C402 DEFB $09
- $C403 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C403 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C405 DEFB $C3
  $C406 DEFB $01
  $C407 DEFB $08
  $C408 DEFB $0B
  $C409 DEFB $04
- $C40A DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C40A DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C40C DEFB $09
- $C40D DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C40D DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C40F DEFB $C3
  $C410 DEFB $01
  $C411 DEFB $08
  $C412 DEFB $0A
  $C413 DEFB $F1
- $C414 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C414 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C416 DEFB $09
- $C417 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C417 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C419 DEFB $C3
  $C41A DEFB $01
  $C41B DEFB $08
  $C41C DEFB $0B
  $C41D DEFB $04
- $C41E DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C41E DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C420 DEFB $09
- $C421 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C421 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C423 DEFB $C4
  $C424 DEFB $01
  $C425 DEFB $0A
  $C426 DEFB $C9
  $C427 DEFB $00
- $C428 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C428 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C42A DEFB $09
  $C42B DEFB $C5
  $C42C DEFB $01
- $C42D DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C42D DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C42F DEFB $04
- $C430 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C430 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C432 DEFB $09
  $C433 DEFB $C6
  $C434 DEFB $01
@@ -7352,13 +7391,13 @@ b$C3DB DEFB $FB,$6C,$E0 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_42
 b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C43A DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C43A DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C43C DEFB $06
- $C43D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C43D DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C43F DEFB $FD
  $C440 DEFB $08
  $C441 DEFB $0A
- $C442 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C442 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C444 DEFB $07
  $C445 DEFB $06
  $C446 DEFB $07
@@ -7375,11 +7414,11 @@ b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C451 DEFB $BF
  $C452 DEFB $01
  $C453 DEFB $09
- $C454 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C454 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C456 DEFB $FD
  $C457 DEFB $06
  $C458 DEFB $0A
- $C459 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C459 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C45B DEFB $07
  $C45C DEFB $04
  $C45D DEFB $BF
@@ -7393,11 +7432,11 @@ b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C465 DEFB $BF
  $C466 DEFB $01
  $C467 DEFB $09
- $C468 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C468 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C46A DEFB $FD
  $C46B DEFB $06
  $C46C DEFB $0A
- $C46D DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C46D DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C46F DEFB $07
  $C470 DEFB $04
  $C471 DEFB $BF
@@ -7411,11 +7450,11 @@ b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C479 DEFB $BF
  $C47A DEFB $01
  $C47B DEFB $09
- $C47C DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C47C DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $C47E DEFB $FD
  $C47F DEFB $06
  $C480 DEFB $0A
- $C481 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C481 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C483 DEFB $07
  $C484 DEFB $04
  $C485 DEFB $BF
@@ -7429,11 +7468,11 @@ b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C48D DEFB $BF
  $C48E DEFB $01
  $C48F DEFB $09
- $C490 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C490 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C492 DEFB $FD
  $C493 DEFB $06
  $C494 DEFB $0A
- $C495 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C495 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C497 DEFB $05
  $C498 DEFB $08
  $C499 DEFB $09
@@ -7444,7 +7483,7 @@ b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C49E DEFB $07
  $C49F DEFB $04
  $C4A0 DEFB $C9
- $C4A1 DEFB $FE,$09     ; Attribute=#COLOUR(#PC+$01)
+ $C4A1 DEFB $FE,$09     ; Attribute: #COLOUR(#PC+$01)
  $C4A3 DEFB $05
  $C4A4 DEFB $07
  $C4A5 DEFB $C3
@@ -7462,18 +7501,18 @@ b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C4B5 DEFB $F0
  $C4B6 DEFB $01
  $C4B7 DEFB $04
- $C4B8 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C4B8 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C4BA DEFB $F0
  $C4BB DEFB $02
  $C4BC DEFB $0B
- $C4BD DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C4BD DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C4BF DEFB $04
  $C4C0 DEFB $C6
  $C4C1 DEFB $01
- $C4C2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C4C2 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C4C4 DEFB $02
  $C4C5 DEFB $03
- $C4C6 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C4C6 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C4C8 DEFB $C6
  $C4C9 DEFB $01
  $C4CA DEFB $00
@@ -7484,7 +7523,7 @@ b$C437 DEFB $FB,$44,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_43
 b$C4CD DEFB $FB,$BC,$D1                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C4D0 DEFB $FE,$43                         ; Attribute=#COLOUR(#PC+$01)
+ $C4D0 DEFB $FE,$43                         ; Attribute: #COLOUR(#PC+$01)
  $C4D2 DEFB $00
  $C4D3 DEFB $01
  $C4D4 DEFB $02
@@ -7508,7 +7547,7 @@ b$C4CD DEFB $FB,$BC,$D1                     ; Screen co-ordinates:
  $C4E6 DEFB $00
  $C4E7 DEFB $01
  $C4E8 DEFB $B3
- $C4E9 DEFB $FE,$FE                         ; Attribute=#COLOUR(#PC+$01)
+ $C4E9 DEFB $FE,$FE                         ; Attribute: #COLOUR(#PC+$01)
  $C4EB DEFB $45
  $C4EC DEFB $F0
  $C4ED DEFB $01
@@ -7537,7 +7576,7 @@ b$C4CD DEFB $FB,$BC,$D1                     ; Screen co-ordinates:
 b$C56B DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C56E DEFB $C8
  $C56F DEFB $03
- $C570 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C570 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C572 DEFB $01
  $C573 DEFB $02
  $C574 DEFB $03
@@ -7547,16 +7586,15 @@ b$C56B DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_45
 b$C577 DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C57A DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
- $C57C DEFB $F0
- $C57D DEFB $0C
- $C57E DEFB $04
+ $C57A DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
+ $C57C DEFB $F0,$0C,$04 ; Tile sprite #N(#PEEK(#PC+$02)) vertically
+                        ; #N(#PEEK(#PC+$01)) times.
  $C57F DEFB $FF         ; Terminator.
 
 ; Graphic ID
 @label=graphic_46
 b$C580 DEFB $FB,$24,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C583 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C583 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C585 DEFB $06
  $C586 DEFB $07
  $C587 DEFB $C6
@@ -7573,7 +7611,7 @@ b$C580 DEFB $FB,$24,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C592 DEFB $0D
  $C593 DEFB $C6
  $C594 DEFB $01
- $C595 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C595 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C597 DEFB $00
  $C598 DEFB $02
  $C599 DEFB $C4
@@ -7619,7 +7657,7 @@ b$C580 DEFB $FB,$24,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_47
 b$C5C0 DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C5C3 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C5C3 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C5C5 DEFB $00
  $C5C6 DEFB $FD
  $C5C7 DEFB $06
@@ -7634,7 +7672,7 @@ b$C5C0 DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C5D0 DEFB $05
  $C5D1 DEFB $C0
  $C5D2 DEFB $01
- $C5D3 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C5D3 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C5D5 DEFB $06
  $C5D6 DEFB $CE
  $C5D7 DEFB $00
@@ -7644,7 +7682,7 @@ b$C5C0 DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_48
 b$C5DA DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C5DD DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C5DD DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C5DF DEFB $0C
  $C5E0 DEFB $FD
  $C5E1 DEFB $06
@@ -7652,7 +7690,7 @@ b$C5DA DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C5E3 DEFB $0D
  $C5E4 DEFB $C0
  $C5E5 DEFB $01
- $C5E6 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C5E6 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $C5E8 DEFB $0A
  $C5E9 DEFB $FD
  $C5EA DEFB $06
@@ -7661,7 +7699,7 @@ b$C5DA DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C5ED DEFB $C0
  $C5EE DEFB $01
  $C5EF DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C5F2 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C5F2 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C5F4 DEFB $06
  $C5F5 DEFB $CE
  $C5F6 DEFB $00
@@ -7671,17 +7709,17 @@ b$C5DA DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_49
 b$C5F9 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C5FC DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C5FC DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C5FE DEFB $0C
  $C5FF DEFB $0D
  $C600 DEFB $C6
  $C601 DEFB $01
- $C602 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C602 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $C604 DEFB $0A
  $C605 DEFB $0B
  $C606 DEFB $C6
  $C607 DEFB $01
- $C608 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C608 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C60A DEFB $FB,$E4,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C60D DEFB $06
  $C60E DEFB $07
@@ -7690,7 +7728,7 @@ b$C5F9 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_50
 b$C610 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C613 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C613 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C615 DEFB $F2
  $C616 DEFB $10
  $C617 DEFB $0F
@@ -7700,7 +7738,7 @@ b$C610 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_51
 b$C61A DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C61D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C61D DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C61F DEFB $00
  $C620 DEFB $FD
  $C621 DEFB $08
@@ -7711,13 +7749,13 @@ b$C61A DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_52
 b$C625 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C628 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C628 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C62A DEFB $F0
  $C62B DEFB $04
  $C62C DEFB $06
  $C62D DEFB $C7
  $C62E DEFB $00
- $C62F DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C62F DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C631 DEFB $03
  $C632 DEFB $04
  $C633 DEFB $05
@@ -7726,13 +7764,13 @@ b$C625 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_53
 b$C635 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C638 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C638 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C63A DEFB $0C
  $C63B DEFB $FD
  $C63C DEFB $06
  $C63D DEFB $0D
  $C63E DEFB $0E
- $C63F DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C63F DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C641 DEFB $C0
  $C642 DEFB $01
  $C643 DEFB $F0
@@ -7743,7 +7781,7 @@ b$C635 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C648 DEFB $06
  $C649 DEFB $08
  $C64A DEFB $C8
- $C64B DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $C64B DEFB $FE,$F0     ; Attribute: #COLOUR(#PC+$01)
  $C64D DEFB $02
  $C64E DEFB $0B
  $C64F DEFB $09
@@ -7752,7 +7790,7 @@ b$C635 DEFB $FB,$7C,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_54
 b$C651 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C654 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C654 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C656 DEFB $03
  $C657 DEFB $00
  $C658 DEFB $01
@@ -7861,7 +7899,7 @@ b$C651 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C6BF DEFB $05
  $C6C0 DEFB $C3
  $C6C1 DEFB $01
- $C6C2 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $C6C2 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $C6C4 DEFB $09
  $C6C5 DEFB $0A
  $C6C6 DEFB $0B
@@ -7897,7 +7935,7 @@ b$C651 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_55
 b$C6E3 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C6E6 DEFB $FE,$04     ; Attribute=#COLOUR(#PC+$01)
+ $C6E6 DEFB $FE,$04     ; Attribute: #COLOUR(#PC+$01)
  $C6E8 DEFB $00
  $C6E9 DEFB $02
  $C6EA DEFB $01
@@ -7929,7 +7967,7 @@ b$C6E3 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_56
 b$C703 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C706 DEFB $FE,$04     ; Attribute=#COLOUR(#PC+$01)
+ $C706 DEFB $FE,$04     ; Attribute: #COLOUR(#PC+$01)
  $C708 DEFB $01
  $C709 DEFB $00
  $C70A DEFB $02
@@ -7957,7 +7995,7 @@ b$C703 DEFB $FB,$5C,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_57
 b$C71F DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C722 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C722 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C724 DEFB $FD
  $C725 DEFB $05
  $C726 DEFB $00
@@ -7976,7 +8014,7 @@ b$C71F DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_58
 b$C732 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C735 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C735 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C737 DEFB $FD
  $C738 DEFB $04
  $C739 DEFB $00
@@ -7995,7 +8033,7 @@ b$C732 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_59
 b$C745 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C748 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C748 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C74A DEFB $FD
  $C74B DEFB $05
  $C74C DEFB $04
@@ -8024,7 +8062,7 @@ b$C745 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_60
 b$C762 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C765 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C765 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C767 DEFB $FD
  $C768 DEFB $04
  $C769 DEFB $04
@@ -8053,7 +8091,7 @@ b$C762 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_61
 b$C77F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C782 DEFB $FE,$72     ; Attribute=#COLOUR(#PC+$01)
+ $C782 DEFB $FE,$72     ; Attribute: #COLOUR(#PC+$01)
  $C784 DEFB $FD
  $C785 DEFB $10
  $C786 DEFB $00
@@ -8077,7 +8115,7 @@ b$C77F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_62
 b$C797 DEFB $FB,$DC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C79A DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C79A DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C79C DEFB $F3
  $C79D DEFB $84
  $C79E DEFB $C7
@@ -8085,7 +8123,7 @@ b$C797 DEFB $FB,$DC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_63
 b$C79F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C7A2 DEFB $FE,$72     ; Attribute=#COLOUR(#PC+$01)
+ $C7A2 DEFB $FE,$72     ; Attribute: #COLOUR(#PC+$01)
  $C7A4 DEFB $FD
  $C7A5 DEFB $08
  $C7A6 DEFB $00
@@ -8109,7 +8147,7 @@ b$C79F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_64
 b$C7B7 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C7BA DEFB $FE,$56     ; Attribute=#COLOUR(#PC+$01)
+ $C7BA DEFB $FE,$56     ; Attribute: #COLOUR(#PC+$01)
  $C7BC DEFB $F3
  $C7BD DEFB $84
  $C7BE DEFB $C7
@@ -8117,7 +8155,7 @@ b$C7B7 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_65
 b$C7BF DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C7C2 DEFB $FE,$02     ; Attribute=#COLOUR(#PC+$01)
+ $C7C2 DEFB $FE,$02     ; Attribute: #COLOUR(#PC+$01)
  $C7C4 DEFB $FD
  $C7C5 DEFB $10
  $C7C6 DEFB $03
@@ -8150,7 +8188,7 @@ b$C7BF DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_66
 b$C7E0 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C7E3 DEFB $FE,$02     ; Attribute=#COLOUR(#PC+$01)
+ $C7E3 DEFB $FE,$02     ; Attribute: #COLOUR(#PC+$01)
  $C7E5 DEFB $FD
  $C7E6 DEFB $08
  $C7E7 DEFB $03
@@ -8183,7 +8221,7 @@ b$C7E0 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_67
 b$C801 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C804 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C804 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C806 DEFB $00
  $C807 DEFB $FD
  $C808 DEFB $04
@@ -8223,7 +8261,7 @@ b$C801 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_68
 b$C82B DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C82E DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C82E DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C830 DEFB $FD
  $C831 DEFB $04
  $C832 DEFB $01
@@ -8248,7 +8286,7 @@ b$C82B DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_69
 b$C844 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C847 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C847 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C849 DEFB $00
  $C84A DEFB $01
  $C84B DEFB $02
@@ -8267,7 +8305,7 @@ b$C844 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_70
 b$C857 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C85A DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C85A DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C85C DEFB $F0
  $C85D DEFB $12
  $C85E DEFB $20
@@ -8276,7 +8314,7 @@ b$C857 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_71
 b$C860 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C863 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C863 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C865 DEFB $00
  $C866 DEFB $01
  $C867 DEFB $01
@@ -8298,7 +8336,7 @@ b$C860 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_72
 b$C876 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C879 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C879 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C87B DEFB $03
  $C87C DEFB $03
  $C87D DEFB $03
@@ -8317,7 +8355,7 @@ b$C876 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_73
 b$C889 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C88C DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C88C DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C88E DEFB $00
  $C88F DEFB $01
  $C890 DEFB $01
@@ -8339,7 +8377,7 @@ b$C889 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_74
 b$C89F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C8A2 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C8A2 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C8A4 DEFB $12
  $C8A5 DEFB $13
  $C8A6 DEFB $C6
@@ -8359,7 +8397,7 @@ b$C89F DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_75
 b$C8B3 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C8B6 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C8B6 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C8B8 DEFB $0B
  $C8B9 DEFB $0D
  $C8BA DEFB $C6
@@ -8375,7 +8413,7 @@ b$C8B3 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_76
 b$C8C3 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C8C6 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C8C6 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C8C8 DEFB $0B
  $C8C9 DEFB $0C
  $C8CA DEFB $0C
@@ -8406,7 +8444,7 @@ b$C8C3 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_77
 b$C8E4 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C8E7 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C8E7 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $C8E9 DEFB $FD
  $C8EA DEFB $04
  $C8EB DEFB $03
@@ -8438,7 +8476,7 @@ b$C8E4 DEFB $FB,$34,$D3 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_78
 b$C908 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C90B DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C90B DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C90D DEFB $09
  $C90E DEFB $F0
  $C90F DEFB $04
@@ -8456,7 +8494,7 @@ b$C908 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_79
 b$C91A DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C91D DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C91D DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C91F DEFB $00
  $C920 DEFB $01
  $C921 DEFB $01
@@ -8476,7 +8514,7 @@ b$C91A DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_80
 b$C92E DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C931 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C931 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C933 DEFB $13
  $C934 DEFB $FD
  $C935 DEFB $12
@@ -8495,7 +8533,7 @@ b$C92E DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_81
 b$C943 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C946 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $C946 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $C948 DEFB $13
  $C949 DEFB $14
  $C94A DEFB $14
@@ -8515,7 +8553,7 @@ b$C943 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_82
 b$C957 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C95A DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C95A DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C95C DEFB $FD
  $C95D DEFB $1E
  $C95E DEFB $09
@@ -8525,7 +8563,7 @@ b$C957 DEFB $FB,$EC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_83
 b$C960 DEFB $FB,$14,$D5             ; Screen co-ordinates:
                                     ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C963 DEFB $FE,$46                 ; Attribute=#COLOUR(#PC+$01)
+ $C963 DEFB $FE,$46                 ; Attribute: #COLOUR(#PC+$01)
  $C965 DEFB $F2
  $C966 DEFB $02
  $C967 DEFB $09
@@ -8542,7 +8580,7 @@ b$C960 DEFB $FB,$14,$D5             ; Screen co-ordinates:
  $C972 DEFB $0A
  $C973 DEFB $C5
  $C974 DEFB $00
- $C975 DEFB $FE,$44                 ; Attribute=#COLOUR(#PC+$01)
+ $C975 DEFB $FE,$44                 ; Attribute: #COLOUR(#PC+$01)
  $C977 DEFB $FB,$EC,$DF             ; Screen co-ordinates:
                                     ; #PEEK(#PC+$01),#PEEK(#PC+$02).
  $C97A DEFB $08
@@ -8556,7 +8594,7 @@ b$C960 DEFB $FB,$14,$D5             ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_84
 b$C986 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C989 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C989 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C98B DEFB $F2
  $C98C DEFB $04
  $C98D DEFB $09
@@ -8584,7 +8622,7 @@ b$C986 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_85
 b$C9A2 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C9A5 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $C9A5 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $C9A7 DEFB $F2
  $C9A8 DEFB $08
  $C9A9 DEFB $09
@@ -8612,7 +8650,7 @@ b$C9A2 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_86
 b$C9BE DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C9C1 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C9C1 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C9C3 DEFB $04
  $C9C4 DEFB $05
  $C9C5 DEFB $05
@@ -8634,7 +8672,7 @@ b$C9BE DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_87
 b$C9D4 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C9D7 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $C9D7 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $C9D9 DEFB $FD
  $C9DA DEFB $10
  $C9DB DEFB $11
@@ -8643,7 +8681,7 @@ b$C9D4 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_88
 b$C9DD DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C9E0 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $C9E0 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $C9E2 DEFB $F0
  $C9E3 DEFB $01
  $C9E4 DEFB $06
@@ -8674,9 +8712,9 @@ b$C9DD DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_89
 b$C9FC DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $C9FF DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $C9FF DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $CA01 DEFB $0B
- $CA02 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA02 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CA04 DEFB $C6
  $CA05 DEFB $01
  $CA06 DEFB $08
@@ -8687,7 +8725,7 @@ b$C9FC DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CA0B DEFB $05
  $CA0C DEFB $06
  $CA0D DEFB $07
- $CA0E DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CA0E DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $CA10 DEFB $C6
  $CA11 DEFB $01
  $CA12 DEFB $04
@@ -8707,7 +8745,7 @@ b$C9FC DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_90
 b$CA1F DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CA22 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA22 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CA24 DEFB $0A
  $CA25 DEFB $0B
  $CA26 DEFB $F1
@@ -8735,7 +8773,7 @@ b$CA1F DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CA3C DEFB $0C
  $CA3D DEFB $0D
  $CA3E DEFB $C2
- $CA3F DEFB $FE,$FE     ; Attribute=#COLOUR(#PC+$01)
+ $CA3F DEFB $FE,$FE     ; Attribute: #COLOUR(#PC+$01)
  $CA41 DEFB $43
  $CA42 DEFB $00
  $CA43 DEFB $FD
@@ -8753,7 +8791,7 @@ b$CA1F DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CA4F DEFB $01
  $CA50 DEFB $02
  $CA51 DEFB $C7
- $CA52 DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CA52 DEFB $FE,$F0     ; Attribute: #COLOUR(#PC+$01)
  $CA54 DEFB $02
  $CA55 DEFB $09
  $CA56 DEFB $FF         ; Terminator.
@@ -8761,7 +8799,7 @@ b$CA1F DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_91
 b$CA57 DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CA5A DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CA5A DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $CA5C DEFB $00
  $CA5D DEFB $FD
  $CA5E DEFB $08
@@ -8777,7 +8815,7 @@ b$CA57 DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CA68 DEFB $F0
  $CA69 DEFB $07
  $CA6A DEFB $08
- $CA6B DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA6B DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CA6D DEFB $C9
  $CA6E DEFB $F8
  $CA6F DEFB $F0
@@ -8812,7 +8850,7 @@ b$CA57 DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CA8C DEFB $04
  $CA8D DEFB $C1
  $CA8E DEFB $00
- $CA8F DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $CA8F DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $CA91 DEFB $05
  $CA92 DEFB $06
  $CA93 DEFB $07
@@ -8826,7 +8864,7 @@ b$CA57 DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_92
 b$CA9A DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CA9D DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CA9D DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CA9F DEFB $F0
  $CAA0 DEFB $01
  $CAA1 DEFB $0B
@@ -8836,7 +8874,7 @@ b$CA9A DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CAA5 DEFB $03
  $CAA6 DEFB $C6
  $CAA7 DEFB $FA
- $CAA8 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CAA8 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $CAAA DEFB $0C
  $CAAB DEFB $0D
  $CAAC DEFB $0E
@@ -8845,7 +8883,7 @@ b$CA9A DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_93
 b$CAAE DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CAB1 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CAB1 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $CAB3 DEFB $F2
  $CAB4 DEFB $08
  $CAB5 DEFB $1B
@@ -8873,14 +8911,14 @@ b$CAAE DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_94
 b$CACA DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CACD DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CACD DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $CACF DEFB $FD
  $CAD0 DEFB $10
  $CAD1 DEFB $10
  $CAD2 DEFB $B8
  $CAD3 DEFB $01
  $CAD4 DEFB $FB,$14,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CAD7 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CAD7 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $CAD9 DEFB $FD
  $CADA DEFB $10
  $CADB DEFB $1A
@@ -8904,13 +8942,13 @@ b$CACA DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_95
 b$CAEC DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CAEF DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CAEF DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $CAF1 DEFB $00
- $CAF2 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CAF2 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CAF4 DEFB $FD
  $CAF5 DEFB $0D
  $CAF6 DEFB $01
- $CAF7 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CAF7 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $CAF9 DEFB $F0
  $CAFA DEFB $01
  $CAFB DEFB $02
@@ -8927,7 +8965,7 @@ b$CAEC DEFB $FB,$BC,$D6 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_96
 b$CB05 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CB08 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CB08 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CB0A DEFB $07
  $CB0B DEFB $FD
  $CB0C DEFB $06
@@ -8939,7 +8977,7 @@ b$CB05 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CB12 DEFB $02
  $CB13 DEFB $03
  $CB14 DEFB $C1
- $CB15 DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CB15 DEFB $FE,$F0     ; Attribute: #COLOUR(#PC+$01)
  $CB17 DEFB $02
  $CB18 DEFB $04
  $CB19 DEFB $FF         ; Terminator.
@@ -8947,7 +8985,7 @@ b$CB05 DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_97
 b$CB1A DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CB1D DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CB1D DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $CB1F DEFB $07
  $CB20 DEFB $FD
  $CB21 DEFB $06
@@ -8959,7 +8997,7 @@ b$CB1A DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CB27 DEFB $02
  $CB28 DEFB $0E
  $CB29 DEFB $C1
- $CB2A DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CB2A DEFB $FE,$F0     ; Attribute: #COLOUR(#PC+$01)
  $CB2C DEFB $02
  $CB2D DEFB $0E
  $CB2E DEFB $FF         ; Terminator.
@@ -8967,7 +9005,7 @@ b$CB1A DEFB $FB,$04,$D2 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_98
 b$CB2F DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CB32 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB32 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $CB34 DEFB $08
  $CB35 DEFB $09
  $CB36 DEFB $0A
@@ -8979,9 +9017,9 @@ b$CB2F DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CB3C DEFB $C5
  $CB3D DEFB $01
  $CB3E DEFB $07
- $CB3F DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CB3F DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $CB41 DEFB $0B
- $CB42 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB42 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $CB44 DEFB $05
  $CB45 DEFB $C5
  $CB46 DEFB $01
@@ -9003,7 +9041,7 @@ b$CB2F DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_99
 b$CB55 DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CB58 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB58 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $CB5A DEFB $12
  $CB5B DEFB $13
  $CB5C DEFB $C6
@@ -9016,7 +9054,7 @@ b$CB55 DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CB63 DEFB $0F
  $CB64 DEFB $C6
  $CB65 DEFB $01
- $CB66 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CB66 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $CB68 DEFB $0C
  $CB69 DEFB $0D
  $CB6A DEFB $FF         ; Terminator.
@@ -9024,22 +9062,22 @@ b$CB55 DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_100
 b$CB6B DEFB $FB,$74,$D8 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CB6E DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB6E DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $CB70 DEFB $06
- $CB71 DEFB $FE,$56     ; Attribute=#COLOUR(#PC+$01)
+ $CB71 DEFB $FE,$56     ; Attribute: #COLOUR(#PC+$01)
  $CB73 DEFB $00
  $CB74 DEFB $01
  $CB75 DEFB $02
- $CB76 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB76 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $CB78 DEFB $08
  $CB79 DEFB $C3
  $CB7A DEFB $01
  $CB7B DEFB $07
- $CB7C DEFB $FE,$56     ; Attribute=#COLOUR(#PC+$01)
+ $CB7C DEFB $FE,$56     ; Attribute: #COLOUR(#PC+$01)
  $CB7E DEFB $03
  $CB7F DEFB $04
  $CB80 DEFB $05
- $CB81 DEFB $FE,$42     ; Attribute=#COLOUR(#PC+$01)
+ $CB81 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
  $CB83 DEFB $09
  $CB84 DEFB $FF         ; Terminator.
 
@@ -9047,7 +9085,7 @@ b$CB6B DEFB $FB,$74,$D8 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_101
 b$CB85 DEFB $FB,$E4,$D9                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CB88 DEFB $FE,$42                         ; Attribute=#COLOUR(#PC+$01)
+ $CB88 DEFB $FE,$42                         ; Attribute: #COLOUR(#PC+$01)
  $CB8A DEFB $0B
  $CB8B DEFB $0B
  $CB8C DEFB $0B
@@ -9067,7 +9105,7 @@ b$CB85 DEFB $FB,$E4,$D9                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_102
 b$CBA0 DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CBA3 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $CBA3 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $CBA5 DEFB $F0
  $CBA6 DEFB $01
  $CBA7 DEFB $0B
@@ -9080,7 +9118,7 @@ b$CBA0 DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CBAE DEFB $C6
  $CBAF DEFB $F3
  $CBB0 DEFB $FB,$FC,$D5 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CBB3 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CBB3 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CBB5 DEFB $00
  $CBB6 DEFB $01
  $CBB7 DEFB $01
@@ -9104,7 +9142,7 @@ b$CBA0 DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CBC9 DEFB $03
  $CBCA DEFB $08
  $CBCB DEFB $FB,$74,$D8 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CBCE DEFB $FE,$7A     ; Attribute=#COLOUR(#PC+$01)
+ $CBCE DEFB $FE,$7A     ; Attribute: #COLOUR(#PC+$01)
  $CBD0 DEFB $C5
  $CBD1 DEFB $FD
  $CBD2 DEFB $0C
@@ -9125,7 +9163,7 @@ b$CBA0 DEFB $FB,$9C,$D4 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_103
 b$CBE0 DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CBE3 DEFB $FE,$43     ; Attribute=#COLOUR(#PC+$01)
+ $CBE3 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
  $CBE5 DEFB $14
  $CBE6 DEFB $15
  $CBE7 DEFB $C6
@@ -9141,7 +9179,7 @@ b$CBE0 DEFB $FB,$BC,$D7 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_104
 b$CBF0 DEFB $FB,$1C,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CBF3 DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CBF3 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $CBF5 DEFB $00
  $CBF6 DEFB $01
  $CBF7 DEFB $02
@@ -9161,7 +9199,7 @@ b$CBF0 DEFB $FB,$1C,$D9 ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_105
 b$CC03 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CC06 DEFB $FE,$4F                         ; Attribute=#COLOUR(#PC+$01)
+ $CC06 DEFB $FE,$4F                         ; Attribute: #COLOUR(#PC+$01)
  $CC08 DEFB $FD
  $CC09 DEFB $0F
  $CC0A DEFB $20
@@ -9178,7 +9216,7 @@ b$CC03 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_106
 b$CC25 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CC28 DEFB $FE,$57     ; Attribute=#COLOUR(#PC+$01)
+ $CC28 DEFB $FE,$57     ; Attribute: #COLOUR(#PC+$01)
  $CC2A DEFB $FD
  $CC2B DEFB $10
  $CC2C DEFB $20
@@ -9196,7 +9234,7 @@ b$CC25 DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_107
 b$CC39 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CC3C DEFB $FE,$45     ; Attribute=#COLOUR(#PC+$01)
+ $CC3C DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
  $CC3E DEFB $F0
  $CC3F DEFB $05
  $CC40 DEFB $15
@@ -9224,17 +9262,17 @@ b$CC5D DEFB $FB                     ; Screen co-ordinates:
                                     ; #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CC5E DEFB $E4
  $CC5F DEFB $D9
- $CC60 DEFB $FE,$45                 ; Attribute=#COLOUR(#PC+$01)
+ $CC60 DEFB $FE,$45                 ; Attribute: #COLOUR(#PC+$01)
  $CC62 DEFB $0D
  $CC63 DEFB $0E
  $CC64 DEFB $0F
  $CC65 DEFB $C5
  $CC66 DEFB $01
- $CC67 DEFB $FE,$44                 ; Attribute=#COLOUR(#PC+$01)
+ $CC67 DEFB $FE,$44                 ; Attribute: #COLOUR(#PC+$01)
  $CC69 DEFB $F0
  $CC6A DEFB $01
  $CC6B DEFB $07
- $CC6C DEFB $FE,$47                 ; Attribute=#COLOUR(#PC+$01)
+ $CC6C DEFB $FE,$47                 ; Attribute: #COLOUR(#PC+$01)
  $CC6E DEFB $04
  $CC6F DEFB $0A
  $CC70 DEFB $05
@@ -9249,7 +9287,7 @@ b$CC5D DEFB $FB                     ; Screen co-ordinates:
  $CC79 DEFB $09
  $CC7A DEFB $01
  $CC7B DEFB $C8
- $CC7C DEFB $FE,$FE                 ; Attribute=#COLOUR(#PC+$01)
+ $CC7C DEFB $FE,$FE                 ; Attribute: #COLOUR(#PC+$01)
  $CC7E DEFB $45
  $CC7F DEFB $F0
  $CC80 DEFB $01
@@ -9264,7 +9302,7 @@ b$CC5D DEFB $FB                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_109
 b$CC8D DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CC90 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CC90 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $CC92 DEFB $F0
  $CC93 DEFB $01
  $CC94 DEFB $18
@@ -9274,7 +9312,7 @@ b$CC8D DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_110
 b$CC97 DEFB $FB,$64,$DB ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CC9A DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CC9A DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CC9C DEFB $00
  $CC9D DEFB $01
  $CC9E DEFB $02
@@ -9293,7 +9331,7 @@ b$CC97 DEFB $FB,$64,$DB ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_111
 b$CCAA DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CCAD DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CCAD DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CCAF DEFB $20
  $CCB0 DEFB $20
  $CCB1 DEFB $FF         ; Terminator.
@@ -9301,7 +9339,7 @@ b$CCAA DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_112
 b$CCB2 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CCB5 DEFB $FE,$47     ; Attribute=#COLOUR(#PC+$01)
+ $CCB5 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
  $CCB7 DEFB $0A
  $CCB8 DEFB $0B
  $CCB9 DEFB $0B
@@ -9341,7 +9379,7 @@ b$CCB2 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_113
 b$CCDA DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CCDD DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CCDD DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $CCDF DEFB $00
  $CCE0 DEFB $01
  $CCE1 DEFB $02
@@ -9365,7 +9403,7 @@ b$CCDA DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 ; Graphic ID
 @label=graphic_114
 b$CCF2 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CCF5 DEFB $FE,$44     ; Attribute=#COLOUR(#PC+$01)
+ $CCF5 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
  $CCF7 DEFB $12
  $CCF8 DEFB $0A
  $CCF9 DEFB $0B
@@ -9388,7 +9426,7 @@ b$CCF2 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CD0A DEFB $11
  $CD0B DEFB $FB,$DC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
  $CD0E DEFB $C6
- $CD0F DEFB $FE,$F0     ; Attribute=#COLOUR(#PC+$01)
+ $CD0F DEFB $FE,$F0     ; Attribute: #COLOUR(#PC+$01)
  $CD11 DEFB $02
  $CD12 DEFB $20
  $CD13 DEFB $FF         ; Terminator.
@@ -9397,7 +9435,7 @@ b$CCF2 DEFB $FB,$9C,$DA ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
 @label=graphic_115
 b$CD14 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
                                             ; #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CD17 DEFB $FE,$72                         ; Attribute=#COLOUR(#PC+$01)
+ $CD17 DEFB $FE,$72                         ; Attribute: #COLOUR(#PC+$01)
  $CD19 DEFB $FD
  $CD1A DEFB $05
  $CD1B DEFB $20
@@ -9417,7 +9455,7 @@ b$CD14 DEFB $FB,$DC,$DF                     ; Screen co-ordinates:
 ; Graphic ID
 @label=graphic_116
 b$CD2F DEFB $FB,$CC,$DF ; Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
- $CD32 DEFB $FE,$46     ; Attribute=#COLOUR(#PC+$01)
+ $CD32 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
  $CD34 DEFB $FD
  $CD35 DEFB $06
  $CD36 DEFB $01
@@ -9458,7 +9496,7 @@ b$CD43 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CD5A DEFB $01
  $CD5B DEFB $A8
  $CD5C DEFB $01
- $CD5D DEFB $FE,$06  ; Attribute=#COLOUR(#PC+$01)
+ $CD5D DEFB $FE,$06  ; Attribute: #COLOUR(#PC+$01)
  $CD5F DEFB $F2
  $CD60 DEFB $10
  $CD61 DEFB $16
@@ -9491,7 +9529,7 @@ b$CD43 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CD7E DEFB $0C
  $CD7F DEFB $C3
  $CD80 DEFB $00
- $CD81 DEFB $FE,$46  ; Attribute=#COLOUR(#PC+$01)
+ $CD81 DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
  $CD83 DEFB $F0
  $CD84 DEFB $01
  $CD85 DEFB $02
@@ -9512,7 +9550,7 @@ b$CD43 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CD96 DEFB $F0
  $CD97 DEFB $04
  $CD98 DEFB $04
- $CD99 DEFB $FE,$5F  ; Attribute=#COLOUR(#PC+$01)
+ $CD99 DEFB $FE,$5F  ; Attribute: #COLOUR(#PC+$01)
  $CD9B DEFB $CA
  $CD9C DEFB $F5
  $CD9D DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
@@ -9746,54 +9784,54 @@ b$CE01 DEFB $80,$07,$08,$E7,$30,$DE,$8A,$87
  $D1A3 DEFB $53,$70,$53,$B0,$53,$D8,$53,$F0
  $D1AB DEFB $6D,$2C,$ED,$8C,$6D,$BD,$EF,$17
  $D1B3 DEFB $6E,$26,$6E,$76,$6E,$D6,$7F,$00
- $D1BB DEFB $00,$00,$FF,$FE,$01,$03,$01,$00
- $D1C3 DEFB $00,$00,$FF,$7F,$80,$C0,$80,$00
- $D1CB DEFB $00,$00,$FF,$FF,$00,$00,$00,$00
- $D1D3 DEFB $00,$D8,$D8,$DC,$CC,$CC,$CE,$C6
- $D1DB DEFB $C6,$18,$1B,$1B,$DB,$DB,$DB,$DB
- $D1E3 DEFB $DB,$30,$30,$36,$36,$66,$66,$66
- $D1EB DEFB $66,$38,$00,$38,$FE,$BE,$BE,$5C
- $D1F3 DEFB $5C,$5C,$BE,$BE,$BE,$BE,$BE,$BE
- $D1FB DEFB $5C,$00,$BE,$40,$BE,$BE,$BE,$40
- $D203 DEFB $BE,$CE,$FE,$00,$2F,$2F,$37,$30
- $D20B DEFB $30,$FF,$FF,$00,$FF,$FF,$FF,$00
- $D213 DEFB $00,$FF,$FF,$00,$F4,$F4,$EC,$0C
- $D21B DEFB $0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C
- $D223 DEFB $0C,$30,$30,$30,$30,$30,$30,$30
- $D22B DEFB $30,$ED,$ED,$0C,$6C,$6C,$6C,$6C
- $D233 DEFB $6C,$6C,$6C,$6C,$6C,$6C,$6C,$6C
- $D23B DEFB $6C,$FF,$FF,$00,$2F,$2F,$37,$30
- $D243 DEFB $30,$81,$00,$FF,$FF,$00,$FF,$FF
- $D24B DEFB $00,$7E,$FF,$7F,$77,$EB,$77,$7F
- $D253 DEFB $FF,$31,$00,$1F,$7F,$00,$FF,$FF
- $D25B DEFB $00,$8C,$00,$F8,$FE,$00,$FF,$FF
- $D263 DEFB $00,$1E,$3F,$7F,$7B,$75,$7B,$7F
- $D26B DEFB $7F,$78,$FC,$7E,$6E,$D6,$6E,$7E
- $D273 DEFB $FE,$3C,$3C,$3C,$3C,$3C,$3C,$3C
- $D27B DEFB $3C,$00,$FF,$BF,$C0,$DB,$DA,$DB
- $D283 DEFB $00,$00,$FF,$FF,$00,$FF,$00,$FF
- $D28B DEFB $00,$00,$FF,$FD,$03,$DB,$5B,$DB
- $D293 DEFB $00,$01,$07,$1D,$33,$6F,$7F,$00
- $D29B DEFB $00,$C3,$7F,$FF,$FF,$FF,$FF,$00
- $D2A3 DEFB $3C,$80,$E0,$F8,$FC,$FE,$FE,$00
- $D2AB DEFB $00,$18,$18,$18,$18,$18,$18,$2C
- $D2B3 DEFB $2C,$C0,$BF,$BF,$C0,$DF,$DF,$D0
- $D2BB DEFB $D0,$00,$FF,$FF,$00,$FF,$FF,$00
- $D2C3 DEFB $00,$03,$FD,$FD,$03,$FB,$FB,$0B
- $D2CB DEFB $0B,$C2,$C4,$C8,$D0,$C0,$C0,$C4
- $D2D3 DEFB $C8,$03,$0B,$13,$23,$43,$03,$0B
- $D2DB DEFB $13,$7F,$CC,$BF,$3F,$C0,$C0,$C0
- $D2E3 DEFB $C0,$FF,$99,$FF,$FF,$00,$00,$00
- $D2EB DEFB $00,$FE,$9B,$FF,$FC,$03,$03,$03
- $D2F3 DEFB $03,$00,$00,$00,$00,$18,$E7,$FF
- $D2FB DEFB $18,$00,$00,$00,$00,$00,$FF,$FF
- $D303 DEFB $00,$BF,$BF,$BF,$BF,$BF,$BF,$80
- $D30B DEFB $FF,$FF,$E7,$99,$99,$C3,$FF,$00
- $D313 DEFB $FF,$FD,$FD,$FD,$FD,$FD,$FD,$01
- $D31B DEFB $FF,$FF,$FF,$CC,$D5,$CC,$D5,$C5
- $D323 DEFB $FF,$FF,$FF,$C6,$5D,$C4,$5D,$45
- $D32B DEFB $FF,$FF,$FF,$CF,$57,$57,$57,$4F
- $D333 DEFB $FF
+ $D1BB DEFB $00
+ $D1BC DEFB $00,$FF,$FE,$01,$03,$01,$00,$00
+ $D1C4 DEFB $00,$FF,$7F,$80,$C0,$80,$00,$00
+ $D1CC DEFB $00,$FF,$FF,$00,$00,$00,$00,$00
+ $D1D4 DEFB $D8,$D8,$DC,$CC,$CC,$CE,$C6,$C6
+ $D1DC DEFB $18,$1B,$1B,$DB,$DB,$DB,$DB,$DB
+ $D1E4 DEFB $30,$30,$36,$36,$66,$66,$66,$66
+ $D1EC DEFB $38,$00,$38,$FE,$BE,$BE,$5C,$5C
+ $D1F4 DEFB $5C,$BE,$BE,$BE,$BE,$BE,$BE,$5C
+ $D1FC DEFB $00,$BE,$40,$BE,$BE,$BE,$40,$BE
+ $D204 DEFB $CE,$FE,$00,$2F,$2F,$37,$30,$30
+ $D20C DEFB $FF,$FF,$00,$FF,$FF,$FF,$00,$00
+ $D214 DEFB $FF,$FF,$00,$F4,$F4,$EC,$0C,$0C
+ $D21C DEFB $0C,$0C,$0C,$0C,$0C,$0C,$0C,$0C
+ $D224 DEFB $30,$30,$30,$30,$30,$30,$30,$30
+ $D22C DEFB $ED,$ED,$0C,$6C,$6C,$6C,$6C,$6C
+ $D234 DEFB $6C,$6C,$6C,$6C,$6C,$6C,$6C,$6C
+ $D23C DEFB $FF,$FF,$00,$2F,$2F,$37,$30,$30
+ $D244 DEFB $81,$00,$FF,$FF,$00,$FF,$FF,$00
+ $D24C DEFB $7E,$FF,$7F,$77,$EB,$77,$7F,$FF
+ $D254 DEFB $31,$00,$1F,$7F,$00,$FF,$FF,$00
+ $D25C DEFB $8C,$00,$F8,$FE,$00,$FF,$FF,$00
+ $D264 DEFB $1E,$3F,$7F,$7B,$75,$7B,$7F,$7F
+ $D26C DEFB $78,$FC,$7E,$6E,$D6,$6E,$7E,$FE
+ $D274 DEFB $3C,$3C,$3C,$3C,$3C,$3C,$3C,$3C
+ $D27C DEFB $00,$FF,$BF,$C0,$DB,$DA,$DB,$00
+ $D284 DEFB $00,$FF,$FF,$00,$FF,$00,$FF,$00
+ $D28C DEFB $00,$FF,$FD,$03,$DB,$5B,$DB,$00
+ $D294 DEFB $01,$07,$1D,$33,$6F,$7F,$00,$00
+ $D29C DEFB $C3,$7F,$FF,$FF,$FF,$FF,$00,$3C
+ $D2A4 DEFB $80,$E0,$F8,$FC,$FE,$FE,$00,$00
+ $D2AC DEFB $18,$18,$18,$18,$18,$18,$2C,$2C
+ $D2B4 DEFB $C0,$BF,$BF,$C0,$DF,$DF,$D0,$D0
+ $D2BC DEFB $00,$FF,$FF,$00,$FF,$FF,$00,$00
+ $D2C4 DEFB $03,$FD,$FD,$03,$FB,$FB,$0B,$0B
+ $D2CC DEFB $C2,$C4,$C8,$D0,$C0,$C0,$C4,$C8
+ $D2D4 DEFB $03,$0B,$13,$23,$43,$03,$0B,$13
+ $D2DC DEFB $7F,$CC,$BF,$3F,$C0,$C0,$C0,$C0
+ $D2E4 DEFB $FF,$99,$FF,$FF,$00,$00,$00,$00
+ $D2EC DEFB $FE,$9B,$FF,$FC,$03,$03,$03,$03
+ $D2F4 DEFB $00,$00,$00,$00,$18,$E7,$FF,$18
+ $D2FC DEFB $00,$00,$00,$00,$00,$FF,$FF,$00
+ $D304 DEFB $BF,$BF,$BF,$BF,$BF,$BF,$80,$FF
+ $D30C DEFB $FF,$E7,$99,$99,$C3,$FF,$00,$FF
+ $D314 DEFB $FD,$FD,$FD,$FD,$FD,$FD,$01,$FF
+ $D31C DEFB $FF,$FF,$CC,$D5,$CC,$D5,$C5,$FF
+ $D324 DEFB $FF,$FF,$C6,$5D,$C4,$5D,$45,$FF
+ $D32C DEFB $FF,$FF,$CF,$57,$57,$57,$4F,$FF
  $D334 DEFB $08,$08,$18,$1C,$3C,$BB,$BB,$3C ; #UDG(#PC,attr=$45)
  $D33C DEFB $34,$2C,$2C,$BB,$BB,$3C,$34,$2C ; #UDG(#PC,attr=$45)
  $D344 DEFB $3C,$34,$34,$2C,$2C,$34,$34,$3C ; #UDG(#PC,attr=$45)
@@ -9939,10 +9977,10 @@ b$CE01 DEFB $80,$07,$08,$E7,$30,$DE,$8A,$87
  $D7A4 DEFB $00,$FE,$C0,$80,$80,$80,$E0,$FC
  $D7AC DEFB $00,$00,$7B,$CD,$B5,$BB,$C0,$7E
  $D7B4 DEFB $00,$00,$F8,$FC,$FC,$F8,$00,$FF
- $D7BC DEFB $EF,$EF,$F7,$F8,$F0,$F0,$F0,$F0
- $D7C4 DEFB $F7,$F7,$EF,$1F,$0F,$0F,$0F,$0F
- $D7CC DEFB $F0,$F0,$F0,$F0,$F8,$F7,$EF,$EF
- $D7D4 DEFB $0F,$0F,$0F,$0F,$1F,$EF,$F7,$F7
+ $D7BC DEFB $EF,$EF,$F7,$F8,$F0,$F0,$F0,$F0 ; #UDG(#PC,attr=$42)
+ $D7C4 DEFB $F7,$F7,$EF,$1F,$0F,$0F,$0F,$0F ; #UDG(#PC,attr=$42)
+ $D7CC DEFB $F0,$F0,$F0,$F0,$F8,$F7,$EF,$EF ; #UDG(#PC,attr=$42)
+ $D7D4 DEFB $0F,$0F,$0F,$0F,$1F,$EF,$F7,$F7 ; #UDG(#PC,attr=$42)
  $D7DC DEFB $FF,$FF,$FF,$00,$00,$00,$00,$00
  $D7E4 DEFB $0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F
  $D7EC DEFB $00,$00,$00,$00,$00,$FF,$FF,$FF

@@ -37,21 +37,63 @@ class EveryonesAWally:
 		graphics.sort()
 
 		for i in range(len(graphics)):
-			lines.append('b ${:X} Graphic ID'.format(graphics[i]))
-			lines.append('@ ${:X} label=graphic_{}'.format(graphics[i], i))
+			lines.append('b ${:X} Graphic ID #N${:02X}'.format(graphics[i], i))
+			lines.append('@ ${:X} label=graphic_{:02x}'.format(graphics[i], i))
 			addr = graphics[i]
 			while self.snapshot[addr] != 0xFF:
 				byte = self.snapshot[addr]
-				if byte == 0xFB:
-					lines.append('  ${:X},$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).'.format(addr))
-					addr += 0x02
+				if 0xA8 <= byte <= 0xC8:
+					lines.append('  ${:X},$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).'.format(addr))
+					addr+=0x01
+				elif byte == 0xF0:
+					lines.append('  ${:X},$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.'.format(addr))
+					addr+=0x02
+				elif byte == 0xFB:
+					lines.append('M ${:X},$03 Sprite Data: #N(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).'.format(addr))
+					lines.append('  ${:X},$01'.format(addr))
+					lines.append('W ${:X},$02'.format(addr))
+					addr+=0x02
+				elif byte == 0xFD:
+					lines.append('  ${:X},$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.'.format(addr))
+					addr+=0x02
 				elif byte == 0xFE:
-					lines.append('  ${:X},$02 Attribute=#COLOUR(#PC+$01)'.format(addr))
-					addr += 0x01
+					lines.append('  ${:X},$02 Attribute: #COLOUR(#PC+$01)'.format(addr))
+					addr+=0x01
 				else:
 					lines.append('  ${:X},$01'.format(addr))
 				addr += 0x01
-			lines.append('  ${:X} Terminator.'.format(addr))
+			lines.append('  ${:X},$01 Terminator.'.format(addr))
+			lines.append('')
+
+		return '\n'.join(lines)
+
+	def get_items(self):
+		"""Creates item messaging.
+		Not perfect, but saved some time.
+		"""
+		lines = []
+		items = []
+
+		for a in range(0xE728, 0xE77A, 0x02):
+			items.append(self.snapshot[a] + self.snapshot[a+0x01] * 0x100)
+		items.sort()
+
+		for i in range(len(items)):
+			addr = items[i]
+			message = ''
+			while self.snapshot[addr] != 0xFF:
+				byte = self.snapshot[addr]
+				if 0x20 <= byte <= 0x7D:
+					message+=chr(byte)
+				elif message[-1] != " ":
+					message+=" "
+				addr += 0x01
+			lines.append('b ${:X} Messaging: {}'.format(items[i], message.title()))
+			length = len(message)
+			if length != addr - items[i]:
+				length = addr - items[i]
+			lines.append('  ${:X},${:02X} "#STR${:X},$08($b==$FF)".'.format(items[i], length, items[i]))
+			lines.append('  ${:X},$01 Terminator.'.format(addr))
 			lines.append('')
 
 		return '\n'.join(lines)
@@ -84,9 +126,8 @@ def run(subcommand):
 # Begin
 ###############################################################################
 methods = OrderedDict((
-	('entity-defs', ('get_entity_definitions', 'Entity definitions (40960-41982)')),
 	('graphics', ('get_graphics', 'Graphics (48754-52660)')),
-	('items', ('get_item_table', 'Item table (41984-42495)')),
+	('items', ('get_items', 'Items (58500-59175)')),
 	('rooms', ('get_rooms', 'Rooms (49152-64767)'))
 ))
 subcommands = '\n'.join('  {} - {}'.format(k, v[1]) for k, v in methods.items())

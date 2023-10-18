@@ -25,3 +25,6 @@ table.boxData td {
 table.boxData th {
   background-color: #7799bb;
 }
+table.centre {
+  margin: 0 auto;
+}

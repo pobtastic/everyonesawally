@@ -16,6 +16,7 @@ Game=Everyone's a Wally
 Logo=#SCR2,0,21,32,3,$4000,$5800{20,15,472,26}(/images/logo)
 Copyright=&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.
 Repository=https://github.com/pobtastic/everyonesawally/
+StyleSheet=skoolkit.css;everyonesawally.css
 LinkInternalOperands=1
 AddressAnchor={address#IF({base}==16)(:04x)}
 

@@ -45,10 +45,10 @@ t $7C15 Messaging: Harry
 
 t $7C1B Messaging: Wages
 @ $7C1B label=Messaging_Wages
-B $7C1B,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7C1B,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7C1D,$0D "TODAY'S WAGES".
 B $7C2A,$02
-B $7C2C,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7C2C,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7C2E,$0B "WALLY'S PAY".
 B $7C39,$02
   $7C3B,$0B "WILMA'S PAY".
@@ -58,14 +58,14 @@ B $7C51,$02
   $7C53,$0A "DICK'S PAY".
 B $7C5D,$02
   $7C5F,$0B "HARRY'S PAY".
-B $7C6A,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7C6A,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
 B $7C6C,$02
   $7C6E,$07 "OVERALL".
 B $7C75,$01 Terminator.
 
 t $7C76 Messaging: Congratulations
 @ $7C76 label=Messaging_Congratulations
-B $7C76,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7C76,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7C78,$1B "YOU CLEVER DICK  (PLUS TOM,".
 B $7C93,$02
   $7C95,$18 "HARRY, WILMA AND WALLY).".
@@ -85,7 +85,7 @@ B $7D47,$01 Terminator.
 
 t $7D48 Messaging: Tough Luck
 @ $7D48 label=Messaging_ToughLuck
-B $7D48,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7D48,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7D4A,$19 "TOUGH LUCK.  THE GANG HAS".
 B $7D63,$02
   $7D65,$06 "EARNED".
@@ -101,51 +101,54 @@ B $7DC5,$01 Terminator.
 
 t $7DC6 Messaging: Splash Screen
 @ $7DC6 label=Messaging_Splash
-B $7DC6,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7DC6,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DC8,$05 "KEY:-".
-B $7DCD,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7DCD,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DCF,$16 "   1.SINCLAIR JOYSTICK".
 B $7DE5,$02
-B $7DE7,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7DE7,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DE9,$05 "KEY:-".
-B $7DEE,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7DEE,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DF0,$16 "   2.KEMPSTON JOYSTICK".
 B $7E06,$02
-B $7E08,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E08,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E0A,$05 "KEY:-".
-B $7E0F,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E0F,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E11,$0D "   3.KEYBOARD".
 B $7E1E,$02
-B $7E20,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E20,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E22,$14 "PRESS KEY 4 TO START".
 B $7E36,$01 Terminator.
 
 t $7E37 Messaging: Key
 @ $7E37 label=Messaging_Key
-B $7E37,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E37,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E39,$06 "#STR$7E39,$08($b==$FF)".
 
-b $7E3F
-
-t $7E42 Messaging: Character
-@ $7E42 label=Messaging_Character
-B $7E42,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+t $7E3F Messaging: Character
+@ $7E3F label=Messaging_Character
+M $7E3F,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+B $7E3F,$01
+W $7E40,$02
+B $7E42,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E44,$0A "CHARACTER:".
 B $7E4E,$02
-B $7E50,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E50,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E52,$0A "ENDURANCE:".
 B $7E5C,$02
-B $7E5E,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E5E,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E60,$02 "  " (whitespace).
 B $7E62
-B $7E68
-B $7E6B,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+M $7E68,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+B $7E68,$01
+W $7E69,$02
+B $7E6B,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
 B $7E6D
   $7E70,$01 Terminator.
 
 t $7E71 Messaging: Tea Break
 @ $7E71 label=Messaging_TeaBreak
-B $7E71,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E71,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
 B $7E73,$02
   $7E75,$16 "HO HUM, TIME FOR A BUN".
 B $7E8B,$02
@@ -154,7 +157,7 @@ B $7E9E,$01 Terminator.
 
 t $7E9F Messaging: Lunch Time
 @ $7E9F label=Messaging_LunchTime
-B $7E9F,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7E9F,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
 B $7EA1,$02
   $7EA3,$1C "RUBBA DUB DUB, TIME FOR GRUB".
 B $7EBF,$02
@@ -163,7 +166,7 @@ B $7ECB,$01 Terminator.
 
 t $7ECC Messaging: Afternoon Tea Break
 @ $7ECC label=Messaging_AfternoonTeaBreak
-B $7ECC,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+B $7ECC,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
 B $7ECE,$02
   $7ED0,$1C "FIDDLE DEE DEE, TIME FOR TEA".
 B $7EEC,$02
@@ -171,9 +174,16 @@ B $7EEC,$02
 B $7F01,$01 Terminator.
 
 b $7F02
-  $7F02,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+  $7F02,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
+M $7F04,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $7F04,$01
+W $7F05,$02
   $7F0E,$01 Terminator.
-  $7F19,$02 Attribute=#COLOUR(#PEEK(#PC+$01)).
+  $7F15,$01 Terminator.
+M $7F16,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $7F16,$01
+W $7F17,$02
+  $7F19,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7F1E,$01 Terminator.
 
 t $7F1F Messaging: The Town Square
@@ -907,8 +917,8 @@ c $B82B
   $B849,$01 Restore #REGhl from the stack.
   $B84A,$01 Return.
 
-c $B84B Handler: Sprite Controller
-@ $B84B label=Handler_SpriteController
+c $B84B Handler: Graphics Controller
+@ $B84B label=Controller_Tile
   $B84B,$01 #REGa=*#REGhl.
   $B84C,$01 Increment #REGhl by one.
   $B84D,$04 If #REGa is lower than #N$80, jump to #R$B8BD.
@@ -919,15 +929,17 @@ N $B854 Check for the #N$FE control character. This signifies that the subsequen
   $B858,$01 #REGc=*#REGhl (set the attribute).
   $B859,$01 Increment #REGhl by one.
   $B85A,$02 Jump to #R$B84B.
-@ $B85C label=Handler_SpriteController_NotAttribute
+N $B85C If the value is between #N$A8-#N$E8 then it is screen co-ordinates.
+@ $B85C label=Controller_Tile_Screen_Instructions
   $B85C,$04 If #REGa is lower than #N$A8, jump to #R$B8BD.
-N $B860 If the value is between #N$A8-#N$E8 then it is screen co-ordinates.
   $B860,$04 If #REGa is higher than #N$E8, jump to #R$B86E.
 N $B864 Remove the control number, then we're left with the desired screen co-ordinate data updates.
   $B864,$04 #REGe=(#REGa-#N$C8)+#REGe.
   $B868,$03 #REGd+=*#REGhl.
   $B86B,$01 Increment #REGhl by one.
   $B86C,$02 Jump to #R$B84B.
+N $B86E Check for the #N$FB control character. This signifies that the following two bytes should be set as the sprite bank address.
+@ $B86E label=Controller_Tile_Bank
   $B86E,$04 If #REGa is not #N$FB, jump to #R$B87E.
   $B872,$04 Write *#REGhl to #R$B7E8(#N$B7E9).
   $B876,$01 Increment #REGhl by one.
@@ -935,17 +947,53 @@ N $B864 Remove the control number, then we're left with the desired screen co-or
   $B87B,$01 Increment #REGhl by one.
   $B87C,$02 Jump to #R$B84B.
 
+N $B87E Check for the #N$F1 control character. This signifies that the screen location should move down one block.
+@ $B87E label=Controller_Tile_Check_Move_Down
+  $B87E,$04 If #REGa is #N$F1, jump to #R$B8C0.
+
+N $B882 Check for the #N$F3 control character. This alters the current message pointer (#REGhl).
+  $B882,$04 If #REGa is not #N$F3, jump to #R$B88C.
+  $B886,$01 #REGa=*#REGhl.
+  $B887,$01 Increment #REGhl by one.
+  $B888,$01 #REGh=*#REGhl.
+  $B889,$01 #REGl=#REGa.
   $B88A,$02 Jump to #R$B84B.
 
+N $B88C Anything from here involves repetition.
+@ $B88C label=Controller_Tile_Repeaters
+  $B88C,$01 #REGb=*#REGhl (counter).
+  $B88D,$01 Increment #REGhl by one.
+N $B88E Check for the #N$F0 control character.
+. Tile sprite to the screen vertically, the number of times indicated in #REGb.
+  $B88E,$04 If #REGa is not #N$F0, jump to #R$B89C.
+  $B892,$01 #REGa=*#REGhl.
+  $B893,$01 Increment #REGhl by one.
+@ $B894 label=Controller_Tile_Vertical_Loop
   $B894,$03 Call #R$B7BA.
   $B897,$01 Increment #REGd by one.
-  $B898,$02
+  $B898,$02 Decrease counter by one and loop back to #R$B894 until counter is zero.
   $B89A,$02 Jump to #R$B84B.
+
+N $B89C Check for the #N$F2 control character.
+  $B89C,$04 If #REGa is not #N$F2, jump to #R$B8B2.
 
   $B8B0,$02 Jump to #R$B84B.
 
+N $B8B2 Tile sprite to the screen horizontally, the number of times indicated in #REGb.
+@ $B8B2 label=Controller_Tile_Horizontal
+  $B8B2,$01 #REGa=*#REGhl.
+  $B8B3,$01 Increment #REGhl by one.
+@ $B8B4 label=Controller_Tile_Horizontal_Loop
+  $B8B4,$03 Call #R$B7BA.
+N $B8B7 Move to the next screen buffer column.
+  $B8B7,$01 Increment #REGe by one.
+  $B8B8,$02 Decrease counter by one and loop back to #R$B8B4 until counter is zero.
   $B8BA,$03 Jump to #R$B84B.
+
+N $B8BD Draw a tile, and move the screen position down one character block.
+@ $B8BD label=Controller_Tile_Draw_Move_Down
   $B8BD,$03 Call #R$B7BA.
+@ $B8C0 label=Controller_Tile_Move_Down
   $B8C0,$01 Increment #REGe by one.
   $B8C1,$03 Jump to #R$B84B.
 
@@ -1132,6 +1180,28 @@ c $BA25 Copy Routine
 
 c $BA66
 
+c $BAB3
+B $BAB3,$01
+  $BAB4,$03 #REGhl=#R$BAB3.
+  $BAB7,$01 #REGa=*#REGhl.
+  $BAB8,$02 Return if #REGa is zero.
+  $BABA,$01 Decrease *#REGhl by one.
+  $BABB,$01 Return if the result is not zero.
+  $BABC,$02 #REGc=#N$42.
+  $BABE,$06 Write #R$DFDC to #R$B7E8(#N$B7E9).
+  $BAC4,$03 #REGde=#N$0400.
+  $BAC7,$03 #REGhl=#R$7E68.
+  $BACA,$03 Call #R$B84B.
+  $BACD,$01 Return.
+
+c $BACE
+  $BACE,$02 #REGb=#N$00.
+  $BAD0,$01 #REGa=*#REGhl.
+  $BAD1,$03 If #REGa is #N$FF then return.
+  $BAD4,$01 Increment #REGb by one.
+  $BAD5,$01 Increment #REGhl by one.
+  $BAD6,$02 Jump to #R$BAD0.
+
 c $BAD8
   $BAD8,$04 #REGiy=#R$BC67.
   $BADC,$04 Write #REGiy to #R$B09D.
@@ -1268,7 +1338,7 @@ L $BD86,$02,$76
 b $BE72 Graphic ID
 @ $BE72 label=graphic_0
   $BE72,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BE75,$02 Attribute=#COLOUR(#PC+$01)
+  $BE75,$02 Attribute: #COLOUR(#PC+$01)
   $BE77,$01
   $BE78,$01
   $BE79,$01
@@ -1280,7 +1350,7 @@ b $BE72 Graphic ID
 b $BE8F Graphic ID
 @ $BE8F label=graphic_1
   $BE8F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BE92,$02 Attribute=#COLOUR(#PC+$01)
+  $BE92,$02 Attribute: #COLOUR(#PC+$01)
   $BE94,$01
   $BE95,$01
   $BE96,$01
@@ -1319,7 +1389,7 @@ b $BE8F Graphic ID
   $BEB9,$01
   $BEBA,$01
   $BEBB,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BEBE,$02 Attribute=#COLOUR(#PC+$01)
+  $BEBE,$02 Attribute: #COLOUR(#PC+$01)
   $BEC0,$01
   $BEC1,$01
   $BEC2,$01
@@ -1350,7 +1420,7 @@ b $BE8F Graphic ID
 b $BEDA Graphic ID
 @ $BEDA label=graphic_2
   $BEDA,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BEDD,$02 Attribute=#COLOUR(#PC+$01)
+  $BEDD,$02 Attribute: #COLOUR(#PC+$01)
   $BEDF,$01
   $BEE0,$01
   $BEE1,$01
@@ -1361,14 +1431,14 @@ b $BEDA Graphic ID
 b $BF03 Graphic ID
 @ $BF03 label=graphic_3
   $BF03,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BF06,$02 Attribute=#COLOUR(#PC+$01)
+  $BF06,$02 Attribute: #COLOUR(#PC+$01)
   $BF08,$01
   $BF09,$01
   $BF0A,$01
   $BF0B,$01
   $BF0C,$01
   $BF0D,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BF10,$02 Attribute=#COLOUR(#PC+$01)
+  $BF10,$02 Attribute: #COLOUR(#PC+$01)
   $BF12,$01
   $BF13,$01
   $BF14,$01
@@ -1380,12 +1450,12 @@ b $BF03 Graphic ID
 b $BF19 Graphic ID
 @ $BF19 label=graphic_4
   $BF19,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BF1C,$02 Attribute=#COLOUR(#PC+$01)
+  $BF1C,$02 Attribute: #COLOUR(#PC+$01)
   $BF1E,$01
   $BF1F,$01
   $BF20,$01
   $BF21,$01
-  $BF22,$02 Attribute=#COLOUR(#PC+$01)
+  $BF22,$02 Attribute: #COLOUR(#PC+$01)
   $BF24,$01
   $BF25,$01
   $BF26 Terminator.
@@ -1393,7 +1463,7 @@ b $BF19 Graphic ID
 b $BF27 Graphic ID
 @ $BF27 label=graphic_5
   $BF27,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BF2A,$02 Attribute=#COLOUR(#PC+$01)
+  $BF2A,$02 Attribute: #COLOUR(#PC+$01)
   $BF2C,$01
   $BF2D,$01
   $BF2E,$01
@@ -1408,7 +1478,7 @@ b $BF27 Graphic ID
 b $BF81 Graphic ID
 @ $BF81 label=graphic_6
   $BF81,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BF84,$02 Attribute=#COLOUR(#PC+$01)
+  $BF84,$02 Attribute: #COLOUR(#PC+$01)
   $BF86,$01
   $BF87,$01
   $BF88,$01
@@ -1441,7 +1511,7 @@ b $BFA4 Graphic ID
   $BFA4,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $BFA7,$01
   $BFA8,$01
-  $BFA9,$02 Attribute=#COLOUR(#PC+$01)
+  $BFA9,$02 Attribute: #COLOUR(#PC+$01)
   $BFAB,$01
   $BFAC,$01
   $BFAD,$01
@@ -1453,7 +1523,7 @@ b $BFA4 Graphic ID
 b $BFB2 Graphic ID
 @ $BFB2 label=graphic_8
   $BFB2,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BFB5,$02 Attribute=#COLOUR(#PC+$01)
+  $BFB5,$02 Attribute: #COLOUR(#PC+$01)
   $BFB7,$01
   $BFB8,$01
   $BFB9,$01
@@ -1493,12 +1563,12 @@ b $BFB2 Graphic ID
 b $BFDA Graphic ID
 @ $BFDA label=graphic_9
   $BFDA,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BFDD,$02 Attribute=#COLOUR(#PC+$01)
+  $BFDD,$02 Attribute: #COLOUR(#PC+$01)
   $BFDF,$01
   $BFE0,$01
   $BFE1,$01
   $BFE2,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BFE5,$02 Attribute=#COLOUR(#PC+$01)
+  $BFE5,$02 Attribute: #COLOUR(#PC+$01)
   $BFE7,$01
   $BFE8,$01
   $BFE9,$01
@@ -1515,7 +1585,7 @@ b $BFDA Graphic ID
   $BFF4,$01
   $BFF5,$01
   $BFF6,$01
-  $BFF7,$02 Attribute=#COLOUR(#PC+$01)
+  $BFF7,$02 Attribute: #COLOUR(#PC+$01)
   $BFF9,$01
   $BFFA,$01
   $BFFB,$01
@@ -1525,7 +1595,7 @@ b $BFDA Graphic ID
 b $BFE2 Graphic ID
 @ $BFE2 label=graphic_10
   $BFE2,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $BFE5,$02 Attribute=#COLOUR(#PC+$01)
+  $BFE5,$02 Attribute: #COLOUR(#PC+$01)
   $BFE7,$01
   $BFE8,$01
   $BFE9,$01
@@ -1542,7 +1612,7 @@ b $BFE2 Graphic ID
   $BFF4,$01
   $BFF5,$01
   $BFF6,$01
-  $BFF7,$02 Attribute=#COLOUR(#PC+$01)
+  $BFF7,$02 Attribute: #COLOUR(#PC+$01)
   $BFF9,$01
   $BFFA,$01
   $BFFB,$01
@@ -1552,7 +1622,7 @@ b $BFE2 Graphic ID
 b $BFFE Graphic ID
 @ $BFFE label=graphic_11
   $BFFE,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C001,$02 Attribute=#COLOUR(#PC+$01)
+  $C001,$02 Attribute: #COLOUR(#PC+$01)
   $C003,$01
   $C004,$01
   $C005,$01
@@ -1567,7 +1637,7 @@ b $BFFE Graphic ID
 b $C026 Graphic ID
 @ $C026 label=graphic_12
   $C026,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C029,$02 Attribute=#COLOUR(#PC+$01)
+  $C029,$02 Attribute: #COLOUR(#PC+$01)
   $C02B,$01
   $C02C,$01
   $C02D,$01
@@ -1587,7 +1657,7 @@ b $C026 Graphic ID
 b $C03C Graphic ID
 @ $C03C label=graphic_13
   $C03C,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C03F,$02 Attribute=#COLOUR(#PC+$01)
+  $C03F,$02 Attribute: #COLOUR(#PC+$01)
   $C041,$01
   $C042,$01
   $C043,$01
@@ -1596,7 +1666,7 @@ b $C03C Graphic ID
 b $C045 Graphic ID
 @ $C045 label=graphic_14
   $C045,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C048,$02 Attribute=#COLOUR(#PC+$01)
+  $C048,$02 Attribute: #COLOUR(#PC+$01)
   $C04A,$01
   $C04B,$01
   $C04C,$01
@@ -1607,7 +1677,7 @@ b $C045 Graphic ID
 b $C050 Graphic ID
 @ $C050 label=graphic_15
   $C050,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C053,$02 Attribute=#COLOUR(#PC+$01)
+  $C053,$02 Attribute: #COLOUR(#PC+$01)
   $C055,$01
   $C056,$01
   $C057,$01
@@ -1617,7 +1687,7 @@ b $C050 Graphic ID
 b $C05A Graphic ID
 @ $C05A label=graphic_16
   $C05A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C05D,$02 Attribute=#COLOUR(#PC+$01)
+  $C05D,$02 Attribute: #COLOUR(#PC+$01)
   $C05F,$01
   $C060,$01
   $C061,$01
@@ -1644,7 +1714,7 @@ b $C05A Graphic ID
 b $C082 Graphic ID
 @ $C082 label=graphic_17
   $C082,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C085,$02 Attribute=#COLOUR(#PC+$01)
+  $C085,$02 Attribute: #COLOUR(#PC+$01)
   $C087,$01
   $C088,$01
   $C089,$01
@@ -1667,7 +1737,7 @@ b $C0A0 Graphic ID
   $C0A0,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C0A3,$01
   $C0A4,$01
-  $C0A5,$02 Attribute=#COLOUR(#PC+$01)
+  $C0A5,$02 Attribute: #COLOUR(#PC+$01)
   $C0A7,$01
   $C0A8,$01
   $C0A9 Terminator.
@@ -1675,12 +1745,12 @@ b $C0A0 Graphic ID
 b $C0AA Graphic ID
 @ $C0AA label=graphic_19
   $C0AA,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C0AD,$02 Attribute=#COLOUR(#PC+$01)
+  $C0AD,$02 Attribute: #COLOUR(#PC+$01)
   $C0AF,$01
   $C0B0,$01
   $C0B1,$01
   $C0B2,$01
-  $C0B3,$02 Attribute=#COLOUR(#PC+$01)
+  $C0B3,$02 Attribute: #COLOUR(#PC+$01)
   $C0B5,$01
   $C0B6,$01
   $C0B7 Terminator.
@@ -1688,7 +1758,7 @@ b $C0AA Graphic ID
 b $C0B8 Graphic ID
 @ $C0B8 label=graphic_20
   $C0B8,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C0BB,$02 Attribute=#COLOUR(#PC+$01)
+  $C0BB,$02 Attribute: #COLOUR(#PC+$01)
   $C0BD,$01
   $C0BE,$01
   $C0BF,$01
@@ -1716,14 +1786,14 @@ b $C0B8 Graphic ID
 b $C0D4 Graphic ID
 @ $C0D4 label=graphic_21
   $C0D4,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C0D7,$02 Attribute=#COLOUR(#PC+$01)
+  $C0D7,$02 Attribute: #COLOUR(#PC+$01)
   $C0D9,$01
   $C0DA,$01
   $C0DB,$01
   $C0DC,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C0DF,$01
   $C0E0,$01
-  $C0E1,$02 Attribute=#COLOUR(#PC+$01)
+  $C0E1,$02 Attribute: #COLOUR(#PC+$01)
   $C0E3,$01
   $C0E4,$01
   $C0E5,$01
@@ -1737,7 +1807,7 @@ b $C0DC Graphic ID
   $C0DC,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C0DF,$01
   $C0E0,$01
-  $C0E1,$02 Attribute=#COLOUR(#PC+$01)
+  $C0E1,$02 Attribute: #COLOUR(#PC+$01)
   $C0E3,$01
   $C0E4,$01
   $C0E5,$01
@@ -1749,7 +1819,7 @@ b $C0DC Graphic ID
 b $C0F1 Graphic ID
 @ $C0F1 label=graphic_23
   $C0F1,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C0F4,$02 Attribute=#COLOUR(#PC+$01)
+  $C0F4,$02 Attribute: #COLOUR(#PC+$01)
   $C0F6,$01
   $C0F7,$01
   $C0F8,$01
@@ -1759,7 +1829,7 @@ b $C0F1 Graphic ID
   $C0FC,$01
   $C0FD,$01
   $C0FE,$01
-  $C0FF,$02 Attribute=#COLOUR(#PC+$01)
+  $C0FF,$02 Attribute: #COLOUR(#PC+$01)
   $C101,$01
   $C102,$01
   $C103,$01
@@ -1773,7 +1843,7 @@ b $C0F1 Graphic ID
   $C10B,$01
   $C10C,$01
   $C10D,$01
-  $C10E,$02 Attribute=#COLOUR(#PC+$01)
+  $C10E,$02 Attribute: #COLOUR(#PC+$01)
   $C110,$01
   $C111,$01
   $C112,$01
@@ -1798,7 +1868,7 @@ b $C0F1 Graphic ID
   $C125,$01
   $C126,$01
   $C127,$01
-  $C128,$02 Attribute=#COLOUR(#PC+$01)
+  $C128,$02 Attribute: #COLOUR(#PC+$01)
   $C12A,$01
   $C12B,$01
   $C12C,$01
@@ -1811,7 +1881,7 @@ b $C0F1 Graphic ID
 b $C132 Graphic ID
 @ $C132 label=graphic_24
   $C132,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C135,$02 Attribute=#COLOUR(#PC+$01)
+  $C135,$02 Attribute: #COLOUR(#PC+$01)
   $C137,$01
   $C138,$01
   $C139,$01
@@ -1841,7 +1911,7 @@ b $C132 Graphic ID
 b $C19D Graphic ID
 @ $C19D label=graphic_25
   $C19D,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C1A0,$02 Attribute=#COLOUR(#PC+$01)
+  $C1A0,$02 Attribute: #COLOUR(#PC+$01)
   $C1A2,$01
   $C1A3,$01
   $C1A4,$01
@@ -1934,15 +2004,15 @@ b $C19D Graphic ID
 b $C20A Graphic ID
 @ $C20A label=graphic_26
   $C20A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C20D,$02 Attribute=#COLOUR(#PC+$01)
+  $C20D,$02 Attribute: #COLOUR(#PC+$01)
   $C20F,$01
   $C210,$01
   $C211,$01
-  $C212,$02 Attribute=#COLOUR(#PC+$01)
+  $C212,$02 Attribute: #COLOUR(#PC+$01)
   $C214,$01
   $C215,$01
   $C216,$01
-  $C217,$02 Attribute=#COLOUR(#PC+$01)
+  $C217,$02 Attribute: #COLOUR(#PC+$01)
   $C219,$01
   $C21A,$01
   $C21B,$01
@@ -1954,9 +2024,9 @@ b $C20A Graphic ID
 b $C220 Graphic ID
 @ $C220 label=graphic_27
   $C220,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C223,$02 Attribute=#COLOUR(#PC+$01)
+  $C223,$02 Attribute: #COLOUR(#PC+$01)
   $C225,$01
-  $C226,$02 Attribute=#COLOUR(#PC+$01)
+  $C226,$02 Attribute: #COLOUR(#PC+$01)
   $C228,$01
   $C229,$01
   $C22A,$01
@@ -1964,13 +2034,13 @@ b $C220 Graphic ID
   $C22C,$01
   $C22D,$01
   $C22E,$01
-  $C22F,$02 Attribute=#COLOUR(#PC+$01)
+  $C22F,$02 Attribute: #COLOUR(#PC+$01)
   $C231,$01
   $C232,$01
   $C233,$01
   $C234,$01
   $C235,$01
-  $C236,$02 Attribute=#COLOUR(#PC+$01)
+  $C236,$02 Attribute: #COLOUR(#PC+$01)
   $C238,$01
   $C239,$01
   $C23A,$01
@@ -1979,12 +2049,12 @@ b $C220 Graphic ID
 b $C23C Graphic ID
 @ $C23C label=graphic_28
   $C23C,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C23F,$02 Attribute=#COLOUR(#PC+$01)
+  $C23F,$02 Attribute: #COLOUR(#PC+$01)
   $C241,$01
   $C242,$01
   $C243,$01
   $C244,$01
-  $C245,$02 Attribute=#COLOUR(#PC+$01)
+  $C245,$02 Attribute: #COLOUR(#PC+$01)
   $C247,$01
   $C248,$01
   $C249,$01
@@ -1993,7 +2063,7 @@ b $C23C Graphic ID
   $C24C,$01
   $C24D,$01
   $C24E,$01
-  $C24F,$02 Attribute=#COLOUR(#PC+$01)
+  $C24F,$02 Attribute: #COLOUR(#PC+$01)
   $C251,$01
   $C252,$01
   $C253 Terminator.
@@ -2001,25 +2071,25 @@ b $C23C Graphic ID
 b $C254 Graphic ID
 @ $C254 label=graphic_29
   $C254,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C257,$02 Attribute=#COLOUR(#PC+$01)
+  $C257,$02 Attribute: #COLOUR(#PC+$01)
   $C259,$01
-  $C25A,$02 Attribute=#COLOUR(#PC+$01)
+  $C25A,$02 Attribute: #COLOUR(#PC+$01)
   $C25C,$01
-  $C25D,$02 Attribute=#COLOUR(#PC+$01)
+  $C25D,$02 Attribute: #COLOUR(#PC+$01)
   $C25F,$01
-  $C260,$02 Attribute=#COLOUR(#PC+$01)
+  $C260,$02 Attribute: #COLOUR(#PC+$01)
   $C262,$01
-  $C263,$02 Attribute=#COLOUR(#PC+$01)
+  $C263,$02 Attribute: #COLOUR(#PC+$01)
   $C265,$01
-  $C266,$02 Attribute=#COLOUR(#PC+$01)
+  $C266,$02 Attribute: #COLOUR(#PC+$01)
   $C268,$01
-  $C269,$02 Attribute=#COLOUR(#PC+$01)
+  $C269,$02 Attribute: #COLOUR(#PC+$01)
   $C26B,$01
-  $C26C,$02 Attribute=#COLOUR(#PC+$01)
+  $C26C,$02 Attribute: #COLOUR(#PC+$01)
   $C26E,$01
   $C26F,$01
   $C270,$01
-  $C271,$02 Attribute=#COLOUR(#PC+$01)
+  $C271,$02 Attribute: #COLOUR(#PC+$01)
   $C273,$01
   $C274,$01
   $C275,$01
@@ -2033,13 +2103,13 @@ b $C254 Graphic ID
 b $C27C Graphic ID
 @ $C27C label=graphic_30
   $C27C,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C27F,$02 Attribute=#COLOUR(#PC+$01)
+  $C27F,$02 Attribute: #COLOUR(#PC+$01)
   $C281,$01
   $C282,$01
   $C283,$01
   $C284,$01
   $C285,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C288,$02 Attribute=#COLOUR(#PC+$01)
+  $C288,$02 Attribute: #COLOUR(#PC+$01)
   $C28A,$01
   $C28B,$01
   $C28C,$01
@@ -2051,7 +2121,7 @@ b $C27C Graphic ID
 b $C291 Graphic ID
 @ $C291 label=graphic_31
   $C291,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C294,$02 Attribute=#COLOUR(#PC+$01)
+  $C294,$02 Attribute: #COLOUR(#PC+$01)
   $C296,$01
   $C297,$01
   $C298,$01
@@ -2060,7 +2130,7 @@ b $C291 Graphic ID
 b $C29A Graphic ID
 @ $C29A label=graphic_32
   $C29A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C29D,$02 Attribute=#COLOUR(#PC+$01)
+  $C29D,$02 Attribute: #COLOUR(#PC+$01)
   $C29F,$01
   $C2A0,$01
   $C2A1,$01
@@ -2074,7 +2144,7 @@ b $C29A Graphic ID
 b $C2A8 Graphic ID
 @ $C2A8 label=graphic_33
   $C2A8,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C2AB,$02 Attribute=#COLOUR(#PC+$01)
+  $C2AB,$02 Attribute: #COLOUR(#PC+$01)
   $C2AD,$01
   $C2AE,$01
   $C2AF,$01
@@ -2149,7 +2219,7 @@ b $C2A8 Graphic ID
   $C2FA,$01
   $C2FB,$01
   $C2FC,$01
-  $C2FD,$02 Attribute=#COLOUR(#PC+$01)
+  $C2FD,$02 Attribute: #COLOUR(#PC+$01)
   $C2FF,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C302,$01
   $C303,$01
@@ -2162,7 +2232,7 @@ b $C2A8 Graphic ID
   $C30A,$01
   $C30B,$01
   $C30C,$01
-  $C30D,$02 Attribute=#COLOUR(#PC+$01)
+  $C30D,$02 Attribute: #COLOUR(#PC+$01)
   $C30F,$01
   $C310,$01
   $C311 Terminator.
@@ -2172,7 +2242,7 @@ b $C312 Graphic ID
   $C312,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C315,$01
   $C316,$01
-  $C317,$02 Attribute=#COLOUR(#PC+$01)
+  $C317,$02 Attribute: #COLOUR(#PC+$01)
   $C319,$01
   $C31A,$01
   $C31B,$01
@@ -2203,58 +2273,54 @@ b $C312 Graphic ID
 
 b $C334 Graphic ID
 @ $C334 label=graphic_35
-  $C334,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C337,$02 Attribute=#COLOUR(#PC+$01)
+  $C334,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $C337,$02 Attribute: #COLOUR(#PC+$01)
   $C339,$01
   $C33A,$01
   $C33B,$01
   $C33C,$01
   $C33D,$01
   $C33E,$01
-  $C33F,$02 Attribute=#COLOUR(#PC+$01)
-  $C341,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C344,$01
-  $C345,$01
-  $C346 Terminator.
+  $C33F,$02 Attribute: #COLOUR(#PC+$01)
+  $C341,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $C344,$01 Tile sprite: #N(#PEEK(#PC)).
+  $C345,$01 Tile sprite: #N(#PEEK(#PC)).
+  $C346,$01 Terminator.
 
-b $C347 Graphic ID
+b $C347 Graphic ID 36
 @ $C347 label=graphic_36
-  $C347,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C34A,$01
-  $C34B,$01
-  $C34C,$02 Attribute=#COLOUR(#PC+$01)
-  $C34E,$01
-  $C34F,$01
-  $C350,$01
-  $C351 Terminator.
+E $C347 #UDGTABLE(centre) { #FOR$00,$17,,4(n,#UDG($E064,attr=$45)) } UDGTABLE#
+  $C347,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $C34A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C34C,$02 Attribute: #COLOUR(#PC+$01)
+  $C34E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
+  $C351,$01 Terminator.
 
-b $C352 Graphic ID
+b $C352 Graphic ID 37
 @ $C352 label=graphic_37
-  $C352,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C355,$01
-  $C356,$01
-  $C357,$02 Attribute=#COLOUR(#PC+$01)
-  $C359,$01
-  $C35A,$01
-  $C35B,$01
-  $C35C Terminator.
+E $C352 #UDGTABLE(centre) { #FOR$00,$20,,4(n,#UDG($DFEC,attr=$05)) } UDGTABLE#
+  $C352,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+  $C355,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C357,$02 Attribute: #COLOUR(#PC+$01)
+  $C359,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
+  $C35C,$01 Terminator.
 
 b $C35D Graphic ID
 @ $C35D label=graphic_38
   $C35D,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C360,$01
   $C361,$01
-  $C362,$02 Attribute=#COLOUR(#PC+$01)
+  $C362,$02 Attribute: #COLOUR(#PC+$01)
   $C364,$01
   $C365,$01
   $C366,$01
   $C367,$01
-  $C368 Terminator.
+  $C368,$01 Terminator.
 
 b $C369 Graphic ID
 @ $C369 label=graphic_39
   $C369,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C36C,$02 Attribute=#COLOUR(#PC+$01)
+  $C36C,$02 Attribute: #COLOUR(#PC+$01)
   $C36E,$01
   $C36F,$01
   $C370,$01
@@ -2273,7 +2339,7 @@ b $C369 Graphic ID
 b $C37C Graphic ID
 @ $C37C label=graphic_40
   $C37C,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C37F,$02 Attribute=#COLOUR(#PC+$01)
+  $C37F,$02 Attribute: #COLOUR(#PC+$01)
   $C381,$01
   $C382,$01
   $C383,$01
@@ -2290,70 +2356,70 @@ b $C37C Graphic ID
   $C38E,$01
   $C38F,$01
   $C390,$01
-  $C391,$02 Attribute=#COLOUR(#PC+$01)
+  $C391,$02 Attribute: #COLOUR(#PC+$01)
   $C393,$01
   $C394,$01
   $C395,$01
   $C396,$01
-  $C397,$02 Attribute=#COLOUR(#PC+$01)
+  $C397,$02 Attribute: #COLOUR(#PC+$01)
   $C399,$01
   $C39A,$01
   $C39B,$01
   $C39C,$01
   $C39D,$01
-  $C39E,$02 Attribute=#COLOUR(#PC+$01)
+  $C39E,$02 Attribute: #COLOUR(#PC+$01)
   $C3A0,$01
   $C3A1,$01
-  $C3A2,$02 Attribute=#COLOUR(#PC+$01)
+  $C3A2,$02 Attribute: #COLOUR(#PC+$01)
   $C3A4,$01
   $C3A5,$01
   $C3A6,$01
   $C3A7,$01
-  $C3A8,$02 Attribute=#COLOUR(#PC+$01)
+  $C3A8,$02 Attribute: #COLOUR(#PC+$01)
   $C3AA,$01
-  $C3AB,$02 Attribute=#COLOUR(#PC+$01)
+  $C3AB,$02 Attribute: #COLOUR(#PC+$01)
   $C3AD,$01
   $C3AE,$01
   $C3AF,$01
   $C3B0,$01
   $C3B1,$01
-  $C3B2,$02 Attribute=#COLOUR(#PC+$01)
+  $C3B2,$02 Attribute: #COLOUR(#PC+$01)
   $C3B4,$01
   $C3B5,$01
-  $C3B6,$02 Attribute=#COLOUR(#PC+$01)
+  $C3B6,$02 Attribute: #COLOUR(#PC+$01)
   $C3B8,$01
   $C3B9,$01
   $C3BA,$01
   $C3BB,$01
-  $C3BC,$02 Attribute=#COLOUR(#PC+$01)
+  $C3BC,$02 Attribute: #COLOUR(#PC+$01)
   $C3BE,$01
-  $C3BF,$02 Attribute=#COLOUR(#PC+$01)
+  $C3BF,$02 Attribute: #COLOUR(#PC+$01)
   $C3C1,$01
   $C3C2,$01
   $C3C3,$01
   $C3C4,$01
   $C3C5,$01
-  $C3C6,$02 Attribute=#COLOUR(#PC+$01)
+  $C3C6,$02 Attribute: #COLOUR(#PC+$01)
   $C3C8,$01
   $C3C9,$01
-  $C3CA,$02 Attribute=#COLOUR(#PC+$01)
+  $C3CA,$02 Attribute: #COLOUR(#PC+$01)
   $C3CC,$01
   $C3CD,$01
   $C3CE,$01
-  $C3CF,$02 Attribute=#COLOUR(#PC+$01)
+  $C3CF,$02 Attribute: #COLOUR(#PC+$01)
   $C3D1,$01
-  $C3D2,$02 Attribute=#COLOUR(#PC+$01)
+  $C3D2,$02 Attribute: #COLOUR(#PC+$01)
   $C3D4,$01
   $C3D5,$01
   $C3D6,$01
-  $C3D7,$02 Attribute=#COLOUR(#PC+$01)
+  $C3D7,$02 Attribute: #COLOUR(#PC+$01)
   $C3D9,$01
   $C3DA Terminator.
 
 b $C3DB Graphic ID
 @ $C3DB label=graphic_41
   $C3DB,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C3DE,$02 Attribute=#COLOUR(#PC+$01)
+  $C3DE,$02 Attribute: #COLOUR(#PC+$01)
   $C3E0,$01
   $C3E1,$01
   $C3E2,$01
@@ -2373,56 +2439,56 @@ b $C3DB Graphic ID
   $C3F0,$01
   $C3F1,$01
   $C3F2,$01
-  $C3F3,$02 Attribute=#COLOUR(#PC+$01)
+  $C3F3,$02 Attribute: #COLOUR(#PC+$01)
   $C3F5,$01
   $C3F6,$01
   $C3F7,$01
   $C3F8,$01
-  $C3F9,$02 Attribute=#COLOUR(#PC+$01)
+  $C3F9,$02 Attribute: #COLOUR(#PC+$01)
   $C3FB,$01
   $C3FC,$01
   $C3FD,$01
   $C3FE,$01
   $C3FF,$01
-  $C400,$02 Attribute=#COLOUR(#PC+$01)
+  $C400,$02 Attribute: #COLOUR(#PC+$01)
   $C402,$01
-  $C403,$02 Attribute=#COLOUR(#PC+$01)
+  $C403,$02 Attribute: #COLOUR(#PC+$01)
   $C405,$01
   $C406,$01
   $C407,$01
   $C408,$01
   $C409,$01
-  $C40A,$02 Attribute=#COLOUR(#PC+$01)
+  $C40A,$02 Attribute: #COLOUR(#PC+$01)
   $C40C,$01
-  $C40D,$02 Attribute=#COLOUR(#PC+$01)
+  $C40D,$02 Attribute: #COLOUR(#PC+$01)
   $C40F,$01
   $C410,$01
   $C411,$01
   $C412,$01
   $C413,$01
-  $C414,$02 Attribute=#COLOUR(#PC+$01)
+  $C414,$02 Attribute: #COLOUR(#PC+$01)
   $C416,$01
-  $C417,$02 Attribute=#COLOUR(#PC+$01)
+  $C417,$02 Attribute: #COLOUR(#PC+$01)
   $C419,$01
   $C41A,$01
   $C41B,$01
   $C41C,$01
   $C41D,$01
-  $C41E,$02 Attribute=#COLOUR(#PC+$01)
+  $C41E,$02 Attribute: #COLOUR(#PC+$01)
   $C420,$01
-  $C421,$02 Attribute=#COLOUR(#PC+$01)
+  $C421,$02 Attribute: #COLOUR(#PC+$01)
   $C423,$01
   $C424,$01
   $C425,$01
   $C426,$01
   $C427,$01
-  $C428,$02 Attribute=#COLOUR(#PC+$01)
+  $C428,$02 Attribute: #COLOUR(#PC+$01)
   $C42A,$01
   $C42B,$01
   $C42C,$01
-  $C42D,$02 Attribute=#COLOUR(#PC+$01)
+  $C42D,$02 Attribute: #COLOUR(#PC+$01)
   $C42F,$01
-  $C430,$02 Attribute=#COLOUR(#PC+$01)
+  $C430,$02 Attribute: #COLOUR(#PC+$01)
   $C432,$01
   $C433,$01
   $C434,$01
@@ -2432,13 +2498,13 @@ b $C3DB Graphic ID
 b $C437 Graphic ID
 @ $C437 label=graphic_42
   $C437,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C43A,$02 Attribute=#COLOUR(#PC+$01)
+  $C43A,$02 Attribute: #COLOUR(#PC+$01)
   $C43C,$01
-  $C43D,$02 Attribute=#COLOUR(#PC+$01)
+  $C43D,$02 Attribute: #COLOUR(#PC+$01)
   $C43F,$01
   $C440,$01
   $C441,$01
-  $C442,$02 Attribute=#COLOUR(#PC+$01)
+  $C442,$02 Attribute: #COLOUR(#PC+$01)
   $C444,$01
   $C445,$01
   $C446,$01
@@ -2455,11 +2521,11 @@ b $C437 Graphic ID
   $C451,$01
   $C452,$01
   $C453,$01
-  $C454,$02 Attribute=#COLOUR(#PC+$01)
+  $C454,$02 Attribute: #COLOUR(#PC+$01)
   $C456,$01
   $C457,$01
   $C458,$01
-  $C459,$02 Attribute=#COLOUR(#PC+$01)
+  $C459,$02 Attribute: #COLOUR(#PC+$01)
   $C45B,$01
   $C45C,$01
   $C45D,$01
@@ -2473,11 +2539,11 @@ b $C437 Graphic ID
   $C465,$01
   $C466,$01
   $C467,$01
-  $C468,$02 Attribute=#COLOUR(#PC+$01)
+  $C468,$02 Attribute: #COLOUR(#PC+$01)
   $C46A,$01
   $C46B,$01
   $C46C,$01
-  $C46D,$02 Attribute=#COLOUR(#PC+$01)
+  $C46D,$02 Attribute: #COLOUR(#PC+$01)
   $C46F,$01
   $C470,$01
   $C471,$01
@@ -2491,11 +2557,11 @@ b $C437 Graphic ID
   $C479,$01
   $C47A,$01
   $C47B,$01
-  $C47C,$02 Attribute=#COLOUR(#PC+$01)
+  $C47C,$02 Attribute: #COLOUR(#PC+$01)
   $C47E,$01
   $C47F,$01
   $C480,$01
-  $C481,$02 Attribute=#COLOUR(#PC+$01)
+  $C481,$02 Attribute: #COLOUR(#PC+$01)
   $C483,$01
   $C484,$01
   $C485,$01
@@ -2509,11 +2575,11 @@ b $C437 Graphic ID
   $C48D,$01
   $C48E,$01
   $C48F,$01
-  $C490,$02 Attribute=#COLOUR(#PC+$01)
+  $C490,$02 Attribute: #COLOUR(#PC+$01)
   $C492,$01
   $C493,$01
   $C494,$01
-  $C495,$02 Attribute=#COLOUR(#PC+$01)
+  $C495,$02 Attribute: #COLOUR(#PC+$01)
   $C497,$01
   $C498,$01
   $C499,$01
@@ -2524,7 +2590,7 @@ b $C437 Graphic ID
   $C49E,$01
   $C49F,$01
   $C4A0,$01
-  $C4A1,$02 Attribute=#COLOUR(#PC+$01)
+  $C4A1,$02 Attribute: #COLOUR(#PC+$01)
   $C4A3,$01
   $C4A4,$01
   $C4A5,$01
@@ -2542,18 +2608,18 @@ b $C437 Graphic ID
   $C4B5,$01
   $C4B6,$01
   $C4B7,$01
-  $C4B8,$02 Attribute=#COLOUR(#PC+$01)
+  $C4B8,$02 Attribute: #COLOUR(#PC+$01)
   $C4BA,$01
   $C4BB,$01
   $C4BC,$01
-  $C4BD,$02 Attribute=#COLOUR(#PC+$01)
+  $C4BD,$02 Attribute: #COLOUR(#PC+$01)
   $C4BF,$01
   $C4C0,$01
   $C4C1,$01
-  $C4C2,$02 Attribute=#COLOUR(#PC+$01)
+  $C4C2,$02 Attribute: #COLOUR(#PC+$01)
   $C4C4,$01
   $C4C5,$01
-  $C4C6,$02 Attribute=#COLOUR(#PC+$01)
+  $C4C6,$02 Attribute: #COLOUR(#PC+$01)
   $C4C8,$01
   $C4C9,$01
   $C4CA,$01
@@ -2563,7 +2629,7 @@ b $C437 Graphic ID
 b $C4CD Graphic ID
 @ $C4CD label=graphic_43
   $C4CD,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C4D0,$02 Attribute=#COLOUR(#PC+$01)
+  $C4D0,$02 Attribute: #COLOUR(#PC+$01)
   $C4D2,$01
   $C4D3,$01
   $C4D4,$01
@@ -2587,7 +2653,7 @@ b $C4CD Graphic ID
   $C4E6,$01
   $C4E7,$01
   $C4E8,$01
-  $C4E9,$02 Attribute=#COLOUR(#PC+$01)
+  $C4E9,$02 Attribute: #COLOUR(#PC+$01)
   $C4EB,$01
   $C4EC,$01
   $C4ED,$01
@@ -2601,7 +2667,7 @@ b $C56B Graphic ID
   $C56B,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C56E,$01
   $C56F,$01
-  $C570,$02 Attribute=#COLOUR(#PC+$01)
+  $C570,$02 Attribute: #COLOUR(#PC+$01)
   $C572,$01
   $C573,$01
   $C574,$01
@@ -2611,16 +2677,14 @@ b $C56B Graphic ID
 b $C577 Graphic ID
 @ $C577 label=graphic_45
   $C577,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C57A,$02 Attribute=#COLOUR(#PC+$01)
-  $C57C,$01
-  $C57D,$01
-  $C57E,$01
+  $C57A,$02 Attribute: #COLOUR(#PC+$01)
+  $C57C,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
   $C57F Terminator.
 
 b $C580 Graphic ID
 @ $C580 label=graphic_46
   $C580,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C583,$02 Attribute=#COLOUR(#PC+$01)
+  $C583,$02 Attribute: #COLOUR(#PC+$01)
   $C585,$01
   $C586,$01
   $C587,$01
@@ -2637,7 +2701,7 @@ b $C580 Graphic ID
   $C592,$01
   $C593,$01
   $C594,$01
-  $C595,$02 Attribute=#COLOUR(#PC+$01)
+  $C595,$02 Attribute: #COLOUR(#PC+$01)
   $C597,$01
   $C598,$01
   $C599,$01
@@ -2683,7 +2747,7 @@ b $C580 Graphic ID
 b $C5C0 Graphic ID
 @ $C5C0 label=graphic_47
   $C5C0,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C5C3,$02 Attribute=#COLOUR(#PC+$01)
+  $C5C3,$02 Attribute: #COLOUR(#PC+$01)
   $C5C5,$01
   $C5C6,$01
   $C5C7,$01
@@ -2698,7 +2762,7 @@ b $C5C0 Graphic ID
   $C5D0,$01
   $C5D1,$01
   $C5D2,$01
-  $C5D3,$02 Attribute=#COLOUR(#PC+$01)
+  $C5D3,$02 Attribute: #COLOUR(#PC+$01)
   $C5D5,$01
   $C5D6,$01
   $C5D7,$01
@@ -2708,7 +2772,7 @@ b $C5C0 Graphic ID
 b $C5DA Graphic ID
 @ $C5DA label=graphic_48
   $C5DA,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C5DD,$02 Attribute=#COLOUR(#PC+$01)
+  $C5DD,$02 Attribute: #COLOUR(#PC+$01)
   $C5DF,$01
   $C5E0,$01
   $C5E1,$01
@@ -2716,7 +2780,7 @@ b $C5DA Graphic ID
   $C5E3,$01
   $C5E4,$01
   $C5E5,$01
-  $C5E6,$02 Attribute=#COLOUR(#PC+$01)
+  $C5E6,$02 Attribute: #COLOUR(#PC+$01)
   $C5E8,$01
   $C5E9,$01
   $C5EA,$01
@@ -2725,7 +2789,7 @@ b $C5DA Graphic ID
   $C5ED,$01
   $C5EE,$01
   $C5EF,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C5F2,$02 Attribute=#COLOUR(#PC+$01)
+  $C5F2,$02 Attribute: #COLOUR(#PC+$01)
   $C5F4,$01
   $C5F5,$01
   $C5F6,$01
@@ -2735,17 +2799,17 @@ b $C5DA Graphic ID
 b $C5F9 Graphic ID
 @ $C5F9 label=graphic_49
   $C5F9,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C5FC,$02 Attribute=#COLOUR(#PC+$01)
+  $C5FC,$02 Attribute: #COLOUR(#PC+$01)
   $C5FE,$01
   $C5FF,$01
   $C600,$01
   $C601,$01
-  $C602,$02 Attribute=#COLOUR(#PC+$01)
+  $C602,$02 Attribute: #COLOUR(#PC+$01)
   $C604,$01
   $C605,$01
   $C606,$01
   $C607,$01
-  $C608,$02 Attribute=#COLOUR(#PC+$01)
+  $C608,$02 Attribute: #COLOUR(#PC+$01)
   $C60A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C60D,$01
   $C60E,$01
@@ -2754,7 +2818,7 @@ b $C5F9 Graphic ID
 b $C610 Graphic ID
 @ $C610 label=graphic_50
   $C610,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C613,$02 Attribute=#COLOUR(#PC+$01)
+  $C613,$02 Attribute: #COLOUR(#PC+$01)
   $C615,$01
   $C616,$01
   $C617,$01
@@ -2764,7 +2828,7 @@ b $C610 Graphic ID
 b $C61A Graphic ID
 @ $C61A label=graphic_51
   $C61A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C61D,$02 Attribute=#COLOUR(#PC+$01)
+  $C61D,$02 Attribute: #COLOUR(#PC+$01)
   $C61F,$01
   $C620,$01
   $C621,$01
@@ -2775,13 +2839,13 @@ b $C61A Graphic ID
 b $C625 Graphic ID
 @ $C625 label=graphic_52
   $C625,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C628,$02 Attribute=#COLOUR(#PC+$01)
+  $C628,$02 Attribute: #COLOUR(#PC+$01)
   $C62A,$01
   $C62B,$01
   $C62C,$01
   $C62D,$01
   $C62E,$01
-  $C62F,$02 Attribute=#COLOUR(#PC+$01)
+  $C62F,$02 Attribute: #COLOUR(#PC+$01)
   $C631,$01
   $C632,$01
   $C633,$01
@@ -2790,13 +2854,13 @@ b $C625 Graphic ID
 b $C635 Graphic ID
 @ $C635 label=graphic_53
   $C635,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C638,$02 Attribute=#COLOUR(#PC+$01)
+  $C638,$02 Attribute: #COLOUR(#PC+$01)
   $C63A,$01
   $C63B,$01
   $C63C,$01
   $C63D,$01
   $C63E,$01
-  $C63F,$02 Attribute=#COLOUR(#PC+$01)
+  $C63F,$02 Attribute: #COLOUR(#PC+$01)
   $C641,$01
   $C642,$01
   $C643,$01
@@ -2807,7 +2871,7 @@ b $C635 Graphic ID
   $C648,$01
   $C649,$01
   $C64A,$01
-  $C64B,$02 Attribute=#COLOUR(#PC+$01)
+  $C64B,$02 Attribute: #COLOUR(#PC+$01)
   $C64D,$01
   $C64E,$01
   $C64F,$01
@@ -2816,7 +2880,7 @@ b $C635 Graphic ID
 b $C651 Graphic ID
 @ $C651 label=graphic_54
   $C651,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C654,$02 Attribute=#COLOUR(#PC+$01)
+  $C654,$02 Attribute: #COLOUR(#PC+$01)
   $C656,$01
   $C657,$01
   $C658,$01
@@ -2925,7 +2989,7 @@ b $C651 Graphic ID
   $C6BF,$01
   $C6C0,$01
   $C6C1,$01
-  $C6C2,$02 Attribute=#COLOUR(#PC+$01)
+  $C6C2,$02 Attribute: #COLOUR(#PC+$01)
   $C6C4,$01
   $C6C5,$01
   $C6C6,$01
@@ -2961,7 +3025,7 @@ b $C651 Graphic ID
 b $C6E3 Graphic ID
 @ $C6E3 label=graphic_55
   $C6E3,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C6E6,$02 Attribute=#COLOUR(#PC+$01)
+  $C6E6,$02 Attribute: #COLOUR(#PC+$01)
   $C6E8,$01
   $C6E9,$01
   $C6EA,$01
@@ -2993,7 +3057,7 @@ b $C6E3 Graphic ID
 b $C703 Graphic ID
 @ $C703 label=graphic_56
   $C703,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C706,$02 Attribute=#COLOUR(#PC+$01)
+  $C706,$02 Attribute: #COLOUR(#PC+$01)
   $C708,$01
   $C709,$01
   $C70A,$01
@@ -3021,7 +3085,7 @@ b $C703 Graphic ID
 b $C71F Graphic ID
 @ $C71F label=graphic_57
   $C71F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C722,$02 Attribute=#COLOUR(#PC+$01)
+  $C722,$02 Attribute: #COLOUR(#PC+$01)
   $C724,$01
   $C725,$01
   $C726,$01
@@ -3040,7 +3104,7 @@ b $C71F Graphic ID
 b $C732 Graphic ID
 @ $C732 label=graphic_58
   $C732,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C735,$02 Attribute=#COLOUR(#PC+$01)
+  $C735,$02 Attribute: #COLOUR(#PC+$01)
   $C737,$01
   $C738,$01
   $C739,$01
@@ -3059,7 +3123,7 @@ b $C732 Graphic ID
 b $C745 Graphic ID
 @ $C745 label=graphic_59
   $C745,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C748,$02 Attribute=#COLOUR(#PC+$01)
+  $C748,$02 Attribute: #COLOUR(#PC+$01)
   $C74A,$01
   $C74B,$01
   $C74C,$01
@@ -3088,7 +3152,7 @@ b $C745 Graphic ID
 b $C762 Graphic ID
 @ $C762 label=graphic_60
   $C762,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C765,$02 Attribute=#COLOUR(#PC+$01)
+  $C765,$02 Attribute: #COLOUR(#PC+$01)
   $C767,$01
   $C768,$01
   $C769,$01
@@ -3117,7 +3181,7 @@ b $C762 Graphic ID
 b $C77F Graphic ID
 @ $C77F label=graphic_61
   $C77F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C782,$02 Attribute=#COLOUR(#PC+$01)
+  $C782,$02 Attribute: #COLOUR(#PC+$01)
   $C784,$01
   $C785,$01
   $C786,$01
@@ -3141,12 +3205,12 @@ b $C77F Graphic ID
 b $C797 Graphic ID
 @ $C797 label=graphic_62
   $C797,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C79A,$02 Attribute=#COLOUR(#PC+$01)
+  $C79A,$02 Attribute: #COLOUR(#PC+$01)
   $C79C,$01
   $C79D,$01
   $C79E,$01
   $C79F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C7A2,$02 Attribute=#COLOUR(#PC+$01)
+  $C7A2,$02 Attribute: #COLOUR(#PC+$01)
   $C7A4,$01
   $C7A5,$01
   $C7A6,$01
@@ -3170,7 +3234,7 @@ b $C797 Graphic ID
 b $C79F Graphic ID
 @ $C79F label=graphic_63
   $C79F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C7A2,$02 Attribute=#COLOUR(#PC+$01)
+  $C7A2,$02 Attribute: #COLOUR(#PC+$01)
   $C7A4,$01
   $C7A5,$01
   $C7A6,$01
@@ -3194,12 +3258,12 @@ b $C79F Graphic ID
 b $C7B7 Graphic ID
 @ $C7B7 label=graphic_64
   $C7B7,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C7BA,$02 Attribute=#COLOUR(#PC+$01)
+  $C7BA,$02 Attribute: #COLOUR(#PC+$01)
   $C7BC,$01
   $C7BD,$01
   $C7BE,$01
   $C7BF,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C7C2,$02 Attribute=#COLOUR(#PC+$01)
+  $C7C2,$02 Attribute: #COLOUR(#PC+$01)
   $C7C4,$01
   $C7C5,$01
   $C7C6,$01
@@ -3232,7 +3296,7 @@ b $C7B7 Graphic ID
 b $C7BF Graphic ID
 @ $C7BF label=graphic_65
   $C7BF,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C7C2,$02 Attribute=#COLOUR(#PC+$01)
+  $C7C2,$02 Attribute: #COLOUR(#PC+$01)
   $C7C4,$01
   $C7C5,$01
   $C7C6,$01
@@ -3265,7 +3329,7 @@ b $C7BF Graphic ID
 b $C7E0 Graphic ID
 @ $C7E0 label=graphic_66
   $C7E0,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C7E3,$02 Attribute=#COLOUR(#PC+$01)
+  $C7E3,$02 Attribute: #COLOUR(#PC+$01)
   $C7E5,$01
   $C7E6,$01
   $C7E7,$01
@@ -3298,7 +3362,7 @@ b $C7E0 Graphic ID
 b $C801 Graphic ID
 @ $C801 label=graphic_67
   $C801,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C804,$02 Attribute=#COLOUR(#PC+$01)
+  $C804,$02 Attribute: #COLOUR(#PC+$01)
   $C806,$01
   $C807,$01
   $C808,$01
@@ -3338,7 +3402,7 @@ b $C801 Graphic ID
 b $C82B Graphic ID
 @ $C82B label=graphic_68
   $C82B,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C82E,$02 Attribute=#COLOUR(#PC+$01)
+  $C82E,$02 Attribute: #COLOUR(#PC+$01)
   $C830,$01
   $C831,$01
   $C832,$01
@@ -3360,7 +3424,7 @@ b $C82B Graphic ID
   $C842,$01
   $C843,$01
   $C844,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C847,$02 Attribute=#COLOUR(#PC+$01)
+  $C847,$02 Attribute: #COLOUR(#PC+$01)
   $C849,$01
   $C84A,$01
   $C84B,$01
@@ -3379,7 +3443,7 @@ b $C82B Graphic ID
 b $C844 Graphic ID
 @ $C844 label=graphic_69
   $C844,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C847,$02 Attribute=#COLOUR(#PC+$01)
+  $C847,$02 Attribute: #COLOUR(#PC+$01)
   $C849,$01
   $C84A,$01
   $C84B,$01
@@ -3398,7 +3462,7 @@ b $C844 Graphic ID
 b $C857 Graphic ID
 @ $C857 label=graphic_70
   $C857,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C85A,$02 Attribute=#COLOUR(#PC+$01)
+  $C85A,$02 Attribute: #COLOUR(#PC+$01)
   $C85C,$01
   $C85D,$01
   $C85E,$01
@@ -3407,7 +3471,7 @@ b $C857 Graphic ID
 b $C860 Graphic ID
 @ $C860 label=graphic_71
   $C860,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C863,$02 Attribute=#COLOUR(#PC+$01)
+  $C863,$02 Attribute: #COLOUR(#PC+$01)
   $C865,$01
   $C866,$01
   $C867,$01
@@ -3429,7 +3493,7 @@ b $C860 Graphic ID
 b $C876 Graphic ID
 @ $C876 label=graphic_72
   $C876,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C879,$02 Attribute=#COLOUR(#PC+$01)
+  $C879,$02 Attribute: #COLOUR(#PC+$01)
   $C87B,$01
   $C87C,$01
   $C87D,$01
@@ -3448,7 +3512,7 @@ b $C876 Graphic ID
 b $C889 Graphic ID
 @ $C889 label=graphic_73
   $C889,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C88C,$02 Attribute=#COLOUR(#PC+$01)
+  $C88C,$02 Attribute: #COLOUR(#PC+$01)
   $C88E,$01
   $C88F,$01
   $C890,$01
@@ -3470,7 +3534,7 @@ b $C889 Graphic ID
 b $C89F Graphic ID
 @ $C89F label=graphic_74
   $C89F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C8A2,$02 Attribute=#COLOUR(#PC+$01)
+  $C8A2,$02 Attribute: #COLOUR(#PC+$01)
   $C8A4,$01
   $C8A5,$01
   $C8A6,$01
@@ -3490,7 +3554,7 @@ b $C89F Graphic ID
 b $C8B3 Graphic ID
 @ $C8B3 label=graphic_75
   $C8B3,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C8B6,$02 Attribute=#COLOUR(#PC+$01)
+  $C8B6,$02 Attribute: #COLOUR(#PC+$01)
   $C8B8,$01
   $C8B9,$01
   $C8BA,$01
@@ -3506,7 +3570,7 @@ b $C8B3 Graphic ID
 b $C8C3 Graphic ID
 @ $C8C3 label=graphic_76
   $C8C3,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C8C6,$02 Attribute=#COLOUR(#PC+$01)
+  $C8C6,$02 Attribute: #COLOUR(#PC+$01)
   $C8C8,$01
   $C8C9,$01
   $C8CA,$01
@@ -3537,7 +3601,7 @@ b $C8C3 Graphic ID
 b $C8E4 Graphic ID
 @ $C8E4 label=graphic_77
   $C8E4,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C8E7,$02 Attribute=#COLOUR(#PC+$01)
+  $C8E7,$02 Attribute: #COLOUR(#PC+$01)
   $C8E9,$01
   $C8EA,$01
   $C8EB,$01
@@ -3569,7 +3633,7 @@ b $C8E4 Graphic ID
 b $C908 Graphic ID
 @ $C908 label=graphic_78
   $C908,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C90B,$02 Attribute=#COLOUR(#PC+$01)
+  $C90B,$02 Attribute: #COLOUR(#PC+$01)
   $C90D,$01
   $C90E,$01
   $C90F,$01
@@ -3587,7 +3651,7 @@ b $C908 Graphic ID
 b $C91A Graphic ID
 @ $C91A label=graphic_79
   $C91A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C91D,$02 Attribute=#COLOUR(#PC+$01)
+  $C91D,$02 Attribute: #COLOUR(#PC+$01)
   $C91F,$01
   $C920,$01
   $C921,$01
@@ -3607,7 +3671,7 @@ b $C91A Graphic ID
 b $C92E Graphic ID
 @ $C92E label=graphic_80
   $C92E,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C931,$02 Attribute=#COLOUR(#PC+$01)
+  $C931,$02 Attribute: #COLOUR(#PC+$01)
   $C933,$01
   $C934,$01
   $C935,$01
@@ -3626,7 +3690,7 @@ b $C92E Graphic ID
 b $C943 Graphic ID
 @ $C943 label=graphic_81
   $C943,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C946,$02 Attribute=#COLOUR(#PC+$01)
+  $C946,$02 Attribute: #COLOUR(#PC+$01)
   $C948,$01
   $C949,$01
   $C94A,$01
@@ -3646,7 +3710,7 @@ b $C943 Graphic ID
 b $C957 Graphic ID
 @ $C957 label=graphic_82
   $C957,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C95A,$02 Attribute=#COLOUR(#PC+$01)
+  $C95A,$02 Attribute: #COLOUR(#PC+$01)
   $C95C,$01
   $C95D,$01
   $C95E,$01
@@ -3655,7 +3719,7 @@ b $C957 Graphic ID
 b $C960 Graphic ID
 @ $C960 label=graphic_83
   $C960,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C963,$02 Attribute=#COLOUR(#PC+$01)
+  $C963,$02 Attribute: #COLOUR(#PC+$01)
   $C965,$01
   $C966,$01
   $C967,$01
@@ -3672,7 +3736,7 @@ b $C960 Graphic ID
   $C972,$01
   $C973,$01
   $C974,$01
-  $C975,$02 Attribute=#COLOUR(#PC+$01)
+  $C975,$02 Attribute: #COLOUR(#PC+$01)
   $C977,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $C97A,$01
   $C97B,$01
@@ -3685,7 +3749,7 @@ b $C960 Graphic ID
 b $C986 Graphic ID
 @ $C986 label=graphic_84
   $C986,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C989,$02 Attribute=#COLOUR(#PC+$01)
+  $C989,$02 Attribute: #COLOUR(#PC+$01)
   $C98B,$01
   $C98C,$01
   $C98D,$01
@@ -3713,7 +3777,7 @@ b $C986 Graphic ID
 b $C9A2 Graphic ID
 @ $C9A2 label=graphic_85
   $C9A2,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C9A5,$02 Attribute=#COLOUR(#PC+$01)
+  $C9A5,$02 Attribute: #COLOUR(#PC+$01)
   $C9A7,$01
   $C9A8,$01
   $C9A9,$01
@@ -3741,7 +3805,7 @@ b $C9A2 Graphic ID
 b $C9BE Graphic ID
 @ $C9BE label=graphic_86
   $C9BE,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C9C1,$02 Attribute=#COLOUR(#PC+$01)
+  $C9C1,$02 Attribute: #COLOUR(#PC+$01)
   $C9C3,$01
   $C9C4,$01
   $C9C5,$01
@@ -3763,7 +3827,7 @@ b $C9BE Graphic ID
 b $C9D4 Graphic ID
 @ $C9D4 label=graphic_87
   $C9D4,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C9D7,$02 Attribute=#COLOUR(#PC+$01)
+  $C9D7,$02 Attribute: #COLOUR(#PC+$01)
   $C9D9,$01
   $C9DA,$01
   $C9DB,$01
@@ -3772,7 +3836,7 @@ b $C9D4 Graphic ID
 b $C9DD Graphic ID
 @ $C9DD label=graphic_88
   $C9DD,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C9E0,$02 Attribute=#COLOUR(#PC+$01)
+  $C9E0,$02 Attribute: #COLOUR(#PC+$01)
   $C9E2,$01
   $C9E3,$01
   $C9E4,$01
@@ -3803,9 +3867,9 @@ b $C9DD Graphic ID
 b $C9FC Graphic ID
 @ $C9FC label=graphic_89
   $C9FC,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $C9FF,$02 Attribute=#COLOUR(#PC+$01)
+  $C9FF,$02 Attribute: #COLOUR(#PC+$01)
   $CA01,$01
-  $CA02,$02 Attribute=#COLOUR(#PC+$01)
+  $CA02,$02 Attribute: #COLOUR(#PC+$01)
   $CA04,$01
   $CA05,$01
   $CA06,$01
@@ -3816,7 +3880,7 @@ b $C9FC Graphic ID
   $CA0B,$01
   $CA0C,$01
   $CA0D,$01
-  $CA0E,$02 Attribute=#COLOUR(#PC+$01)
+  $CA0E,$02 Attribute: #COLOUR(#PC+$01)
   $CA10,$01
   $CA11,$01
   $CA12,$01
@@ -3836,7 +3900,7 @@ b $C9FC Graphic ID
 b $CA1F Graphic ID
 @ $CA1F label=graphic_90
   $CA1F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CA22,$02 Attribute=#COLOUR(#PC+$01)
+  $CA22,$02 Attribute: #COLOUR(#PC+$01)
   $CA24,$01
   $CA25,$01
   $CA26,$01
@@ -3864,7 +3928,7 @@ b $CA1F Graphic ID
   $CA3C,$01
   $CA3D,$01
   $CA3E,$01
-  $CA3F,$02 Attribute=#COLOUR(#PC+$01)
+  $CA3F,$02 Attribute: #COLOUR(#PC+$01)
   $CA41,$01
   $CA42,$01
   $CA43,$01
@@ -3882,7 +3946,7 @@ b $CA1F Graphic ID
   $CA4F,$01
   $CA50,$01
   $CA51,$01
-  $CA52,$02 Attribute=#COLOUR(#PC+$01)
+  $CA52,$02 Attribute: #COLOUR(#PC+$01)
   $CA54,$01
   $CA55,$01
   $CA56 Terminator.
@@ -3890,7 +3954,7 @@ b $CA1F Graphic ID
 b $CA57 Graphic ID
 @ $CA57 label=graphic_91
   $CA57,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CA5A,$02 Attribute=#COLOUR(#PC+$01)
+  $CA5A,$02 Attribute: #COLOUR(#PC+$01)
   $CA5C,$01
   $CA5D,$01
   $CA5E,$01
@@ -3906,7 +3970,7 @@ b $CA57 Graphic ID
   $CA68,$01
   $CA69,$01
   $CA6A,$01
-  $CA6B,$02 Attribute=#COLOUR(#PC+$01)
+  $CA6B,$02 Attribute: #COLOUR(#PC+$01)
   $CA6D,$01
   $CA6E,$01
   $CA6F,$01
@@ -3941,7 +4005,7 @@ b $CA57 Graphic ID
   $CA8C,$01
   $CA8D,$01
   $CA8E,$01
-  $CA8F,$02 Attribute=#COLOUR(#PC+$01)
+  $CA8F,$02 Attribute: #COLOUR(#PC+$01)
   $CA91,$01
   $CA92,$01
   $CA93,$01
@@ -3955,7 +4019,7 @@ b $CA57 Graphic ID
 b $CA9A Graphic ID
 @ $CA9A label=graphic_92
   $CA9A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CA9D,$02 Attribute=#COLOUR(#PC+$01)
+  $CA9D,$02 Attribute: #COLOUR(#PC+$01)
   $CA9F,$01
   $CAA0,$01
   $CAA1,$01
@@ -3965,7 +4029,7 @@ b $CA9A Graphic ID
   $CAA5,$01
   $CAA6,$01
   $CAA7,$01
-  $CAA8,$02 Attribute=#COLOUR(#PC+$01)
+  $CAA8,$02 Attribute: #COLOUR(#PC+$01)
   $CAAA,$01
   $CAAB,$01
   $CAAC,$01
@@ -3974,7 +4038,7 @@ b $CA9A Graphic ID
 b $CAAE Graphic ID
 @ $CAAE label=graphic_93
   $CAAE,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CAB1,$02 Attribute=#COLOUR(#PC+$01)
+  $CAB1,$02 Attribute: #COLOUR(#PC+$01)
   $CAB3,$01
   $CAB4,$01
   $CAB5,$01
@@ -4002,14 +4066,14 @@ b $CAAE Graphic ID
 b $CACA Graphic ID
 @ $CACA label=graphic_94
   $CACA,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CACD,$02 Attribute=#COLOUR(#PC+$01)
+  $CACD,$02 Attribute: #COLOUR(#PC+$01)
   $CACF,$01
   $CAD0,$01
   $CAD1,$01
   $CAD2,$01
   $CAD3,$01
   $CAD4,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CAD7,$02 Attribute=#COLOUR(#PC+$01)
+  $CAD7,$02 Attribute: #COLOUR(#PC+$01)
   $CAD9,$01
   $CADA,$01
   $CADB,$01
@@ -4033,13 +4097,13 @@ b $CACA Graphic ID
 b $CAEC Graphic ID
 @ $CAEC label=graphic_95
   $CAEC,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CAEF,$02 Attribute=#COLOUR(#PC+$01)
+  $CAEF,$02 Attribute: #COLOUR(#PC+$01)
   $CAF1,$01
-  $CAF2,$02 Attribute=#COLOUR(#PC+$01)
+  $CAF2,$02 Attribute: #COLOUR(#PC+$01)
   $CAF4,$01
   $CAF5,$01
   $CAF6,$01
-  $CAF7,$02 Attribute=#COLOUR(#PC+$01)
+  $CAF7,$02 Attribute: #COLOUR(#PC+$01)
   $CAF9,$01
   $CAFA,$01
   $CAFB,$01
@@ -4056,7 +4120,7 @@ b $CAEC Graphic ID
 b $CB05 Graphic ID
 @ $CB05 label=graphic_96
   $CB05,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CB08,$02 Attribute=#COLOUR(#PC+$01)
+  $CB08,$02 Attribute: #COLOUR(#PC+$01)
   $CB0A,$01
   $CB0B,$01
   $CB0C,$01
@@ -4068,7 +4132,7 @@ b $CB05 Graphic ID
   $CB12,$01
   $CB13,$01
   $CB14,$01
-  $CB15,$02 Attribute=#COLOUR(#PC+$01)
+  $CB15,$02 Attribute: #COLOUR(#PC+$01)
   $CB17,$01
   $CB18,$01
   $CB19 Terminator.
@@ -4076,7 +4140,7 @@ b $CB05 Graphic ID
 b $CB1A Graphic ID
 @ $CB1A label=graphic_97
   $CB1A,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CB1D,$02 Attribute=#COLOUR(#PC+$01)
+  $CB1D,$02 Attribute: #COLOUR(#PC+$01)
   $CB1F,$01
   $CB20,$01
   $CB21,$01
@@ -4088,7 +4152,7 @@ b $CB1A Graphic ID
   $CB27,$01
   $CB28,$01
   $CB29,$01
-  $CB2A,$02 Attribute=#COLOUR(#PC+$01)
+  $CB2A,$02 Attribute: #COLOUR(#PC+$01)
   $CB2C,$01
   $CB2D,$01
   $CB2E Terminator.
@@ -4096,7 +4160,7 @@ b $CB1A Graphic ID
 b $CB2F Graphic ID
 @ $CB2F label=graphic_98
   $CB2F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CB32,$02 Attribute=#COLOUR(#PC+$01)
+  $CB32,$02 Attribute: #COLOUR(#PC+$01)
   $CB34,$01
   $CB35,$01
   $CB36,$01
@@ -4108,9 +4172,9 @@ b $CB2F Graphic ID
   $CB3C,$01
   $CB3D,$01
   $CB3E,$01
-  $CB3F,$02 Attribute=#COLOUR(#PC+$01)
+  $CB3F,$02 Attribute: #COLOUR(#PC+$01)
   $CB41,$01
-  $CB42,$02 Attribute=#COLOUR(#PC+$01)
+  $CB42,$02 Attribute: #COLOUR(#PC+$01)
   $CB44,$01
   $CB45,$01
   $CB46,$01
@@ -4132,7 +4196,7 @@ b $CB2F Graphic ID
 b $CB55 Graphic ID
 @ $CB55 label=graphic_99
   $CB55,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CB58,$02 Attribute=#COLOUR(#PC+$01)
+  $CB58,$02 Attribute: #COLOUR(#PC+$01)
   $CB5A,$01
   $CB5B,$01
   $CB5C,$01
@@ -4145,7 +4209,7 @@ b $CB55 Graphic ID
   $CB63,$01
   $CB64,$01
   $CB65,$01
-  $CB66,$02 Attribute=#COLOUR(#PC+$01)
+  $CB66,$02 Attribute: #COLOUR(#PC+$01)
   $CB68,$01
   $CB69,$01
   $CB6A Terminator.
@@ -4153,29 +4217,29 @@ b $CB55 Graphic ID
 b $CB6B Graphic ID
 @ $CB6B label=graphic_100
   $CB6B,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CB6E,$02 Attribute=#COLOUR(#PC+$01)
+  $CB6E,$02 Attribute: #COLOUR(#PC+$01)
   $CB70,$01
-  $CB71,$02 Attribute=#COLOUR(#PC+$01)
+  $CB71,$02 Attribute: #COLOUR(#PC+$01)
   $CB73,$01
   $CB74,$01
   $CB75,$01
-  $CB76,$02 Attribute=#COLOUR(#PC+$01)
+  $CB76,$02 Attribute: #COLOUR(#PC+$01)
   $CB78,$01
   $CB79,$01
   $CB7A,$01
   $CB7B,$01
-  $CB7C,$02 Attribute=#COLOUR(#PC+$01)
+  $CB7C,$02 Attribute: #COLOUR(#PC+$01)
   $CB7E,$01
   $CB7F,$01
   $CB80,$01
-  $CB81,$02 Attribute=#COLOUR(#PC+$01)
+  $CB81,$02 Attribute: #COLOUR(#PC+$01)
   $CB83,$01
   $CB84 Terminator.
 
 b $CB85 Graphic ID
 @ $CB85 label=graphic_101
   $CB85,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CB88,$02 Attribute=#COLOUR(#PC+$01)
+  $CB88,$02 Attribute: #COLOUR(#PC+$01)
   $CB8A,$01
   $CB8B,$01
   $CB8C,$01
@@ -4195,7 +4259,7 @@ b $CB85 Graphic ID
 b $CBA0 Graphic ID
 @ $CBA0 label=graphic_102
   $CBA0,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CBA3,$02 Attribute=#COLOUR(#PC+$01)
+  $CBA3,$02 Attribute: #COLOUR(#PC+$01)
   $CBA5,$01
   $CBA6,$01
   $CBA7,$01
@@ -4208,7 +4272,7 @@ b $CBA0 Graphic ID
   $CBAE,$01
   $CBAF,$01
   $CBB0,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CBB3,$02 Attribute=#COLOUR(#PC+$01)
+  $CBB3,$02 Attribute: #COLOUR(#PC+$01)
   $CBB5,$01
   $CBB6,$01
   $CBB7,$01
@@ -4232,7 +4296,7 @@ b $CBA0 Graphic ID
   $CBC9,$01
   $CBCA,$01
   $CBCB,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CBCE,$02 Attribute=#COLOUR(#PC+$01)
+  $CBCE,$02 Attribute: #COLOUR(#PC+$01)
   $CBD0,$01
   $CBD1,$01
   $CBD2,$01
@@ -4253,7 +4317,7 @@ b $CBA0 Graphic ID
 b $CBE0 Graphic ID
 @ $CBE0 label=graphic_103
   $CBE0,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CBE3,$02 Attribute=#COLOUR(#PC+$01)
+  $CBE3,$02 Attribute: #COLOUR(#PC+$01)
   $CBE5,$01
   $CBE6,$01
   $CBE7,$01
@@ -4269,7 +4333,7 @@ b $CBE0 Graphic ID
 b $CBF0 Graphic ID
 @ $CBF0 label=graphic_104
   $CBF0,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CBF3,$02 Attribute=#COLOUR(#PC+$01)
+  $CBF3,$02 Attribute: #COLOUR(#PC+$01)
   $CBF5,$01
   $CBF6,$01
   $CBF7,$01
@@ -4288,7 +4352,7 @@ b $CBF0 Graphic ID
 b $CC03 Graphic ID
 @ $CC03 label=graphic_105
   $CC03,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CC06,$02 Attribute=#COLOUR(#PC+$01)
+  $CC06,$02 Attribute: #COLOUR(#PC+$01)
   $CC08,$01
   $CC09,$01
   $CC0A,$01
@@ -4303,7 +4367,7 @@ b $CC03 Graphic ID
 b $CC25 Graphic ID
 @ $CC25 label=graphic_106
   $CC25,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CC28,$02 Attribute=#COLOUR(#PC+$01)
+  $CC28,$02 Attribute: #COLOUR(#PC+$01)
   $CC2A,$01
   $CC2B,$01
   $CC2C,$01
@@ -4321,7 +4385,7 @@ b $CC25 Graphic ID
 b $CC39 Graphic ID
 @ $CC39 label=graphic_107
   $CC39,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CC3C,$02 Attribute=#COLOUR(#PC+$01)
+  $CC3C,$02 Attribute: #COLOUR(#PC+$01)
   $CC3E,$01
   $CC3F,$01
   $CC40,$01
@@ -4344,17 +4408,17 @@ b $CC39 Graphic ID
   $CC5B,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $CC5E,$01
   $CC5F,$01
-  $CC60,$02 Attribute=#COLOUR(#PC+$01)
+  $CC60,$02 Attribute: #COLOUR(#PC+$01)
   $CC62,$01
   $CC63,$01
   $CC64,$01
   $CC65,$01
   $CC66,$01
-  $CC67,$02 Attribute=#COLOUR(#PC+$01)
+  $CC67,$02 Attribute: #COLOUR(#PC+$01)
   $CC69,$01
   $CC6A,$01
   $CC6B,$01
-  $CC6C,$02 Attribute=#COLOUR(#PC+$01)
+  $CC6C,$02 Attribute: #COLOUR(#PC+$01)
   $CC6E,$01
   $CC6F,$01
   $CC70,$01
@@ -4369,7 +4433,7 @@ b $CC39 Graphic ID
   $CC79,$01
   $CC7A,$01
   $CC7B,$01
-  $CC7C,$02 Attribute=#COLOUR(#PC+$01)
+  $CC7C,$02 Attribute: #COLOUR(#PC+$01)
   $CC7E,$01
   $CC7F,$01
   $CC80,$01
@@ -4384,17 +4448,17 @@ b $CC39 Graphic ID
 b $CC5D Graphic ID
 @ $CC5D label=graphic_108
   $CC5D,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CC60,$02 Attribute=#COLOUR(#PC+$01)
+  $CC60,$02 Attribute: #COLOUR(#PC+$01)
   $CC62,$01
   $CC63,$01
   $CC64,$01
   $CC65,$01
   $CC66,$01
-  $CC67,$02 Attribute=#COLOUR(#PC+$01)
+  $CC67,$02 Attribute: #COLOUR(#PC+$01)
   $CC69,$01
   $CC6A,$01
   $CC6B,$01
-  $CC6C,$02 Attribute=#COLOUR(#PC+$01)
+  $CC6C,$02 Attribute: #COLOUR(#PC+$01)
   $CC6E,$01
   $CC6F,$01
   $CC70,$01
@@ -4409,7 +4473,7 @@ b $CC5D Graphic ID
   $CC79,$01
   $CC7A,$01
   $CC7B,$01
-  $CC7C,$02 Attribute=#COLOUR(#PC+$01)
+  $CC7C,$02 Attribute: #COLOUR(#PC+$01)
   $CC7E,$01
   $CC7F,$01
   $CC80,$01
@@ -4424,7 +4488,7 @@ b $CC5D Graphic ID
 b $CC8D Graphic ID
 @ $CC8D label=graphic_109
   $CC8D,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CC90,$02 Attribute=#COLOUR(#PC+$01)
+  $CC90,$02 Attribute: #COLOUR(#PC+$01)
   $CC92,$01
   $CC93,$01
   $CC94,$01
@@ -4434,7 +4498,7 @@ b $CC8D Graphic ID
 b $CC97 Graphic ID
 @ $CC97 label=graphic_110
   $CC97,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CC9A,$02 Attribute=#COLOUR(#PC+$01)
+  $CC9A,$02 Attribute: #COLOUR(#PC+$01)
   $CC9C,$01
   $CC9D,$01
   $CC9E,$01
@@ -4453,7 +4517,7 @@ b $CC97 Graphic ID
 b $CCAA Graphic ID
 @ $CCAA label=graphic_111
   $CCAA,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CCAD,$02 Attribute=#COLOUR(#PC+$01)
+  $CCAD,$02 Attribute: #COLOUR(#PC+$01)
   $CCAF,$01
   $CCB0,$01
   $CCB1 Terminator.
@@ -4461,7 +4525,7 @@ b $CCAA Graphic ID
 b $CCB2 Graphic ID
 @ $CCB2 label=graphic_112
   $CCB2,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CCB5,$02 Attribute=#COLOUR(#PC+$01)
+  $CCB5,$02 Attribute: #COLOUR(#PC+$01)
   $CCB7,$01
   $CCB8,$01
   $CCB9,$01
@@ -4501,7 +4565,7 @@ b $CCB2 Graphic ID
 b $CCDA Graphic ID
 @ $CCDA label=graphic_113
   $CCDA,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CCDD,$02 Attribute=#COLOUR(#PC+$01)
+  $CCDD,$02 Attribute: #COLOUR(#PC+$01)
   $CCDF,$01
   $CCE0,$01
   $CCE1,$01
@@ -4525,7 +4589,7 @@ b $CCDA Graphic ID
 b $CCF2 Graphic ID
 @ $CCF2 label=graphic_114
   $CCF2,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CCF5,$02 Attribute=#COLOUR(#PC+$01)
+  $CCF5,$02 Attribute: #COLOUR(#PC+$01)
   $CCF7,$01
   $CCF8,$01
   $CCF9,$01
@@ -4548,7 +4612,7 @@ b $CCF2 Graphic ID
   $CD0A,$01
   $CD0B,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
   $CD0E,$01
-  $CD0F,$02 Attribute=#COLOUR(#PC+$01)
+  $CD0F,$02 Attribute: #COLOUR(#PC+$01)
   $CD11,$01
   $CD12,$01
   $CD13 Terminator.
@@ -4556,7 +4620,7 @@ b $CCF2 Graphic ID
 b $CD14 Graphic ID
 @ $CD14 label=graphic_115
   $CD14,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CD17,$02 Attribute=#COLOUR(#PC+$01)
+  $CD17,$02 Attribute: #COLOUR(#PC+$01)
   $CD19,$01
   $CD1A,$01
   $CD1B,$01
@@ -4576,7 +4640,7 @@ b $CD14 Graphic ID
 b $CD2F Graphic ID
 @ $CD2F label=graphic_116
   $CD2F,$03 Screen co-ordinates: #PEEK(#PC+$01),#PEEK(#PC+$02).
-  $CD32,$02 Attribute=#COLOUR(#PC+$01)
+  $CD32,$02 Attribute: #COLOUR(#PC+$01)
   $CD34,$01
   $CD35,$01
   $CD36,$01
@@ -4618,7 +4682,7 @@ W $CD44,$02
   $CD5A,$01
   $CD5B,$01
   $CD5C,$01
-  $CD5D,$02 Attribute=#COLOUR(#PC+$01)
+  $CD5D,$02 Attribute: #COLOUR(#PC+$01)
   $CD5F,$01
   $CD60,$01
   $CD61,$01
@@ -4652,7 +4716,7 @@ W $CD7A,$02
   $CD7E,$01
   $CD7F,$01
   $CD80,$01
-  $CD81,$02 Attribute=#COLOUR(#PC+$01)
+  $CD81,$02 Attribute: #COLOUR(#PC+$01)
   $CD83,$01
   $CD84,$01
   $CD85,$01
@@ -4675,7 +4739,7 @@ W $CD93,$02
   $CD96,$01
   $CD97,$01
   $CD98,$01
-  $CD99,$02 Attribute=#COLOUR(#PC+$01)
+  $CD99,$02 Attribute: #COLOUR(#PC+$01)
   $CD9B,$01
   $CD9C,$01
 M $CD9D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
@@ -4749,11 +4813,16 @@ b $CE01
   $D192,$01
   $D193
 
+  $D1BC
+
   $D334,$08 #UDG(#PC,attr=$45)
   $D33C,$08 #UDG(#PC,attr=$45)
   $D344,$08 #UDG(#PC,attr=$45)
   $D34C,$08 #UDG(#PC,attr=$45)
   $D354,$08 #UDG(#PC,attr=$45)
+
+  $D7BC,$08 #UDG(#PC,attr=$42)
+L $D7BC,$08,$04
 
   $D9E4,$08 #UDG(#PC,attr=$43)
 
