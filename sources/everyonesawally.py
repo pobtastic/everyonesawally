@@ -31,6 +31,7 @@ class EveryonesAWally:
 	def get_graphics(self):
 		lines = []
 		graphics = []
+		attribute = 0x00
 
 		for a in range(0xBD86, 0xBE72, 0x02):
 			graphics.append(self.snapshot[a] + self.snapshot[a+0x01] * 0x100)
@@ -40,23 +41,47 @@ class EveryonesAWally:
 			lines.append('b ${:X} Graphic ID #N${:02X}'.format(graphics[i], i))
 			lines.append('@ ${:X} label=graphic_{:02x}'.format(graphics[i], i))
 			addr = graphics[i]
+			base = 0x0000
 			while self.snapshot[addr] != 0xFF:
 				byte = self.snapshot[addr]
-				if 0xA8 <= byte <= 0xC8:
+				if 0xA8 <= byte <= 0xE8:
 					lines.append('  ${:X},$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).'.format(addr))
 					addr+=0x01
+				elif byte < 0x80:
+					lines.append('  ${:X},$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG(${:X},attr=${:X}) }} UDGTABLE#'.format(addr, base+(byte*0x08), attribute))
 				elif byte == 0xF0:
 					lines.append('  ${:X},$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.'.format(addr))
+					lines.append('. #UDGTABLE {{ =h Row | =h Graphic }}')
+					lines.append('. #FOR$01,${:02X},,4(n,{{ #Nn | #UDG(${:X},attr=${:X}) }})'.format(self.snapshot[addr+0x01], base+(self.snapshot[addr+0x02]*0x08), attribute))
+					lines.append('. UDGTABLE#')
+					addr+=0x02
+				elif byte == 0xF1:
+					lines.append('  ${:X},$01 Action: move down one character block.'.format(addr))
+				elif byte == 0xF2:
+					lines.append('  ${:X},$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.'.format(addr))
+					lines.append('. #UDGTABLE {{ =h,c{} Columns }} {{ #FOR$01,${:02X}(n,=h #Nn, | ) }}'.format(self.snapshot[addr+0x01], self.snapshot[addr+0x01]))
+					lines.append('. {{ #FOR$01,${:02X}(n,#UDG(${:X},attr=${:X})#UDG(${:X},attr=${:X}), | ) }}'.format(self.snapshot[addr+0x01], base+(self.snapshot[addr+0x02]*0x08), attribute, base+(self.snapshot[addr+0x03]*0x08), attribute))
+					lines.append('. UDGTABLE#')
+					addr+=0x03
+				elif byte == 0xF3:
+					lines.append('M ${:X},$03 Switch #REGhl to #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).'.format(addr))
+					lines.append('  ${:X},$01'.format(addr))
+					lines.append('W ${:X},$02'.format(addr+0x01))
 					addr+=0x02
 				elif byte == 0xFB:
-					lines.append('M ${:X},$03 Sprite Data: #N(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).'.format(addr))
+					base = self.snapshot[addr+0x01] + self.snapshot[addr+0x02] * 0x100
+					lines.append('M ${:X},$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).'.format(addr))
 					lines.append('  ${:X},$01'.format(addr))
-					lines.append('W ${:X},$02'.format(addr))
+					lines.append('W ${:X},$02'.format(addr+0x01))
 					addr+=0x02
 				elif byte == 0xFD:
 					lines.append('  ${:X},$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.'.format(addr))
+					lines.append('. #UDGTABLE {{ =h,c{} Columns }} {{ #FOR$01,${:02X}(n,=h #Nn, | ) }}'.format(self.snapshot[addr+0x01], self.snapshot[addr+0x01]))
+					lines.append('. {{ #FOR$01,${:02X}(n,#UDG(${:X},attr=${:X}), | ) }}'.format(self.snapshot[addr+0x01], base+(self.snapshot[addr+0x02]*0x08), attribute))
+					lines.append('. UDGTABLE#')
 					addr+=0x02
 				elif byte == 0xFE:
+					attribute=self.snapshot[addr+0x01]
 					lines.append('  ${:X},$02 Attribute: #COLOUR(#PC+$01)'.format(addr))
 					addr+=0x01
 				else:
