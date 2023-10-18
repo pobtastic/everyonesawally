@@ -753,7 +753,8 @@ b$5B9A DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $6AF2 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $6AFA DEFB $00,$00,$00,$00,$00,$00
 
-; Data block at 6B00
+; Shadow Buffer
+@label=ShadowBuffer
 b$6B00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $6B08 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $6B10 DEFB $00,$00,$00,$00,$00,$00,$00,$00
@@ -1319,148 +1320,214 @@ t$7C15 DEFM "HARRY",$FF ; "#STR$7C15,$08($b==$FF)".
 ; Messaging: Wages
 @label=Messaging_Wages
 t$7C1B DEFB $FE,$43         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7C1D DEFM "TODAY'S WAGES" ; "TODAY'S WAGES".
- $7C2A DEFB $B8,$04
+ $7C1D DEFM "TODAY'S WAGES" ; #FONT:(TODAY'S WAGES)$E0DC,attr=$43(wages-01)
+ $7C2A DEFB $B8,$04         ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $7C2C DEFB $FE,$46         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7C2E DEFM "WALLY'S PAY"   ; "WALLY'S PAY".
- $7C39 DEFB $BD,$03
- $7C3B DEFM "WILMA'S PAY"   ; "WILMA'S PAY".
- $7C46 DEFB $BD,$03
- $7C48 DEFM "TOM'S PAY"     ; "TOM'S PAY".
- $7C51 DEFB $BF,$03
- $7C53 DEFM "DICK'S PAY"    ; "DICK'S PAY".
- $7C5D DEFB $BE,$03
- $7C5F DEFM "HARRY'S PAY"   ; "HARRY'S PAY".
+ $7C2E DEFM "WALLY'S PAY"   ; #FONT:(WALLY'S PAY)$E0DC,attr=$46(wages-02)
+ $7C39 DEFB $BD,$03         ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7C3B DEFM "WILMA'S PAY"   ; #FONT:(WILMA'S PAY)$E0DC,attr=$46(wages-03)
+ $7C46 DEFB $BD,$03         ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7C48 DEFM "TOM'S PAY"     ; #FONT:(TOM'S PAY)$E0DC,attr=$46(wages-04)
+ $7C51 DEFB $BF,$03         ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7C53 DEFM "DICK'S PAY"    ; #FONT:(DICK'S PAY)$E0DC,attr=$46(wages-05)
+ $7C5D DEFB $BE,$03         ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7C5F DEFM "HARRY'S PAY"   ; #FONT:(HARRY'S PAY)$E0DC,attr=$46(wages-06)
  $7C6A DEFB $FE,$43         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7C6C DEFB $BF,$04
- $7C6E DEFM "OVERALL"       ; "OVERALL".
+ $7C6C DEFB $BF,$04         ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7C6E DEFM "OVERALL"       ; #FONT:(OVERALL)$E0DC,attr=$43(wages-07)
  $7C75 DEFB $FF             ; Terminator.
 
 ; Messaging: Congratulations
 @label=Messaging_Congratulations
 t$7C76 DEFB $FE,$44                       ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7C78 DEFM "YOU CLEVER DICK  (PLUS TOM," ; "YOU CLEVER DICK  (PLUS TOM,".
- $7C93 DEFB $AD,$03
- $7C95 DEFM "HARRY, WILMA AND WALLY)."    ; "HARRY, WILMA AND WALLY).".
- $7CAD DEFB $B0,$03
- $7CAF DEFM "YOU'VE OPENED THE SAFE."     ; "YOU'VE OPENED THE SAFE.".
- $7CC6 DEFB $B1,$03
- $7CC8 DEFM "PERHAPS  EVERYONE'S  NOT  A" ; "PERHAPS  EVERYONE'S  NOT  A".
- $7CE3 DEFB $AD,$03
- $7CE5 DEFM "WALLY AFTER ALL."            ; "WALLY AFTER ALL.".
- $7CF5 DEFB $B8,$03
- $7CF7 DEFM "THE GANG HAVE BEEN PAID AND" ; "THE GANG HAVE BEEN PAID AND".
- $7D12 DEFB $AD,$03
- $7D14 DEFM "ARE NOW OFF ON THEIR HOLS."  ; "ARE NOW OFF ON THEIR HOLS.".
- $7D2E DEFB $AE,$03
- $7D30 DEFM "SEE YOU AGAIN SOMETIME."     ; "SEE YOU AGAIN SOMETIME.".
+ $7C78 DEFM "YOU CLEVER DICK  (PLUS TOM," ; #FONT:(YOU CLEVER DICK  PLUS
+                                          ; TOM,)$E0DC,attr=$44(congratulations-01)
+ $7C93 DEFB $AD,$03                       ; Screen: #N(#PEEK(#PC)-$C8),
+                                          ; #N(#PEEK(#PC+$01)).
+ $7C95 DEFM "HARRY, WILMA AND WALLY)."    ; #FONT:(HARRY, WILMA AND
+                                          ; WALLY.)$E0DC,attr=$44(congratulations-02)
+ $7CAD DEFB $B0,$03                       ; Screen: #N(#PEEK(#PC)-$C8),
+                                          ; #N(#PEEK(#PC+$01)).
+ $7CAF DEFM "YOU'VE OPENED THE SAFE."     ; #FONT:(YOU'VE OPENED THE
+                                          ; SAFE.)$E0DC,attr=$44(congratulations-03)
+ $7CC6 DEFB $B1,$03                       ; Screen: #N(#PEEK(#PC)-$C8),
+                                          ; #N(#PEEK(#PC+$01)).
+ $7CC8 DEFM "PERHAPS  EVERYONE'S  NOT  A" ; #FONT:(PERHAPS  EVERYONE'S  NOT
+                                          ; A)$E0DC,attr=$44(congratulations-04)
+ $7CE3 DEFB $AD,$03                       ; Screen: #N(#PEEK(#PC)-$C8),
+                                          ; #N(#PEEK(#PC+$01)).
+ $7CE5 DEFM "WALLY AFTER ALL."            ; #FONT:(WALLY AFTER
+                                          ; ALL.)$E0DC,attr=$44(congratulations-05)
+ $7CF5 DEFB $B8,$03                       ; Screen: #N(#PEEK(#PC)-$C8),
+                                          ; #N(#PEEK(#PC+$01)).
+ $7CF7 DEFM "THE GANG HAVE BEEN PAID AND" ; #FONT:(THE GANG HAVE BEEN PAID
+                                          ; AND)$E0DC,attr=$44(congratulations-06)
+ $7D12 DEFB $AD,$03                       ; Screen: #N(#PEEK(#PC)-$C8),
+                                          ; #N(#PEEK(#PC+$01)).
+ $7D14 DEFM "ARE NOW OFF ON THEIR HOLS."  ; #FONT:(ARE NOW OFF ON THEIR
+                                          ; HOLS.)$E0DC,attr=$44(congratulations-07)
+ $7D2E DEFB $AE,$03                       ; Screen: #N(#PEEK(#PC)-$C8),
+                                          ; #N(#PEEK(#PC+$01)).
+ $7D30 DEFM "SEE YOU AGAIN SOMETIME."     ; #FONT:(SEE YOU AGAIN
+                                          ; SOMETIME.)$E0DC,attr=$44(congratulations-08)
  $7D47 DEFB $FF                           ; Terminator.
 
 ; Messaging: Tough Luck
 @label=Messaging_ToughLuck
 t$7D48 DEFB $FE,$44                     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7D4A DEFM "TOUGH LUCK.  THE GANG HAS" ; "TOUGH LUCK.  THE GANG HAS".
- $7D63 DEFB $AF,$03
- $7D65 DEFM "EARNED"                    ; "EARNED".
- $7D6B DEFB $CE,$00
- $7D6D DEFM ",  BUT  CAN'T"             ; ",  BUT  CAN'T".
- $7D7A DEFB $AF,$03
- $7D7C DEFM "HAVE  IT  'COS  THE  SAFE" ; "HAVE  IT  'COS  THE  SAFE".
- $7D95 DEFB $AF,$03
- $7D97 DEFM "WASN'T OPENED, AND THAT'S" ; "WASN'T OPENED, AND THAT'S".
- $7DB0 DEFB $AF,$03
- $7DB2 DEFM "WHERE THE MONEY IS."       ; "WHERE THE MONEY IS.".
+ $7D4A DEFM "TOUGH LUCK.  THE GANG HAS" ; #FONT:(TOUGH LUCK.  THE GANG
+                                        ; HAS)$E0DC,attr=$44(tough-luck-01)
+ $7D63 DEFB $AF,$03                     ; Screen: #N(#PEEK(#PC)-$C8),
+                                        ; #N(#PEEK(#PC+$01)).
+ $7D65 DEFM "EARNED"                    ; #FONT:(EARNED)$E0DC,attr=$44(tough-luck-02)
+ $7D6B DEFB $CE,$00                     ; Screen: #N(#PEEK(#PC)-$C8),
+                                        ; #N(#PEEK(#PC+$01)).
+ $7D6D DEFM ",  BUT  CAN'T"             ; #FONT:(,  BUT
+                                        ; CAN'T)$E0DC,attr=$44(tough-luck-03)
+ $7D7A DEFB $AF,$03                     ; Screen: #N(#PEEK(#PC)-$C8),
+                                        ; #N(#PEEK(#PC+$01)).
+ $7D7C DEFM "HAVE  IT  'COS  THE  SAFE" ; #FONT:(HAVE  IT  'COS  THE
+                                        ; SAFE)$E0DC,attr=$44(tough-luck-04)
+ $7D95 DEFB $AF,$03                     ; Screen: #N(#PEEK(#PC)-$C8),
+                                        ; #N(#PEEK(#PC+$01)).
+ $7D97 DEFM "WASN'T OPENED, AND THAT'S" ; #FONT:(WASN'T OPENED, AND
+                                        ; THAT'S)$E0DC,attr=$44(tough-luck-05)
+ $7DB0 DEFB $AF,$03                     ; Screen: #N(#PEEK(#PC)-$C8),
+                                        ; #N(#PEEK(#PC+$01)).
+ $7DB2 DEFM "WHERE THE MONEY IS."       ; #FONT:(WHERE THE MONEY
+                                        ; IS.)$E0DC,attr=$44(tough-luck-06)
  $7DC5 DEFB $FF                         ; Terminator.
 
 ; Messaging: Splash Screen
 @label=Messaging_Splash
 t$7DC6 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DC8 DEFM "KEY:-"                  ; "KEY:-".
+ $7DC8 DEFM "KEY:-"                  ; #FONT:(KEY:-)$E0DC,attr=$42(key)
  $7DCD DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DCF DEFM "   1.SINCLAIR JOYSTICK" ; "   1.SINCLAIR JOYSTICK".
- $7DE5 DEFB $AD,$07
+ $7DCF DEFM "   1.SINCLAIR JOYSTICK" ; #FONT:(   1.SINCLAIR
+                                     ; JOYSTICK)$E0DC,attr=$46(sinclair)
+ $7DE5 DEFB $AD,$07                  ; Screen: #N(#PEEK(#PC)-$C8),
+                                     ; #N(#PEEK(#PC+$01)).
  $7DE7 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DE9 DEFM "KEY:-"                  ; "KEY:-".
+ $7DE9 DEFM "KEY:-"                  ; #FONT:(KEY:-)$E0DC,attr=$42(key)
  $7DEE DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DF0 DEFM "   2.KEMPSTON JOYSTICK" ; "   2.KEMPSTON JOYSTICK".
- $7E06 DEFB $AD,$07
+ $7DF0 DEFM "   2.KEMPSTON JOYSTICK" ; #FONT:(   2.KEMPSTON
+                                     ; JOYSTICK)$E0DC,attr=$46(kempston)
+ $7E06 DEFB $AD,$07                  ; Screen: #N(#PEEK(#PC)-$C8),
+                                     ; #N(#PEEK(#PC+$01)).
  $7E08 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E0A DEFM "KEY:-"                  ; "KEY:-".
+ $7E0A DEFM "KEY:-"                  ; #FONT:(KEY:-)$E0DC,attr=$42(key)
  $7E0F DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E11 DEFM "   3.KEYBOARD"          ; "   3.KEYBOARD".
- $7E1E DEFB $BA,$08
+ $7E11 DEFM "   3.KEYBOARD"          ; #FONT:(
+                                     ; 3.KEYBOARD)$E0DC,attr=$46(keyboard)
+ $7E1E DEFB $BA,$08                  ; Screen: #N(#PEEK(#PC)-$C8),
+                                     ; #N(#PEEK(#PC+$01)).
  $7E20 DEFB $FE,$45                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E22 DEFM "PRESS KEY 4 TO START"   ; "PRESS KEY 4 TO START".
+ $7E22 DEFM "PRESS KEY 4 TO START"   ; #FONT:(PRESS KEY 4 TO
+                                     ; START)$E0DC,attr=$46(start)
  $7E36 DEFB $FF                      ; Terminator.
 
 ; Messaging: Key
 @label=Messaging_Key
 t$7E37 DEFB $FE,$47     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E39 DEFM "KEY:-",$FF ; "#STR$7E39,$08($b==$FF)".
+ $7E39 DEFM "KEY:-",$FF ; #FONT:(KEY:-)$E0DC,attr=$47(key-chosen)
 
 ; Messaging: Character
 @label=Messaging_Character
-t$7E3F DEFB $FB                     ; {Sprite Bank:
- $7E40 DEFW $DFDC                   ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
- $7E42 DEFB $FE,$44                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E44 DEFM "CHARACTER:"            ; "CHARACTER:".
- $7E4E DEFB $BE,$02
- $7E50 DEFB $FE,$47                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E52 DEFM "ENDURANCE:"            ; "ENDURANCE:".
- $7E5C DEFB $AE,$00
- $7E5E DEFB $FE,$47                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E60 DEFM "  "                    ; "  " (whitespace).
- $7E62 DEFB $C6,$01,$20,$20,$C6,$01
- $7E68 DEFB $FB                     ; {Sprite Bank:
- $7E69 DEFW $DFDC                   ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
- $7E6B DEFB $FE,$42                 ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E6D DEFB $FD,$20,$5B
- $7E70 DEFM $FF                     ; Terminator.
+t$7E3F DEFB $FB          ; {Sprite Bank:
+ $7E40 DEFW $DFDC        ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
+ $7E42 DEFB $FE,$44      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
+ $7E44 DEFM "CHARACTER:" ; #FONT:(CHARACTER:)$E0DC,attr=$47(character)
+ $7E4E DEFB $BE,$02      ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7E50 DEFB $FE,$47      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
+ $7E52 DEFM "ENDURANCE:" ; #FONT:(ENDURANCE:)$E0DC,attr=$47(endurance)
+ $7E5C DEFB $AE,$00      ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7E5E DEFB $FE,$47      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
+ $7E60 DEFM "  "         ; #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
+ $7E62 DEFB $C6,$01      ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7E64 DEFM "  "         ; #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
+ $7E66 DEFB $C6,$01      ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7E68 DEFB $FB          ; {Sprite Bank:
+ $7E69 DEFW $DFDC        ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
+ $7E6B DEFB $FE,$42      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
+ $7E6D DEFB $FD,$20,$5B  ; Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
+                         ; #UDGTABLE { =h,c32 Columns } { #FOR$01,$20(n,=h #Nn, | ) }
+                         ; { #FOR$01,$20(n,#UDG($E2B4,attr=$42), | ) }
+                         ; UDGTABLE#
+ $7E70 DEFM $FF          ; Terminator.
 
 ; Messaging: Tea Break
 @label=Messaging_TeaBreak
 t$7E71 DEFB $FE,$45                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E73 DEFB $CD,$0C
- $7E75 DEFM "HO HUM, TIME FOR A BUN" ; "HO HUM, TIME FOR A BUN".
- $7E8B DEFB $B4,$04
- $7E8D DEFM "MORNING TEA BREAK"      ; "#STR$7E8D,$08($b==$FF)".
+ $7E73 DEFB $CD,$0C                  ; Screen: #N(#PEEK(#PC)-$C8),
+                                     ; #N(#PEEK(#PC+$01)).
+ $7E75 DEFM "HO HUM, TIME FOR A BUN" ; #FONT:(HO HUM, TIME FOR A
+                                     ; BUN)$E0DC,attr=$45(tea-break-01)
+ $7E8B DEFB $B4,$04                  ; Screen: #N(#PEEK(#PC)-$C8),
+                                     ; #N(#PEEK(#PC+$01)).
+ $7E8D DEFM "MORNING TEA BREAK"      ; #FONT:(MORNING TEA
+                                     ; BREAK)$E0DC,attr=$45(tea-break-02)
  $7E9E DEFB $FF                      ; Terminator.
 
 ; Messaging: Lunch Time
 @label=Messaging_LunchTime
 t$7E9F DEFB $FE,$43                        ; Attribute:
                                            ; #COLOUR(#PEEK(#PC+$01)).
- $7EA1 DEFB $CA,$0C
- $7EA3 DEFM "RUBBA DUB DUB, TIME FOR GRUB" ; "RUBBA DUB DUB, TIME FOR GRUB".
- $7EBF DEFB $B5,$04
- $7EC1 DEFM "LUNCH TIME"                   ; "#STR$7EC1,$08($b==$FF)".
+ $7EA1 DEFB $CA,$0C                        ; Screen: #N(#PEEK(#PC)-$C8),
+                                           ; #N(#PEEK(#PC+$01)).
+ $7EA3 DEFM "RUBBA DUB DUB, TIME FOR GRUB" ; #FONT:(RUBBA DUB DUB, TIME FOR
+                                           ; GRUB)$E0DC,attr=$43(lunch-time-01)
+ $7EBF DEFB $B5,$04                        ; Screen: #N(#PEEK(#PC)-$C8),
+                                           ; #N(#PEEK(#PC+$01)).
+ $7EC1 DEFM "LUNCH TIME"                   ; #FONT:(LUNCH
+                                           ; TIME)$E0DC,attr=$43(lunch-time-02)
  $7ECB DEFB $FF                            ; Terminator.
 
 ; Messaging: Afternoon Tea Break
 @label=Messaging_AfternoonTeaBreak
 t$7ECC DEFB $FE,$46                        ; Attribute:
                                            ; #COLOUR(#PEEK(#PC+$01)).
- $7ECE DEFB $CA,$0C
- $7ED0 DEFM "FIDDLE DEE DEE, TIME FOR TEA" ; "FIDDLE DEE DEE, TIME FOR TEA".
- $7EEC DEFB $B1,$04
- $7EEE DEFM "AFTERNOON TEA BREAK"          ; "#STR$7EEE,$08($b==$FF)".
+ $7ECE DEFB $CA,$0C                        ; Screen: #N(#PEEK(#PC)-$C8),
+                                           ; #N(#PEEK(#PC+$01)).
+ $7ED0 DEFM "FIDDLE DEE DEE, TIME FOR TEA" ; #FONT:(FIDDLE DEE DEE, TIME FOR
+                                           ; TEA)$E0DC,attr=$46(afternoon-01)
+ $7EEC DEFB $B1,$04                        ; Screen: #N(#PEEK(#PC)-$C8),
+                                           ; #N(#PEEK(#PC+$01)).
+ $7EEE DEFM "AFTERNOON TEA BREAK"          ; #FONT:(AFTERNOON TEA
+                                           ; BREAK)$E0DC,attr=$46(afternoon-02)
  $7F01 DEFB $FF                            ; Terminator.
 
 ; Data block at 7F02
-b$7F02 DEFB $FE,$42                     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7F04 DEFB $FB                         ; {Sprite Bank:
- $7F05 DEFW $D7BC                       ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
-                                        ; }
- $7F07 DEFB $00,$01,$C6,$01,$02,$03,$DC
- $7F0E DEFB $FF                         ; Terminator.
- $7F0F DEFB $00,$01,$C6,$01,$02,$03
- $7F15 DEFB $FF                         ; Terminator.
- $7F16 DEFB $FB                         ; {Sprite Bank:
- $7F17 DEFW $DFDC                       ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
-                                        ; }
- $7F19 DEFB $FE,$46                     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7F1B DEFB $FD,$04,$20
- $7F1E DEFB $FF                         ; Terminator.
+b$7F02 DEFB $FE,$42     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
+ $7F04 DEFB $FB         ; {Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+ $7F05 DEFW $D7BC       ; }
+ $7F07 DEFB $00         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7BC,attr=$42) }} UDGTABLE#
+ $7F08 DEFB $01         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7C4,attr=$42) }} UDGTABLE#
+ $7F09 DEFB $C6,$01     ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7F0B DEFB $02         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7CC,attr=$42) }} UDGTABLE#
+ $7F0C DEFB $03         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7CC,attr=$42) }} UDGTABLE#
+ $7F0D DEFB $DC,$FF     ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7F0F DEFB $00         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7BC,attr=$42) }} UDGTABLE#
+ $7F10 DEFB $01         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7C4,attr=$42) }} UDGTABLE#
+ $7F11 DEFB $C6,$01     ; Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+ $7F13 DEFB $02         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7BC,attr=$42) }} UDGTABLE#
+ $7F14 DEFB $03         ; Tile #N(#PEEK(#PC)): #UDGTABLE {{
+                        ; #UDG($D7C4,attr=$42) }} UDGTABLE#
+ $7F15 DEFB $FF         ; Terminator.
+ $7F16 DEFB $FB         ; {Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
+ $7F17 DEFW $DFDC       ; }
+ $7F19 DEFB $FE,$46     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
+ $7F1B DEFB $FD,$04,$20 ; Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
+                        ; #UDGTABLE { =h,c32 Columns } { #FOR$01,$20(n,=h #Nn, | ) }
+                        ; { #FOR$01,$20(n,#UDG($DFFC,attr=$46), | ) }
+                        ; UDGTABLE#
+ $7F1E DEFB $FF         ; Terminator.
 
 ; Messaging: The Town Square
 @label=Messaging_TownSquare
@@ -4354,21 +4421,22 @@ c$B09F LD IY,($B09D)   ;
  $B0DF LD (IY+$41),$FF ;
  $B0E3 JP $B288        ;
 
-; Routine at B0E6
+; Draws Sprites To The Shadow Buffer
 ;
 ; Used by the routines at #R$B9D6 and #R$EFC7.
+@label=WriteSprite_ShadowBuffer
 c$B0E6 EXX           ; Switch to the shadow registers.
- $B0E7 LD E,(IY+$23) ;
- $B0EA LD D,(IY+$28) ;
- $B0ED LD ($A83B),SP ;
- $B0F1 LD H,(IY+$00) ;
- $B0F4 LD L,$00      ;
+ $B0E7 LD E,(IY+$23) ; #REGe=*#REGiy+#N$23.
+ $B0EA LD D,(IY+$28) ; #REGd=*#REGiy+#N$28.
+ $B0ED LD ($A83B),SP ; Write #REGsp to #R$A83B.
+ $B0F1 LD H,(IY+$00) ; #REGh=*#REGiy+#N$00.
+ $B0F4 LD L,$00      ; #REGl=#N$00.
  $B0F6 SRL H         ;
  $B0F8 RR L          ;
  $B0FA ADD HL,DE     ;
  $B0FB LD SP,HL      ;
- $B0FC LD A,(IY+$05) ;
- $B0FF LD B,A        ;
+ $B0FC LD A,(IY+$05) ; {#REGb=*#REGiy+#N$05.
+ $B0FF LD B,A        ; }
  $B100 AND %00000111 ; Keep only bits 0-2.
 ; Self-modifying code.
  $B102 LD ($B189),A  ; Write #REGa to #R$B188(#N$B189).
@@ -4376,11 +4444,12 @@ c$B0E6 EXX           ; Switch to the shadow registers.
  $B106 LD ($B129),A  ;
  $B109 LD ($B145),A  ;
  $B10C LD A,B        ;
- $B10D AND $F8       ;
+ $B10D AND %11111000 ; Keep only bits 3-7.
  $B10F RRCA          ;
  $B110 RRCA          ;
  $B111 RRCA          ;
- $B112 LD ($B17B),A  ;
+; Self-modifying code.
+ $B112 LD ($B17B),A  ; Write #REGa to #R$B17A(#N$B17B).
  $B115 ADD A,$02     ;
  $B117 LD E,A        ;
  $B118 LD C,$20      ;
@@ -4439,25 +4508,29 @@ c$B0E6 EXX           ; Switch to the shadow registers.
  $B15F DEC C         ;
  $B160 JP NZ,$B127   ;
  $B163 LD A,(IY+$0A) ;
- $B166 AND $07       ;
+ $B166 AND %00000111 ; Keep only bits 0-2.
  $B168 JR Z,$B16E    ;
  $B16A LD B,$05      ;
  $B16C JR $B170      ;
-*$B16E LD B,$04      ;
-*$B170 LD A,(IY+$0A) ;
- $B173 AND $F8       ;
- $B175 LD H,$00      ;
- $B177 LD L,A        ;
- $B178 ADD HL,HL     ;
+; Characters are #N$04 characters tall.
+*$B16E LD B,$04      ; #REGb=#N$04 (counter).
+*$B170 LD A,(IY+$0A) ; #REGa=*#REGiy+#N$0A.
+ $B173 AND %11111000 ; Keep only bits 3-7.
+ $B175 LD H,$00      ; {Create an offset in #REGhl.
+ $B177 LD L,A        ; }
+ $B178 ADD HL,HL     ; {#REGhl=#R$FB00+(#REGhl*#N$04).
  $B179 ADD HL,HL     ;
  $B17A LD DE,$FB00   ;
- $B17D ADD HL,DE     ;
- $B17E LD DE,$001E   ;
- $B181 LD C,(IY+$1E) ;
-*$B184 LD (HL),C     ;
- $B185 INC HL        ;
- $B186 LD (HL),C     ;
- $B187 INC HL        ;
+ $B17D ADD HL,DE     ; }
+ $B17E LD DE,$001E   ; #REGde=#N($001E,$04,$04).
+; Grab the characters attribute byte.
+ $B181 LD C,(IY+$1E) ; #REGc=*#REGiy+#N$1E.
+*$B184 LD (HL),C     ; Write the attribute byte to the attribute buffer
+                     ; (*#REGhl).
+ $B185 INC HL        ; Increment #REGhl by one.
+ $B186 LD (HL),C     ; Write the attribute byte to the attribute buffer
+                     ; (*#REGhl).
+ $B187 INC HL        ; Increment #REGhl by one.
 ; This is modified from #R$B102.
  $B188 LD A,$FF      ; #REGb=#N$FF.
  $B18A OR A          ;
@@ -5625,29 +5698,29 @@ c$B9D6 LD A,(IY+$0F) ; {Write #REGiy+#N$0F to #R$B951.
  $B9F7 CALL $B9FB    ; Call #R$B9FB.
  $B9FA RET           ; Return.
 
-; Handler: Sprites
+; Copy Shadow Buffer To Screen
 ;
 ; Used by the routines at #R$813B, #R$B9D6, #R$ED2A and #R$EFC7.
 ;
 ; .
 ;
-; Draw Sprites.
-@label=Handler_Sprites
+; Copy the shadow screen buffer.
+@label=Copy_ShadowBuffer
 c$B9FB LD HL,$6B00   ; #REGhl=#R$6B00.
  $B9FE LD IX,$8278   ; #REGix=#R$8278.
  $BA02 LD BC,$1000   ; #REGbc=#N$1000.
-@label=Handler_Sprites_Loop
+@label=Copy_ShadowBuffer_Loop
 *$BA05 LD E,(IX+$00) ; #REGe=*#REGix+#N$00.
  $BA08 LD D,(IX+$01) ; #REGd=*#REGix+#N$01.
  $BA0B INC IX        ; {Increment #REGix by two.
  $BA0D INC IX        ; }
  $BA0F CALL $BA25    ; Call #R$BA25.
  $BA12 JP PE,$BA05   ; Jump to #R$BA05 until #REGbc is zero.
-; Draw Sprite attributes.
+; Copy the shadow attribute buffer.
  $BA15 LD BC,$0200   ; #REGbc=#N$0200.
  $BA18 LD HL,$FC00   ; #REGhl=#R$FC00.
  $BA1B LD DE,$5900   ; #REGde=#R$5900.
-@label=Handler_Sprites_Attributes_Loop
+@label=Copy_ShadowBuffer_Attributes_Loop
 *$BA1E CALL $BA25    ; Call #R$BA25.
  $BA21 JP PE,$BA1E   ; Jump to #R$BA1E until #REGbc is zero.
  $BA24 RET           ; Return.
@@ -14986,7 +15059,8 @@ b$FAEF DEFB $00,$DD,$E5,$DD,$21,$A9,$80,$F5
  $FBF0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FBF8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
 
-; Data block at FC00
+; Attribute Shadow Buffer
+@label=ShadowBuffer_Attribute
 b$FC00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FC08 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FC10 DEFB $00,$00,$00,$00,$00,$00,$00,$00
@@ -15051,7 +15125,9 @@ b$FC00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FDE8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FDF0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FDF8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FE00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+
+; Data block at FE00
+b$FE00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FE08 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FE10 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $FE18 DEFB $00,$00,$00,$00,$00,$00,$00,$00

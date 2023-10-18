@@ -23,7 +23,8 @@ c $5B80
 
 b $5B9A
 
-b $6B00
+b $6B00 Shadow Buffer
+@ $6B00 label=ShadowBuffer
   $6B00,$1000
 
 b $7B00
@@ -46,84 +47,84 @@ t $7C15 Messaging: Harry
 t $7C1B Messaging: Wages
 @ $7C1B label=Messaging_Wages
 B $7C1B,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7C1D,$0D "TODAY'S WAGES".
-B $7C2A,$02
+  $7C1D,$0D #FONT:(TODAY'S WAGES)$E0DC,attr=$43(wages-01)
+B $7C2A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7C2C,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7C2E,$0B "WALLY'S PAY".
-B $7C39,$02
-  $7C3B,$0B "WILMA'S PAY".
-B $7C46,$02
-  $7C48,$09 "TOM'S PAY".
-B $7C51,$02
-  $7C53,$0A "DICK'S PAY".
-B $7C5D,$02
-  $7C5F,$0B "HARRY'S PAY".
+  $7C2E,$0B #FONT:(WALLY'S PAY)$E0DC,attr=$46(wages-02)
+B $7C39,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7C3B,$0B #FONT:(WILMA'S PAY)$E0DC,attr=$46(wages-03)
+B $7C46,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7C48,$09 #FONT:(TOM'S PAY)$E0DC,attr=$46(wages-04)
+B $7C51,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7C53,$0A #FONT:(DICK'S PAY)$E0DC,attr=$46(wages-05)
+B $7C5D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7C5F,$0B #FONT:(HARRY'S PAY)$E0DC,attr=$46(wages-06)
 B $7C6A,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7C6C,$02
-  $7C6E,$07 "OVERALL".
+B $7C6C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7C6E,$07 #FONT:(OVERALL)$E0DC,attr=$43(wages-07)
 B $7C75,$01 Terminator.
 
 t $7C76 Messaging: Congratulations
 @ $7C76 label=Messaging_Congratulations
 B $7C76,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7C78,$1B "YOU CLEVER DICK  (PLUS TOM,".
-B $7C93,$02
-  $7C95,$18 "HARRY, WILMA AND WALLY).".
-B $7CAD,$02
-  $7CAF,$17 "YOU'VE OPENED THE SAFE.".
-B $7CC6,$02
-  $7CC8,$1B "PERHAPS  EVERYONE'S  NOT  A".
-B $7CE3,$02
-  $7CE5,$10 "WALLY AFTER ALL.".
-B $7CF5,$02
-  $7CF7,$1B "THE GANG HAVE BEEN PAID AND".
-B $7D12,$02
-  $7D14,$1A "ARE NOW OFF ON THEIR HOLS.".
-B $7D2E,$02
-  $7D30,$17 "SEE YOU AGAIN SOMETIME.".
+  $7C78,$1B #FONT:(YOU CLEVER DICK  PLUS TOM,)$E0DC,attr=$44(congratulations-01)
+B $7C93,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7C95,$18 #FONT:(HARRY, WILMA AND WALLY.)$E0DC,attr=$44(congratulations-02)
+B $7CAD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7CAF,$17 #FONT:(YOU'VE OPENED THE SAFE.)$E0DC,attr=$44(congratulations-03)
+B $7CC6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7CC8,$1B #FONT:(PERHAPS  EVERYONE'S  NOT  A)$E0DC,attr=$44(congratulations-04)
+B $7CE3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7CE5,$10 #FONT:(WALLY AFTER ALL.)$E0DC,attr=$44(congratulations-05)
+B $7CF5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7CF7,$1B #FONT:(THE GANG HAVE BEEN PAID AND)$E0DC,attr=$44(congratulations-06)
+B $7D12,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7D14,$1A #FONT:(ARE NOW OFF ON THEIR HOLS.)$E0DC,attr=$44(congratulations-07)
+B $7D2E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7D30,$17 #FONT:(SEE YOU AGAIN SOMETIME.)$E0DC,attr=$44(congratulations-08)
 B $7D47,$01 Terminator.
 
 t $7D48 Messaging: Tough Luck
 @ $7D48 label=Messaging_ToughLuck
 B $7D48,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7D4A,$19 "TOUGH LUCK.  THE GANG HAS".
-B $7D63,$02
-  $7D65,$06 "EARNED".
-B $7D6B,$02
-  $7D6D,$0D ",  BUT  CAN'T".
-B $7D7A,$02
-  $7D7C,$19 "HAVE  IT  'COS  THE  SAFE".
-B $7D95,$02
-  $7D97,$19 "WASN'T OPENED, AND THAT'S".
-B $7DB0,$02
-  $7DB2,$13 "WHERE THE MONEY IS.".
+  $7D4A,$19 #FONT:(TOUGH LUCK.  THE GANG HAS)$E0DC,attr=$44(tough-luck-01)
+B $7D63,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7D65,$06 #FONT:(EARNED)$E0DC,attr=$44(tough-luck-02)
+B $7D6B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7D6D,$0D #FONT:(,  BUT  CAN'T)$E0DC,attr=$44(tough-luck-03)
+B $7D7A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7D7C,$19 #FONT:(HAVE  IT  'COS  THE  SAFE)$E0DC,attr=$44(tough-luck-04)
+B $7D95,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7D97,$19 #FONT:(WASN'T OPENED, AND THAT'S)$E0DC,attr=$44(tough-luck-05)
+B $7DB0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7DB2,$13 #FONT:(WHERE THE MONEY IS.)$E0DC,attr=$44(tough-luck-06)
 B $7DC5,$01 Terminator.
 
 t $7DC6 Messaging: Splash Screen
 @ $7DC6 label=Messaging_Splash
 B $7DC6,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7DC8,$05 "KEY:-".
+  $7DC8,$05 #FONT:(KEY:-)$E0DC,attr=$42(key)
 B $7DCD,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7DCF,$16 "   1.SINCLAIR JOYSTICK".
-B $7DE5,$02
+  $7DCF,$16 #FONT:(   1.SINCLAIR JOYSTICK)$E0DC,attr=$46(sinclair)
+B $7DE5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7DE7,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7DE9,$05 "KEY:-".
+  $7DE9,$05 #FONT:(KEY:-)$E0DC,attr=$42(key)
 B $7DEE,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7DF0,$16 "   2.KEMPSTON JOYSTICK".
-B $7E06,$02
+  $7DF0,$16 #FONT:(   2.KEMPSTON JOYSTICK)$E0DC,attr=$46(kempston)
+B $7E06,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E08,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7E0A,$05 "KEY:-".
+  $7E0A,$05 #FONT:(KEY:-)$E0DC,attr=$42(key)
 B $7E0F,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7E11,$0D "   3.KEYBOARD".
-B $7E1E,$02
+  $7E11,$0D #FONT:(   3.KEYBOARD)$E0DC,attr=$46(keyboard)
+B $7E1E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E20,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7E22,$14 "PRESS KEY 4 TO START".
+  $7E22,$14 #FONT:(PRESS KEY 4 TO START)$E0DC,attr=$46(start)
 B $7E36,$01 Terminator.
 
 t $7E37 Messaging: Key
 @ $7E37 label=Messaging_Key
 B $7E37,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7E39,$06 "#STR$7E39,$08($b==$FF)".
+  $7E39,$06 #FONT:(KEY:-)$E0DC,attr=$47(key-chosen)
 
 t $7E3F Messaging: Character
 @ $7E3F label=Messaging_Character
@@ -131,46 +132,53 @@ M $7E3F,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
 B $7E3F,$01
 W $7E40,$02
 B $7E42,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7E44,$0A "CHARACTER:".
-B $7E4E,$02
+  $7E44,$0A #FONT:(CHARACTER:)$E0DC,attr=$47(character)
+B $7E4E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E50,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7E52,$0A "ENDURANCE:".
-B $7E5C,$02
+  $7E52,$0A #FONT:(ENDURANCE:)$E0DC,attr=$47(endurance)
+B $7E5C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E5E,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-  $7E60,$02 "  " (whitespace).
-B $7E62
+  $7E60,$02 #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
+B $7E62 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7E64,$02 #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
+B $7E66 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $7E68,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
 B $7E68,$01
 W $7E69,$02
 B $7E6B,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7E6D
+B $7E6D,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
+. #UDGTABLE { =h,c32 Columns } { #FOR$01,$20(n,=h #Nn, | ) }
+. { #FOR$01,$20(n,#UDG($E2B4,attr=$42), | ) }
+. UDGTABLE#
+
+
   $7E70,$01 Terminator.
 
 t $7E71 Messaging: Tea Break
 @ $7E71 label=Messaging_TeaBreak
 B $7E71,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7E73,$02
-  $7E75,$16 "HO HUM, TIME FOR A BUN".
-B $7E8B,$02
-  $7E8D,$11 "#STR$7E8D,$08($b==$FF)".
+B $7E73,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7E75,$16 #FONT:(HO HUM, TIME FOR A BUN)$E0DC,attr=$45(tea-break-01)
+B $7E8B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7E8D,$11 #FONT:(MORNING TEA BREAK)$E0DC,attr=$45(tea-break-02)
 B $7E9E,$01 Terminator.
 
 t $7E9F Messaging: Lunch Time
 @ $7E9F label=Messaging_LunchTime
 B $7E9F,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7EA1,$02
-  $7EA3,$1C "RUBBA DUB DUB, TIME FOR GRUB".
-B $7EBF,$02
-  $7EC1,$0A "#STR$7EC1,$08($b==$FF)".
+B $7EA1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7EA3,$1C #FONT:(RUBBA DUB DUB, TIME FOR GRUB)$E0DC,attr=$43(lunch-time-01)
+B $7EBF,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7EC1,$0A #FONT:(LUNCH TIME)$E0DC,attr=$43(lunch-time-02)
 B $7ECB,$01 Terminator.
 
 t $7ECC Messaging: Afternoon Tea Break
 @ $7ECC label=Messaging_AfternoonTeaBreak
 B $7ECC,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7ECE,$02
-  $7ED0,$1C "FIDDLE DEE DEE, TIME FOR TEA".
-B $7EEC,$02
-  $7EEE,$13 "#STR$7EEE,$08($b==$FF)".
+B $7ECE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7ED0,$1C #FONT:(FIDDLE DEE DEE, TIME FOR TEA)$E0DC,attr=$46(afternoon-01)
+B $7EEC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7EEE,$13 #FONT:(AFTERNOON TEA BREAK)$E0DC,attr=$46(afternoon-02)
 B $7F01,$01 Terminator.
 
 b $7F02
@@ -178,12 +186,26 @@ b $7F02
 M $7F04,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $7F04,$01
 W $7F05,$02
-  $7F0E,$01 Terminator.
+  $7F07,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7BC,attr=$42) }} UDGTABLE#
+  $7F08,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7C4,attr=$42) }} UDGTABLE#
+  $7F09,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7F0B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7CC,attr=$42) }} UDGTABLE#
+  $7F0C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7CC,attr=$42) }} UDGTABLE#
+  $7F0D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7F0F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7BC,attr=$42) }} UDGTABLE#
+  $7F10,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7C4,attr=$42) }} UDGTABLE#
+  $7F11,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7F13,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7BC,attr=$42) }} UDGTABLE#
+  $7F14,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7C4,attr=$42) }} UDGTABLE#
   $7F15,$01 Terminator.
 M $7F16,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $7F16,$01
 W $7F17,$02
   $7F19,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
+  $7F1B,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
+. #UDGTABLE { =h,c32 Columns } { #FOR$01,$20(n,=h #Nn, | ) }
+. { #FOR$01,$20(n,#UDG($DFFC,attr=$46), | ) }
+. UDGTABLE#
   $7F1E,$01 Terminator.
 
 t $7F1F Messaging: The Town Square
@@ -636,12 +658,39 @@ w $B09D
 
 c $B09F
 
-c $B0E6
+c $B0E6 Draws Sprites To The Shadow Buffer
+@ $B0E6 label=WriteSprite_ShadowBuffer
   $B0E6,$01 Switch to the shadow registers.
+  $B0E7,$03 #REGe=*#REGiy+#N$23.
+  $B0EA,$03 #REGd=*#REGiy+#N$28.
+  $B0ED,$04 Write #REGsp to #R$A83B.
+  $B0F1,$03 #REGh=*#REGiy+#N$00.
+  $B0F4,$02 #REGl=#N$00.
 
+  $B0FC,$04 #REGb=*#REGiy+#N$05.
   $B100,$02,b$01 Keep only bits 0-2.
 N $B102 Self-modifying code.
   $B102,$03 Write #REGa to #R$B188(#N$B189).
+
+  $B10D,$02,b$01 Keep only bits 3-7.
+
+N $B112 Self-modifying code.
+  $B112,$03 Write #REGa to #R$B17A(#N$B17B).
+
+  $B166,$02,b$01 Keep only bits 0-2.
+N $B16E Characters are #N$04 characters tall.
+  $B16E,$02 #REGb=#N$04 (counter).
+  $B170,$03 #REGa=*#REGiy+#N$0A.
+  $B173,$02,b$01 Keep only bits 3-7.
+  $B175,$03 Create an offset in #REGhl.
+  $B178,$06 #REGhl=#R$FB00+(#REGhl*#N$04).
+  $B17E,$03 #REGde=#N($001E,$04,$04).
+N $B181 Grab the characters attribute byte.
+  $B181,$03 #REGc=*#REGiy+#N$1E.
+  $B184,$01 Write the attribute byte to the attribute buffer (*#REGhl).
+  $B185,$01 Increment #REGhl by one.
+  $B186,$01 Write the attribute byte to the attribute buffer (*#REGhl).
+  $B187,$01 Increment #REGhl by one.
 
 N $B188 This is modified from #R$B102.
   $B188,$02 #REGb=#N$FF.
@@ -1149,23 +1198,23 @@ c $B9D6
   $B9F7,$03 Call #R$B9FB.
   $B9FA,$01 Return.
 
-c $B9FB Handler: Sprites
-@ $B9FB label=Handler_Sprites
-N $B9FB Draw Sprites.
+c $B9FB Copy Shadow Buffer To Screen
+@ $B9FB label=Copy_ShadowBuffer
+N $B9FB Copy the shadow screen buffer.
   $B9FB,$03 #REGhl=#R$6B00.
   $B9FE,$04 #REGix=#R$8278.
   $BA02,$03 #REGbc=#N$1000.
-@ $BA05 label=Handler_Sprites_Loop
+@ $BA05 label=Copy_ShadowBuffer_Loop
   $BA05,$03 #REGe=*#REGix+#N$00.
   $BA08,$03 #REGd=*#REGix+#N$01.
   $BA0B,$04 Increment #REGix by two.
   $BA0F,$03 Call #R$BA25.
   $BA12,$03 Jump to #R$BA05 until #REGbc is zero.
-N $BA15 Draw Sprite attributes.
+N $BA15 Copy the shadow attribute buffer.
   $BA15,$03 #REGbc=#N$0200.
   $BA18,$03 #REGhl=#R$FC00.
   $BA1B,$03 #REGde=#R$5900.
-@ $BA1E label=Handler_Sprites_Attributes_Loop
+@ $BA1E label=Copy_ShadowBuffer_Attributes_Loop
   $BA1E,$03 Call #R$BA25.
   $BA21,$03 Jump to #R$BA1E until #REGbc is zero.
   $BA24,$01 Return.
@@ -5837,7 +5886,11 @@ B $F9F0,$05,$01
 b $FAEF
   $FB00
 
-b $FC00
+b $FC00 Attribute Shadow Buffer
+@ $FC00 label=ShadowBuffer_Attribute
+  $FC00,$0200
+
+b $FE00
 
 c $FEF7 Game Entry Point
 @ $FEF7 label=Checksum
