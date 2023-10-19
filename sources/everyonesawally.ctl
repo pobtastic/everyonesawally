@@ -9,6 +9,8 @@ D $4000 #UDGTABLE { =h Everyone's a Wally Loading Screen. } { #SCR$02(loading) }
   $4000,$1800,$20 Pixels
   $5800,$0300,$20 Attributes
 
+b $5B00
+
 c $5B80
   $5B80,$03 #REGbc=#N$A299.
   $5B83,$03 #REGhl=#N$5B97.
@@ -421,8 +423,8 @@ c $813B
   $8150,$04 Jump to #R$8141 until #REGbc is zero.
   $8154,$01 Return.
 
-c $8155 Start Game
-@ $8155 label=Game_Start
+c $8155 Start Demo Mode
+@ $8155 label=Demo_Start
   $8155,$03 Call #R$BAD8.
   $8158,$03 Call #R$B8ED.
   $815B,$03 Call #R$E3FD.
@@ -476,7 +478,14 @@ b $81F8 Screen Buffer Locations
 W $81F8,$180,$02
 
 b $8378
+  $8378,$08
+L $8378,$08,$50
 
+b $91D5
+  $9818
+  $9878
+
+b $A838
 b $A839
 
 g $A83B Temp Stack Pointer Storage
@@ -624,6 +633,11 @@ c $AA7F
   $AA8B,$01 Return.
 
 c $AA8C
+  $AA8C,$03 #REGa=*#REGiy+#N$0F.
+  $AA8F,$03 #REGhl=#R$BCE9.
+  $AA92,$03 Call #R$AC6C.
+
+  $AA9F,$01 Return.
 
 w $AAA0 Jump Table
 @ $AAA0 label=Table_Jump
@@ -657,6 +671,33 @@ b $AEA7
 c $AED7
 
 b $AF10
+
+b $AF22 Platform Data
+@ $AF22 label=Platform_Data
+  $AF22,$01 Terminator.
+  $AF23,$30,$03
+  $AF53,$01 Terminator.
+  $AF54,$0F,$03
+  $AF63,$01 Terminator.
+  $AF64,$03
+  $AF67,$01 Terminator.
+  $AF68,$09,$03
+  $AF71,$01 Terminator.
+  $AF72,$09,$03
+  $AF7B,$01 Terminator.
+  $AF7C,$01 Terminator.
+  $AF7D,$06,$03
+  $AF83,$01 Terminator.
+  $AF84,$03
+  $AF87,$01 Terminator.
+  $AF88,$06,$03
+  $AF8E,$01 Terminator.
+
+w $AF8F Platform Table
+  $AF8F,$02 Platform #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N($01+(#PC-$AF8F)/$02)).
+L $AF8F,$02,$0A
+
+b $AFA3 Index Table
 
 c $AFC4
 
@@ -1379,9 +1420,11 @@ B $BCC0,$01
 b $BCC1
 
 @ $BCF5 label=Item_Supermarket
-B $BCF5,$01
+  $BCF5,$04,$01
+  $BCF9,$01 Terminator.
 @ $BCFA label=Item_Park
-B $BCFA,$01
+B $BCFA,$06,$01
+  $BD00,$01 Terminator.
 @ $BD01 label=Item_WallStreet
 B $BD01,$01
 @ $BD0F label=Item_Workshed_OnLeftTable
@@ -1407,7 +1450,13 @@ B $BD5A,$01
 @ $BD6A label=Item_Station
 B $BD6A,$01
 @ $BD78 label=Item_Sewer
-B $BD78,$01
+  $BD78,$01
+  $BD79,$03,$01
+  $BD7C,$01 Terminator.
+  $BD7D,$03,$01
+  $BD81,$01
+  $BD82,$03,$01
+  $BD85,$01 Terminator.
 
 b $BD86 Table: Graphic Data
 @ $BD86 label=Table_GraphicData
@@ -5720,7 +5769,17 @@ c $E79B
 
 c $EABF
 
+g $EB54
+
 c $EB55
+  $EB55,$03 #REGbc=#N($0000,$04,$04).
+  $EB58,$03 Call #R$AA8C.
+
+  $EB72,$03 Return if #REGc is not zero.
+  $EB75,$03 Write #REGa to *#R$EB54.
+  $EB78,$01 Return.
+
+c $EB79
 
 g $EC0F Game Flags
 @ $EC0F label=Flag_Bottle_Full
