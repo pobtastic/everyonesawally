@@ -33,7 +33,7 @@ Next: <a href="46210.html">46210</a>
 </td>
 </tr>
 </table>
-<div class="description">46193: Routine at B471</div>
+<div class="description">46193: Initialise Theme Music</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,38 +45,46 @@ Used by the routine at <a href="32997.html">GameMenu</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">Initialise_Theme_Music</td>
 <td class="address-2"><span id="46193"></span>46193</td>
 <td class="instruction">DI</td>
 <td class="comment-1" rowspan="1">Disable interrupts.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="46194"></span>46194</td>
 <td class="instruction">LD HL,46432</td>
 <td class="comment-1" rowspan="2">Write <a href="46431.html#46432">46432</a> to <a href="46311.html">46311</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="46197"></span>46197</td>
 <td class="instruction">LD (46311),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="46200"></span>46200</td>
 <td class="instruction">LD A,255</td>
 <td class="comment-1" rowspan="2">Write 255 to <a href="46313.html">46313</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="46202"></span>46202</td>
 <td class="instruction">LD (46313),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="46205"></span>46205</td>
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="2">Write 0 to <a href="46431.html">46431</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="46206"></span>46206</td>
 <td class="instruction">LD (46431),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="46209"></span>46209</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

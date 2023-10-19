@@ -33,7 +33,7 @@ Next: <a href="58397.html">58397</a>
 </td>
 </tr>
 </table>
-<div class="description">58365: Routine at E3FD</div>
+<div class="description">58365: Print Banner</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,61 +45,73 @@ Used by the routines at <a href="33109.html">33109</a>, <a href="33156.html">331
 </td>
 </tr>
 <tr>
+<td class="asm-label">PrintBanner</td>
 <td class="address-2"><span id="58365"></span>58365</td>
-<td class="instruction">CALL <a href="47409.html">47409</a></td>
-<td class="comment-1" rowspan="1">Call <a href="47409.html">47409</a>.</td>
+<td class="instruction">CALL <a href="47409.html">Clear_Banner</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47409.html">Clear_Banner</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58368"></span>58368</td>
 <td class="instruction">LD HL,32319</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="32319.html">Messaging_Character</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58371"></span>58371</td>
 <td class="instruction">LD DE,16</td>
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=0016.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58374"></span>58374</td>
 <td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
 <td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58377"></span>58377</td>
 <td class="instruction">LD H,124</td>
 <td class="comment-1" rowspan="1"><span class="register">H</span>=124.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58379"></span>58379</td>
 <td class="instruction">LD L,(IY-35)</td>
 <td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">IY</span>-35.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58382"></span>58382</td>
 <td class="instruction">LD C,69</td>
 <td class="comment-1" rowspan="1"><span class="register">C</span>=69.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58384"></span>58384</td>
 <td class="instruction">LD DE,27</td>
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=0027.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58387"></span>58387</td>
 <td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
 <td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58390"></span>58390</td>
 <td class="instruction">CALL <a href="58153.html#58221">58221</a></td>
 <td class="comment-1" rowspan="1">Call <a href="58153.html#58221">58221</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58393"></span>58393</td>
 <td class="instruction">CALL <a href="58397.html#58400">58400</a></td>
 <td class="comment-1" rowspan="1">Call <a href="58397.html#58400">58400</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58396"></span>58396</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

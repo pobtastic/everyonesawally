@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at B2DC</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B2DB.html">B2DB</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b2dc">Map</a></td>
+<td class="next">
+Next: <a href="B2ED.html">B2ED</a>
+</td>
+</tr>
+</table>
+<div class="description">B2DC: Set Game Options</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="80E5.html">GameMenu</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b2dc"></span>
+<div class="comments">
+<div class="paragraph">
+Sets the game option for the Sinclair Joystick controller.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Game_Options_Sinclair</td>
+<td class="address-2"><span id="b2dc"></span>B2DC</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="2">Write 02 to <a href="B2DB.html">Game_Options</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b2de"></span>B2DE</td>
+<td class="instruction">LD ($B2DB),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b2e1"></span>B2E1</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b2e2"></span>
+<div class="comments">
+<div class="paragraph">
+Sets the game option for the Kempston Joystick controller.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Game_Options_Kempston</td>
+<td class="address-2"><span id="b2e2"></span>B2E2</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="B2DB.html">Game_Options</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b2e4"></span>B2E4</td>
+<td class="instruction">LD ($B2DB),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b2e7"></span>B2E7</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b2e8"></span>
+<div class="comments">
+<div class="paragraph">
+Sets the game option for keyboard controls.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Game_Options_Keyboard</td>
+<td class="address-2"><span id="b2e8"></span>B2E8</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="2">Write 00 to <a href="B2DB.html">Game_Options</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b2e9"></span>B2E9</td>
+<td class="instruction">LD ($B2DB),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b2ec"></span>B2EC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B2DB.html">B2DB</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b2dc">Map</a></td>
+<td class="next">
+Next: <a href="B2ED.html">B2ED</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/45788.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

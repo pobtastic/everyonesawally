@@ -33,90 +33,136 @@ Next: <a href="47441.html">47441</a>
 </td>
 </tr>
 </table>
-<div class="description">47409: Routine at B931</div>
+<div class="description">47409: Clear Banner</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="58365.html">58365</a>.
+Used by the routine at <a href="58365.html">PrintBanner</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Clear_Banner</td>
 <td class="address-2"><span id="47409"></span>47409</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="3">Stash <span class="register">HL</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47410"></span>47410</td>
 <td class="instruction">PUSH BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47411"></span>47411</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47412"></span>47412</td>
 <td class="instruction">LD IX,33272</td>
 <td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="33272.html">33272</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47416"></span>
+<div class="comments">
+<div class="paragraph">
+We're not clearing the whole screen buffer, just 32 rows.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47416"></span>47416</td>
 <td class="instruction">LD C,32</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=32.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=32 (row counter).</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47418"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the screen buffer location.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Clear_Banner_vertical_Loop</td>
 <td class="address-2"><span id="47418"></span>47418</td>
 <td class="instruction">LD L,(IX+0)</td>
-<td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">IX</span>+0.</td>
+<td class="comment-1" rowspan="1"><span class="register">L</span>=*<span class="register">IX</span>+0.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47421"></span>47421</td>
 <td class="instruction">LD H,(IX+1)</td>
-<td class="comment-1" rowspan="1"><span class="register">H</span>=<span class="register">IX</span>+1.</td>
+<td class="comment-1" rowspan="1"><span class="register">H</span>=*<span class="register">IX</span>+1.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47424"></span>
+<div class="comments">
+<div class="paragraph">
+Clear the current row.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47424"></span>47424</td>
 <td class="instruction">LD B,32</td>
-<td class="comment-1" rowspan="1"><span class="register">B</span>=32 (counter).</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=32 (column counter).</td>
 </tr>
 <tr>
+<td class="asm-label">Clear_Banner_Horizontal_Loop</td>
 <td class="address-2"><span id="47426"></span>47426</td>
 <td class="instruction">LD (HL),0</td>
 <td class="comment-1" rowspan="1">Write 0 to <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47428"></span>47428</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47429"></span>47429</td>
-<td class="instruction">DJNZ <a href="47409.html#47426">47426</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="47409.html#47426">47426</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="47409.html#47426">Clear_Banner_Horizontal_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease column counter by one and loop back to <a href="47409.html#47426">Clear_Banner_Horizontal_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47431"></span>47431</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="2">Increment <span class="register">IX</span> by two.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47433"></span>47433</td>
 <td class="instruction">INC IX</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47435"></span>47435</td>
 <td class="instruction">DEC C</td>
-<td class="comment-1" rowspan="1">Decrease <span class="register">C</span> by one.</td>
+<td class="comment-1" rowspan="1">Decrease the row counter held in <span class="register">C</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47436"></span>47436</td>
-<td class="instruction">JR NZ,<a href="47409.html#47418">47418</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="47409.html#47418">47418</a> until <span class="register">C</span> is zero.</td>
+<td class="instruction">JR NZ,<a href="47409.html#47418">Clear_Banner_vertical_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47409.html#47418">Clear_Banner_vertical_Loop</a> until <span class="register">C</span> is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47438"></span>47438</td>
 <td class="instruction">JP <a href="47362.html#47405">Clear_PlayArea_3</a></td>
 <td class="comment-1" rowspan="1">Jump to <a href="47362.html#47405">Clear_PlayArea_3</a>.</td>

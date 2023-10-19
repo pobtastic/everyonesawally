@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Everyone's a Wally: Data at B2DB</title>
+<title>Everyone's a Wally: Game status buffer entry at B2DB</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
@@ -15,11 +15,11 @@ gtag('js', new Date());
 gtag('config', 'G-75RERFCHBG');
 </script>
 </head>
-<body class="Asm-b">
+<body class="Asm-g">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Data</td>
+<td class="page-header">Game status buffer</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -29,64 +29,43 @@ Prev: <a href="B1A6.html">B1A6</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b2db">Map</a></td>
 <td class="next">
-Next: <a href="B2ED.html">B2ED</a>
+Next: <a href="B2DC.html">B2DC</a>
 </td>
 </tr>
 </table>
-<div class="description">B2DB: Data block at B2DB</div>
+<div class="description">B2DB: Game Options</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
+<div class="paragraph">
+Holds the control method. <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Byte</th>
+<th colspan="1" rowspan="1">Option</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">00</td>
+<td class="centre" colspan="1" rowspan="1">Keyboard</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">01</td>
+<td class="centre" colspan="1" rowspan="1">Kempston Joystick</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">02</td>
+<td class="centre" colspan="1" rowspan="1">Sinclair Joystick</td>
+</tr>
+</table>
+</div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Game_Options</td>
 <td class="address-1"><span id="b2db"></span>B2DB</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="b2dc"></span>B2DC</td>
-<td class="instruction">LD A,$02</td>
-<td class="comment-1" rowspan="2">Write 02 to <a href="B2DB.html">B2DB</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b2de"></span>B2DE</td>
-<td class="instruction">LD ($B2DB),A</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b2e1"></span>B2E1</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b2e2"></span>B2E2</td>
-<td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="2">Write 01 to <a href="B2DB.html">B2DB</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b2e4"></span>B2E4</td>
-<td class="instruction">LD ($B2DB),A</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b2e7"></span>B2E7</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b2e8"></span>B2E8</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Write 00 to <a href="B2DB.html">B2DB</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b2e9"></span>B2E9</td>
-<td class="instruction">LD ($B2DB),A</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b2ec"></span>B2EC</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -96,7 +75,7 @@ Prev: <a href="B1A6.html">B1A6</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b2db">Map</a></td>
 <td class="next">
-Next: <a href="B2ED.html">B2ED</a>
+Next: <a href="B2DC.html">B2DC</a>
 </td>
 </tr>
 </table>

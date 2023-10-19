@@ -53,8 +53,8 @@ Used by the routines at <a href="33109.html">33109</a> and <a href="33156.html">
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33000"></span>33000</td>
-<td class="instruction">CALL <a href="46193.html">46193</a></td>
-<td class="comment-1" rowspan="1">Call <a href="46193.html">46193</a>.</td>
+<td class="instruction">CALL <a href="46193.html">Initialise_Theme_Music</a></td>
+<td class="comment-1" rowspan="1">Call <a href="46193.html">Initialise_Theme_Music</a>.</td>
 </tr>
 <tr>
 <td class="asm-label">GameMenu_Loop</td>
@@ -75,16 +75,36 @@ Used by the routines at <a href="33109.html">33109</a> and <a href="33156.html">
 <td class="comment-1" rowspan="1">Call <a href="47300.html">PrintString</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="33012"></span>
+<div class="comments">
+<div class="paragraph">
+Set up displaying the active game option.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33012"></span>33012</td>
 <td class="instruction">LD HL,32311</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="32311.html">Messaging_Key</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="33015"></span>
+<div class="comments">
+<div class="paragraph">
+Calculate the screen position of the active control method.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33015"></span>33015</td>
 <td class="instruction">LD A,(45787)</td>
-<td class="comment-1" rowspan="5"><span class="register">B</span>=2-*<a href="45787.html">45787</a>.</td>
+<td class="comment-1" rowspan="5"><span class="register">B</span>=2-*<a href="45787.html">Game_Options</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -107,34 +127,40 @@ Used by the routines at <a href="33109.html">33109</a> and <a href="33156.html">
 <td class="instruction">LD B,A</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="33023"></span>
+<div class="comments">
+<div class="paragraph">
+<span class="register">D</span> contains the vertical position.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33023"></span>33023</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="5"><span class="register">D</span>=(<span class="register">B</span>*8)-<span class="register">B</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33024"></span>33024</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33025"></span>33025</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33026"></span>33026</td>
 <td class="instruction">SUB B</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33027"></span>33027</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-1" rowspan="1"><span class="register">D</span>=<span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -193,19 +219,18 @@ Used by the routines at <a href="33109.html">33109</a> and <a href="33156.html">
 <td class="asm-label"></td>
 <td class="address-1"><span id="33050"></span>33050</td>
 <td class="instruction">BIT 0,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If bit 0 is not set, jump to <a href="32997.html#33059">GameMenu_Kempston</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33052"></span>33052</td>
-<td class="instruction">JR NZ,<a href="32997.html#33059">GameMenu_1</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="32997.html#33059">GameMenu_Kempston</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33054"></span>33054</td>
-<td class="instruction">CALL 45788</td>
-<td class="comment-1" rowspan="1">Call <a href="45787.html#45788">45788</a>.</td>
+<td class="instruction">CALL <a href="45788.html">Game_Options_Sinclair</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45788.html">Game_Options_Sinclair</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -214,22 +239,21 @@ Used by the routines at <a href="33109.html">33109</a> and <a href="33156.html">
 <td class="comment-1" rowspan="1">Jump to <a href="32997.html#33003">GameMenu_Loop</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">GameMenu_1</td>
+<td class="asm-label">GameMenu_Kempston</td>
 <td class="address-2"><span id="33059"></span>33059</td>
 <td class="instruction">BIT 1,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If bit 1 is not set, jump to <a href="32997.html#33068">GameMenu_Keyboard</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33061"></span>33061</td>
-<td class="instruction">JR NZ,<a href="32997.html#33068">GameMenu_2</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="32997.html#33068">GameMenu_Keyboard</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33063"></span>33063</td>
-<td class="instruction">CALL 45794</td>
-<td class="comment-1" rowspan="1">Call <a href="45787.html#45794">45794</a>.</td>
+<td class="instruction">CALL <a href="45788.html#45794">Game_Options_Kempston</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45788.html#45794">Game_Options_Kempston</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -238,22 +262,21 @@ Used by the routines at <a href="33109.html">33109</a> and <a href="33156.html">
 <td class="comment-1" rowspan="1">Jump to <a href="32997.html#33003">GameMenu_Loop</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">GameMenu_2</td>
+<td class="asm-label">GameMenu_Keyboard</td>
 <td class="address-2"><span id="33068"></span>33068</td>
 <td class="instruction">BIT 2,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If bit 2 is not set, jump to <a href="32997.html#33077">GameMenu_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33070"></span>33070</td>
-<td class="instruction">JR NZ,<a href="32997.html#33077">GameMenu_3</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="32997.html#33077">GameMenu_1</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33072"></span>33072</td>
-<td class="instruction">CALL 45800</td>
-<td class="comment-1" rowspan="1">Call <a href="45787.html#45800">45800</a>.</td>
+<td class="instruction">CALL <a href="45788.html#45800">Game_Options_Keyboard</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45788.html#45800">Game_Options_Keyboard</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -262,16 +285,15 @@ Used by the routines at <a href="33109.html">33109</a> and <a href="33156.html">
 <td class="comment-1" rowspan="1">Jump to <a href="32997.html#33003">GameMenu_Loop</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">GameMenu_3</td>
+<td class="asm-label">GameMenu_1</td>
 <td class="address-2"><span id="33077"></span>33077</td>
 <td class="instruction">BIT 3,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If bit 3 is not set, jump to <a href="32997.html#33033">GameMenu_0</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="33079"></span>33079</td>
 <td class="instruction">JR NZ,<a href="32997.html#33033">GameMenu_0</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
