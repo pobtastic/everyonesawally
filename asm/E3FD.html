@@ -39,7 +39,17 @@ Next: <a href="E41D.html">E41D</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="8155.html">8155</a>, <a href="8184.html">8184</a> and <a href="E79B.html">E79B</a>.
+Used by the routines at <a href="8155.html">Game_Start</a>, <a href="8184.html">8184</a> and <a href="E79B.html">E79B</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e3fd"></span>
+<div class="comments">
+<div class="paragraph">
+Clear the banner screen buffer area.
 </div>
 </div>
 </td>
@@ -51,10 +61,20 @@ Used by the routines at <a href="8155.html">8155</a>, <a href="8184.html">8184</
 <td class="comment-1" rowspan="1">Call <a href="B931.html">Clear_Banner</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e400"></span>
+<div class="comments">
+<div class="paragraph">
+Display the banner.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e400"></span>E400</td>
 <td class="instruction">LD HL,$7E3F</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7E3F.html">Messaging_Character</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7E3F.html">Messaging_Banner</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -67,6 +87,16 @@ Used by the routines at <a href="8155.html">8155</a>, <a href="8184.html">8184</
 <td class="address-1"><span id="e406"></span>E406</td>
 <td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
 <td class="comment-1" rowspan="1">Call <a href="B84B.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e409"></span>
+<div class="comments">
+<div class="paragraph">
+Display the current character name in the banner.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -84,13 +114,18 @@ Used by the routines at <a href="8155.html">8155</a>, <a href="8184.html">8184</
 <td class="asm-label"></td>
 <td class="address-1"><span id="e40e"></span>E40E</td>
 <td class="instruction">LD C,$45</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=45.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=45 (attribute: INK:
+CYAN,
+PAPER:
+BLACK
+(BRIGHT)
+).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e410"></span>E410</td>
 <td class="instruction">LD DE,$001B</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=001B.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=001B (screen co-ordinates).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -99,10 +134,30 @@ Used by the routines at <a href="8155.html">8155</a>, <a href="8184.html">8184</
 <td class="comment-1" rowspan="1">Call <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e416"></span>
+<div class="comments">
+<div class="paragraph">
+Displays the endurance meter and lives.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e416"></span>E416</td>
 <td class="instruction">CALL <a href="E329.html#e36d">$E36D</a></td>
 <td class="comment-1" rowspan="1">Call <a href="E329.html#e36d">E36D</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e419"></span>
+<div class="comments">
+<div class="paragraph">
+Display the currently held items.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

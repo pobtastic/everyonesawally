@@ -64,7 +64,7 @@ Used by the routine at <a href="58365.html">PrintBanner</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="47412"></span>47412</td>
 <td class="instruction">LD IX,33272</td>
-<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="33272.html">33272</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="33272.html">ScreenBuffer_Locations</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -93,7 +93,7 @@ Fetch the screen buffer location.
 </td>
 </tr>
 <tr>
-<td class="asm-label">Clear_Banner_vertical_Loop</td>
+<td class="asm-label">Clear_Banner_Vertical_Loop</td>
 <td class="address-2"><span id="47418"></span>47418</td>
 <td class="instruction">LD L,(IX+0)</td>
 <td class="comment-1" rowspan="1"><span class="register">L</span>=*<span class="register">IX</span>+0.</td>
@@ -139,6 +139,16 @@ Clear the current row.
 <td class="comment-1" rowspan="1">Decrease column counter by one and loop back to <a href="47409.html#47426">Clear_Banner_Horizontal_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47431"></span>
+<div class="comments">
+<div class="paragraph">
+Move onto the next screen buffer location.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47431"></span>47431</td>
 <td class="instruction">INC IX</td>
@@ -158,14 +168,14 @@ Clear the current row.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47436"></span>47436</td>
-<td class="instruction">JR NZ,<a href="47409.html#47418">Clear_Banner_vertical_Loop</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="47409.html#47418">Clear_Banner_vertical_Loop</a> until <span class="register">C</span> is zero.</td>
+<td class="instruction">JR NZ,<a href="47409.html#47418">Clear_Banner_Vertical_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47409.html#47418">Clear_Banner_Vertical_Loop</a> until <span class="register">C</span> is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47438"></span>47438</td>
-<td class="instruction">JP <a href="47362.html#47405">Clear_PlayArea_3</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="47362.html#47405">Clear_PlayArea_3</a>.</td>
+<td class="instruction">JP <a href="47362.html#47405">StackRestore</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47362.html#47405">StackRestore</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

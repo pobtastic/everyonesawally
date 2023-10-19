@@ -33,7 +33,7 @@ Next: <a href="33156.html">33156</a>
 </td>
 </tr>
 </table>
-<div class="description">33109: Routine at 8155</div>
+<div class="description">33109: Start Game</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,91 +45,109 @@ Used by the routine at <a href="32997.html">GameMenu</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">Game_Start</td>
 <td class="address-2"><span id="33109"></span>33109</td>
-<td class="instruction">CALL <a href="47832.html">47832</a></td>
-<td class="comment-1" rowspan="1">Call <a href="47832.html">47832</a>.</td>
+<td class="instruction">CALL <a href="47832.html">Game_Initialisation</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47832.html">Game_Initialisation</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33112"></span>33112</td>
 <td class="instruction">CALL <a href="47341.html">Clear_Screen</a></td>
 <td class="comment-1" rowspan="1">Call <a href="47341.html">Clear_Screen</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33115"></span>33115</td>
 <td class="instruction">CALL <a href="58365.html">PrintBanner</a></td>
 <td class="comment-1" rowspan="1">Call <a href="58365.html">PrintBanner</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33118"></span>33118</td>
 <td class="instruction">CALL <a href="33083.html">33083</a></td>
 <td class="comment-1" rowspan="1">Call <a href="33083.html">33083</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33121"></span>33121</td>
 <td class="instruction">LD (33082),A</td>
 <td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="32997.html#33082">33082</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Game_Start_0</td>
 <td class="address-2"><span id="33124"></span>33124</td>
 <td class="instruction">LD A,(33082)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="32997.html#33082">33082</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33127"></span>33127</td>
 <td class="instruction">CP (IY+15)</td>
-<td class="comment-1" rowspan="2">If <span class="register">IY</span>+15 is zero, jump to <a href="33109.html#33141">33141</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">IY</span>+15 is zero, jump to <a href="33109.html#33141">Game_Start_1</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33130"></span>33130</td>
-<td class="instruction">JR Z,<a href="33109.html#33141">33141</a></td>
+<td class="instruction">JR Z,<a href="33109.html#33141">Game_Start_1</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33132"></span>33132</td>
 <td class="instruction">LD A,(IY+15)</td>
 <td class="comment-1" rowspan="2">Write <span class="register">IY</span>+15 to <a href="32997.html#33082">33082</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33135"></span>33135</td>
 <td class="instruction">LD (33082),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33138"></span>33138</td>
 <td class="instruction">CALL <a href="47442.html">DrawRoom</a></td>
 <td class="comment-1" rowspan="1">Call <a href="47442.html">DrawRoom</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Game_Start_1</td>
 <td class="address-2"><span id="33141"></span>33141</td>
 <td class="instruction">CALL <a href="33198.html">33198</a></td>
 <td class="comment-1" rowspan="1">Call <a href="33198.html">33198</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33144"></span>33144</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=0.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33145"></span>33145</td>
 <td class="instruction">IN A,(254)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33147"></span>33147</td>
 <td class="instruction">OR %11100000</td>
 <td class="comment-1" rowspan="1">Set bits 5-7.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33149"></span>33149</td>
 <td class="instruction">CP 255</td>
 <td class="comment-1" rowspan="2">Jump to <a href="32997.html">GameMenu</a> if not 255.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33151"></span>33151</td>
 <td class="instruction">JP NZ,<a href="32997.html">GameMenu</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="33154"></span>33154</td>
-<td class="instruction">JR <a href="33109.html#33124">33124</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="33109.html#33124">33124</a>.</td>
+<td class="instruction">JR <a href="33109.html#33124">Game_Start_0</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="33109.html#33124">Game_Start_0</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
