@@ -1431,8 +1431,8 @@ t$7DC6 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
 t$7E37 DEFB $FE,$47     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E39 DEFM "KEY:-",$FF ; #FONT:(KEY:-)$E0DC,attr=$47(key-chosen)
 
-; Messaging: Character
-@label=Messaging_Character
+; Messaging: Banner
+@label=Messaging_Banner
 t$7E3F DEFB $FB          ; {Sprite Bank:
  $7E40 DEFW $DFDC        ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $7E42 DEFB $FE,$44      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
@@ -1773,9 +1773,10 @@ c$813B CALL $B952    ; Call #R$B952.
  $8152 JR NZ,$8141   ; }
  $8154 RET           ; Return.
 
-; Routine at 8155
+; Start Game
 ;
 ; Used by the routine at #R$80E5.
+@label=Game_Start
 c$8155 CALL $BAD8    ; Call #R$BAD8.
  $8158 CALL $B8ED    ; Call #R$B8ED.
  $815B CALL $E3FD    ; Call #R$E3FD.
@@ -1866,7 +1867,8 @@ c$81D4 EXX           ;
  $81F6 EXX           ;
  $81F7 RET           ;
 
-; Data block at 81F8
+; Screen Buffer Locations
+@label=ScreenBuffer_Locations
 b$81F8 DEFW $4000
  $81FA DEFW $4100
  $81FC DEFW $4200
@@ -5593,6 +5595,7 @@ c$B902 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $B92A OR C          ;
  $B92B JR NZ,$B925   ; }
 ; This entry point is used by the routine at #R$B931.
+@label=StackRestore
 *$B92D POP DE        ; {Restore #REGde, #REGbc and #REGhl from the stack.
  $B92E POP BC        ;
  $B92F POP HL        ; }
@@ -5609,7 +5612,7 @@ c$B931 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
 ; We're not clearing the whole screen buffer, just #N$20 rows.
  $B938 LD C,$20      ; #REGc=#N$20 (row counter).
 ; Fetch the screen buffer location.
-@label=Clear_Banner_vertical_Loop
+@label=Clear_Banner_Vertical_Loop
 *$B93A LD L,(IX+$00) ; #REGl=*#REGix+#N$00.
  $B93D LD H,(IX+$01) ; #REGh=*#REGix+#N$01.
 ; Clear the current row.
@@ -5619,6 +5622,7 @@ c$B931 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $B944 INC HL        ; Increment #REGhl by one.
  $B945 DJNZ $B942    ; Decrease column counter by one and loop back to #R$B942
                      ; until counter is zero.
+; Move onto the next screen buffer location.
  $B947 INC IX        ; {Increment #REGix by two.
  $B949 INC IX        ; }
  $B94B DEC C         ; Decrease the row counter held in #REGc by one.
@@ -5867,9 +5871,10 @@ c$BACE LD B,$00      ; #REGb=#N$00.
  $BAD5 INC HL        ; Increment #REGhl by one.
  $BAD6 JR $BAD0      ; Jump to #R$BAD0.
 
-; Routine at BAD8
+; Game Initialisation
 ;
 ; Used by the routines at #R$8155 and #R$8184.
+@label=Game_Initialisation
 c$BAD8 LD IY,$BC67   ; #REGiy=#R$BC67.
  $BADC LD ($B09D),IY ; Write #REGiy to #R$B09D.
  $BAE0 LD HL,$BB3E   ; #REGhl=#R$BB3E.
@@ -12033,17 +12038,25 @@ c$E329 LD A,($A838)    ;
 ; Print Banner
 ;
 ; Used by the routines at #R$8155, #R$8184 and #R$E79B.
+;
+; .
+;
+; Clear the banner screen buffer area.
 @label=PrintBanner
 c$E3FD CALL $B931    ; Call #R$B931.
+; Display the banner.
  $E400 LD HL,$7E3F   ; #REGhl=#R$7E3F.
  $E403 LD DE,$0010   ; #REGde=#N($0010,$04,$04).
  $E406 CALL $B84B    ; Call #R$B84B.
+; Display the current character name in the banner.
  $E409 LD H,$7C      ; #REGh=#N$7C.
  $E40B LD L,(IY-$23) ; #REGl=#REGiy-#N$23.
- $E40E LD C,$45      ; #REGc=#N$45.
- $E410 LD DE,$001B   ; #REGde=#N($001B,$04,$04).
+ $E40E LD C,$45      ; #REGc=#N$45 (attribute: #COLOUR$45).
+ $E410 LD DE,$001B   ; #REGde=#N($001B,$04,$04) (screen co-ordinates).
  $E413 CALL $B84B    ; Call #R$B84B.
+; Displays the endurance meter and lives.
  $E416 CALL $E36D    ; Call #R$E36D.
+; Display the currently held items.
  $E419 CALL $E420    ; Call #R$E420.
  $E41C RET           ; Return.
 

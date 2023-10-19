@@ -126,8 +126,8 @@ t $7E37 Messaging: Key
 B $7E37,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E39,$06 #FONT:(KEY:-)$E0DC,attr=$47(key-chosen)
 
-t $7E3F Messaging: Character
-@ $7E3F label=Messaging_Character
+t $7E3F Messaging: Banner
+@ $7E3F label=Messaging_Banner
 M $7E3F,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
 B $7E3F,$01
 W $7E40,$02
@@ -421,7 +421,8 @@ c $813B
   $8150,$04 Jump to #R$8141 until #REGbc is zero.
   $8154,$01 Return.
 
-c $8155
+c $8155 Start Game
+@ $8155 label=Game_Start
   $8155,$03 Call #R$BAD8.
   $8158,$03 Call #R$B8ED.
   $815B,$03 Call #R$E3FD.
@@ -470,7 +471,8 @@ c $81C4
 
 c $81D4
 
-b $81F8
+b $81F8 Screen Buffer Locations
+@ $81F8 label=ScreenBuffer_Locations
 W $81F8,$180,$02
 
 b $8378
@@ -1113,6 +1115,7 @@ c $B902 Clear Play Area
   $B927,$01 Increment #REGhl by one.
   $B928,$01 Decrease #REGbc by one.
   $B929,$04 Jump to #R$B925 until #REGbc is zero.
+@ $B92D label=StackRestore
   $B92D,$03 Restore #REGde, #REGbc and #REGhl from the stack.
   $B930,$01 Return.
 
@@ -1123,7 +1126,7 @@ c $B931 Clear Banner
 N $B938 We're not clearing the whole screen buffer, just #N$20 rows.
   $B938,$02 #REGc=#N$20 (row counter).
 N $B93A Fetch the screen buffer location.
-@ $B93A label=Clear_Banner_vertical_Loop
+@ $B93A label=Clear_Banner_Vertical_Loop
   $B93A,$03 #REGl=*#REGix+#N$00.
   $B93D,$03 #REGh=*#REGix+#N$01.
 N $B940 Clear the current row.
@@ -1132,6 +1135,7 @@ N $B940 Clear the current row.
   $B942,$02 Write #N$00 to #REGhl.
   $B944,$01 Increment #REGhl by one.
   $B945,$02 Decrease column counter by one and loop back to #R$B942 until counter is zero.
+N $B947 Move onto the next screen buffer location.
   $B947,$04 Increment #REGix by two.
   $B94B,$01 Decrease the row counter held in #REGc by one.
   $B94C,$02 Jump to #R$B93A until #REGc is zero.
@@ -1276,7 +1280,8 @@ c $BACE
   $BAD5,$01 Increment #REGhl by one.
   $BAD6,$02 Jump to #R$BAD0.
 
-c $BAD8
+c $BAD8 Game Initialisation
+@ $BAD8 label=Game_Initialisation
   $BAD8,$04 #REGiy=#R$BC67.
   $BADC,$04 Write #REGiy to #R$B09D.
   $BAE0,$03 #REGhl=#R$BB3E.
@@ -5432,16 +5437,21 @@ c $E329
 
 c $E3FD Print Banner
 @ $E3FD label=PrintBanner
+N $E3FD Clear the banner screen buffer area.
   $E3FD,$03 Call #R$B931.
+N $E400 Display the banner.
   $E400,$03 #REGhl=#R$7E3F.
   $E403,$03 #REGde=#N($0010,$04,$04).
   $E406,$03 Call #R$B84B.
+N $E409 Display the current character name in the banner.
   $E409,$02 #REGh=#N$7C.
   $E40B,$03 #REGl=#REGiy-#N$23.
-  $E40E,$02 #REGc=#N$45.
-  $E410,$03 #REGde=#N($001B,$04,$04).
+  $E40E,$02 #REGc=#N$45 (attribute: #COLOUR$45).
+  $E410,$03 #REGde=#N($001B,$04,$04) (screen co-ordinates).
   $E413,$03 Call #R$B84B.
+N $E416 Displays the endurance meter and lives.
   $E416,$03 Call #R$E36D.
+N $E419 Display the currently held items.
   $E419,$03 Call #R$E420.
   $E41C,$01 Return.
 
