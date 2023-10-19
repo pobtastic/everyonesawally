@@ -33,7 +33,7 @@ Next: <a href="8184.html">8184</a>
 </td>
 </tr>
 </table>
-<div class="description">8155: Start Game</div>
+<div class="description">8155: Start Demo Mode</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,7 +45,7 @@ Used by the routine at <a href="80E5.html">GameMenu</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label">Game_Start</td>
+<td class="asm-label">Demo_Start</td>
 <td class="address-2"><span id="8155"></span>8155</td>
 <td class="instruction">CALL <a href="BAD8.html">Game_Initialisation</a></td>
 <td class="comment-1" rowspan="1">Call <a href="BAD8.html">Game_Initialisation</a>.</td>
@@ -75,7 +75,7 @@ Used by the routine at <a href="80E5.html">GameMenu</a>.
 <td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="80E5.html#813a">813A</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Game_Start_0</td>
+<td class="asm-label">Demo_Start_0</td>
 <td class="address-2"><span id="8164"></span>8164</td>
 <td class="instruction">LD A,($813A)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="80E5.html#813a">813A</a>.</td>
@@ -84,12 +84,12 @@ Used by the routine at <a href="80E5.html">GameMenu</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="8167"></span>8167</td>
 <td class="instruction">CP (IY+$0F)</td>
-<td class="comment-1" rowspan="2">If <span class="register">IY</span>+0F is zero, jump to <a href="8155.html#8175">Game_Start_1</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">IY</span>+0F is zero, jump to <a href="8155.html#8175">Demo_Start_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="816a"></span>816A</td>
-<td class="instruction">JR Z,<a href="8155.html#8175">Game_Start_1</a></td>
+<td class="instruction">JR Z,<a href="8155.html#8175">Demo_Start_1</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -109,7 +109,7 @@ Used by the routine at <a href="80E5.html">GameMenu</a>.
 <td class="comment-1" rowspan="1">Call <a href="B952.html">DrawRoom</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Game_Start_1</td>
+<td class="asm-label">Demo_Start_1</td>
 <td class="address-2"><span id="8175"></span>8175</td>
 <td class="instruction">CALL <a href="81AE.html">$81AE</a></td>
 <td class="comment-1" rowspan="1">Call <a href="81AE.html">81AE</a>.</td>
@@ -146,8 +146,8 @@ Used by the routine at <a href="80E5.html">GameMenu</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8182"></span>8182</td>
-<td class="instruction">JR <a href="8155.html#8164">Game_Start_0</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8155.html#8164">Game_Start_0</a>.</td>
+<td class="instruction">JR <a href="8155.html#8164">Demo_Start_0</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8155.html#8164">Demo_Start_0</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

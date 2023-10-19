@@ -25,11 +25,11 @@ gtag('config', 'G-75RERFCHBG');
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="EABF.html">EABF</a>
+Prev: <a href="EB54.html">EB54</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#eb55">Map</a></td>
 <td class="next">
-Next: <a href="EC0F.html">EC0F</a>
+Next: <a href="EB79.html">EB79</a>
 </td>
 </tr>
 </table>
@@ -47,542 +47,115 @@ Used by the routine at <a href="8184.html">8184</a>.
 <tr>
 <td class="address-2"><span id="eb55"></span>EB55</td>
 <td class="instruction">LD BC,$0000</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0000.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb58"></span>EB58</td>
 <td class="instruction">CALL <a href="AA8C.html">$AA8C</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="AA8C.html">AA8C</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="eb5b"></span>EB5B</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb5c"></span>EB5C</td>
 <td class="instruction">CP $FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb5e"></span>EB5E</td>
 <td class="instruction">JR Z,<a href="EB55.html#eb72">$EB72</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb60"></span>EB60</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb61"></span>EB61</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb64"></span>EB64</td>
 <td class="instruction">SUB (HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb65"></span>EB65</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb66"></span>EB66</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb67"></span>EB67</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb68"></span>EB68</td>
 <td class="instruction">SUB $06</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb6a"></span>EB6A</td>
 <td class="instruction">CP $F4</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb6c"></span>EB6C</td>
 <td class="instruction">JR C,<a href="EB55.html#eb5b">$EB5B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb6e"></span>EB6E</td>
 <td class="instruction">LD C,$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb70"></span>EB70</td>
 <td class="instruction">JR <a href="EB55.html#eb5b">$EB5B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-2"><span id="eb72"></span>EB72</td>
 <td class="instruction">LD A,C</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Return if <span class="register">C</span> is not zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb73"></span>EB73</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb74"></span>EB74</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb75"></span>EB75</td>
 <td class="instruction">LD ($EB54),A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to *<a href="EB54.html">EB54</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb78"></span>EB78</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="eb79"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="E79B.html">E79B</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="eb79"></span>EB79</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb7a"></span>EB7A</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb7b"></span>EB7B</td>
-<td class="instruction">LD E,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb7c"></span>EB7C</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb7d"></span>EB7D</td>
-<td class="instruction">LD D,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb7e"></span>EB7E</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb7f"></span>EB7F</td>
-<td class="instruction">PUSH HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb80"></span>EB80</td>
-<td class="instruction">PUSH DE</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb81"></span>EB81</td>
-<td class="instruction">ADD A,A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb82"></span>EB82</td>
-<td class="instruction">LD E,A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb83"></span>EB83</td>
-<td class="instruction">LD D,$00</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb85"></span>EB85</td>
-<td class="instruction">LD HL,$BD86</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb88"></span>EB88</td>
-<td class="instruction">ADD HL,DE</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb89"></span>EB89</td>
-<td class="instruction">LD E,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb8a"></span>EB8A</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb8b"></span>EB8B</td>
-<td class="instruction">LD D,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb8c"></span>EB8C</td>
-<td class="instruction">EX DE,HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb8d"></span>EB8D</td>
-<td class="instruction">POP DE</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb8e"></span>EB8E</td>
-<td class="instruction">CALL <a href="B82B.html">$B82B</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb91"></span>EB91</td>
-<td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb92"></span>EB92</td>
-<td class="instruction">JP <a href="EABF.html#eaeb">$EAEB</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb95"></span>EB95</td>
-<td class="instruction">LD B,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb96"></span>EB96</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb97"></span>EB97</td>
-<td class="instruction">PUSH HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb98"></span>EB98</td>
-<td class="instruction">LD A,($EB54)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb9b"></span>EB9B</td>
-<td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb9c"></span>EB9C</td>
-<td class="instruction">JR NZ,<a href="EB55.html#ebc0">$EBC0</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eb9e"></span>EB9E</td>
-<td class="instruction">LD (IY-$2D),B</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eba1"></span>EBA1</td>
-<td class="instruction">CALL <a href="AA8C.html">$AA8C</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eba4"></span>EBA4</td>
-<td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eba7"></span>EBA7</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eba8"></span>EBA8</td>
-<td class="instruction">SUB (HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="eba9"></span>EBA9</td>
-<td class="instruction">SUB $04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebab"></span>EBAB</td>
-<td class="instruction">CP $F8</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebad"></span>EBAD</td>
-<td class="instruction">JR C,<a href="EB55.html#ebc0">$EBC0</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebaf"></span>EBAF</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebb0"></span>EBB0</td>
-<td class="instruction">LD A,(IY+$0A)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebb3"></span>EBB3</td>
-<td class="instruction">ADD A,$10</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebb5"></span>EBB5</td>
-<td class="instruction">SUB (HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebb6"></span>EBB6</td>
-<td class="instruction">SUB $04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebb8"></span>EBB8</td>
-<td class="instruction">CP $F8</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebba"></span>EBBA</td>
-<td class="instruction">JR C,<a href="EB55.html#ebc0">$EBC0</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebbc"></span>EBBC</td>
-<td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebbd"></span>EBBD</td>
-<td class="instruction">JP <a href="EABF.html#eacb">$EACB</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="ebc0"></span>EBC0</td>
-<td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebc1"></span>EBC1</td>
-<td class="instruction">JP <a href="EABF.html#eae3">$EAE3</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="ebc4"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="E79B.html">E79B</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="ebc4"></span>EBC4</td>
-<td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebc7"></span>EBC7</td>
-<td class="instruction">SUB (HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebc8"></span>EBC8</td>
-<td class="instruction">SUB $04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebca"></span>EBCA</td>
-<td class="instruction">CP $F8</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebcc"></span>EBCC</td>
-<td class="instruction">JR C,<a href="EB55.html#ebdd">$EBDD</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebce"></span>EBCE</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebcf"></span>EBCF</td>
-<td class="instruction">LD A,(IY+$0A)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebd2"></span>EBD2</td>
-<td class="instruction">SUB (HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebd3"></span>EBD3</td>
-<td class="instruction">SUB $04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebd5"></span>EBD5</td>
-<td class="instruction">CP $F8</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebd7"></span>EBD7</td>
-<td class="instruction">JR C,<a href="EB55.html#ebde">$EBDE</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebd9"></span>EBD9</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebda"></span>EBDA</td>
-<td class="instruction">JP <a href="EABF.html#eacb">$EACB</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="ebdd"></span>EBDD</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="ebde"></span>EBDE</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebdf"></span>EBDF</td>
-<td class="instruction">JP <a href="EABF.html#eae3">$EAE3</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebe2"></span>EBE2</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebe3"></span>EBE3</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebe4"></span>EBE4</td>
-<td class="instruction">CP (IY-$28)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebe7"></span>EBE7</td>
-<td class="instruction">JP Z,<a href="EABF.html#eacb">$EACB</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebea"></span>EBEA</td>
-<td class="instruction">JP <a href="EABF.html#eae3">$EAE3</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebed"></span>EBED</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebee"></span>EBEE</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebef"></span>EBEF</td>
-<td class="instruction">CP (IY+$50)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebf2"></span>EBF2</td>
-<td class="instruction">JP Z,<a href="EABF.html#eacb">$EACB</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebf5"></span>EBF5</td>
-<td class="instruction">CP (IY+$55)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebf8"></span>EBF8</td>
-<td class="instruction">JP Z,<a href="EABF.html#eacb">$EACB</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebfb"></span>EBFB</td>
-<td class="instruction">JP <a href="EABF.html#eae3">$EAE3</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebfe"></span>EBFE</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ebff"></span>EBFF</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ec00"></span>EC00</td>
-<td class="instruction">CP (IY+$50)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ec03"></span>EC03</td>
-<td class="instruction">JP Z,<a href="EABF.html#eae3">$EAE3</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ec06"></span>EC06</td>
-<td class="instruction">CP (IY+$55)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ec09"></span>EC09</td>
-<td class="instruction">JP Z,<a href="EABF.html#eae3">$EAE3</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ec0c"></span>EC0C</td>
-<td class="instruction">JP <a href="EABF.html#eacb">$EACB</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="EABF.html">EABF</a>
+Prev: <a href="EB54.html">EB54</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#eb55">Map</a></td>
 <td class="next">
-Next: <a href="EC0F.html">EC0F</a>
+Next: <a href="EB79.html">EB79</a>
 </td>
 </tr>
 </table>
