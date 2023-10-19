@@ -383,24 +383,29 @@ c $80E5 Game Selection Menu
   $80EB,$03 #REGhl=#R$7DC6.
   $80EE,$03 #REGde=#N($0003,$04,$04).
   $80F1,$03 Call #R$B8C4.
+N $80F4 Set up displaying the active game option.
   $80F4,$03 #REGhl=#R$7E37.
+N $80F7 Calculate the screen position of the active control method.
   $80F7,$08 #REGb=#N$02-*#R$B2DB.
-
-  $8103,$01 #REGd=#REGa.
+N $80FF #REGd contains the vertical position.
+  $80FF,$05 #REGd=(#REGb*#N$08)-#REGb.
   $8104,$02 #REGe=#N$03.
   $8106,$03 Call #R$B8C4.
   $8109,$05 Write #N$FF to #R$B4E9.
   $810E,$03 Call #R$B482.
 
+  $811A,$04 If bit 0 is not set, jump to #R$8123.
   $811E,$03 Call #R$B2DC.
   $8121,$02 Jump to #R$80EB.
-
+@ $8123 label=GameMenu_Kempston
+  $8123,$04 If bit 1 is not set, jump to #R$812C.
   $8127,$03 Call #R$B2E2.
   $812A,$02 Jump to #R$80EB.
-
+@ $812C label=GameMenu_Keyboard
+  $812C,$04 If bit 2 is not set, jump to #R$8135.
   $8130,$03 Call #R$B2E8.
   $8133,$02 Jump to #R$80EB.
-
+  $8135,$04 If bit 3 is not set, jump to #R$8109.
   $8139,$01 Return.
 
 c $813B
@@ -704,17 +709,30 @@ c $B197
 
 c $B1A6
 
-b $B2DB
-  $B2DB,$01
-C $B2DC
-C $B2DC,$05 Write #N$02 to #R$B2DB.
-C $B2E1,$01 Return.
+g $B2DB Game Options
+@ $B2DB label=Game_Options
+D $B2DB Holds the control method.
+. #TABLE(default,centre,centre)
+. { =h Byte | =h Option }
+. { #N$00 | Keyboard }
+. { #N$01 | Kempston Joystick }
+. { #N$02 | Sinclair Joystick }
+. TABLE#
+B $B2DB,$01
 
-C $B2E2,$05 Write #N$01 to #R$B2DB.
-C $B2E7,$01 Return.
-
-C $B2E8,$04 Write #N$00 to #R$B2DB.
-C $B2EC,$01 Return.
+c $B2DC Set Game Options
+@ $B2DC label=Game_Options_Sinclair
+N $B2DC Sets the game option for the Sinclair Joystick controller.
+  $B2DC,$05 Write #N$02 to #R$B2DB.
+  $B2E1,$01 Return.
+N $B2E2 Sets the game option for the Kempston Joystick controller.
+@ $B2E2 label=Game_Options_Kempston
+  $B2E2,$05 Write #N$01 to #R$B2DB.
+  $B2E7,$01 Return.
+N $B2E8 Sets the game option for keyboard controls.
+@ $B2E8 label=Game_Options_Keyboard
+  $B2E8,$04 Write #N$00 to #R$B2DB.
+  $B2EC,$01 Return.
 
 b $B2ED
 
@@ -771,7 +789,8 @@ c $B451 Game Over
   $B46B,$03 Call #R$B2F1.
   $B46E,$03 Jump to #R$8184.
 
-c $B471
+c $B471 Initialise Theme Music
+@ $B471 label=Initialise_Theme_Music
   $B471,$01 Disable interrupts.
   $B472,$06 Write #R$B560 to #R$B4E7.
   $B478,$05 Write #N$FF to #R$B4E9.
@@ -1097,18 +1116,24 @@ c $B902 Clear Play Area
   $B92D,$03 Restore #REGde, #REGbc and #REGhl from the stack.
   $B930,$01 Return.
 
-c $B931
+c $B931 Clear Banner
+@ $B931 label=Clear_Banner
   $B931,$03 Stash #REGhl, #REGbc and #REGde on the stack.
   $B934,$04 #REGix=#R$81F8.
-  $B938,$02 #REGc=#N$20.
-  $B93A,$03 #REGl=#REGix+#N$00.
-  $B93D,$03 #REGh=#REGix+#N$01.
-  $B940,$02 #REGb=#N$20 (counter).
+N $B938 We're not clearing the whole screen buffer, just #N$20 rows.
+  $B938,$02 #REGc=#N$20 (row counter).
+N $B93A Fetch the screen buffer location.
+@ $B93A label=Clear_Banner_vertical_Loop
+  $B93A,$03 #REGl=*#REGix+#N$00.
+  $B93D,$03 #REGh=*#REGix+#N$01.
+N $B940 Clear the current row.
+  $B940,$02 #REGb=#N$20 (column counter).
+@ $B942 label=Clear_Banner_Horizontal_Loop
   $B942,$02 Write #N$00 to #REGhl.
   $B944,$01 Increment #REGhl by one.
-  $B945,$02 Decrease counter by one and loop back to #R$B942 until counter is zero.
+  $B945,$02 Decrease column counter by one and loop back to #R$B942 until counter is zero.
   $B947,$04 Increment #REGix by two.
-  $B94B,$01 Decrease #REGc by one.
+  $B94B,$01 Decrease the row counter held in #REGc by one.
   $B94C,$02 Jump to #R$B93A until #REGc is zero.
   $B94E,$03 Jump to #R$B92D.
 
@@ -5405,7 +5430,8 @@ c $E2FC
 
 c $E329
 
-c $E3FD
+c $E3FD Print Banner
+@ $E3FD label=PrintBanner
   $E3FD,$03 Call #R$B931.
   $E400,$03 #REGhl=#R$7E3F.
   $E403,$03 #REGde=#N($0010,$04,$04).

@@ -1714,17 +1714,20 @@ c$80E5 CALL $B8ED    ; Call #R$B8ED.
 *$80EB LD HL,$7DC6   ; #REGhl=#R$7DC6.
  $80EE LD DE,$0003   ; #REGde=#N($0003,$04,$04).
  $80F1 CALL $B8C4    ; Call #R$B8C4.
+; Set up displaying the active game option.
  $80F4 LD HL,$7E37   ; #REGhl=#R$7E37.
+; Calculate the screen position of the active control method.
  $80F7 LD A,($B2DB)  ; {#REGb=#N$02-*#R$B2DB.
  $80FA LD B,A        ;
  $80FB LD A,$02      ;
  $80FD SUB B         ;
  $80FE LD B,A        ; }
- $80FF ADD A,A       ;
+; #REGd contains the vertical position.
+ $80FF ADD A,A       ; {#REGd=(#REGb*#N$08)-#REGb.
  $8100 ADD A,A       ;
  $8101 ADD A,A       ;
  $8102 SUB B         ;
- $8103 LD D,A        ; #REGd=#REGa.
+ $8103 LD D,A        ; }
  $8104 LD E,$03      ; #REGe=#N$03.
  $8106 CALL $B8C4    ; Call #R$B8C4.
 *$8109 LD A,$FF      ; {Write #N$FF to #R$B4E9.
@@ -1734,20 +1737,22 @@ c$80E5 CALL $B8ED    ; Call #R$B8ED.
  $8114 OR A          ;
  $8115 JR NZ,$8155   ;
  $8117 LD A,($B4E9)  ;
- $811A BIT 0,A       ;
- $811C JR NZ,$8123   ;
+ $811A BIT 0,A       ; {If bit 0 is not set, jump to #R$8123.
+ $811C JR NZ,$8123   ; }
  $811E CALL $B2DC    ; Call #R$B2DC.
  $8121 JR $80EB      ; Jump to #R$80EB.
-*$8123 BIT 1,A       ;
- $8125 JR NZ,$812C   ;
+@label=GameMenu_Kempston
+*$8123 BIT 1,A       ; {If bit 1 is not set, jump to #R$812C.
+ $8125 JR NZ,$812C   ; }
  $8127 CALL $B2E2    ; Call #R$B2E2.
  $812A JR $80EB      ; Jump to #R$80EB.
-*$812C BIT 2,A       ;
- $812E JR NZ,$8135   ;
+@label=GameMenu_Keyboard
+*$812C BIT 2,A       ; {If bit 2 is not set, jump to #R$8135.
+ $812E JR NZ,$8135   ; }
  $8130 CALL $B2E8    ; Call #R$B2E8.
  $8133 JR $80EB      ; Jump to #R$80EB.
-*$8135 BIT 3,A       ;
- $8137 JR NZ,$8109   ;
+*$8135 BIT 3,A       ; {If bit 3 is not set, jump to #R$8109.
+ $8137 JR NZ,$8109   ; }
  $8139 RET           ; Return.
  $813A NOP           ;
 
@@ -4710,14 +4715,36 @@ c$B1A6 LD A,(IY+$3C)   ;
 *$B2D5 LD (IY+$05),A   ;
  $B2D8 JP $E2FC        ;
 
-; Data block at B2DB
-b$B2DB DEFB $00
-*$B2DC LD A,$02      ; {Write #N$02 to #R$B2DB.
+; Game Options
+;
+; Holds the control method.
+; #TABLE(default,centre,centre)
+; { =h Byte | =h Option }
+; { #N$00 | Keyboard }
+; { #N$01 | Kempston Joystick }
+; { #N$02 | Sinclair Joystick }
+; TABLE#
+@label=Game_Options
+g$B2DB DEFB $00
+
+; Set Game Options
+;
+; Used by the routine at #R$80E5.
+;
+; .
+;
+; Sets the game option for the Sinclair Joystick controller.
+@label=Game_Options_Sinclair
+c$B2DC LD A,$02      ; {Write #N$02 to #R$B2DB.
  $B2DE LD ($B2DB),A  ; }
  $B2E1 RET           ; Return.
+; Sets the game option for the Kempston Joystick controller.
+@label=Game_Options_Kempston
 *$B2E2 LD A,$01      ; {Write #N$01 to #R$B2DB.
  $B2E4 LD ($B2DB),A  ; }
  $B2E7 RET           ; Return.
+; Sets the game option for keyboard controls.
+@label=Game_Options_Keyboard
 *$B2E8 XOR A         ; {Write #N$00 to #R$B2DB.
  $B2E9 LD ($B2DB),A  ; }
  $B2EC RET           ; Return.
@@ -4912,9 +4939,10 @@ c$B451 CALL $B8ED    ; Call #R$B8ED.
  $B46B CALL $B2F1    ; Call #R$B2F1.
  $B46E JP $8184      ; Jump to #R$8184.
 
-; Routine at B471
+; Initialise Theme Music
 ;
 ; Used by the routine at #R$80E5.
+@label=Initialise_Theme_Music
 c$B471 DI            ; Disable interrupts.
  $B472 LD HL,$B560   ; {Write #R$B560 to #R$B4E7.
  $B475 LD ($B4E7),HL ; }
@@ -5570,24 +5598,30 @@ c$B902 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $B92F POP HL        ; }
  $B930 RET           ; Return.
 
-; Routine at B931
+; Clear Banner
 ;
 ; Used by the routine at #R$E3FD.
+@label=Clear_Banner
 c$B931 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $B932 PUSH BC       ;
  $B933 PUSH DE       ; }
  $B934 LD IX,$81F8   ; #REGix=#R$81F8.
- $B938 LD C,$20      ; #REGc=#N$20.
-*$B93A LD L,(IX+$00) ; #REGl=#REGix+#N$00.
- $B93D LD H,(IX+$01) ; #REGh=#REGix+#N$01.
- $B940 LD B,$20      ; #REGb=#N$20 (counter).
+; We're not clearing the whole screen buffer, just #N$20 rows.
+ $B938 LD C,$20      ; #REGc=#N$20 (row counter).
+; Fetch the screen buffer location.
+@label=Clear_Banner_vertical_Loop
+*$B93A LD L,(IX+$00) ; #REGl=*#REGix+#N$00.
+ $B93D LD H,(IX+$01) ; #REGh=*#REGix+#N$01.
+; Clear the current row.
+ $B940 LD B,$20      ; #REGb=#N$20 (column counter).
+@label=Clear_Banner_Horizontal_Loop
 *$B942 LD (HL),$00   ; Write #N$00 to #REGhl.
  $B944 INC HL        ; Increment #REGhl by one.
- $B945 DJNZ $B942    ; Decrease counter by one and loop back to #R$B942 until
-                     ; counter is zero.
+ $B945 DJNZ $B942    ; Decrease column counter by one and loop back to #R$B942
+                     ; until counter is zero.
  $B947 INC IX        ; {Increment #REGix by two.
  $B949 INC IX        ; }
- $B94B DEC C         ; Decrease #REGc by one.
+ $B94B DEC C         ; Decrease the row counter held in #REGc by one.
  $B94C JR NZ,$B93A   ; Jump to #R$B93A until #REGc is zero.
  $B94E JP $B92D      ; Jump to #R$B92D.
 
@@ -11996,9 +12030,10 @@ c$E329 LD A,($A838)    ;
  $E3FB POP BC          ;
  $E3FC RET             ;
 
-; Routine at E3FD
+; Print Banner
 ;
 ; Used by the routines at #R$8155, #R$8184 and #R$E79B.
+@label=PrintBanner
 c$E3FD CALL $B931    ; Call #R$B931.
  $E400 LD HL,$7E3F   ; #REGhl=#R$7E3F.
  $E403 LD DE,$0010   ; #REGde=#N($0010,$04,$04).

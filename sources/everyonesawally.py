@@ -1,169 +1,36 @@
-#!/usr/bin/env python3
-import sys
-import os
-import argparse
-from collections import OrderedDict
+# Copyright 2023 Paul Maddern
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <http://www.gnu.org/licenses/>.
 
-try:
-    from skoolkit.snapshot import get_snapshot
-    from skoolkit import tap2sna, sna2skool
-except ImportError:
-    SKOOLKIT_HOME = os.environ.get('SKOOLKIT_HOME')
-    if not SKOOLKIT_HOME:
-        sys.stderr.write('SKOOLKIT_HOME is not set; aborting\n')
-        sys.exit(1)
-    if not os.path.isdir(SKOOLKIT_HOME):
-        sys.stderr.write('SKOOLKIT_HOME={}; directory not found\n'.format(SKOOLKIT_HOME))
-        sys.exit(1)
-    sys.path.insert(0, SKOOLKIT_HOME)
-    from skoolkit.snapshot import get_snapshot
-    from skoolkit import tap2sna, sna2skool
-
-EVERYONESAWALLY_HOME = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BUILD_DIR = '{}/sources'.format(EVERYONESAWALLY_HOME)
-WALLY_Z80 = '{}/EveryonesaWally.z80'.format(EVERYONESAWALLY_HOME)
+from skoolkit.graphics import Frame, Udg as BaseUdg
+from skoolkit.skoolhtml import HtmlWriter
+from skoolkit.skoolmacro import parse_brackets, parse_ints, parse_image_macro, MacroParsingError
 
 
-class EveryonesAWally:
-	def __init__(self, snapshot):
-		self.snapshot = snapshot
-
-	def get_graphics(self):
-		lines = []
-		graphics = []
-		attribute = 0x00
-
-		for a in range(0xBD86, 0xBE72, 0x02):
-			graphics.append(self.snapshot[a] + self.snapshot[a+0x01] * 0x100)
-		graphics.sort()
-
-		for i in range(len(graphics)):
-			lines.append('b ${:X} Graphic ID #N${:02X}'.format(graphics[i], i))
-			lines.append('@ ${:X} label=graphic_{:02x}'.format(graphics[i], i))
-			addr = graphics[i]
-			base = 0x0000
-			while self.snapshot[addr] != 0xFF:
-				byte = self.snapshot[addr]
-				if 0xA8 <= byte <= 0xE8:
-					lines.append('  ${:X},$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).'.format(addr))
-					addr+=0x01
-				elif byte < 0x80:
-					lines.append('  ${:X},$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG(${:X},attr=${:X}) }} UDGTABLE#'.format(addr, base+(byte*0x08), attribute))
-				elif byte == 0xF0:
-					lines.append('  ${:X},$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.'.format(addr))
-					lines.append('. #UDGTABLE {{ =h Row | =h Graphic }}')
-					lines.append('. #FOR$01,${:02X},,4(n,{{ #Nn | #UDG(${:X},attr=${:X}) }})'.format(self.snapshot[addr+0x01], base+(self.snapshot[addr+0x02]*0x08), attribute))
-					lines.append('. UDGTABLE#')
-					addr+=0x02
-				elif byte == 0xF1:
-					lines.append('  ${:X},$01 Action: move down one character block.'.format(addr))
-				elif byte == 0xF2:
-					lines.append('  ${:X},$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.'.format(addr))
-					lines.append('. #UDGTABLE {{ =h,c{} Columns }} {{ #FOR$01,${:02X}(n,=h #Nn, | ) }}'.format(self.snapshot[addr+0x01], self.snapshot[addr+0x01]))
-					lines.append('. {{ #FOR$01,${:02X}(n,#UDG(${:X},attr=${:X})#UDG(${:X},attr=${:X}), | ) }}'.format(self.snapshot[addr+0x01], base+(self.snapshot[addr+0x02]*0x08), attribute, base+(self.snapshot[addr+0x03]*0x08), attribute))
-					lines.append('. UDGTABLE#')
-					addr+=0x03
-				elif byte == 0xF3:
-					lines.append('M ${:X},$03 Switch #REGhl to #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).'.format(addr))
-					lines.append('  ${:X},$01'.format(addr))
-					lines.append('W ${:X},$02'.format(addr+0x01))
-					addr+=0x02
-				elif byte == 0xFB:
-					base = self.snapshot[addr+0x01] + self.snapshot[addr+0x02] * 0x100
-					lines.append('M ${:X},$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).'.format(addr))
-					lines.append('  ${:X},$01'.format(addr))
-					lines.append('W ${:X},$02'.format(addr+0x01))
-					addr+=0x02
-				elif byte == 0xFD:
-					lines.append('  ${:X},$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.'.format(addr))
-					lines.append('. #UDGTABLE {{ =h,c{} Columns }} {{ #FOR$01,${:02X}(n,=h #Nn, | ) }}'.format(self.snapshot[addr+0x01], self.snapshot[addr+0x01]))
-					lines.append('. {{ #FOR$01,${:02X}(n,#UDG(${:X},attr=${:X}), | ) }}'.format(self.snapshot[addr+0x01], base+(self.snapshot[addr+0x02]*0x08), attribute))
-					lines.append('. UDGTABLE#')
-					addr+=0x02
-				elif byte == 0xFE:
-					attribute=self.snapshot[addr+0x01]
-					lines.append('  ${:X},$02 Attribute: #COLOUR(#PC+$01)'.format(addr))
-					addr+=0x01
-				else:
-					lines.append('  ${:X},$01'.format(addr))
-				addr += 0x01
-			lines.append('  ${:X},$01 Terminator.'.format(addr))
-			lines.append('')
-
-		return '\n'.join(lines)
-
-	def get_items(self):
-		"""Creates item messaging.
-		Not perfect, but saved some time.
-		"""
-		lines = []
-		items = []
-
-		for a in range(0xE728, 0xE77A, 0x02):
-			items.append(self.snapshot[a] + self.snapshot[a+0x01] * 0x100)
-		items.sort()
-
-		for i in range(len(items)):
-			addr = items[i]
-			message = ''
-			while self.snapshot[addr] != 0xFF:
-				byte = self.snapshot[addr]
-				if 0x20 <= byte <= 0x7D:
-					message+=chr(byte)
-				elif message[-1] != " ":
-					message+=" "
-				addr += 0x01
-			lines.append('b ${:X} Messaging: {}'.format(items[i], message.title()))
-			length = len(message)
-			if length != addr - items[i]:
-				length = addr - items[i]
-			lines.append('  ${:X},${:02X} "#STR${:X},$08($b==$FF)".'.format(items[i], length, items[i]))
-			lines.append('  ${:X},$01 Terminator.'.format(addr))
-			lines.append('')
-
-		return '\n'.join(lines)
-
-	def get_rooms(self):
-		lines = []
-
-		lines.append('w $CDB5 Rooms')
-		lines.append('@ $CDB5 label=data_rooms')
-		for a in range(0xCDB5, 0xCDF7, 0x02):
-			addr = self.snapshot[a] + self.snapshot[a+0x01] * 0x100
-			lines.append('  ${:X},$02 Room #R${:X}({:0.0f}).'.format(a, addr, (a-0xCDB5)/0x02))
-
-		return '\n'.join(lines)
+class Udg(BaseUdg):
+	def __init__(self, attr, data, mask=None, x=None, y=None):
+		BaseUdg.__init__(self, attr, data, mask)
+		self.x = x
+		self.y = y
 
 
-def run(subcommand):
-	if not os.path.isdir(BUILD_DIR):
-		os.mkdir(BUILD_DIR)
-	if not os.path.isfile(WALLY_Z80):
-		tap2sna.main(('-d', BUILD_DIR, '@{}/everyonesawally.t2s'.format(EVERYONESAWALLY_HOME)))
-	eaw = EveryonesAWally(get_snapshot(WALLY_Z80))
-	ctlfile = '{}/{}.ctl'.format(BUILD_DIR, subcommand)
-	with open(ctlfile, 'wt') as f:
-		f.write(getattr(eaw, methods[subcommand][0])())
-	sna2skool.main(('-c', ctlfile, WALLY_Z80))
+class EveryonesAWallyHtmlWriter(HtmlWriter):
 
-
-###############################################################################
-# Begin
-###############################################################################
-methods = OrderedDict((
-	('graphics', ('get_graphics', 'Graphics (48754-52660)')),
-	('items', ('get_items', 'Items (58500-59175)')),
-	('rooms', ('get_rooms', 'Rooms (49152-64767)'))
-))
-subcommands = '\n'.join('  {} - {}'.format(k, v[1]) for k, v in methods.items())
-parser = argparse.ArgumentParser(
-	usage='%(prog)s SUBCOMMAND',
-	description="Produce a skool file snippet for Everyones A Wally. SUBCOMMAND must be one of:\n\n{}".format(subcommands),
-	formatter_class=argparse.RawTextHelpFormatter,
-	add_help=False
-)
-parser.add_argument('subcommand', help=argparse.SUPPRESS, nargs='?')
-namespace, unknown_args = parser.parse_known_args()
-if unknown_args or namespace.subcommand not in methods:
-    parser.exit(2, parser.format_help())
-run(namespace.subcommand)
+	def expand_room(self, text, index, cwd):
+		# #ROOMid[,scale][{X,Y,W,H}](fname)
+		end, crop_rect, fname, frame, alt, (room, scale) = parse_image_macro(text, index, (1,), ('id', 'scale'))
+		if fname is None:
+			raise MacroParsingError('Filename missing: #ROOM{}'.format(text[index:end]))
+		frame = Frame(lambda: self.get_playarea_udgs(room), scale, 0, *crop_rect, name=frame)
+		return end, self.handle_image(frame, fname, cwd, alt, 'PlayAreaImagePath')
