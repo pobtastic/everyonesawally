@@ -326,7 +326,7 @@ POKE #R$BCC0(#N$BCC0),<em>nn</em>
 
 [Poke:Remove Colours From The Main Characters]
 <code>
-<div>POKE #R$B184,#N$00</div>
+<div>POKE #R$B184(#N$B184),#N$00</div>
 <div>POKE #R$B186,#N$00</div>
 <div>POKE #R$B18D,#N$00</div>
 </code>
@@ -337,7 +337,7 @@ This removes all the lines which would otherwise write the colour attribute valu
 <table>
   <tbody>
     <tr>
-      <td class="address-1">#R$B184</td>
+      <td class="address-1">#R$B184(#N$B184)</td>
       <td class="instruction">LD (#REGhl),#REGc</td>
     </tr>
     <tr>
@@ -362,7 +362,7 @@ This removes all the lines which would otherwise write the colour attribute valu
     </tr>
     <tr>
       <td class="address-1">#R$B18B</td>
-      <td class="instruction">JR Z,#R$B18E</td>
+      <td class="instruction">JR Z,#R$B18E(#N$B18E)</td>
     </tr>
     <tr>
       <td class="address-1">#R$B18D</td>

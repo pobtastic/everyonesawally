@@ -8,7 +8,7 @@
 
 [Config]
 Expand=#INCLUDE(Expand)
-RefFiles=bases.ref;analytics.ref;pokes.ref
+RefFiles=bases.ref;analytics.ref;changelog.ref;pokes.ref
 GameDir=everyonesawally
 
 [Game]
@@ -19,6 +19,45 @@ Repository=https://github.com/pobtastic/everyonesawally/
 StyleSheet=skoolkit.css;everyonesawally.css
 LinkInternalOperands=1
 AddressAnchor={address#IF({base}==16)(:04x)}
+
+[Index:Reference:Reference]
+Pokes
+Links
+Changelog
+Credits
+
+[Paths]
+Credits=reference/credits.html
+Links=reference/links.html
+
+[Page:Credits]
+PageContent=#INCLUDE(Credits)
+
+[Page:Links]
+PageContent=#INCLUDE(Links)
+
+[Credits]
+<div>
+  <p>This work would not be possible without the efforts of:</p>
+  <dl>
+    <dt>Lunysoft - Kevan Thurstans</dt>
+    <dd>I found your <a href="http://www.luny.co.uk/index.php?page=22" rel="noopener noreferrer nofollow">memory map</a> quite late but it has still been very helpful.</dd>
+    <dt>David Thomas</dt>
+    <dd>I <s>stole</s> "borrowed" your footer styling from your awesome <a href="https://dpt.github.io/The-Great-Escape/" rel="noopener noreferrer nofollow">"The Great Escape"</a> disassembly! Love it!</a></dd>
+    <dt>Chris Hinsley (and <a href="https://en.wikipedia.org/wiki/Mikro-Gen/" rel="noopener noreferrer nofollow">Mikro-Gen</a>)</dt>
+    <dd>The entire Wally Week series were definitely some of my most played games in my childhood, so thank you for all the memories!</dd>
+  </dl>
+</div>
+
+[Links]
+<div>
+  <dl>
+    <dt>An interview with Chris Hinsley on: The Retro Hour EP392</dt>
+    <dd><a href="https://theretrohour.com/mikrogen-chris-hinsley/" rel="noopener noreferrer nofollow">https://theretrohour.com/mikrogen-chris-hinsley/</a></dd>
+    <dt>Everyone's a Wally - Remix</dt>
+    <dd><a href="https://hairyviking.itch.io/everyones-a-wally-remix/" rel="noopener noreferrer nofollow">https://hairyviking.itch.io/everyones-a-wally-remix/</a></dd>
+  </dl>
+</div>
 
 [Expand]
 #DEF(#COLOUR(id)

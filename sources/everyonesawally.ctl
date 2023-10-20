@@ -443,7 +443,7 @@ c $8155 Start Demo Mode
 
 c $8184
   $8184,$01 Disable interrupts.
-  $8185,$03 Set the stack pointer to #N$FC00.
+  $8185,$03 Set the stack pointer to #R$FC00.
   $8188,$03 Call #R$80E5.
   $818B,$03 Call #R$BAD8.
   $818E,$03 Call #R$E3FD.
@@ -658,6 +658,24 @@ c $AB60
 c $AB9B
 
 c $AC06
+
+c $AC69
+  $AC69,$03 #REGhl=#R$AC7F.
+
+  $AC6C,$02 Return if #REGa is zero.
+  $AC6E,$02 Stash #REGbc and #REGde on the stack.
+  $AC70,$01 #REGe=#REGa.
+  $AC71,$02 #REGa=#N$FF.
+  $AC73,$03 #REGbc=#N($0000,$04,$04).
+  $AC76,$02
+  $AC78,$01 Decrease #REGe by one.
+  $AC79,$03 Jump to #R$AC76 until #REGe is zero.
+  $AC7C,$02 Restore #REGde and #REGbc from the stack.
+  $AC7E,$01 Return.
+
+b $AC7F
+
+c $ADBA
 
 b $AE3C
 
@@ -1372,8 +1390,10 @@ b $BB7C
 
 b $BC30
 
-b $BC67
+g $BC67 Character Data
+@ $BC67 label=Character_Data
   $BC6B
+  $BC76,$01 Room ID.
 
 g $BC94 Lives: Wally
 @ $BC94 label=Lives_Wally
@@ -1419,42 +1439,52 @@ B $BCC0,$01
 
 b $BCC1
 
+b $BCE9 Item Data
+@ $BCE9 label=Item_Data
+  $BCE9,$01 Terminator.
+  $BCEA,$01 Terminator.
+  $BCEB,$01 Room ID #N(#PEEK(#PC)).
+  $BCEC,$02
+  $BCEF,$01 Terminator.
+  $BCF0,$01 Terminator.
+  $BCF1,$01 Room ID #N(#PEEK(#PC)).
 @ $BCF5 label=Item_Supermarket
-  $BCF5,$04,$01
+  $BCF5,$04,$01 Room ID #N(#PEEK(#PC)).
   $BCF9,$01 Terminator.
 @ $BCFA label=Item_Park
-B $BCFA,$06,$01
+B $BCFA,$06,$01 Room ID #N(#PEEK(#PC)).
   $BD00,$01 Terminator.
 @ $BD01 label=Item_WallStreet
-B $BD01,$01
+B $BD01,$01 Room ID #N(#PEEK(#PC)).
 @ $BD0F label=Item_Workshed_OnLeftTable
-B $BD0F,$01
+B $BD0F,$01 Room ID #N(#PEEK(#PC)).
 @ $BD13 label=Item_Workshed_UnderLeftTable
-B $BD13,$01
+B $BD13,$01 Room ID #N(#PEEK(#PC)).
 @ $BD17 label=Item_Workshed_UnderRightTable
-B $BD17,$01
+B $BD17,$01 Room ID #N(#PEEK(#PC)).
 @ $BD21 label=Item_School
-B $BD21,$01
+B $BD21,$01 Room ID #N(#PEEK(#PC)).
 @ $BD32 label=Item_KemcoLab_Left
-B $BD32,$01
+B $BD32,$01 Room ID #N(#PEEK(#PC)).
 @ $BD36 label=Item_KemcoLab_Right
-B $BD36,$01
+B $BD36,$01 Room ID #N(#PEEK(#PC)).
 @ $BD3B label=Item_Garage
-B $BD3B,$01
+B $BD3B,$01 Room ID #N(#PEEK(#PC)).
 @ $BD4D label=Item_WallysHouse
-B $BD4D,$01
+B $BD4D,$01 Room ID #N(#PEEK(#PC)).
 @ $BD4F label=Item_Bank
-B $BD4F,$01
+B $BD4F,$01 Room ID #N(#PEEK(#PC)).
 @ $BD5A label=Item_Butchers
-B $BD5A,$01
+B $BD5A,$01 Room ID #N(#PEEK(#PC)).
 @ $BD6A label=Item_Station
-B $BD6A,$01
+B $BD6A,$01 Room ID #N(#PEEK(#PC)).
 @ $BD78 label=Item_Sewer
-  $BD78,$01
+  $BD78,$01 Room ID #N(#PEEK(#PC)).
   $BD79,$03,$01
   $BD7C,$01 Terminator.
-  $BD7D,$03,$01
-  $BD81,$01
+  $BD7D,$01 Room ID #N(#PEEK(#PC)).
+  $BD7E,$02
+  $BD81,$01 Room ID #N(#PEEK(#PC)).
   $BD82,$03,$01
   $BD85,$01 Terminator.
 
