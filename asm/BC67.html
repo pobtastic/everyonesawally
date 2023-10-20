@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Everyone's a Wally: Data at BC67</title>
+<title>Everyone's a Wally: Game status buffer entry at BC67</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
@@ -15,11 +15,11 @@ gtag('js', new Date());
 gtag('config', 'G-75RERFCHBG');
 </script>
 </head>
-<body class="Asm-b">
+<body class="Asm-g">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Data</td>
+<td class="page-header">Game status buffer</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -33,7 +33,7 @@ Next: <a href="BC94.html">BC94</a>
 </td>
 </tr>
 </table>
-<div class="description">BC67: Data block at BC67</div>
+<div class="description">BC67: Character Data</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,39 +42,52 @@ Next: <a href="BC94.html">BC94</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Character_Data</td>
 <td class="address-1"><span id="bc67"></span>BC67</td>
 <td class="instruction">DEFB $00,$00,$00,$00</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bc6b"></span>BC6B</td>
 <td class="instruction">DEFB $00,$40,$08,$90,$A8,$E8,$98,$98</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bc73"></span>BC73</td>
-<td class="instruction">DEFB $98,$98,$98,$00,$00,$00,$00,$00</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">DEFB $98,$98,$98</td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="address-1"><span id="bc7b"></span>BC7B</td>
-<td class="instruction">DEFB $80,$80,$80,$80,$80,$5B,$5C,$5D</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bc76"></span>BC76</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1">Room ID.</td>
 </tr>
 <tr>
-<td class="address-1"><span id="bc83"></span>BC83</td>
-<td class="instruction">DEFB $5E,$5F,$46,$45,$44,$43,$07,$38</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bc77"></span>BC77</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$80,$80,$80,$80</td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="address-1"><span id="bc8b"></span>BC8B</td>
-<td class="instruction">DEFB $38,$38,$38,$38,$94,$98,$9C,$A0</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bc7f"></span>BC7F</td>
+<td class="instruction">DEFB $80,$5B,$5C,$5D,$5E,$5F,$46,$45</td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="address-1"><span id="bc93"></span>BC93</td>
-<td class="instruction">DEFB $A4</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bc87"></span>BC87</td>
+<td class="instruction">DEFB $44,$43,$07,$38,$38,$38,$38,$38</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bc8f"></span>BC8F</td>
+<td class="instruction">DEFB $94,$98,$9C,$A0,$A4</td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">

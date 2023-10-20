@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at AC69</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AC06.html">AC06</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ac69">Map</a></td>
+<td class="next">
+Next: <a href="AC7F.html">AC7F</a>
+</td>
+</tr>
+</table>
+<div class="description">AC69: Routine at AC69</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="AC06.html">AC06</a>, <a href="ADBA.html">ADBA</a>, <a href="E79B.html">E79B</a> and <a href="EFC7.html">EFC7</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ac69"></span>AC69</td>
+<td class="instruction">LD HL,$AC7F</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="AC7F.html">AC7F</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ac6c"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="AA8C.html">AA8C</a>, <a href="BA66.html">BA66</a> and <a href="EABF.html">EABF</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ac6c"></span>AC6C</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="2">Return if <span class="register">A</span> is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac6d"></span>AC6D</td>
+<td class="instruction">RET Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac6e"></span>AC6E</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="2">Stash <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac6f"></span>AC6F</td>
+<td class="instruction">PUSH DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac70"></span>AC70</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=<span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac71"></span>AC71</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=FF.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac73"></span>AC73</td>
+<td class="instruction">LD BC,$0000</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0000.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ac76"></span>AC76</td>
+<td class="instruction">CPIR</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac78"></span>AC78</td>
+<td class="instruction">DEC E</td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">E</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac79"></span>AC79</td>
+<td class="instruction">JP NZ,<a href="AC69.html#ac76">$AC76</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="AC69.html#ac76">AC76</a> until <span class="register">E</span> is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac7c"></span>AC7C</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="2">Restore <span class="register">DE</span> and <span class="register">BC</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac7d"></span>AC7D</td>
+<td class="instruction">POP BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac7e"></span>AC7E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AC06.html">AC06</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ac69">Map</a></td>
+<td class="next">
+Next: <a href="AC7F.html">AC7F</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/44137.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>
