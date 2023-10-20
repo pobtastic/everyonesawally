@@ -20,6 +20,14 @@ StyleSheet=skoolkit.css;everyonesawally.css
 LinkInternalOperands=1
 AddressAnchor={address#IF({base}==16)(:04x)}
 
+[Index:DataTables:Data tables and buffers]
+GameStatusBuffer
+Graphics Table
+Item Labels Table
+Item Data
+Platform Table
+Room Table
+
 [Index:Reference:Reference]
 Pokes
 Links
@@ -29,6 +37,21 @@ Credits
 [Paths]
 Credits=reference/credits.html
 Links=reference/links.html
+
+[Page:Graphics Table]
+Content=asm/#N$BD86.html
+
+[Page:Item Labels Table]
+Content=asm/#N$E728.html
+
+[Page:Item Data]
+Content=asm/#N$BCE9.html
+
+[Page:Platform Table]
+Content=asm/#N$AF8F.html
+
+[Page:Room Table]
+Content=asm/#N$CDB5.html
 
 [Page:Credits]
 PageContent=#INCLUDE(Credits)

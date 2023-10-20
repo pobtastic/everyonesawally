@@ -50,19 +50,19 @@ t $7C1B Messaging: Wages
 @ $7C1B label=Messaging_Wages
 B $7C1B,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7C1D,$0D #FONT:(TODAY'S WAGES)$E0DC,attr=$43(wages-01)
-B $7C2A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7C2A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7C2C,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7C2E,$0B #FONT:(WALLY'S PAY)$E0DC,attr=$46(wages-02)
-B $7C39,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7C39,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7C3B,$0B #FONT:(WILMA'S PAY)$E0DC,attr=$46(wages-03)
-B $7C46,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7C46,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7C48,$09 #FONT:(TOM'S PAY)$E0DC,attr=$46(wages-04)
-B $7C51,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7C51,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7C53,$0A #FONT:(DICK'S PAY)$E0DC,attr=$46(wages-05)
-B $7C5D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7C5D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7C5F,$0B #FONT:(HARRY'S PAY)$E0DC,attr=$46(wages-06)
 B $7C6A,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7C6C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7C6C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7C6E,$07 #FONT:(OVERALL)$E0DC,attr=$43(wages-07)
 B $7C75,$01 Terminator.
 
@@ -70,19 +70,19 @@ t $7C76 Messaging: Congratulations
 @ $7C76 label=Messaging_Congratulations
 B $7C76,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7C78,$1B #FONT:(YOU CLEVER DICK  PLUS TOM,)$E0DC,attr=$44(congratulations-01)
-B $7C93,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7C93,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7C95,$18 #FONT:(HARRY, WILMA AND WALLY.)$E0DC,attr=$44(congratulations-02)
-B $7CAD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7CAD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7CAF,$17 #FONT:(YOU'VE OPENED THE SAFE.)$E0DC,attr=$44(congratulations-03)
-B $7CC6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7CC6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7CC8,$1B #FONT:(PERHAPS  EVERYONE'S  NOT  A)$E0DC,attr=$44(congratulations-04)
-B $7CE3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7CE3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7CE5,$10 #FONT:(WALLY AFTER ALL.)$E0DC,attr=$44(congratulations-05)
-B $7CF5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7CF5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7CF7,$1B #FONT:(THE GANG HAVE BEEN PAID AND)$E0DC,attr=$44(congratulations-06)
-B $7D12,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7D12,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7D14,$1A #FONT:(ARE NOW OFF ON THEIR HOLS.)$E0DC,attr=$44(congratulations-07)
-B $7D2E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7D2E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7D30,$17 #FONT:(SEE YOU AGAIN SOMETIME.)$E0DC,attr=$44(congratulations-08)
 B $7D47,$01 Terminator.
 
@@ -90,15 +90,15 @@ t $7D48 Messaging: Tough Luck
 @ $7D48 label=Messaging_ToughLuck
 B $7D48,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7D4A,$19 #FONT:(TOUGH LUCK.  THE GANG HAS)$E0DC,attr=$44(tough-luck-01)
-B $7D63,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7D63,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7D65,$06 #FONT:(EARNED)$E0DC,attr=$44(tough-luck-02)
-B $7D6B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7D6B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7D6D,$0D #FONT:(,  BUT  CAN'T)$E0DC,attr=$44(tough-luck-03)
-B $7D7A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7D7A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7D7C,$19 #FONT:(HAVE  IT  'COS  THE  SAFE)$E0DC,attr=$44(tough-luck-04)
-B $7D95,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7D95,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7D97,$19 #FONT:(WASN'T OPENED, AND THAT'S)$E0DC,attr=$44(tough-luck-05)
-B $7DB0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7DB0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7DB2,$13 #FONT:(WHERE THE MONEY IS.)$E0DC,attr=$44(tough-luck-06)
 B $7DC5,$01 Terminator.
 
@@ -108,17 +108,17 @@ B $7DC6,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DC8,$05 #FONT:(KEY:-)$E0DC,attr=$42(key)
 B $7DCD,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DCF,$16 #FONT:(   1.SINCLAIR JOYSTICK)$E0DC,attr=$46(sinclair)
-B $7DE5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7DE5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7DE7,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DE9,$05 #FONT:(KEY:-)$E0DC,attr=$42(key)
 B $7DEE,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7DF0,$16 #FONT:(   2.KEMPSTON JOYSTICK)$E0DC,attr=$46(kempston)
-B $7E06,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E06,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E08,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E0A,$05 #FONT:(KEY:-)$E0DC,attr=$42(key)
 B $7E0F,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E11,$0D #FONT:(   3.KEYBOARD)$E0DC,attr=$46(keyboard)
-B $7E1E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E1E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E20,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E22,$14 #FONT:(PRESS KEY 4 TO START)$E0DC,attr=$46(start)
 B $7E36,$01 Terminator.
@@ -135,15 +135,15 @@ B $7E3F,$01
 W $7E40,$02
 B $7E42,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E44,$0A #FONT:(CHARACTER:)$E0DC,attr=$47(character)
-B $7E4E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E4E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E50,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E52,$0A #FONT:(ENDURANCE:)$E0DC,attr=$47(endurance)
-B $7E5C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E5C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $7E5E,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
   $7E60,$02 #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
-B $7E62 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E62 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7E64,$02 #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
-B $7E66 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E66 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $7E68,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
 B $7E68,$01
 W $7E69,$02
@@ -159,27 +159,27 @@ B $7E6D,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times
 t $7E71 Messaging: Tea Break
 @ $7E71 label=Messaging_TeaBreak
 B $7E71,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7E73,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E73,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7E75,$16 #FONT:(HO HUM, TIME FOR A BUN)$E0DC,attr=$45(tea-break-01)
-B $7E8B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7E8B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7E8D,$11 #FONT:(MORNING TEA BREAK)$E0DC,attr=$45(tea-break-02)
 B $7E9E,$01 Terminator.
 
 t $7E9F Messaging: Lunch Time
 @ $7E9F label=Messaging_LunchTime
 B $7E9F,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7EA1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7EA1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7EA3,$1C #FONT:(RUBBA DUB DUB, TIME FOR GRUB)$E0DC,attr=$43(lunch-time-01)
-B $7EBF,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7EBF,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7EC1,$0A #FONT:(LUNCH TIME)$E0DC,attr=$43(lunch-time-02)
 B $7ECB,$01 Terminator.
 
 t $7ECC Messaging: Afternoon Tea Break
 @ $7ECC label=Messaging_AfternoonTeaBreak
 B $7ECC,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
-B $7ECE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7ECE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7ED0,$1C #FONT:(FIDDLE DEE DEE, TIME FOR TEA)$E0DC,attr=$46(afternoon-01)
-B $7EEC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+B $7EEC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7EEE,$13 #FONT:(AFTERNOON TEA BREAK)$E0DC,attr=$46(afternoon-02)
 B $7F01,$01 Terminator.
 
@@ -190,13 +190,13 @@ M $7F04,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
 W $7F05,$02
   $7F07,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7BC,attr=$42) }} UDGTABLE#
   $7F08,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7C4,attr=$42) }} UDGTABLE#
-  $7F09,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7F09,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7F0B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7CC,attr=$42) }} UDGTABLE#
   $7F0C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7CC,attr=$42) }} UDGTABLE#
-  $7F0D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7F0D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7F0F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7BC,attr=$42) }} UDGTABLE#
   $7F10,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7C4,attr=$42) }} UDGTABLE#
-  $7F11,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $7F11,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7F13,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7BC,attr=$42) }} UDGTABLE#
   $7F14,$01 Tile #N(#PEEK(#PC)): #UDGTABLE {{ #UDG($D7C4,attr=$42) }} UDGTABLE#
   $7F15,$01 Terminator.
@@ -1393,7 +1393,7 @@ b $BC30
 g $BC67 Character Data
 @ $BC67 label=Character_Data
   $BC6B
-  $BC76,$01 Room ID.
+  $BC76,$01 Current room ID.
 
 g $BC94 Lives: Wally
 @ $BC94 label=Lives_Wally
@@ -1504,14 +1504,14 @@ W $BE73,$02
   $BE79,$01 Action: move down one character block.
   $BE7A,$01 Action: move down one character block.
   $BE7B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E05C,attr=$46) } UDGTABLE#
-  $BE7C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BE7C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BE7E,$02 Attribute: #COLOUR(#PC+$01)
   $BE80,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E04C,attr=$42) } UDGTABLE#
   $BE81,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E054,attr=$42) } UDGTABLE#
-  $BE82,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BE82,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BE84,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E03C,attr=$42) } UDGTABLE#
   $BE85,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E044,attr=$42) } UDGTABLE#
-  $BE86,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BE86,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BE88,$02 Attribute: #COLOUR(#PC+$01)
 M $BE8A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BE8A,$01
@@ -1535,7 +1535,7 @@ W $BE90,$02
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D214,attr=$44) })
 . UDGTABLE#
   $BE9B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D21C,attr=$44) } UDGTABLE#
-  $BE9C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BE9C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BE9E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D224,attr=$44) } UDGTABLE#
 M $BE9F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BE9F,$01
@@ -1563,7 +1563,7 @@ W $BEA0,$02
   $BEB6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$44) } UDGTABLE#
   $BEB7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$44) } UDGTABLE#
   $BEB8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9FC,attr=$44) } UDGTABLE#
-  $BEB9,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BEB9,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $BEBB,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BEBB,$01
 W $BEBC,$02
@@ -1606,28 +1606,28 @@ W $BEDB,$02
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($DDD4,attr=$43) })
 . UDGTABLE#
   $BEE2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDDC,attr=$43) } UDGTABLE#
-  $BEE3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BEE3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BEE5,$02 Attribute: #COLOUR(#PC+$01)
   $BEE7,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($DDD4,attr=$45) })
 . UDGTABLE#
   $BEEA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDDC,attr=$45) } UDGTABLE#
-  $BEEB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BEEB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BEED,$02 Attribute: #COLOUR(#PC+$01)
   $BEEF,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($DDD4,attr=$42) })
 . UDGTABLE#
   $BEF2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDDC,attr=$42) } UDGTABLE#
-  $BEF3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BEF3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BEF5,$02 Attribute: #COLOUR(#PC+$01)
   $BEF7,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($DDD4,attr=$46) })
 . UDGTABLE#
   $BEFA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDDC,attr=$46) } UDGTABLE#
-  $BEFB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BEFB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BEFD,$02 Attribute: #COLOUR(#PC+$01)
   $BEFF,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
@@ -1645,7 +1645,7 @@ W $BF04,$02
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
 . { #FOR$01,$06(n,#UDG($DDEC,attr=$47), | ) }
 . UDGTABLE#
-  $BF0B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF0B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $BF0D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BF0D,$01
 W $BF0E,$02
@@ -1666,7 +1666,7 @@ W $BF1A,$02
   $BF1C,$02 Attribute: #COLOUR(#PC+$01)
   $BF1E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE04,attr=$46) } UDGTABLE#
   $BF1F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE0C,attr=$46) } UDGTABLE#
-  $BF20,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF20,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF22,$02 Attribute: #COLOUR(#PC+$01)
   $BF24,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDF4,attr=$45) } UDGTABLE#
   $BF25,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDFC,attr=$45) } UDGTABLE#
@@ -1682,15 +1682,15 @@ W $BF28,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$03,,4(n,{ #Nn | #UDG($DDA4,attr=$45) })
 . UDGTABLE#
-  $BF2F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF2F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF31,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$03,,4(n,{ #Nn | #UDG($DDA4,attr=$45) })
 . UDGTABLE#
-  $BF34,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF34,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF36,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD9C,attr=$45) } UDGTABLE#
   $BF37,$02 Attribute: #COLOUR(#PC+$01)
-  $BF39,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF39,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF3B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD84,attr=$42) } UDGTABLE#
   $BF3C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD84,attr=$42) } UDGTABLE#
   $BF3D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD64,attr=$42) } UDGTABLE#
@@ -1699,7 +1699,7 @@ W $BF28,$02
   $BF40,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD64,attr=$42) } UDGTABLE#
   $BF41,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD84,attr=$42) } UDGTABLE#
   $BF42,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD94,attr=$42) } UDGTABLE#
-  $BF43,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF43,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF45,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD8C,attr=$42) } UDGTABLE#
   $BF46,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD8C,attr=$42) } UDGTABLE#
   $BF47,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDAC,attr=$42) } UDGTABLE#
@@ -1707,11 +1707,11 @@ W $BF28,$02
   $BF49,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD8C,attr=$42) } UDGTABLE#
   $BF4A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDAC,attr=$42) } UDGTABLE#
   $BF4B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD8C,attr=$42) } UDGTABLE#
-  $BF4C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF4C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF4E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD6C,attr=$42) } UDGTABLE#
   $BF4F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD74,attr=$42) } UDGTABLE#
   $BF50,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD7C,attr=$42) } UDGTABLE#
-  $BF51,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF51,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF53,$02 Attribute: #COLOUR(#PC+$01)
   $BF55,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD54,attr=$47) } UDGTABLE#
   $BF56,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD54,attr=$47) } UDGTABLE#
@@ -1727,7 +1727,7 @@ W $BF28,$02
   $BF60,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDBC,attr=$47) } UDGTABLE#
   $BF61,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD54,attr=$47) } UDGTABLE#
   $BF62,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD5C,attr=$47) } UDGTABLE#
-  $BF63,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF63,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF65,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD54,attr=$47) } UDGTABLE#
   $BF66,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD54,attr=$47) } UDGTABLE#
   $BF67,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDCC,attr=$47) } UDGTABLE#
@@ -1741,14 +1741,14 @@ W $BF28,$02
   $BF6F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDCC,attr=$47) } UDGTABLE#
   $BF70,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDC4,attr=$47) } UDGTABLE#
   $BF71,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD5C,attr=$47) } UDGTABLE#
-  $BF72,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF72,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF74,$02 Attribute: #COLOUR(#PC+$01)
   $BF76,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c9 Columns } { #FOR$01,$09(n,=h #Nn, | ) }
 . { #FOR$01,$09(n,#UDG($DD54,attr=$42), | ) }
 . UDGTABLE#
   $BF79,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD5C,attr=$42) } UDGTABLE#
-  $BF7A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF7A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF7C,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($DD54,attr=$42), | ) }
@@ -1768,24 +1768,24 @@ W $BF82,$02
 . UDGTABLE#
   $BF89,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD3C,attr=$42) } UDGTABLE#
   $BF8A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD14,attr=$42) } UDGTABLE#
-  $BF8B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF8B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF8D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD34,attr=$42) } UDGTABLE#
   $BF8E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD14,attr=$42) } UDGTABLE#
-  $BF8F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF8F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF91,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD2C,attr=$42) } UDGTABLE#
   $BF92,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD14,attr=$42) } UDGTABLE#
-  $BF93,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF93,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF95,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD44,attr=$42) } UDGTABLE#
   $BF96,$01 Action: move down one character block.
   $BF97,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD24,attr=$42) } UDGTABLE#
-  $BF98,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BF98,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BF9A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD3C,attr=$42) } UDGTABLE#
 M $BF9B,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BF9B,$01
 W $BF9C,$02
   $BF9E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $BF9F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
-  $BFA0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFA0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFA2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $BFA3,$01 Terminator.
 
@@ -1794,11 +1794,11 @@ b $BFA4 Graphic ID #N$07
 M $BFA4,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BFA4,$01
 W $BFA5,$02
-  $BFA7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFA7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFA9,$02 Attribute: #COLOUR(#PC+$01)
   $BFAB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCEC,attr=$44) } UDGTABLE#
   $BFAC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCF4,attr=$44) } UDGTABLE#
-  $BFAD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFAD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFAF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCFC,attr=$44) } UDGTABLE#
   $BFB0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD04,attr=$44) } UDGTABLE#
   $BFB1,$01 Terminator.
@@ -1811,28 +1811,28 @@ W $BFB3,$02
   $BFB5,$02 Attribute: #COLOUR(#PC+$01)
   $BFB7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD0C,attr=$28) } UDGTABLE#
   $BFB8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD4C,attr=$28) } UDGTABLE#
-  $BFB9,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFB9,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFBB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD0C,attr=$28) } UDGTABLE#
   $BFBC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD4C,attr=$28) } UDGTABLE#
-  $BFBD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFBD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFBF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD14,attr=$28) } UDGTABLE#
   $BFC0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD4C,attr=$28) } UDGTABLE#
-  $BFC1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFC1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFC3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD14,attr=$28) } UDGTABLE#
   $BFC4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD44,attr=$28) } UDGTABLE#
-  $BFC5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFC5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFC7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD14,attr=$28) } UDGTABLE#
   $BFC8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD44,attr=$28) } UDGTABLE#
-  $BFC9,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFC9,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFCB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD1C,attr=$28) } UDGTABLE#
   $BFCC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD3C,attr=$28) } UDGTABLE#
-  $BFCD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFCD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFCF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD1C,attr=$28) } UDGTABLE#
   $BFD0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD3C,attr=$28) } UDGTABLE#
-  $BFD1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFD1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFD3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD1C,attr=$28) } UDGTABLE#
   $BFD4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD34,attr=$28) } UDGTABLE#
-  $BFD5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFD5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFD7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD24,attr=$28) } UDGTABLE#
   $BFD8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD2C,attr=$28) } UDGTABLE#
   $BFD9,$01 Terminator.
@@ -1854,15 +1854,15 @@ W $BFE3,$02
   $BFE8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCAC,attr=$46) } UDGTABLE#
   $BFE9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCB4,attr=$46) } UDGTABLE#
   $BFEA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCCC,attr=$46) } UDGTABLE#
-  $BFEB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFEB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFED,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCA4,attr=$46) } UDGTABLE#
   $BFEE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCBC,attr=$46) } UDGTABLE#
   $BFEF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCC4,attr=$46) } UDGTABLE#
   $BFF0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCD4,attr=$46) } UDGTABLE#
-  $BFF1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFF1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFF3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCDC,attr=$46) } UDGTABLE#
   $BFF4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCE4,attr=$46) } UDGTABLE#
-  $BFF5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFF5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFF7,$02 Attribute: #COLOUR(#PC+$01)
   $BFF9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC34,attr=$44) } UDGTABLE#
   $BFFA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC2C,attr=$44) } UDGTABLE#
@@ -1880,15 +1880,15 @@ W $BFE3,$02
   $BFE8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCAC,attr=$46) } UDGTABLE#
   $BFE9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCB4,attr=$46) } UDGTABLE#
   $BFEA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCCC,attr=$46) } UDGTABLE#
-  $BFEB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFEB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFED,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCA4,attr=$46) } UDGTABLE#
   $BFEE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCBC,attr=$46) } UDGTABLE#
   $BFEF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCC4,attr=$46) } UDGTABLE#
   $BFF0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCD4,attr=$46) } UDGTABLE#
-  $BFF1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFF1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFF3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCDC,attr=$46) } UDGTABLE#
   $BFF4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DCE4,attr=$46) } UDGTABLE#
-  $BFF5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $BFF5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $BFF7,$02 Attribute: #COLOUR(#PC+$01)
   $BFF9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC34,attr=$44) } UDGTABLE#
   $BFFA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC2C,attr=$44) } UDGTABLE#
@@ -1906,12 +1906,12 @@ W $BFFF,$02
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($DA2C,attr=$79), | ) }
 . UDGTABLE#
-  $C006,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C006,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C008,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($DA34,attr=$79), | ) }
 . UDGTABLE#
-  $C00B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C00B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C00D,$02 Attribute: #COLOUR(#PC+$01)
 M $C00F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C00F,$01
@@ -1952,7 +1952,7 @@ W $C027,$02
 M $C02E,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C02E,$01
 W $C02F,$02
-  $C031,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C031,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C033,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE54,attr=$4E) } UDGTABLE#
   $C034,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE5C,attr=$4E) } UDGTABLE#
   $C035,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE64,attr=$4E) } UDGTABLE#
@@ -2025,15 +2025,15 @@ W $C06E,$02
   $C070,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$4F) } UDGTABLE#
   $C071,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$4F) } UDGTABLE#
   $C072,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$4F) } UDGTABLE#
-  $C073,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C073,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C075,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$4F) } UDGTABLE#
   $C076,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$4F) } UDGTABLE#
-  $C077,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C077,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C079,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($E0DC,attr=$4F), | ) }
 . UDGTABLE#
-  $C07C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C07C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C07E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($E0DC,attr=$4F), | ) }
@@ -2050,16 +2050,16 @@ W $C083,$02
 . #UDGTABLE { =h,c7 Columns } { #FOR$01,$07(n,=h #Nn, | ) }
 . { #FOR$01,$07(n,#UDG($E0DC,attr=$57), | ) }
 . UDGTABLE#
-  $C08A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C08A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C08C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$57) } UDGTABLE#
-  $C08D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C08D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C08F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$57) } UDGTABLE#
-  $C090,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C090,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C092,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c7 Columns } { #FOR$01,$07(n,=h #Nn, | ) }
 . { #FOR$01,$07(n,#UDG($E0DC,attr=$57), | ) }
 . UDGTABLE#
-  $C095,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C095,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $C097,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C097,$01
 W $C098,$02
@@ -2075,7 +2075,7 @@ b $C0A0 Graphic ID #N$12
 M $C0A0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0A0,$01
 W $C0A1,$02
-  $C0A3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0A3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0A5,$02 Attribute: #COLOUR(#PC+$01)
   $C0A7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7AC,attr=$45) } UDGTABLE#
   $C0A8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7B4,attr=$45) } UDGTABLE#
@@ -2089,7 +2089,7 @@ W $C0AB,$02
   $C0AD,$02 Attribute: #COLOUR(#PC+$01)
   $C0AF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D75C,attr=$46) } UDGTABLE#
   $C0B0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D76C,attr=$46) } UDGTABLE#
-  $C0B1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0B1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0B3,$02 Attribute: #COLOUR(#PC+$01)
   $C0B5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D79C,attr=$42) } UDGTABLE#
   $C0B6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7A4,attr=$42) } UDGTABLE#
@@ -2105,17 +2105,17 @@ W $C0B9,$02
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D394,attr=$44)#UDG($D39C,attr=$44), | ) }
 . UDGTABLE#
-  $C0C1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0C1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0C3,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D39C,attr=$44)#UDG($D394,attr=$44), | ) }
 . UDGTABLE#
-  $C0C7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0C7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0C9,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D394,attr=$44)#UDG($D39C,attr=$44), | ) }
 . UDGTABLE#
-  $C0CD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0CD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0CF,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D39C,attr=$44)#UDG($D394,attr=$44), | ) }
@@ -2134,18 +2134,18 @@ W $C0DA,$02
 M $C0DC,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0DC,$01
 W $C0DD,$02
-  $C0DF,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0DF,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0E1,$02 Attribute: #COLOUR(#PC+$01)
   $C0E3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFB4,attr=$42) } UDGTABLE#
   $C0E4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFC4,attr=$42) } UDGTABLE#
   $C0E5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFB4,attr=$42) } UDGTABLE#
   $C0E6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
   $C0E7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
-  $C0E8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0E8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0EA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFAC,attr=$42) } UDGTABLE#
   $C0EB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFC4,attr=$42) } UDGTABLE#
   $C0EC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFB4,attr=$42) } UDGTABLE#
-  $C0ED,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0ED,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0EF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
   $C0F0,$01 Terminator.
 
@@ -2154,18 +2154,18 @@ b $C0DC Graphic ID #N$16
 M $C0DC,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0DC,$01
 W $C0DD,$02
-  $C0DF,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0DF,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0E1,$02 Attribute: #COLOUR(#PC+$01)
   $C0E3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFB4,attr=$42) } UDGTABLE#
   $C0E4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFC4,attr=$42) } UDGTABLE#
   $C0E5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFB4,attr=$42) } UDGTABLE#
   $C0E6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
   $C0E7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
-  $C0E8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0E8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0EA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFAC,attr=$42) } UDGTABLE#
   $C0EB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFC4,attr=$42) } UDGTABLE#
   $C0EC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFB4,attr=$42) } UDGTABLE#
-  $C0ED,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0ED,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0EF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
   $C0F0,$01 Terminator.
 
@@ -2179,18 +2179,18 @@ W $C0F2,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$09,,4(n,{ #Nn | #UDG($DC74,attr=$45) })
 . UDGTABLE#
-  $C0F9,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0F9,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0FB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC7C,attr=$45) } UDGTABLE#
-  $C0FC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C0FC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C0FE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC7C,attr=$45) } UDGTABLE#
   $C0FF,$02 Attribute: #COLOUR(#PC+$01)
-  $C101,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C101,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C103,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC4C,attr=$47) } UDGTABLE#
-  $C104,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C104,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C106,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC6C,attr=$47) } UDGTABLE#
   $C107,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC54,attr=$47) } UDGTABLE#
   $C108,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC44,attr=$47) } UDGTABLE#
-  $C109,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C109,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C10B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC64,attr=$47) } UDGTABLE#
   $C10C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC5C,attr=$47) } UDGTABLE#
   $C10D,$01 Action: move down one character block.
@@ -2199,7 +2199,7 @@ W $C0F2,$02
   $C111,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC8C,attr=$44) } UDGTABLE#
   $C112,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC94,attr=$44) } UDGTABLE#
   $C113,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC84,attr=$44) } UDGTABLE#
-  $C114,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C114,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C116,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC3C,attr=$44) } UDGTABLE#
   $C117,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC3C,attr=$44) } UDGTABLE#
   $C118,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC3C,attr=$44) } UDGTABLE#
@@ -2207,7 +2207,7 @@ W $C0F2,$02
   $C11A,$01 Action: move down one character block.
   $C11B,$01 Action: move down one character block.
   $C11C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC84,attr=$44) } UDGTABLE#
-  $C11D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C11D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C11F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC3C,attr=$44) } UDGTABLE#
   $C120,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC3C,attr=$44) } UDGTABLE#
   $C121,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC8C,attr=$44) } UDGTABLE#
@@ -2215,7 +2215,7 @@ W $C0F2,$02
   $C123,$01 Action: move down one character block.
   $C124,$01 Action: move down one character block.
   $C125,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC84,attr=$44) } UDGTABLE#
-  $C126,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C126,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C128,$02 Attribute: #COLOUR(#PC+$01)
   $C12A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC2C,attr=$46) } UDGTABLE#
   $C12B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC34,attr=$46) } UDGTABLE#
@@ -2234,85 +2234,85 @@ W $C133,$02
   $C135,$02 Attribute: #COLOUR(#PC+$01)
   $C137,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBAC,attr=$45) } UDGTABLE#
   $C138,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC0C,attr=$45) } UDGTABLE#
-  $C139,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C139,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C13B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC14,attr=$45) } UDGTABLE#
   $C13C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC1C,attr=$45) } UDGTABLE#
-  $C13D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C13D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C13F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBEC,attr=$45) } UDGTABLE#
   $C140,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBF4,attr=$45) } UDGTABLE#
   $C141,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBCC,attr=$45) } UDGTABLE#
   $C142,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBD4,attr=$45) } UDGTABLE#
-  $C143,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C143,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C145,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBFC,attr=$45) } UDGTABLE#
   $C146,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC04,attr=$45) } UDGTABLE#
   $C147,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBBC,attr=$45) } UDGTABLE#
   $C148,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBC4,attr=$45) } UDGTABLE#
-  $C149,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C149,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C14B,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$09,,4(n,{ #Nn | #UDG($DC14,attr=$45) })
 . UDGTABLE#
-  $C14E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C14E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C150,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBDC,attr=$45) } UDGTABLE#
   $C151,$01 Action: move down one character block.
   $C152,$01 Action: move down one character block.
   $C153,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBE4,attr=$45) } UDGTABLE#
-  $C154,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C154,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C156,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$09,,4(n,{ #Nn | #UDG($DC1C,attr=$45) })
 . UDGTABLE#
-  $C159,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C159,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C15B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBAC,attr=$45) } UDGTABLE#
   $C15C,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
 . { #FOR$01,$06(n,#UDG($DBB4,attr=$45), | ) }
 . UDGTABLE#
-  $C15F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C15F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C161,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBAC,attr=$45) } UDGTABLE#
   $C162,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c7 Columns } { #FOR$01,$07(n,=h #Nn, | ) }
 . { #FOR$01,$07(n,#UDG($DBB4,attr=$45), | ) }
 . UDGTABLE#
-  $C165,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C165,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C167,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBB4,attr=$45) } UDGTABLE#
   $C168,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBB4,attr=$45) } UDGTABLE#
   $C169,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBB4,attr=$45) } UDGTABLE#
   $C16A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC0C,attr=$45) } UDGTABLE#
-  $C16B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C16B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C16D,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($DBB4,attr=$45), | ) }
 . UDGTABLE#
   $C170,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC0C,attr=$45) } UDGTABLE#
-  $C171,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C171,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C173,$02 Attribute: #COLOUR(#PC+$01)
 M $C175,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C175,$01
 W $C176,$02
   $C178,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5A4,attr=$43) } UDGTABLE#
   $C179,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5AC,attr=$43) } UDGTABLE#
-  $C17A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C17A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C17C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5CC,attr=$43) } UDGTABLE#
   $C17D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5D4,attr=$43) } UDGTABLE#
-  $C17E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C17E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C180,$02 Attribute: #COLOUR(#PC+$01)
   $C182,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5E4,attr=$46) } UDGTABLE#
   $C183,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5E4,attr=$46) } UDGTABLE#
-  $C184,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C184,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C186,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5E4,attr=$46) } UDGTABLE#
   $C187,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5E4,attr=$46) } UDGTABLE#
-  $C188,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C188,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C18A,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D5E4,attr=$46), | ) }
 . UDGTABLE#
-  $C18D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C18D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C18F,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D5E4,attr=$46), | ) }
 . UDGTABLE#
-  $C192,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C192,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $C194,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C194,$01
 W $C195,$02
@@ -2331,83 +2331,83 @@ W $C19E,$02
   $C1A0,$02 Attribute: #COLOUR(#PC+$01)
   $C1A2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBAC,attr=$7) } UDGTABLE#
   $C1A3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC0C,attr=$7) } UDGTABLE#
-  $C1A4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1A4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1A6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC14,attr=$7) } UDGTABLE#
   $C1A7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC1C,attr=$7) } UDGTABLE#
-  $C1A8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1A8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1AA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC14,attr=$7) } UDGTABLE#
   $C1AB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC1C,attr=$7) } UDGTABLE#
-  $C1AC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1AC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1AE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBDC,attr=$7) } UDGTABLE#
   $C1AF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC14,attr=$7) } UDGTABLE#
   $C1B0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC1C,attr=$7) } UDGTABLE#
   $C1B1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBE4,attr=$7) } UDGTABLE#
-  $C1B2,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1B2,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1B4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBCC,attr=$7) } UDGTABLE#
   $C1B5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBD4,attr=$7) } UDGTABLE#
   $C1B6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBEC,attr=$7) } UDGTABLE#
   $C1B7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBF4,attr=$7) } UDGTABLE#
-  $C1B8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1B8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1BA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBBC,attr=$7) } UDGTABLE#
   $C1BB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBC4,attr=$7) } UDGTABLE#
   $C1BC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBFC,attr=$7) } UDGTABLE#
   $C1BD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC04,attr=$7) } UDGTABLE#
-  $C1BE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1BE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1C0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBDC,attr=$7) } UDGTABLE#
-  $C1C1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1C1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1C3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBE4,attr=$7) } UDGTABLE#
-  $C1C4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1C4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1C6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBCC,attr=$7) } UDGTABLE#
   $C1C7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBD4,attr=$7) } UDGTABLE#
   $C1C8,$01 Action: move down one character block.
   $C1C9,$01 Action: move down one character block.
   $C1CA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBEC,attr=$7) } UDGTABLE#
   $C1CB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBF4,attr=$7) } UDGTABLE#
-  $C1CC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1CC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1CE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBBC,attr=$7) } UDGTABLE#
   $C1CF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBC4,attr=$7) } UDGTABLE#
   $C1D0,$01 Action: move down one character block.
   $C1D1,$01 Action: move down one character block.
   $C1D2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBFC,attr=$7) } UDGTABLE#
   $C1D3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC04,attr=$7) } UDGTABLE#
-  $C1D4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1D4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1D6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBDC,attr=$7) } UDGTABLE#
-  $C1D7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1D7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1D9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBE4,attr=$7) } UDGTABLE#
-  $C1DA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1DA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1DC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBCC,attr=$7) } UDGTABLE#
   $C1DD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBD4,attr=$7) } UDGTABLE#
-  $C1DE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1DE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1E0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBEC,attr=$7) } UDGTABLE#
   $C1E1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBF4,attr=$7) } UDGTABLE#
-  $C1E2,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1E2,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1E4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBBC,attr=$7) } UDGTABLE#
   $C1E5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBC4,attr=$7) } UDGTABLE#
-  $C1E6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1E6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1E8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBFC,attr=$7) } UDGTABLE#
   $C1E9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC04,attr=$7) } UDGTABLE#
-  $C1EA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1EA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1EC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBDC,attr=$7) } UDGTABLE#
-  $C1ED,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1ED,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1EF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBE4,attr=$7) } UDGTABLE#
-  $C1F0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1F0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1F2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBCC,attr=$7) } UDGTABLE#
   $C1F3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBD4,attr=$7) } UDGTABLE#
-  $C1F4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1F4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1F6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBEC,attr=$7) } UDGTABLE#
   $C1F7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBF4,attr=$7) } UDGTABLE#
-  $C1F8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1F8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C1FA,$02 Attribute: #COLOUR(#PC+$01)
   $C1FC,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($DBB4,attr=$46), | ) }
 . UDGTABLE#
-  $C1FF,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C1FF,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C201,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
 . { #FOR$01,$06(n,#UDG($DBB4,attr=$46), | ) }
 . UDGTABLE#
-  $C204,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C204,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C206,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($DBB4,attr=$46), | ) }
@@ -2431,7 +2431,7 @@ W $C20B,$02
 . UDGTABLE#
   $C217,$02 Attribute: #COLOUR(#PC+$01)
   $C219,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D73C,attr=$42) } UDGTABLE#
-  $C21A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C21A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C21C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D744,attr=$42) } UDGTABLE#
   $C21D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D74C,attr=$42) } UDGTABLE#
   $C21E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D754,attr=$42) } UDGTABLE#
@@ -2445,16 +2445,16 @@ W $C221,$02
   $C223,$02 Attribute: #COLOUR(#PC+$01)
   $C225,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D794,attr=$44) } UDGTABLE#
   $C226,$02 Attribute: #COLOUR(#PC+$01)
-  $C228,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C228,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C22A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D784,attr=$47) } UDGTABLE#
   $C22B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D764,attr=$47) } UDGTABLE#
   $C22C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D78C,attr=$47) } UDGTABLE#
-  $C22D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C22D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C22F,$02 Attribute: #COLOUR(#PC+$01)
   $C231,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D774,attr=$44) } UDGTABLE#
   $C232,$01 Action: move down one character block.
   $C233,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D77C,attr=$44) } UDGTABLE#
-  $C234,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C234,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C236,$02 Attribute: #COLOUR(#PC+$01)
   $C238,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D75C,attr=$47) } UDGTABLE#
   $C239,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D764,attr=$47) } UDGTABLE#
@@ -2477,7 +2477,7 @@ W $C23D,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$0A,,4(n,{ #Nn | #UDG($D594,attr=$7) })
 . UDGTABLE#
-  $C24A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C24A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C24C,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$0A,,4(n,{ #Nn | #UDG($D58C,attr=$7) })
@@ -2508,7 +2508,7 @@ W $C255,$02
   $C26B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1E4,attr=$44) } UDGTABLE#
   $C26C,$02 Attribute: #COLOUR(#PC+$01)
   $C26E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1D4,attr=$46) } UDGTABLE#
-  $C26F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C26F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C271,$02 Attribute: #COLOUR(#PC+$01)
   $C273,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1BC,attr=$45) } UDGTABLE#
   $C274,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1C4,attr=$45) } UDGTABLE#
@@ -2528,14 +2528,14 @@ W $C27D,$02
   $C27F,$02 Attribute: #COLOUR(#PC+$01)
   $C281,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D774,attr=$45) } UDGTABLE#
   $C282,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D77C,attr=$45) } UDGTABLE#
-  $C283,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C283,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $C285,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C285,$01
 W $C286,$02
   $C288,$02 Attribute: #COLOUR(#PC+$01)
   $C28A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D514,attr=$72) } UDGTABLE#
   $C28B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D514,attr=$72) } UDGTABLE#
-  $C28C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C28C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C28E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D514,attr=$72) } UDGTABLE#
   $C28F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D514,attr=$72) } UDGTABLE#
   $C290,$01 Terminator.
@@ -2561,7 +2561,7 @@ W $C29B,$02
   $C29F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D304,attr=$45) } UDGTABLE#
   $C2A0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D30C,attr=$45) } UDGTABLE#
   $C2A1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D314,attr=$45) } UDGTABLE#
-  $C2A2,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2A2,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2A4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D31C,attr=$45) } UDGTABLE#
   $C2A5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D324,attr=$45) } UDGTABLE#
   $C2A6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D32C,attr=$45) } UDGTABLE#
@@ -2586,12 +2586,12 @@ W $C2A9,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6B4,attr=$44) })
 . UDGTABLE#
-  $C2B7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2B7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2B9,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6AC,attr=$44) })
 . UDGTABLE#
-  $C2BC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2BC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2BE,$02 Attribute: #COLOUR(#PC+$01)
 M $C2C0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C2C0,$01
@@ -2600,17 +2600,17 @@ W $C2C1,$02
 . #UDGTABLE { =h,c11 Columns } { #FOR$01,$0B(n,=h #Nn, | ) }
 . { #FOR$01,$0B(n,#UDG($D5A4,attr=$46)#UDG($D5AC,attr=$46), | ) }
 . UDGTABLE#
-  $C2C7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2C7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2C9,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c11 Columns } { #FOR$01,$0B(n,=h #Nn, | ) }
 . { #FOR$01,$0B(n,#UDG($D5B4,attr=$46)#UDG($D5BC,attr=$46), | ) }
 . UDGTABLE#
-  $C2CD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2CD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2CF,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c11 Columns } { #FOR$01,$0B(n,=h #Nn, | ) }
 . { #FOR$01,$0B(n,#UDG($D5B4,attr=$46)#UDG($D5BC,attr=$46), | ) }
 . UDGTABLE#
-  $C2D3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2D3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2D5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5B4,attr=$46) } UDGTABLE#
   $C2D6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5BC,attr=$46) } UDGTABLE#
   $C2D7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5CC,attr=$46) } UDGTABLE#
@@ -2629,7 +2629,7 @@ W $C2C1,$02
   $C2E4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5D4,attr=$46) } UDGTABLE#
   $C2E5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5B4,attr=$46) } UDGTABLE#
   $C2E6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5BC,attr=$46) } UDGTABLE#
-  $C2E7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2E7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2E9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5CC,attr=$46) } UDGTABLE#
   $C2EA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5D4,attr=$46) } UDGTABLE#
   $C2EB,$01 Action: move down one character block.
@@ -2648,7 +2648,7 @@ W $C2C1,$02
   $C2F8,$01 Action: move down one character block.
   $C2F9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5CC,attr=$46) } UDGTABLE#
   $C2FA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5D4,attr=$46) } UDGTABLE#
-  $C2FB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C2FB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C2FD,$02 Attribute: #COLOUR(#PC+$01)
 M $C2FF,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C2FF,$01
@@ -2666,7 +2666,7 @@ W $C300,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D21C,attr=$45) })
 . UDGTABLE#
-  $C30C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C30C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C30E,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D224,attr=$45) })
@@ -2678,7 +2678,7 @@ b $C312 Graphic ID #N$22
 M $C312,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C312,$01
 W $C313,$02
-  $C315,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C315,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C317,$02 Attribute: #COLOUR(#PC+$01)
   $C319,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9F4,attr=$45) } UDGTABLE#
   $C31A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$45) } UDGTABLE#
@@ -2735,7 +2735,7 @@ b $C347 Graphic ID #N$24
 M $C347,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C347,$01
 W $C348,$02
-  $C34A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C34A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C34C,$02 Attribute: #COLOUR(#PC+$01)
   $C34E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c23 Columns } { #FOR$01,$17(n,=h #Nn, | ) }
@@ -2748,7 +2748,7 @@ b $C352 Graphic ID #N$25
 M $C352,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C352,$01
 W $C353,$02
-  $C355,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C355,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C357,$02 Attribute: #COLOUR(#PC+$01)
   $C359,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c32 Columns } { #FOR$01,$20(n,=h #Nn, | ) }
@@ -2761,7 +2761,7 @@ b $C35D Graphic ID #N$26
 M $C35D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C35D,$01
 W $C35E,$02
-  $C360,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C360,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C362,$02 Attribute: #COLOUR(#PC+$01)
   $C364,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
@@ -2783,7 +2783,7 @@ W $C36A,$02
   $C372,$01 Action: move down one character block.
   $C373,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D22C,attr=$46) } UDGTABLE#
   $C374,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D214,attr=$46) } UDGTABLE#
-  $C375,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C375,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C377,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D224,attr=$46) } UDGTABLE#
   $C378,$01 Action: move down one character block.
   $C379,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D234,attr=$46) } UDGTABLE#
@@ -2802,14 +2802,14 @@ W $C37D,$02
   $C384,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E07C,attr=$46) } UDGTABLE#
   $C385,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E074,attr=$46) } UDGTABLE#
   $C386,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E094,attr=$46) } UDGTABLE#
-  $C387,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C387,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C389,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C38A,$01 Action: move down one character block.
   $C38B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C38C,$01 Action: move down one character block.
   $C38D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E09C,attr=$46) } UDGTABLE#
   $C38E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E094,attr=$46) } UDGTABLE#
-  $C38F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C38F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C391,$02 Attribute: #COLOUR(#PC+$01)
   $C393,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
@@ -2820,41 +2820,41 @@ W $C37D,$02
   $C399,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C39A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0A4,attr=$46) } UDGTABLE#
   $C39B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E094,attr=$46) } UDGTABLE#
-  $C39C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C39C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C39E,$02 Attribute: #COLOUR(#PC+$01)
   $C3A0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E084,attr=$45) } UDGTABLE#
   $C3A1,$01 Action: move down one character block.
   $C3A2,$02 Attribute: #COLOUR(#PC+$01)
   $C3A4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E09C,attr=$46) } UDGTABLE#
   $C3A5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E094,attr=$46) } UDGTABLE#
-  $C3A6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3A6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3A8,$02 Attribute: #COLOUR(#PC+$01)
   $C3AA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E084,attr=$45) } UDGTABLE#
   $C3AB,$02 Attribute: #COLOUR(#PC+$01)
   $C3AD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C3AE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0A4,attr=$46) } UDGTABLE#
   $C3AF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E094,attr=$46) } UDGTABLE#
-  $C3B0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3B0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3B2,$02 Attribute: #COLOUR(#PC+$01)
   $C3B4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E084,attr=$45) } UDGTABLE#
   $C3B5,$01 Action: move down one character block.
   $C3B6,$02 Attribute: #COLOUR(#PC+$01)
   $C3B8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E09C,attr=$46) } UDGTABLE#
   $C3B9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E094,attr=$46) } UDGTABLE#
-  $C3BA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3BA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3BC,$02 Attribute: #COLOUR(#PC+$01)
   $C3BE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E084,attr=$45) } UDGTABLE#
   $C3BF,$02 Attribute: #COLOUR(#PC+$01)
   $C3C1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C3C2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0A4,attr=$46) } UDGTABLE#
   $C3C3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E094,attr=$46) } UDGTABLE#
-  $C3C4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3C4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3C6,$02 Attribute: #COLOUR(#PC+$01)
   $C3C8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E084,attr=$45) } UDGTABLE#
   $C3C9,$01 Action: move down one character block.
   $C3CA,$02 Attribute: #COLOUR(#PC+$01)
   $C3CC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E09C,attr=$46) } UDGTABLE#
-  $C3CD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3CD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3CF,$02 Attribute: #COLOUR(#PC+$01)
   $C3D1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E084,attr=$45) } UDGTABLE#
   $C3D2,$02 Attribute: #COLOUR(#PC+$01)
@@ -2878,14 +2878,14 @@ W $C3DC,$02
   $C3E3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E074,attr=$46) } UDGTABLE#
   $C3E4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E07C,attr=$46) } UDGTABLE#
   $C3E5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E074,attr=$46) } UDGTABLE#
-  $C3E6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3E6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3E8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0AC,attr=$46) } UDGTABLE#
   $C3E9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0BC,attr=$46) } UDGTABLE#
   $C3EA,$01 Action: move down one character block.
   $C3EB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C3EC,$01 Action: move down one character block.
   $C3ED,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
-  $C3EE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3EE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3F0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0AC,attr=$46) } UDGTABLE#
   $C3F1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0C4,attr=$46) } UDGTABLE#
   $C3F2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
@@ -2896,45 +2896,45 @@ W $C3DC,$02
 . { #FOR$01,$04(n,#UDG($E0CC,attr=$45), | ) }
 . UDGTABLE#
   $C3F9,$02 Attribute: #COLOUR(#PC+$01)
-  $C3FB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C3FB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C3FD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0AC,attr=$46) } UDGTABLE#
   $C3FE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0BC,attr=$46) } UDGTABLE#
   $C3FF,$01 Action: move down one character block.
   $C400,$02 Attribute: #COLOUR(#PC+$01)
   $C402,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
   $C403,$02 Attribute: #COLOUR(#PC+$01)
-  $C405,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C405,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C407,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0AC,attr=$46) } UDGTABLE#
   $C408,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0C4,attr=$46) } UDGTABLE#
   $C409,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C40A,$02 Attribute: #COLOUR(#PC+$01)
   $C40C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
   $C40D,$02 Attribute: #COLOUR(#PC+$01)
-  $C40F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C40F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C411,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0AC,attr=$46) } UDGTABLE#
   $C412,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0BC,attr=$46) } UDGTABLE#
   $C413,$01 Action: move down one character block.
   $C414,$02 Attribute: #COLOUR(#PC+$01)
   $C416,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
   $C417,$02 Attribute: #COLOUR(#PC+$01)
-  $C419,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C419,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C41B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0AC,attr=$46) } UDGTABLE#
   $C41C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0C4,attr=$46) } UDGTABLE#
   $C41D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C41E,$02 Attribute: #COLOUR(#PC+$01)
   $C420,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
   $C421,$02 Attribute: #COLOUR(#PC+$01)
-  $C423,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C423,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C425,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0BC,attr=$46) } UDGTABLE#
-  $C426,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C426,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C428,$02 Attribute: #COLOUR(#PC+$01)
   $C42A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
-  $C42B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C42B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C42D,$02 Attribute: #COLOUR(#PC+$01)
   $C42F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $C430,$02 Attribute: #COLOUR(#PC+$01)
   $C432,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
-  $C433,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C433,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C435,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
   $C436,$01 Terminator.
 
@@ -2956,7 +2956,7 @@ W $C438,$02
   $C446,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF7C,attr=$45) } UDGTABLE#
   $C447,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF74,attr=$45) } UDGTABLE#
   $C448,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF7C,attr=$45) } UDGTABLE#
-  $C449,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C449,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C44B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF74,attr=$45) } UDGTABLE#
   $C44C,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
@@ -2964,7 +2964,7 @@ W $C438,$02
 . UDGTABLE#
   $C44F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF84,attr=$45) } UDGTABLE#
   $C450,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C451,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C451,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C453,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF8C,attr=$45) } UDGTABLE#
   $C454,$02 Attribute: #COLOUR(#PC+$01)
   $C456,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
@@ -2974,7 +2974,7 @@ W $C438,$02
   $C459,$02 Attribute: #COLOUR(#PC+$01)
   $C45B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF7C,attr=$45) } UDGTABLE#
   $C45C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C45D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C45D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C45F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF74,attr=$45) } UDGTABLE#
   $C460,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
@@ -2982,7 +2982,7 @@ W $C438,$02
 . UDGTABLE#
   $C463,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF84,attr=$45) } UDGTABLE#
   $C464,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C465,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C465,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C467,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF8C,attr=$45) } UDGTABLE#
   $C468,$02 Attribute: #COLOUR(#PC+$01)
   $C46A,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
@@ -2992,7 +2992,7 @@ W $C438,$02
   $C46D,$02 Attribute: #COLOUR(#PC+$01)
   $C46F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF7C,attr=$45) } UDGTABLE#
   $C470,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C471,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C471,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C473,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF74,attr=$45) } UDGTABLE#
   $C474,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
@@ -3000,7 +3000,7 @@ W $C438,$02
 . UDGTABLE#
   $C477,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF84,attr=$45) } UDGTABLE#
   $C478,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C479,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C479,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C47B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF8C,attr=$45) } UDGTABLE#
   $C47C,$02 Attribute: #COLOUR(#PC+$01)
   $C47E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
@@ -3010,7 +3010,7 @@ W $C438,$02
   $C481,$02 Attribute: #COLOUR(#PC+$01)
   $C483,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF7C,attr=$45) } UDGTABLE#
   $C484,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C485,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C485,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C487,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF74,attr=$45) } UDGTABLE#
   $C488,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
@@ -3018,7 +3018,7 @@ W $C438,$02
 . UDGTABLE#
   $C48B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF84,attr=$45) } UDGTABLE#
   $C48C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C48D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C48D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C48F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF8C,attr=$45) } UDGTABLE#
   $C490,$02 Attribute: #COLOUR(#PC+$01)
   $C492,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
@@ -3030,27 +3030,27 @@ W $C438,$02
   $C498,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF84,attr=$45) } UDGTABLE#
   $C499,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF8C,attr=$45) } UDGTABLE#
   $C49A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF84,attr=$45) } UDGTABLE#
-  $C49B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C49B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C49D,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$07,,4(n,{ #Nn | #UDG($DF64,attr=$45) })
 . UDGTABLE#
-  $C4A0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4A0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4A2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF8C,attr=$45) } UDGTABLE#
   $C4A3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF6C,attr=$45) } UDGTABLE#
   $C4A4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF7C,attr=$45) } UDGTABLE#
-  $C4A5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4A5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4A7,$02 Attribute: #COLOUR(#PC+$01)
   $C4A9,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$07,,4(n,{ #Nn | #UDG($DFA4,attr=$47) })
 . UDGTABLE#
-  $C4AC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4AC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4AE,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($DFA4,attr=$47) })
 . UDGTABLE#
-  $C4B1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4B1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4B3,$02 Attribute: #COLOUR(#PC+$01)
   $C4B5,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
@@ -3063,12 +3063,12 @@ W $C438,$02
 . UDGTABLE#
   $C4BD,$02 Attribute: #COLOUR(#PC+$01)
   $C4BF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF64,attr=$45) } UDGTABLE#
-  $C4C0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4C0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4C2,$02 Attribute: #COLOUR(#PC+$01)
   $C4C4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF54,attr=$46) } UDGTABLE#
   $C4C5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF5C,attr=$46) } UDGTABLE#
   $C4C6,$02 Attribute: #COLOUR(#PC+$01)
-  $C4C8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4C8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4CA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF44,attr=$44) } UDGTABLE#
   $C4CB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF4C,attr=$44) } UDGTABLE#
   $C4CC,$01 Terminator.
@@ -3101,14 +3101,14 @@ W $C4CE,$02
   $C4E5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1CC,attr=$43) } UDGTABLE#
   $C4E6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1BC,attr=$43) } UDGTABLE#
   $C4E7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1C4,attr=$43) } UDGTABLE#
-  $C4E8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4E8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4EA,$02 Attribute: #COLOUR(#PC+$01)
   $C4EC,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D1EC,attr=$45) })
 . UDGTABLE#
   $C4EF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1F4,attr=$45) } UDGTABLE#
-  $C4F0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4F0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4F2,$02 Attribute: #COLOUR(#PC+$01)
   $C4F4,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
@@ -3118,18 +3118,18 @@ W $C4CE,$02
   $C4F8,$01 Action: move down one character block.
   $C4F9,$02 Attribute: #COLOUR(#PC+$01)
   $C4FB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$46) } UDGTABLE#
-  $C4FC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C4FC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C4FE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$46) } UDGTABLE#
   $C4FF,$02 Attribute: #COLOUR(#PC+$01)
   $C501,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$44) } UDGTABLE#
-  $C502,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C502,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C504,$02 Attribute: #COLOUR(#PC+$01)
   $C506,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$42) } UDGTABLE#
   $C507,$02 Attribute: #COLOUR(#PC+$01)
   $C509,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$47) } UDGTABLE#
   $C50A,$02 Attribute: #COLOUR(#PC+$01)
   $C50C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$46) } UDGTABLE#
-  $C50D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C50D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C50F,$02 Attribute: #COLOUR(#PC+$01)
   $C511,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$44) } UDGTABLE#
   $C512,$02 Attribute: #COLOUR(#PC+$01)
@@ -3138,61 +3138,61 @@ W $C4CE,$02
   $C517,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$45) } UDGTABLE#
   $C518,$02 Attribute: #COLOUR(#PC+$01)
   $C51A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$46) } UDGTABLE#
-  $C51B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C51B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C51D,$02 Attribute: #COLOUR(#PC+$01)
   $C51F,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D1EC,attr=$47) })
 . UDGTABLE#
   $C522,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1F4,attr=$47) } UDGTABLE#
-  $C523,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C523,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C525,$02 Attribute: #COLOUR(#PC+$01)
   $C527,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D1EC,attr=$44) })
 . UDGTABLE#
   $C52A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1F4,attr=$44) } UDGTABLE#
-  $C52B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C52B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C52D,$02 Attribute: #COLOUR(#PC+$01)
   $C52F,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D1EC,attr=$46) })
 . UDGTABLE#
   $C532,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1F4,attr=$46) } UDGTABLE#
-  $C533,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C533,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C535,$02 Attribute: #COLOUR(#PC+$01)
   $C537,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D1EC,attr=$45) })
 . UDGTABLE#
   $C53A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1F4,attr=$45) } UDGTABLE#
-  $C53B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C53B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C53D,$02 Attribute: #COLOUR(#PC+$01)
   $C53F,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D1EC,attr=$44) })
 . UDGTABLE#
   $C542,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1F4,attr=$44) } UDGTABLE#
-  $C543,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C543,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C545,$02 Attribute: #COLOUR(#PC+$01)
   $C547,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D1EC,attr=$42) })
 . UDGTABLE#
   $C54A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1F4,attr=$42) } UDGTABLE#
-  $C54B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C54B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C54D,$02 Attribute: #COLOUR(#PC+$01)
   $C54F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$46) } UDGTABLE#
   $C550,$02 Attribute: #COLOUR(#PC+$01)
   $C552,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$45) } UDGTABLE#
-  $C553,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C553,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C555,$02 Attribute: #COLOUR(#PC+$01)
   $C557,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$44) } UDGTABLE#
   $C558,$02 Attribute: #COLOUR(#PC+$01)
   $C55A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$46) } UDGTABLE#
   $C55B,$02 Attribute: #COLOUR(#PC+$01)
   $C55D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$47) } UDGTABLE#
-  $C55E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C55E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C560,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$47) } UDGTABLE#
   $C561,$02 Attribute: #COLOUR(#PC+$01)
   $C563,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$45) } UDGTABLE#
@@ -3207,7 +3207,7 @@ b $C56B Graphic ID #N$2C
 M $C56B,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C56B,$01
 W $C56C,$02
-  $C56E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C56E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C570,$02 Attribute: #COLOUR(#PC+$01)
   $C572,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFF4,attr=$45) } UDGTABLE#
   $C573,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFFC,attr=$45) } UDGTABLE#
@@ -3235,51 +3235,51 @@ W $C581,$02
   $C583,$02 Attribute: #COLOUR(#PC+$01)
   $C585,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D454,attr=$47) } UDGTABLE#
   $C586,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D45C,attr=$47) } UDGTABLE#
-  $C587,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C587,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C589,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D464,attr=$47) } UDGTABLE#
   $C58A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D46C,attr=$47) } UDGTABLE#
-  $C58B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C58B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C58D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D474,attr=$47) } UDGTABLE#
   $C58E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D47C,attr=$47) } UDGTABLE#
-  $C58F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C58F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C591,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D484,attr=$47) } UDGTABLE#
   $C592,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D48C,attr=$47) } UDGTABLE#
-  $C593,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C593,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C595,$02 Attribute: #COLOUR(#PC+$01)
   $C597,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D424,attr=$46) } UDGTABLE#
   $C598,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D434,attr=$46) } UDGTABLE#
-  $C599,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C599,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C59B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D424,attr=$46) } UDGTABLE#
   $C59C,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D42C,attr=$46), | ) }
 . UDGTABLE#
   $C59F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D434,attr=$46) } UDGTABLE#
-  $C5A0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5A0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5A2,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D494,attr=$46), | ) }
 . UDGTABLE#
-  $C5A5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5A5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5A7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D424,attr=$46) } UDGTABLE#
   $C5A8,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D42C,attr=$46), | ) }
 . UDGTABLE#
   $C5AB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D434,attr=$46) } UDGTABLE#
-  $C5AC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5AC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5AE,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D494,attr=$46), | ) }
 . UDGTABLE#
-  $C5B1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5B1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5B3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D424,attr=$46) } UDGTABLE#
   $C5B4,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c12 Columns } { #FOR$01,$0C(n,=h #Nn, | ) }
 . { #FOR$01,$0C(n,#UDG($D42C,attr=$46), | ) }
 . UDGTABLE#
   $C5B7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D434,attr=$46) } UDGTABLE#
-  $C5B8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5B8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5BA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D43C,attr=$46) } UDGTABLE#
   $C5BB,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c10 Columns } { #FOR$01,$0A(n,=h #Nn, | ) }
@@ -3300,17 +3300,17 @@ W $C5C1,$02
 . { #FOR$01,$06(n,#UDG($D3EC,attr=$45), | ) }
 . UDGTABLE#
   $C5C9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3F4,attr=$45) } UDGTABLE#
-  $C5CA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5CA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5CC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3FC,attr=$45) } UDGTABLE#
   $C5CD,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
 . { #FOR$01,$06(n,#UDG($D404,attr=$45), | ) }
 . UDGTABLE#
   $C5D0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D40C,attr=$45) } UDGTABLE#
-  $C5D1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5D1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5D3,$02 Attribute: #COLOUR(#PC+$01)
   $C5D5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D414,attr=$43) } UDGTABLE#
-  $C5D6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5D6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5D8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D41C,attr=$43) } UDGTABLE#
   $C5D9,$01 Terminator.
 
@@ -3326,7 +3326,7 @@ W $C5DB,$02
 . { #FOR$01,$06(n,#UDG($D24C,attr=$43), | ) }
 . UDGTABLE#
   $C5E3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D26C,attr=$43) } UDGTABLE#
-  $C5E4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5E4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5E6,$02 Attribute: #COLOUR(#PC+$01)
   $C5E8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D254,attr=$42) } UDGTABLE#
   $C5E9,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
@@ -3334,13 +3334,13 @@ W $C5DB,$02
 . { #FOR$01,$06(n,#UDG($D244,attr=$42), | ) }
 . UDGTABLE#
   $C5EC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D25C,attr=$42) } UDGTABLE#
-  $C5ED,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5ED,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $C5EF,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C5EF,$01
 W $C5F0,$02
   $C5F2,$02 Attribute: #COLOUR(#PC+$01)
   $C5F4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D414,attr=$44) } UDGTABLE#
-  $C5F5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C5F5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C5F7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D41C,attr=$44) } UDGTABLE#
   $C5F8,$01 Terminator.
 
@@ -3352,11 +3352,11 @@ W $C5FA,$02
   $C5FC,$02 Attribute: #COLOUR(#PC+$01)
   $C5FE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D264,attr=$43) } UDGTABLE#
   $C5FF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D26C,attr=$43) } UDGTABLE#
-  $C600,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C600,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C602,$02 Attribute: #COLOUR(#PC+$01)
   $C604,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D254,attr=$42) } UDGTABLE#
   $C605,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D25C,attr=$42) } UDGTABLE#
-  $C606,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C606,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C608,$02 Attribute: #COLOUR(#PC+$01)
 M $C60A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C60A,$01
@@ -3401,7 +3401,7 @@ W $C626,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D2AC,attr=$45) })
 . UDGTABLE#
-  $C62D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C62D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C62F,$02 Attribute: #COLOUR(#PC+$01)
   $C631,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D294,attr=$43) } UDGTABLE#
   $C632,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D29C,attr=$43) } UDGTABLE#
@@ -3421,7 +3421,7 @@ W $C636,$02
 . UDGTABLE#
   $C63E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D2EC,attr=$47) } UDGTABLE#
   $C63F,$02 Attribute: #COLOUR(#PC+$01)
-  $C641,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C641,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C643,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D2CC,attr=$46) })
@@ -3431,7 +3431,7 @@ W $C636,$02
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
 . { #FOR$01,$06(n,#UDG($D2BC,attr=$46), | ) }
 . UDGTABLE#
-  $C64A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C64A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C64C,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D2D4,attr=$46) })
@@ -3450,7 +3450,7 @@ W $C652,$02
   $C658,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C659,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C65A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D37C,attr=$44) } UDGTABLE#
-  $C65B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C65B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C65D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D374,attr=$44) } UDGTABLE#
   $C65E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C65F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
@@ -3459,7 +3459,7 @@ W $C652,$02
   $C662,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C663,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C664,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D37C,attr=$44) } UDGTABLE#
-  $C665,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C665,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C667,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D374,attr=$44) } UDGTABLE#
   $C668,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C669,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
@@ -3469,7 +3469,7 @@ W $C652,$02
   $C66D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C66E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C66F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
-  $C670,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C670,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C672,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C673,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C674,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
@@ -3480,7 +3480,7 @@ W $C652,$02
   $C679,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C67A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C67B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
-  $C67C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C67C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C67E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C67F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C680,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
@@ -3491,7 +3491,7 @@ W $C652,$02
   $C685,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C686,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C687,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D384,attr=$44) } UDGTABLE#
-  $C688,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C688,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C68A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D374,attr=$44) } UDGTABLE#
   $C68B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C68C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
@@ -3503,7 +3503,7 @@ W $C652,$02
   $C692,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C693,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C694,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D37C,attr=$44) } UDGTABLE#
-  $C695,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C695,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C697,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D38C,attr=$44) } UDGTABLE#
   $C698,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C699,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
@@ -3515,7 +3515,7 @@ W $C652,$02
   $C69F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C6A0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C6A1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
-  $C6A2,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6A2,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6A4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C6A5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C6A6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
@@ -3526,7 +3526,7 @@ W $C652,$02
   $C6AB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C6AC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C6AD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D384,attr=$44) } UDGTABLE#
-  $C6AE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6AE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6B0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D38C,attr=$44) } UDGTABLE#
   $C6B1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C6B2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
@@ -3535,35 +3535,35 @@ W $C652,$02
   $C6B5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$44) } UDGTABLE#
   $C6B6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
   $C6B7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$44) } UDGTABLE#
-  $C6B8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6B8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6BA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D38C,attr=$44) } UDGTABLE#
   $C6BB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D384,attr=$44) } UDGTABLE#
   $C6BC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$44) } UDGTABLE#
   $C6BD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D384,attr=$44) } UDGTABLE#
   $C6BE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D38C,attr=$44) } UDGTABLE#
   $C6BF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D384,attr=$44) } UDGTABLE#
-  $C6C0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6C0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6C2,$02 Attribute: #COLOUR(#PC+$01)
   $C6C4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3A4,attr=$42) } UDGTABLE#
   $C6C5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3AC,attr=$42) } UDGTABLE#
   $C6C6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3B4,attr=$42) } UDGTABLE#
   $C6C7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3BC,attr=$42) } UDGTABLE#
-  $C6C8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6C8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6CA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D394,attr=$42) } UDGTABLE#
   $C6CB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D39C,attr=$42) } UDGTABLE#
-  $C6CC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6CC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6CE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D394,attr=$42) } UDGTABLE#
   $C6CF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D39C,attr=$42) } UDGTABLE#
-  $C6D0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6D0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6D2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D39C,attr=$42) } UDGTABLE#
   $C6D3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D394,attr=$42) } UDGTABLE#
-  $C6D4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6D4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6D6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D39C,attr=$42) } UDGTABLE#
   $C6D7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D394,attr=$42) } UDGTABLE#
-  $C6D8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6D8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6DA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D394,attr=$42) } UDGTABLE#
   $C6DB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D39C,attr=$42) } UDGTABLE#
-  $C6DC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6DC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6DE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3C4,attr=$42) } UDGTABLE#
   $C6DF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3CC,attr=$42) } UDGTABLE#
   $C6E0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3D4,attr=$42) } UDGTABLE#
@@ -3581,19 +3581,19 @@ W $C6E4,$02
   $C6EA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C6EB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C6EC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
-  $C6ED,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6ED,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6EF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C6F0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C6F1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C6F2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C6F3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
-  $C6F4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6F4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6F6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
   $C6F7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C6F8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C6F9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C6FA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
-  $C6FB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C6FB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C6FD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
   $C6FE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C6FF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
@@ -3611,17 +3611,17 @@ W $C704,$02
   $C709,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
   $C70A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C70B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
-  $C70C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C70C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C70E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C70F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C710,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
   $C711,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
-  $C712,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C712,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C714,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C715,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
   $C716,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C717,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
-  $C718,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C718,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C71A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
   $C71B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
   $C71C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D36C,attr=$4) } UDGTABLE#
@@ -3638,12 +3638,12 @@ W $C720,$02
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D334,attr=$43), | ) }
 . UDGTABLE#
-  $C727,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C727,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C729,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D344,attr=$43), | ) }
 . UDGTABLE#
-  $C72C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C72C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C72E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D33C,attr=$43), | ) }
@@ -3660,12 +3660,12 @@ W $C733,$02
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D334,attr=$43), | ) }
 . UDGTABLE#
-  $C73A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C73A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C73C,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D344,attr=$43), | ) }
 . UDGTABLE#
-  $C73F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C73F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C741,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D33C,attr=$43), | ) }
@@ -3682,22 +3682,22 @@ W $C746,$02
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D354,attr=$45), | ) }
 . UDGTABLE#
-  $C74D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C74D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C74F,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C752,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C752,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C754,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C757,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C757,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C759,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C75C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C75C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C75E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($D34C,attr=$45), | ) }
@@ -3714,22 +3714,22 @@ W $C763,$02
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D354,attr=$45), | ) }
 . UDGTABLE#
-  $C76A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C76A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C76C,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C76F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C76F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C771,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C774,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C774,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C776,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C779,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C779,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C77B,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
@@ -3746,17 +3746,17 @@ W $C780,$02
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C787,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C787,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C789,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C78C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C78C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C78E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C791,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C791,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C793,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D514,attr=$72), | ) }
@@ -3780,17 +3780,17 @@ W $C7A0,$02
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C7A7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7A7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7A9,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C7AC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7AC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7AE,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C7B1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7B1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7B3,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
@@ -3807,17 +3807,17 @@ W $C7A0,$02
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C7A7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7A7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7A9,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C7AC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7AC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7AE,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
 . UDGTABLE#
-  $C7B1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7B1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7B3,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D514,attr=$72), | ) }
@@ -3841,22 +3841,22 @@ W $C7C0,$02
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D52C,attr=$2), | ) }
 . UDGTABLE#
-  $C7C7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7C7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7C9,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7CD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7CD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7CF,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7D3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7D3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7D5,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7D9,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7D9,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7DB,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
@@ -3873,22 +3873,22 @@ W $C7C0,$02
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D52C,attr=$2), | ) }
 . UDGTABLE#
-  $C7C7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7C7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7C9,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7CD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7CD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7CF,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7D3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7D3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7D5,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7D9,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7D9,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7DB,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
@@ -3905,22 +3905,22 @@ W $C7E1,$02
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D52C,attr=$2), | ) }
 . UDGTABLE#
-  $C7E8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7E8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7EA,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7EE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7EE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7F0,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7F4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7F4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7F6,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
 . UDGTABLE#
-  $C7FA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C7FA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C7FC,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D51C,attr=$2)#UDG($D524,attr=$2), | ) }
@@ -3938,7 +3938,7 @@ W $C802,$02
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D604,attr=$47), | ) }
 . UDGTABLE#
-  $C80A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C80A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C80C,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D634,attr=$47) })
@@ -3948,7 +3948,7 @@ W $C802,$02
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D684,attr=$47), | ) }
 . UDGTABLE#
-  $C813,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C813,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $C815,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C815,$01
 W $C816,$02
@@ -3956,17 +3956,17 @@ W $C816,$02
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($E0DC,attr=$47), | ) }
 . UDGTABLE#
-  $C81B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C81B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C81D,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($E0DC,attr=$47), | ) }
 . UDGTABLE#
-  $C820,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C820,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C822,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($E0DC,attr=$47), | ) }
 . UDGTABLE#
-  $C825,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C825,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C827,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($E0DC,attr=$47), | ) }
@@ -3991,13 +3991,13 @@ W $C82C,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D63C,attr=$47) })
 . UDGTABLE#
-  $C839,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C839,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C83B,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D684,attr=$47), | ) }
 . UDGTABLE#
   $C83E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D68C,attr=$47) } UDGTABLE#
-  $C83F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C83F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $C841,$03 Switch #REGhl to #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C841,$01
 W $C842,$02
@@ -4008,11 +4008,11 @@ W $C845,$02
   $C849,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5FC,attr=$47) } UDGTABLE#
   $C84A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C84B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D60C,attr=$47) } UDGTABLE#
-  $C84C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C84C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C84E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D634,attr=$47) } UDGTABLE#
   $C84F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D62C,attr=$47) } UDGTABLE#
   $C850,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D63C,attr=$47) } UDGTABLE#
-  $C851,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C851,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C853,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D614,attr=$47) } UDGTABLE#
   $C854,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D61C,attr=$47) } UDGTABLE#
   $C855,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D624,attr=$47) } UDGTABLE#
@@ -4027,11 +4027,11 @@ W $C845,$02
   $C849,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5FC,attr=$47) } UDGTABLE#
   $C84A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C84B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D60C,attr=$47) } UDGTABLE#
-  $C84C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C84C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C84E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D634,attr=$47) } UDGTABLE#
   $C84F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D62C,attr=$47) } UDGTABLE#
   $C850,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D63C,attr=$47) } UDGTABLE#
-  $C851,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C851,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C853,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D614,attr=$47) } UDGTABLE#
   $C854,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D61C,attr=$47) } UDGTABLE#
   $C855,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D624,attr=$47) } UDGTABLE#
@@ -4059,12 +4059,12 @@ W $C861,$02
   $C866,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C867,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C868,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D60C,attr=$47) } UDGTABLE#
-  $C869,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C869,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C86B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D634,attr=$47) } UDGTABLE#
   $C86C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D62C,attr=$47) } UDGTABLE#
   $C86D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D62C,attr=$47) } UDGTABLE#
   $C86E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D63C,attr=$47) } UDGTABLE#
-  $C86F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C86F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C871,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D614,attr=$47) } UDGTABLE#
   $C872,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D61C,attr=$47) } UDGTABLE#
   $C873,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D61C,attr=$47) } UDGTABLE#
@@ -4080,11 +4080,11 @@ W $C877,$02
   $C87B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C87C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C87D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
-  $C87E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C87E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C880,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C881,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C882,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
-  $C883,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C883,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C885,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C886,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C887,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
@@ -4100,12 +4100,12 @@ W $C88A,$02
   $C88F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C890,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C891,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D60C,attr=$47) } UDGTABLE#
-  $C892,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C892,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C894,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D634,attr=$47) } UDGTABLE#
   $C895,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D62C,attr=$47) } UDGTABLE#
   $C896,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D62C,attr=$47) } UDGTABLE#
   $C897,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D63C,attr=$47) } UDGTABLE#
-  $C898,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C898,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C89A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D67C,attr=$47) } UDGTABLE#
   $C89B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D684,attr=$47) } UDGTABLE#
   $C89C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D684,attr=$47) } UDGTABLE#
@@ -4120,13 +4120,13 @@ W $C8A0,$02
   $C8A2,$02 Attribute: #COLOUR(#PC+$01)
   $C8A4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5A4,attr=$47) } UDGTABLE#
   $C8A5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5AC,attr=$47) } UDGTABLE#
-  $C8A6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8A6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8A8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5C4,attr=$47) } UDGTABLE#
   $C8A9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5BC,attr=$47) } UDGTABLE#
-  $C8AA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8AA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8AC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5B4,attr=$47) } UDGTABLE#
   $C8AD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5BC,attr=$47) } UDGTABLE#
-  $C8AE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8AE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8B0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5CC,attr=$47) } UDGTABLE#
   $C8B1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5D4,attr=$47) } UDGTABLE#
   $C8B2,$01 Terminator.
@@ -4139,10 +4139,10 @@ W $C8B4,$02
   $C8B6,$02 Attribute: #COLOUR(#PC+$01)
   $C8B8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D654,attr=$47) } UDGTABLE#
   $C8B9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D664,attr=$47) } UDGTABLE#
-  $C8BA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8BA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8BC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D66C,attr=$47) } UDGTABLE#
   $C8BD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D674,attr=$47) } UDGTABLE#
-  $C8BE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8BE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8C0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D66C,attr=$47) } UDGTABLE#
   $C8C1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D674,attr=$47) } UDGTABLE#
   $C8C2,$01 Terminator.
@@ -4157,17 +4157,17 @@ W $C8C4,$02
   $C8C9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D65C,attr=$47) } UDGTABLE#
   $C8CA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D65C,attr=$47) } UDGTABLE#
   $C8CB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D664,attr=$47) } UDGTABLE#
-  $C8CC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8CC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8CE,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D66C,attr=$47) })
 . UDGTABLE#
-  $C8D1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8D1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8D3,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D674,attr=$47) })
 . UDGTABLE#
-  $C8D6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8D6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $C8D8,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C8D8,$01
 W $C8D9,$02
@@ -4175,7 +4175,7 @@ W $C8D9,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($E0DC,attr=$47) })
 . UDGTABLE#
-  $C8DE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8DE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8E0,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($E0DC,attr=$47) })
@@ -4192,12 +4192,12 @@ W $C8E5,$02
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C8EC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8EC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8EE,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C8F1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8F1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8F3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
 M $C8F4,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C8F4,$01
@@ -4208,12 +4208,12 @@ M $C8F8,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
 W $C8F9,$02
   $C8FB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C8FC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
-  $C8FD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C8FD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C8FF,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
 . UDGTABLE#
-  $C902,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C902,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C904,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D34C,attr=$45), | ) }
@@ -4231,7 +4231,7 @@ W $C909,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D644,attr=$47) })
 . UDGTABLE#
-  $C911,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C911,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C913,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D64C,attr=$47) })
@@ -4252,12 +4252,12 @@ W $C91B,$02
   $C920,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C921,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$47) } UDGTABLE#
   $C922,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D60C,attr=$47) } UDGTABLE#
-  $C923,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C923,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C925,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D634,attr=$47) })
 . UDGTABLE#
-  $C928,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C928,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C92A,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D63C,attr=$47) })
@@ -4283,7 +4283,7 @@ W $C92F,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6B4,attr=$47) })
 . UDGTABLE#
-  $C93D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C93D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C93F,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6AC,attr=$47) })
@@ -4300,12 +4300,12 @@ W $C944,$02
   $C949,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D69C,attr=$47) } UDGTABLE#
   $C94A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D69C,attr=$47) } UDGTABLE#
   $C94B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6A4,attr=$47) } UDGTABLE#
-  $C94C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C94C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C94E,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D6AC,attr=$47) })
 . UDGTABLE#
-  $C951,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C951,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C953,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($D6B4,attr=$47) })
@@ -4334,26 +4334,26 @@ W $C961,$02
 . #UDGTABLE { =h,c2 Columns } { #FOR$01,$02(n,=h #Nn, | ) }
 . { #FOR$01,$02(n,#UDG($D55C,attr=$46)#UDG($D564,attr=$46), | ) }
 . UDGTABLE#
-  $C969,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C969,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C96B,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c2 Columns } { #FOR$01,$02(n,=h #Nn, | ) }
 . { #FOR$01,$02(n,#UDG($D55C,attr=$46)#UDG($D564,attr=$46), | ) }
 . UDGTABLE#
-  $C96F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C96F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C971,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D55C,attr=$46) } UDGTABLE#
   $C972,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D564,attr=$46) } UDGTABLE#
-  $C973,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C973,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C975,$02 Attribute: #COLOUR(#PC+$01)
 M $C977,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C977,$01
 W $C978,$02
   $C97A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E02C,attr=$44) } UDGTABLE#
-  $C97B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C97B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C97D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E02C,attr=$44) } UDGTABLE#
   $C97E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E02C,attr=$44) } UDGTABLE#
-  $C97F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C97F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C981,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E02C,attr=$44) } UDGTABLE#
-  $C982,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C982,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C984,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E02C,attr=$44) } UDGTABLE#
   $C985,$01 Terminator.
 
@@ -4367,17 +4367,17 @@ W $C987,$02
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D55C,attr=$46)#UDG($D564,attr=$46), | ) }
 . UDGTABLE#
-  $C98F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C98F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C991,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D564,attr=$46)#UDG($D55C,attr=$46), | ) }
 . UDGTABLE#
-  $C995,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C995,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C997,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D55C,attr=$46)#UDG($D564,attr=$46), | ) }
 . UDGTABLE#
-  $C99B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C99B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C99D,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c4 Columns } { #FOR$01,$04(n,=h #Nn, | ) }
 . { #FOR$01,$04(n,#UDG($D564,attr=$46)#UDG($D55C,attr=$46), | ) }
@@ -4394,17 +4394,17 @@ W $C9A3,$02
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D55C,attr=$46)#UDG($D564,attr=$46), | ) }
 . UDGTABLE#
-  $C9AB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C9AB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C9AD,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D564,attr=$46)#UDG($D55C,attr=$46), | ) }
 . UDGTABLE#
-  $C9B1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C9B1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C9B3,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D55C,attr=$46)#UDG($D564,attr=$46), | ) }
 . UDGTABLE#
-  $C9B7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $C9B7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $C9B9,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D564,attr=$46)#UDG($D55C,attr=$46), | ) }
@@ -4496,22 +4496,22 @@ W $C9FD,$02
   $C9FF,$02 Attribute: #COLOUR(#PC+$01)
   $CA01,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4F4,attr=$45) } UDGTABLE#
   $CA02,$02 Attribute: #COLOUR(#PC+$01)
-  $CA04,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA04,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA06,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4DC,attr=$46) } UDGTABLE#
   $CA07,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4E4,attr=$46) } UDGTABLE#
   $CA08,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4EC,attr=$46) } UDGTABLE#
-  $CA09,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA09,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA0B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4C4,attr=$46) } UDGTABLE#
   $CA0C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4CC,attr=$46) } UDGTABLE#
   $CA0D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4D4,attr=$46) } UDGTABLE#
   $CA0E,$02 Attribute: #COLOUR(#PC+$01)
-  $CA10,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA10,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA12,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4BC,attr=$45) } UDGTABLE#
-  $CA13,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA13,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA15,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4A4,attr=$45) } UDGTABLE#
   $CA16,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D49C,attr=$45) } UDGTABLE#
   $CA17,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4AC,attr=$45) } UDGTABLE#
-  $CA18,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA18,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA1A,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$08,,4(n,{ #Nn | #UDG($D4BC,attr=$45) })
@@ -4530,25 +4530,25 @@ W $CA20,$02
   $CA26,$01 Action: move down one character block.
   $CA27,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D70C,attr=$46) } UDGTABLE#
   $CA28,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D714,attr=$46) } UDGTABLE#
-  $CA29,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA29,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA2B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D71C,attr=$46) } UDGTABLE#
   $CA2C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D724,attr=$46) } UDGTABLE#
   $CA2D,$01 Action: move down one character block.
   $CA2E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D71C,attr=$46) } UDGTABLE#
   $CA2F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D724,attr=$46) } UDGTABLE#
-  $CA30,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA30,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA32,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D70C,attr=$46) } UDGTABLE#
   $CA33,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D714,attr=$46) } UDGTABLE#
   $CA34,$01 Action: move down one character block.
   $CA35,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D70C,attr=$46) } UDGTABLE#
   $CA36,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D714,attr=$46) } UDGTABLE#
-  $CA37,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA37,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA39,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D71C,attr=$46) } UDGTABLE#
   $CA3A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D724,attr=$46) } UDGTABLE#
   $CA3B,$01 Action: move down one character block.
   $CA3C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D71C,attr=$46) } UDGTABLE#
   $CA3D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D724,attr=$46) } UDGTABLE#
-  $CA3E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA3E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA40,$02 Attribute: #COLOUR(#PC+$01)
   $CA42,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6BC,attr=$43) } UDGTABLE#
   $CA43,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
@@ -4556,7 +4556,7 @@ W $CA20,$02
 . { #FOR$01,$05(n,#UDG($D6C4,attr=$43), | ) }
 . UDGTABLE#
   $CA46,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6CC,attr=$43) } UDGTABLE#
-  $CA47,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA47,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA49,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D6FC,attr=$43) })
@@ -4567,7 +4567,7 @@ W $CA20,$02
 . { #FOR$01,$05(n,#UDG($D6C4,attr=$43), | ) }
 . UDGTABLE#
   $CA50,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6CC,attr=$43) } UDGTABLE#
-  $CA51,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA51,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA53,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D704,attr=$43) })
@@ -4593,13 +4593,13 @@ W $CA58,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$07,,4(n,{ #Nn | #UDG($D704,attr=$43) })
 . UDGTABLE#
-  $CA66,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA66,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA68,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$07,,4(n,{ #Nn | #UDG($D6FC,attr=$43) })
 . UDGTABLE#
   $CA6B,$02 Attribute: #COLOUR(#PC+$01)
-  $CA6D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA6D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA6F,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D6D4,attr=$46) })
@@ -4608,7 +4608,7 @@ W $CA58,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6DC,attr=$46) })
 . UDGTABLE#
-  $CA75,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA75,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA77,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D6D4,attr=$46) })
@@ -4617,7 +4617,7 @@ W $CA58,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6DC,attr=$46) })
 . UDGTABLE#
-  $CA7D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA7D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA7F,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D6D4,attr=$46) })
@@ -4626,7 +4626,7 @@ W $CA58,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6DC,attr=$46) })
 . UDGTABLE#
-  $CA85,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA85,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA87,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D6D4,attr=$46) })
@@ -4635,7 +4635,7 @@ W $CA58,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($D6DC,attr=$46) })
 . UDGTABLE#
-  $CA8D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CA8D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CA8F,$02 Attribute: #COLOUR(#PC+$01)
   $CA91,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6E4,attr=$47) } UDGTABLE#
   $CA92,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6EC,attr=$47) } UDGTABLE#
@@ -4662,7 +4662,7 @@ W $CA9B,$02
 . #FOR$01,$07,,4(n,{ #Nn | #UDG($D4BC,attr=$46) })
 . UDGTABLE#
   $CAA5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4B4,attr=$46) } UDGTABLE#
-  $CAA6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CAA6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CAA8,$02 Attribute: #COLOUR(#PC+$01)
   $CAAA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4FC,attr=$44) } UDGTABLE#
   $CAAB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D504,attr=$44) } UDGTABLE#
@@ -4679,17 +4679,17 @@ W $CAAF,$02
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D5EC,attr=$42)#UDG($D5F4,attr=$42), | ) }
 . UDGTABLE#
-  $CAB7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CAB7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CAB9,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D5EC,attr=$42)#UDG($D5F4,attr=$42), | ) }
 . UDGTABLE#
-  $CABD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CABD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CABF,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D5EC,attr=$42)#UDG($D5F4,attr=$42), | ) }
 . UDGTABLE#
-  $CAC3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CAC3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CAC5,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c8 Columns } { #FOR$01,$08(n,=h #Nn, | ) }
 . { #FOR$01,$08(n,#UDG($D5EC,attr=$42)#UDG($D5F4,attr=$42), | ) }
@@ -4706,7 +4706,7 @@ W $CACB,$02
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($DB1C,attr=$43), | ) }
 . UDGTABLE#
-  $CAD2,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CAD2,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $CAD4,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CAD4,$01
 W $CAD5,$02
@@ -4715,17 +4715,17 @@ W $CAD5,$02
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D5E4,attr=$45), | ) }
 . UDGTABLE#
-  $CADC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CADC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CADE,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D5E4,attr=$45), | ) }
 . UDGTABLE#
-  $CAE1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CAE1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CAE3,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D5E4,attr=$45), | ) }
 . UDGTABLE#
-  $CAE6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CAE6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CAE8,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($D5E4,attr=$45), | ) }
@@ -4753,7 +4753,7 @@ W $CAED,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$0A,,4(n,{ #Nn | #UDG($D704,attr=$43) })
 . UDGTABLE#
-  $CAFF,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CAFF,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB01,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$0A,,4(n,{ #Nn | #UDG($D6FC,attr=$43) })
@@ -4779,7 +4779,7 @@ W $CB06,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D21C,attr=$46) })
 . UDGTABLE#
-  $CB14,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB14,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB16,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D224,attr=$46) })
@@ -4805,7 +4805,7 @@ W $CB1B,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D274,attr=$43) })
 . UDGTABLE#
-  $CB29,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB29,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB2B,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($D274,attr=$43) })
@@ -4821,25 +4821,25 @@ W $CB30,$02
   $CB34,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7FC,attr=$42) } UDGTABLE#
   $CB35,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D804,attr=$42) } UDGTABLE#
   $CB36,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D80C,attr=$42) } UDGTABLE#
-  $CB37,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB37,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB39,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7BC,attr=$42) } UDGTABLE#
   $CB3A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7DC,attr=$42) } UDGTABLE#
   $CB3B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7C4,attr=$42) } UDGTABLE#
-  $CB3C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB3C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB3E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7F4,attr=$42) } UDGTABLE#
   $CB3F,$02 Attribute: #COLOUR(#PC+$01)
   $CB41,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D814,attr=$45) } UDGTABLE#
   $CB42,$02 Attribute: #COLOUR(#PC+$01)
   $CB44,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7E4,attr=$42) } UDGTABLE#
-  $CB45,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB45,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB47,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7CC,attr=$42) } UDGTABLE#
   $CB48,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7EC,attr=$42) } UDGTABLE#
   $CB49,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7D4,attr=$42) } UDGTABLE#
-  $CB4A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB4A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB4C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7BC,attr=$42) } UDGTABLE#
   $CB4D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7DC,attr=$42) } UDGTABLE#
   $CB4E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7C4,attr=$42) } UDGTABLE#
-  $CB4F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB4F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB51,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7CC,attr=$42) } UDGTABLE#
   $CB52,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7EC,attr=$42) } UDGTABLE#
   $CB53,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7D4,attr=$42) } UDGTABLE#
@@ -4853,13 +4853,13 @@ W $CB56,$02
   $CB58,$02 Attribute: #COLOUR(#PC+$01)
   $CB5A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D84C,attr=$42) } UDGTABLE#
   $CB5B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D854,attr=$42) } UDGTABLE#
-  $CB5C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB5C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB5E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D83C,attr=$42) } UDGTABLE#
   $CB5F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D844,attr=$42) } UDGTABLE#
-  $CB60,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB60,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB62,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D82C,attr=$42) } UDGTABLE#
   $CB63,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D834,attr=$42) } UDGTABLE#
-  $CB64,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB64,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB66,$02 Attribute: #COLOUR(#PC+$01)
   $CB68,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D81C,attr=$45) } UDGTABLE#
   $CB69,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D824,attr=$45) } UDGTABLE#
@@ -4878,7 +4878,7 @@ W $CB6C,$02
   $CB75,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D884,attr=$56) } UDGTABLE#
   $CB76,$02 Attribute: #COLOUR(#PC+$01)
   $CB78,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8B4,attr=$42) } UDGTABLE#
-  $CB79,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB79,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB7B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8AC,attr=$42) } UDGTABLE#
   $CB7C,$02 Attribute: #COLOUR(#PC+$01)
   $CB7E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D88C,attr=$56) } UDGTABLE#
@@ -4897,15 +4897,15 @@ W $CB86,$02
   $CB8A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $CB8B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $CB8C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
-  $CB8D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB8D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB8F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $CB90,$01 Action: move down one character block.
   $CB91,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
-  $CB92,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB92,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB94,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $CB95,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $CB96,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
-  $CB97,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CB97,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CB99,$02 Attribute: #COLOUR(#PC+$01)
 M $CB9B,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CB9B,$01
@@ -4931,7 +4931,7 @@ W $CBA1,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($D4B4,attr=$47) })
 . UDGTABLE#
-  $CBAE,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBAE,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $CBB0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CBB0,$01
 W $CBB1,$02
@@ -4941,18 +4941,18 @@ W $CBB1,$02
   $CBB7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$46) } UDGTABLE#
   $CBB8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D604,attr=$46) } UDGTABLE#
   $CBB9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D60C,attr=$46) } UDGTABLE#
-  $CBBA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBBA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBBC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D614,attr=$46) } UDGTABLE#
   $CBBD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D61C,attr=$46) } UDGTABLE#
   $CBBE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D61C,attr=$46) } UDGTABLE#
   $CBBF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D61C,attr=$46) } UDGTABLE#
   $CBC0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D624,attr=$46) } UDGTABLE#
-  $CBC1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBC1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBC3,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$03,,4(n,{ #Nn | #UDG($D634,attr=$46) })
 . UDGTABLE#
-  $CBC6,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBC6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBC8,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$03,,4(n,{ #Nn | #UDG($D63C,attr=$46) })
@@ -4961,15 +4961,15 @@ M $CBCB,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CBCB,$01
 W $CBCC,$02
   $CBCE,$02 Attribute: #COLOUR(#PC+$01)
-  $CBD0,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBD0,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBD2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8D4,attr=$7A) } UDGTABLE#
   $CBD3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8DC,attr=$7A) } UDGTABLE#
   $CBD4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8E4,attr=$7A) } UDGTABLE#
-  $CBD5,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBD5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBD7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8EC,attr=$7A) } UDGTABLE#
   $CBD8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8F4,attr=$7A) } UDGTABLE#
   $CBD9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8FC,attr=$7A) } UDGTABLE#
-  $CBDA,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBDA,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBDC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D904,attr=$7A) } UDGTABLE#
   $CBDD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D90C,attr=$7A) } UDGTABLE#
   $CBDE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D914,attr=$7A) } UDGTABLE#
@@ -4983,10 +4983,10 @@ W $CBE1,$02
   $CBE3,$02 Attribute: #COLOUR(#PC+$01)
   $CBE5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D85C,attr=$43) } UDGTABLE#
   $CBE6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D864,attr=$43) } UDGTABLE#
-  $CBE7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBE7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBE9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D83C,attr=$43) } UDGTABLE#
   $CBEA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D844,attr=$43) } UDGTABLE#
-  $CBEB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBEB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBED,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D82C,attr=$43) } UDGTABLE#
   $CBEE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D834,attr=$43) } UDGTABLE#
   $CBEF,$01 Terminator.
@@ -5000,11 +5000,11 @@ W $CBF1,$02
   $CBF5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D91C,attr=$45) } UDGTABLE#
   $CBF6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D924,attr=$45) } UDGTABLE#
   $CBF7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D92C,attr=$45) } UDGTABLE#
-  $CBF8,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBF8,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBFA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D934,attr=$45) } UDGTABLE#
   $CBFB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D93C,attr=$45) } UDGTABLE#
   $CBFC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D944,attr=$45) } UDGTABLE#
-  $CBFD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CBFD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CBFF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D94C,attr=$45) } UDGTABLE#
   $CC00,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D954,attr=$45) } UDGTABLE#
   $CC01,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D95C,attr=$45) } UDGTABLE#
@@ -5020,17 +5020,17 @@ W $CC04,$02
 . #UDGTABLE { =h,c15 Columns } { #FOR$01,$0F(n,=h #Nn, | ) }
 . { #FOR$01,$0F(n,#UDG($E0DC,attr=$4F), | ) }
 . UDGTABLE#
-  $CC0B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC0B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC0D,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c15 Columns } { #FOR$01,$0F(n,=h #Nn, | ) }
 . { #FOR$01,$0F(n,#UDG($E0DC,attr=$4F), | ) }
 . UDGTABLE#
-  $CC10,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC10,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC12,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c15 Columns } { #FOR$01,$0F(n,=h #Nn, | ) }
 . { #FOR$01,$0F(n,#UDG($E0DC,attr=$4F), | ) }
 . UDGTABLE#
-  $CC15,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC15,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $CC17,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC17,$01
 W $CC18,$02
@@ -5056,7 +5056,7 @@ W $CC26,$02
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($E0DC,attr=$57), | ) }
 . UDGTABLE#
-  $CC2D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC2D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $CC2F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC2F,$01
 W $CC30,$02
@@ -5078,32 +5078,32 @@ W $CC3A,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($DB44,attr=$45) })
 . UDGTABLE#
-  $CC41,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC41,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC43,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($DB4C,attr=$45) })
 . UDGTABLE#
-  $CC46,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC46,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC48,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($DB54,attr=$45) })
 . UDGTABLE#
-  $CC4B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC4B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC4D,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($DB44,attr=$45) })
 . UDGTABLE#
-  $CC50,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC50,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC52,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($DB4C,attr=$45) })
 . UDGTABLE#
-  $CC55,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC55,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC57,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$05,,4(n,{ #Nn | #UDG($DB54,attr=$45) })
 . UDGTABLE#
-  $CC5A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC5A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC5C,$01 Terminator.
 
 b $CC5D Graphic ID #N$6C
@@ -5115,7 +5115,7 @@ W $CC5E,$02
   $CC62,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA4C,attr=$45) } UDGTABLE#
   $CC63,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA54,attr=$45) } UDGTABLE#
   $CC64,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA5C,attr=$45) } UDGTABLE#
-  $CC65,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC65,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC67,$02 Attribute: #COLOUR(#PC+$01)
   $CC69,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
@@ -5125,15 +5125,15 @@ W $CC5E,$02
   $CC6E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA04,attr=$47) } UDGTABLE#
   $CC6F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA34,attr=$47) } UDGTABLE#
   $CC70,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA0C,attr=$47) } UDGTABLE#
-  $CC71,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC71,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC73,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9F4,attr=$47) } UDGTABLE#
   $CC74,$01 Action: move down one character block.
   $CC75,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9FC,attr=$47) } UDGTABLE#
-  $CC76,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC76,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC78,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9E4,attr=$47) } UDGTABLE#
   $CC79,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA2C,attr=$47) } UDGTABLE#
   $CC7A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9EC,attr=$47) } UDGTABLE#
-  $CC7B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC7B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC7D,$02 Attribute: #COLOUR(#PC+$01)
   $CC7F,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
@@ -5144,7 +5144,7 @@ W $CC5E,$02
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($DA1C,attr=$45) })
 . UDGTABLE#
   $CC85,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA24,attr=$45) } UDGTABLE#
-  $CC86,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC86,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $CC88,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC88,$01
 W $CC89,$02
@@ -5173,11 +5173,11 @@ W $CC98,$02
   $CC9C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB64,attr=$46) } UDGTABLE#
   $CC9D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB6C,attr=$46) } UDGTABLE#
   $CC9E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB74,attr=$46) } UDGTABLE#
-  $CC9F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CC9F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCA1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB7C,attr=$46) } UDGTABLE#
   $CCA2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB84,attr=$46) } UDGTABLE#
   $CCA3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB8C,attr=$46) } UDGTABLE#
-  $CCA4,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCA4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCA6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB94,attr=$46) } UDGTABLE#
   $CCA7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB9C,attr=$46) } UDGTABLE#
   $CCA8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBA4,attr=$46) } UDGTABLE#
@@ -5203,27 +5203,27 @@ W $CCB3,$02
   $CCB8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAF4,attr=$47) } UDGTABLE#
   $CCB9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAF4,attr=$47) } UDGTABLE#
   $CCBA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAFC,attr=$47) } UDGTABLE#
-  $CCBB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCBB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCBD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB04,attr=$47) } UDGTABLE#
   $CCBE,$01 Action: move down one character block.
   $CCBF,$01 Action: move down one character block.
   $CCC0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB0C,attr=$47) } UDGTABLE#
-  $CCC1,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCC1,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCC3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB04,attr=$47) } UDGTABLE#
   $CCC4,$01 Action: move down one character block.
   $CCC5,$01 Action: move down one character block.
   $CCC6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB0C,attr=$47) } UDGTABLE#
-  $CCC7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCC7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCC9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAEC,attr=$47) } UDGTABLE#
   $CCCA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAF4,attr=$47) } UDGTABLE#
   $CCCB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAF4,attr=$47) } UDGTABLE#
   $CCCC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAFC,attr=$47) } UDGTABLE#
-  $CCCD,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCCD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCCF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB04,attr=$47) } UDGTABLE#
   $CCD0,$01 Action: move down one character block.
   $CCD1,$01 Action: move down one character block.
   $CCD2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB0C,attr=$47) } UDGTABLE#
-  $CCD3,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCD3,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCD5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB14,attr=$47) } UDGTABLE#
   $CCD6,$01 Action: move down one character block.
   $CCD7,$01 Action: move down one character block.
@@ -5239,15 +5239,15 @@ W $CCDB,$02
   $CCDF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA9C,attr=$44) } UDGTABLE#
   $CCE0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAA4,attr=$44) } UDGTABLE#
   $CCE1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAAC,attr=$44) } UDGTABLE#
-  $CCE2,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCE2,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCE4,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAB4,attr=$44) } UDGTABLE#
   $CCE5,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DABC,attr=$44) } UDGTABLE#
   $CCE6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAC4,attr=$44) } UDGTABLE#
-  $CCE7,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCE7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCE9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAB4,attr=$44) } UDGTABLE#
   $CCEA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DACC,attr=$44) } UDGTABLE#
   $CCEB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAC4,attr=$44) } UDGTABLE#
-  $CCEC,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCEC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCEE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAD4,attr=$44) } UDGTABLE#
   $CCEF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DADC,attr=$44) } UDGTABLE#
   $CCF0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAE4,attr=$44) } UDGTABLE#
@@ -5263,23 +5263,23 @@ W $CCF3,$02
   $CCF8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAEC,attr=$44) } UDGTABLE#
   $CCF9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAF4,attr=$44) } UDGTABLE#
   $CCFA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAFC,attr=$44) } UDGTABLE#
-  $CCFB,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CCFB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CCFD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB34,attr=$44) } UDGTABLE#
   $CCFE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB04,attr=$44) } UDGTABLE#
   $CCFF,$01 Action: move down one character block.
   $CD00,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB0C,attr=$44) } UDGTABLE#
-  $CD01,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD01,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD03,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB04,attr=$44) } UDGTABLE#
   $CD04,$01 Action: move down one character block.
   $CD05,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB0C,attr=$44) } UDGTABLE#
-  $CD06,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD06,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD08,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB14,attr=$44) } UDGTABLE#
   $CD09,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB1C,attr=$44) } UDGTABLE#
   $CD0A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB24,attr=$44) } UDGTABLE#
 M $CD0B,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CD0B,$01
 W $CD0C,$02
-  $CD0E,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD0E,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD10,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$02,,4(n,{ #Nn | #UDG($E0DC,attr=$44) })
@@ -5296,17 +5296,17 @@ W $CD15,$02
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($E0DC,attr=$72), | ) }
 . UDGTABLE#
-  $CD1C,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD1C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD1E,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($E0DC,attr=$72), | ) }
 . UDGTABLE#
-  $CD21,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD21,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD23,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c5 Columns } { #FOR$01,$05(n,=h #Nn, | ) }
 . { #FOR$01,$05(n,#UDG($E0DC,attr=$72), | ) }
 . UDGTABLE#
-  $CD26,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD26,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $CD28,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CD28,$01
 W $CD29,$02
@@ -5325,14 +5325,14 @@ W $CD30,$02
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
 . { #FOR$01,$06(n,#UDG($DFD4,attr=$46), | ) }
 . UDGTABLE#
-  $CD37,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD37,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD39,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFE4,attr=$46) } UDGTABLE#
-  $CD3A,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD3A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD3C,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c6 Columns } { #FOR$01,$06(n,=h #Nn, | ) }
 . { #FOR$01,$06(n,#UDG($DFCC,attr=$46), | ) }
 . UDGTABLE#
-  $CD3F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD3F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD41,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFDC,attr=$46) } UDGTABLE#
   $CD42,$01 Terminator.
 
@@ -5348,42 +5348,42 @@ W $CD44,$02
 . { #FOR$01,$1E(n,#UDG($DA34,attr=$43), | ) }
 . UDGTABLE#
   $CD4C,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA0C,attr=$43) } UDGTABLE#
-  $CD4D,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD4D,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD4F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9F4,attr=$43) } UDGTABLE#
   $CD50,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c30 Columns } { #FOR$01,$1E(n,=h #Nn, | ) }
 . { #FOR$01,$1E(n,#UDG($DA3C,attr=$43), | ) }
 . UDGTABLE#
   $CD53,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9FC,attr=$43) } UDGTABLE#
-  $CD54,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD54,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD56,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9E4,attr=$43) } UDGTABLE#
   $CD57,$03 Tile sprite #N(#PEEK(#PC+$02)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c30 Columns } { #FOR$01,$1E(n,=h #Nn, | ) }
 . { #FOR$01,$1E(n,#UDG($DA2C,attr=$43), | ) }
 . UDGTABLE#
   $CD5A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9EC,attr=$43) } UDGTABLE#
-  $CD5B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD5B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD5D,$02 Attribute: #COLOUR(#PC+$01)
   $CD5F,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($DA94,attr=$6)#UDG($DA8C,attr=$6), | ) }
 . UDGTABLE#
-  $CD63,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD63,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD65,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($DA8C,attr=$6)#UDG($DA94,attr=$6), | ) }
 . UDGTABLE#
-  $CD69,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD69,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD6B,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($DA94,attr=$6)#UDG($DA8C,attr=$6), | ) }
 . UDGTABLE#
-  $CD6F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD6F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD71,$04 Tile sprites #N(#PEEK(#PC+$02)) and #N(#PEEK(#PC+$03)) horizontally #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE { =h,c16 Columns } { #FOR$01,$10(n,=h #Nn, | ) }
 . { #FOR$01,$10(n,#UDG($DA8C,attr=$6)#UDG($DA94,attr=$6), | ) }
 . UDGTABLE#
-  $CD75,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD75,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD77,$02 Attribute: #COLOUR(#PC+$01)
 M $CD79,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CD79,$01
@@ -5392,7 +5392,7 @@ W $CD7A,$02
 . #UDGTABLE { =h,c32 Columns } { #FOR$01,$20(n,=h #Nn, | ) }
 . { #FOR$01,$20(n,#UDG($E0CC,attr=$42), | ) }
 . UDGTABLE#
-  $CD7F,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD7F,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD81,$02 Attribute: #COLOUR(#PC+$01)
   $CD83,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
@@ -5402,7 +5402,7 @@ W $CD7A,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($E08C,attr=$46) })
 . UDGTABLE#
-  $CD89,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD89,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD8B,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($E07C,attr=$46) })
@@ -5411,7 +5411,7 @@ W $CD7A,$02
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($E08C,attr=$46) })
 . UDGTABLE#
-  $CD91,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD91,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CD93,$03 Tile sprite #N(#PEEK(#PC+$02)) vertically #N(#PEEK(#PC+$01)) times.
 . #UDGTABLE {{ =h Row | =h Graphic }}
 . #FOR$01,$01,,4(n,{ #Nn | #UDG($E07C,attr=$46) })
@@ -5421,7 +5421,7 @@ W $CD7A,$02
 . #FOR$01,$04,,4(n,{ #Nn | #UDG($E08C,attr=$46) })
 . UDGTABLE#
   $CD99,$02 Attribute: #COLOUR(#PC+$01)
-  $CD9B,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CD9B,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 M $CD9D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CD9D,$01
 W $CD9E,$02
@@ -5434,7 +5434,7 @@ W $CD9E,$02
   $CDA6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E214,attr=$5F) } UDGTABLE#
   $CDA7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E204,attr=$5F) } UDGTABLE#
   $CDA8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E24C,attr=$5F) } UDGTABLE#
-  $CDA9,$02 Screen: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $CDA9,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CDAB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E244,attr=$5F) } UDGTABLE#
   $CDAC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E224,attr=$5F) } UDGTABLE#
   $CDAD,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E234,attr=$5F) } UDGTABLE#
@@ -5537,235 +5537,286 @@ N $E419 Display the currently held items.
 c $E41D
 
 t $E484 Messaging: The Plunger
-  $E484,$0B "#STR$E484,$08($b==$FF)".
+  $E484,$0B #FONT:(THE PLUNGER)$E0DC,attr=$45(the-plunger)
 B $E48F,$01 Terminator.
 
 t $E490 Messaging: The Letter A
-  $E490,$0D,c$0A,h$02,c$01 "#STR$E490,$08($b==$FF)".
+  $E490,$0A #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+B $E49A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E49C,$01 #FONT:(A)$E0DC,attr=$45(the-letter-a)
 B $E49D,$01 Terminator.
 
 t $E49E Messaging: Book Two
-  $E49E,$08 "#STR$E49E,$08($b==$FF)".
+  $E49E,$08 #FONT:(BOOK TWO)$E0DC,attr=$45(book-two)
 B $E4A6,$01 Terminator.
 
 t $E4A7 Messaging: The Sand
-  $E4A7,$08 "#STR$E4A7,$08($b==$FF)".
+  $E4A7,$08 #FONT:(THE SAND)$E0DC,attr=$45(the-sand)
 B $E4AF,$01 Terminator.
 
 t $E4B0 Messaging: The Battery
-  $E4B0,$0D,c$0B,h$02 "#STR$E4B0,$08($b==$FF)".
+  $E4B0,$0B #FONT:(THE BATTERY)$E0DC,attr=$45(the-battery)
+B $E4BB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E4BD,$01 Terminator.
 
 t $E4BE Messaging: Charged
-  $E4BE,$09,h$02,c$07 "#STR$E4C0,$08($b==$FF)".
+B $E4BE,$02
+  $E4C0,$07 #FONT:(CHARGED)$E0DC,attr=$45(charged)
 B $E4C7,$01 Terminator.
 
 t $E4C8 Messaging: Flat
-  $E4C8,$04 "#STR$E4C8,$08($b==$FF)".
+  $E4C8,$04 #FONT:(FLAT)$E0DC,attr=$45(flat)
 B $E4CC,$01 Terminator.
 
 t $E4CD Messaging: The Letter K
-  $E4CD,$0D,c$0A,h$02,c$01 "#STR$E4CD,$08($b==$FF)".
+  $E4CD,$0A #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+B $E4D7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E4D9,$01 #FONT:(K)$E0DC,attr=$45(the-letter-k)
 B $E4DA,$01 Terminator.
 
 t $E4DB Messaging: The Cement
-  $E4DB,$0A "#STR$E4DB,$08($b==$FF)".
+  $E4DB,$0A #FONT:(THE CEMENT)$E0DC,attr=$45(the-cement)
 B $E4E5,$01 Terminator.
 
 t $E4E6 Messaging: Book Three
-  $E4E6,$0A "#STR$E4E6,$08($b==$FF)".
+  $E4E6,$0A #FONT:(BOOK THREE)$E0DC,attr=$45(book-three)
 B $E4F0,$01 Terminator.
 
 t $E4F1 Messaging: The Trowel
-  $E4F1,$0A "#STR$E4F1,$08($b==$FF)".
+  $E4F1,$0A #FONT:(THE TROWEL)$E0DC,attr=$45(the-trowel)
 B $E4FB,$01 Terminator.
 
 t $E4FC Messaging: The Matches
-  $E4FC,$0B "#STR$E4FC,$08($b==$FF)".
+  $E4FC,$0B #FONT:(THE MATCHES)$E0DC,attr=$45(the-matches)
 B $E507,$01 Terminator.
 
 t $E508 Messaging: The Cracked Insulator
-  $E508,$16,c$0B,h$02,c$09 "#STR$E508,$08($b==$FF)".
+  $E508,$0B #FONT:(THE CRACKED)$E0DC,attr=$45(the-cracked)
+B $E513,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E515,$09 #FONT:(INSULATOR)$E0DC,attr=$45(insulator)
 B $E51E,$01 Terminator.
 
 t $E51F Messaging: Book One
-  $E51F,$08 "#STR$E51F,$08($b==$FF)".
+  $E51F,$08 #FONT:(BOOK ONE)$E0DC,attr=$45(book-one)
 B $E527,$01 Terminator.
 
 t $E528 Messaging: The Monkey Nuts
-  $E528,$10,c$0A,h$02,c$04 "#STR$E528,$08($b==$FF)".
+  $E528,$0A #FONT:(THE MONKEY)$E0DC,attr=$45(the-monkey)
+B $E532,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E534,$04 #FONT:(NUTS)$E0DC,attr=$45(nuts)
 B $E538,$01 Terminator.
 
 t $E539 Messaging: The Money
-  $E539,$09 "#STR$E539,$08($b==$FF)".
+  $E539,$09 #FONT:(THE MONEY)$E0DC,attr=$45(the-money)
 B $E542,$01 Terminator.
 
 t $E543 Messaging: Superglue
-  $E543,$09 "#STR$E543,$08($b==$FF)".
+  $E543,$09 #FONT:(SUPERGLUE)$E0DC,attr=$45(superglue)
 B $E54C,$01 Terminator.
 
 t $E54D Messaging: The Chewing Gum
-  $E54D,$10,c$0B,h$02,c$03 "#STR$E54D,$08($b==$FF)".
+  $E54D,$0B #FONT:(THE CHEWING)$E0DC,attr=$45(the-chewing)
+B $E558,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E55A,$03 #FONT:(GUM)$E0DC,attr=$45(gum)
 B $E55D,$01 Terminator.
 
 t $E55E Messaging: The Bucket
-  $E55E,$0C,c$0A,h$02 "#STR$E55E,$08($b==$FF)".
+  $E55E,$0A #FONT:(THE BUCKET)$E0DC,attr=$45(the-bucket)
+B $E568,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E56A,$01 Terminator.
 
 t $E56B Messaging: Full
-  $E56B,$06,h$02,c$04 "#STR$E56D,$08($b==$FF)".
+B $E56B,$02
+  $E56D,$04 #FONT:(FULL)$E0DC,attr=$45(full)
 B $E571,$01 Terminator.
 
 t $E572 Messaging: Empty
-  $E572,$05 "#STR$E572,$08($b==$FF)".
+  $E572,$05 #FONT:(EMPTY)$E0DC,attr=$45(empty)
 B $E577,$01 Terminator.
 
 t $E578 Messaging: The Jump Leads
-  $E578,$0F,c$08,h$02,c$05 "#STR$E578,$08($b==$FF)".
+  $E578,$08 #FONT:(THE JUMP)$E0DC,attr=$45(the-jump)
+B $E580,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E582,$05 #FONT:(LEADS)$E0DC,attr=$45(leads)
 B $E587,$01 Terminator.
 
 t $E588 Messaging: The Bunsen Burner
-  $E588,$12,c$0A,h$02,c$06 "#STR$E588,$08($b==$FF)".
+  $E588,$0A #FONT:(THE BUNSEN)$E0DC,attr=$45(the-bunsen)
+B $E592,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E594,$06 #FONT:(BURNER)$E0DC,attr=$45(burner)
 B $E59A,$01 Terminator.
 
 t $E59B Messaging: The Letter B
-  $E59B,$0D,c$0A,h$02,c$01 "#STR$E59B,$08($b==$FF)".
+  $E59B,$0A #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+B $E5A5,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E5A7,$01 #FONT:(B)$E0DC,attr=$45(the-letter-b)
 B $E5A8,$01 Terminator.
 
 t $E5A9 Messaging: Gas Mask
-  $E5A9,$08 "#STR$E5A9,$08($b==$FF)".
+  $E5A9,$08 #FONT:(GAS MASK)$E0DC,attr=$45(gas-mask)
 B $E5B1,$01 Terminator.
 
 t $E5B2 Messaging: The Parcel
-  $E5B2,$0C,c$0A,h$02 "#STR$E5B2,$08($b==$FF)".
+  $E5B2,$0A #FONT:(THE PARCEL)$E0DC,attr=$45(the-parcel)
+B $E5BC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E5BE,$01 Terminator.
 
 t $E5BF Messaging: Stamped
-  $E5BF,$09,h$02,c$07 "#STR$E5C1,$08($b==$FF)".
+B $E5BF,$02
+  $E5C1,$07 #FONT:(STAMPED)$E0DC,attr=$45(stamped)
 B $E5C8,$01 Terminator.
 
 t $E5C9 Messaging: Unstamped
-  $E5C9,$09 "#STR$E5C9,$08($b==$FF)".
+  $E5C9,$09 #FONT:(UNSTAMPED)$E0DC,attr=$45(unstamped)
 B $E5D2,$01 Terminator.
 
 t $E5D3 Messaging: The Fuse
-  $E5D3,$0A,c$08,h$02 "#STR$E5D3,$08($b==$FF)".
+  $E5D3,$08 #FONT:(THE FUSE)$E0DC,attr=$45(the-fuse)
+B $E5DB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E5DD,$01 Terminator.
 
 t $E5DE Messaging: Rewired
-  $E5DE,$09,h$02,c$07 "#STR$E5E0,$08($b==$FF)".
+B $E5DE,$02
+  $E5E0,$07 #FONT:(REWIRED)$E0DC,attr=$45(rewired)
 B $E5E7,$01 Terminator.
 
 t $E5E8 Messaging: Blown
-  $E5E8,$05 "#STR$E5E8,$08($b==$FF)".
+  $E5E8,$05 #FONT:(BLOWN)$E0DC,attr=$45(blown)
 B $E5ED,$01 Terminator.
 
 t $E5EE Messaging: The Meat
-  $E5EE,$08 "#STR$E5EE,$08($b==$FF)".
+  $E5EE,$08 #FONT:(THE MEAT)$E0DC,attr=$45(the-meat)
 B $E5F6,$01 Terminator.
 
 t $E5F7 Messaging: The Monkey Wrench
-  $E5F7,$12,c$0A,h$02,c$06 "#STR$E5F7,$08($b==$FF)".
+  $E5F7,$0A #FONT:(THE MONKEY)$E0DC,attr=$45(the-monkey)
+B $E601,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E603,$06 #FONT:(WRENCH)$E0DC,attr=$45(wrench)
 B $E609,$01 Terminator.
 
 t $E60A Messaging: Screwdriver
-  $E60A,$0B "#STR$E60A,$08($b==$FF)".
+  $E60A,$0B #FONT:(SCREWDRIVER)$E0DC,attr=$45(screwdriver)
 B $E615,$01 Terminator.
 
 t $E616 Messaging: The Letter E
-  $E616,$0D,c$0A,h$02,c$01 "#STR$E616,$08($b==$FF)".
+  $E616,$0A #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+B $E620,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E622,$01 #FONT:(E)$E0DC,attr=$45(the-letter-e)
 B $E623,$01 Terminator.
 
 t $E624 Messaging: The Hook
-  $E624,$0A,c$08,h$02 "#STR$E624,$08($b==$FF)".
+  $E624,$08 #FONT:(THE HOOK)$E0DC,attr=$45(the-hook)
+B $E62C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E62E,$01 Terminator.
 
 t $E62F Messaging: Working
-  $E62F,$09,h$02,c$07 "#STR$E631,$08($b==$FF)".
+B $E62F,$02
+  $E631,$07 #FONT:(WORKING)$E0DC,attr=$45(working)
 B $E638,$01 Terminator.
 
 t $E639 Messaging: Broken
-  $E639,$06 "#STR$E639,$08($b==$FF)".
+  $E639,$06 #FONT:(BROKEN)$E0DC,attr=$45(broken)
 B $E63F,$01 Terminator.
 
 t $E640 Messaging: The Patch
-  $E640,$09 "#STR$E640,$08($b==$FF)".
+  $E640,$09 #FONT:(THE PATCH)$E0DC,attr=$45(the-patch)
 B $E649,$01 Terminator.
 
 t $E64A Messaging: The Pipe
-  $E64A,$0A,c$08,h$02 "#STR$E64A,$08($b==$FF)".
+  $E64A,$08 #FONT:(THE PIPE)$E0DC,attr=$45(the-pipe)
+B $E652,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E654,$01 Terminator.
 
 t $E655 Messaging: Patched
-  $E655,$09,h$02,c$07 "#STR$E657,$08($b==$FF)".
+B $E655,$02
+  $E657,$07 #FONT:(PATCHED)$E0DC,attr=$45(patched)
 B $E65E,$01 Terminator.
 
 t $E65F Messaging: Leaking
-  $E65F,$07 "#STR$E65F,$08($b==$FF)".
+  $E65F,$07 #FONT:(LEAKING)$E0DC,attr=$45(leaking)
 B $E666,$01 Terminator.
 
 t $E667 Messaging: The Letter R
-  $E667,$0D,c$0A,h$02,c$01 "#STR$E667,$08($b==$FF)".
+  $E667,$0A #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+B $E671,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E673,$01 #FONT:(R)$E0DC,attr=$45(the-letter-r)
 B $E674,$01 Terminator.
 
 t $E675 Messaging: The Oil Can
-  $E675,$0D,c$07,h$02,c$04 "#STR$E675,$08($b==$FF)".
+  $E675,$07 #FONT:(THE OIL)$E0DC,attr=$45(the-oil)
+B $E67C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E67E,$04 #FONT:(CAN)$E0DC,attr=$45(can)
 B $E682,$01 Terminator.
 
 t $E683 Messaging: Full
-  $E683,$06,h$02,c$04 "#STR$E685,$08($b==$FF)".
+B $E683,$02
+  $E685,$04 #FONT:(FULL)$E0DC,attr=$45(full)
 B $E689,$01 Terminator.
 
 t $E68A Messaging: Empty
-  $E68A,$05 "#STR$E68A,$08($b==$FF)".
+  $E68A,$05 #FONT:(EMPTY)$E0DC,attr=$45(empty)
 B $E68F,$01 Terminator.
 
 t $E690 Messaging: The Fuse Wire
-  $E690,$0E,c$08,h$02,c$04 "#STR$E690,$08($b==$FF)".
+  $E690,$08 #FONT:(THE FUSE)$E0DC,attr=$45(the-fuse)
+B $E698,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E69A,$04 #FONT:(WIRE)$E0DC,attr=$45(wire)
 B $E69E,$01 Terminator.
 
 t $E69F Messaging: The Good Insulator
-  $E69F,$13,c$08,h$02,c$09 "#STR$E69F,$08($b==$FF)".
+  $E69F,$08 #FONT:(THE GOOD)$E0DC,attr=$45(the-good)
+B $E6A7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E6A9,$09 #FONT:(INSULATOR)$E0DC,attr=$45(insulator)
 B $E6B2,$01 Terminator.
 
 t $E6B3 Messaging: The Bottle
-  $E6B3,$0C,c$0A,h$02 "#STR$E6B3,$08($b==$FF)".
+  $E6B3,$0A #FONT:(THE BOTTLE)$E0DC,attr=$45(the-bottle)
+B $E6BD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E6BF,$01 Terminator.
 
 t $E6C0 Messaging: Full
-  $E6C0,$06,h$02,c$04 "#STR$E6C2,$08($b==$FF)".
+B $E6C0,$02
+  $E6C2,$04 #FONT:(FULL)$E0DC,attr=$45(full)
 B $E6C6,$01 Terminator.
 
 t $E6C7 Messaging: Empty
-  $E6C7,$05 "#STR$E6C7,$08($b==$FF)".
+  $E6C7,$05 #FONT:(EMPTY)$E0DC,attr=$45(empty)
 B $E6CC,$01 Terminator.
 
 t $E6CD Messaging: The Red Herring
-  $E6CD,$10,c$07,h$02,c$07 "#STR$E6CD,$08($b==$FF)".
+  $E6CD,$07 #FONT:(THE RED)$E0DC,attr=$45(the-red)
+B $E6D4,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E6D6,$07 #FONT:(HERRING)$E0DC,attr=$45(herring)
 B $E6DD,$01 Terminator.
 
 t $E6DE Messaging: The Test Tube
-  $E6DE,$0E,c$08,h$02,c$04 "#STR$E6DE,$08($b==$FF)".
+  $E6DE,$08 #FONT:(THE TEST)$E0DC,attr=$45(the-test)
+B $E6E6,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E6E8,$04 #FONT:(TUBE)$E0DC,attr=$45(tube)
 B $E6EC,$01 Terminator.
 
 t $E6ED Messaging: The Can Of Beans
-  $E6ED,$11,c$0A,h$02,c$05 "#STR$E6ED,$08($b==$FF)".
+  $E6ED,$0A #FONT:(THE CAN OF)$E0DC,attr=$45(the-can-of)
+B $E6F7,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E6F9,$05 #FONT:(BEANS)$E0DC,attr=$45(beans)
 B $E6FE,$01 Terminator.
 
 t $E6FF Messaging: The Rubber Stamp
-  $E6FF,$11,c$0A,h$02,c$05 "#STR$E6FF,$08($b==$FF)".
+  $E6FF,$0A #FONT:(THE RUBBER)$E0DC,attr=$45(the-rubber)
+B $E709,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+  $E70B,$05 #FONT:(STAMP)$E0DC,attr=$45(stamp)
 B $E710,$01 Terminator.
 
 t $E711 Messaging: The Pliers
-  $E711,$0A "#STR$E711,$08($b==$FF)".
+  $E711,$0A #FONT:(THE PLIERS)$E0DC,attr=$45(the-pliers)
 B $E71B,$01 Terminator.
 
 t $E71C Messaging: The Whistle
-  $E71C,$0B "#STR$E71C,$08($b==$FF)".
+  $E71C,$0B #FONT:(THE WHISTLE)$E0DC,attr=$45(the-whistle)
 B $E727,$01 Terminator.
 
-w $E728 Item Table
-@ $E728 label=ItemTable
+w $E728 Item Labels Table
+@ $E728 label=Table_ItemLabels
   $E728,$02 #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
 L $E728,$02,$29
 

@@ -53,6 +53,7 @@ def _do_pokes(specs, snapshot):
         for a in range(addr1, addr2, step):
             snapshot[a] = value
 
+
 def run(snafile, imgfname, options):
     snapshot = get_snapshot(snafile)
     _do_pokes(options.pokes, snapshot)
