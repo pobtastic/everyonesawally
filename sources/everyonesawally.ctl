@@ -5492,23 +5492,12 @@ b $CE01
   $D192,$01
   $D193
 
-  $D1BC
-
-  $D334,$08 #UDG(#PC,attr=$45)
-  $D33C,$08 #UDG(#PC,attr=$45)
-  $D344,$08 #UDG(#PC,attr=$45)
-  $D34C,$08 #UDG(#PC,attr=$45)
-  $D354,$08 #UDG(#PC,attr=$45)
-
-  $D7BC,$08 #UDG(#PC,attr=$42)
-L $D7BC,$08,$04
-
-  $D9E4,$08 #UDG(#PC,attr=$43)
-
-b $DFDC Sprites
-@ $DFDC label=Sprites
-  $DFDC,$08 #UDG(#PC)
-L $DFDC,$08,$64
+b $D1BC Graphics
+@ $D1BC label=Graphics
+N $DFDC This is where the font UDGs start, so #R$E0DC is "SPACE" (ASCII code #N$20).
+@ $DFDC label=Font
+  $D1BC,$08 #UDG(#PC)
+L $D1BC,$08,$228
 
 c $E2FC
 
