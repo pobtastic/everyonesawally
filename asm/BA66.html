@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Everyone's a Wally: Routine at BA66</title>
+<title>Everyone's a Wally: Text at BA66</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
@@ -15,11 +15,11 @@ gtag('js', new Date());
 gtag('config', 'G-75RERFCHBG');
 </script>
 </head>
-<body class="Asm-c">
+<body class="Asm-t">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Routines</td>
+<td class="page-header">Messages</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -29,11 +29,11 @@ Prev: <a href="BA25.html">BA25</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#ba66">Map</a></td>
 <td class="next">
-Next: <a href="BAB3.html">BAB3</a>
+Next: <a href="BA6E.html">BA6E</a>
 </td>
 </tr>
 </table>
-<div class="description">BA66: Routine at BA66</div>
+<div class="description">BA66: Messaging: Is In</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,209 +42,16 @@ Next: <a href="BAB3.html">BAB3</a>
 </td>
 </tr>
 <tr>
-<td class="address-2"><span id="ba66"></span>BA66</td>
-<td class="instruction">JR NZ,$BAB1</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="asm-label">Messaging_IsIn</td>
+<td class="address-1"><span id="ba66"></span>BA66</td>
+<td class="instruction">DEFM " IS IN "</td>
+<td class="comment-1" rowspan="1"><img alt="is-in" src="../images/font/is-in.png" /></td>
 </tr>
 <tr>
-<td class="address-1"><span id="ba68"></span>BA68</td>
-<td class="instruction">LD D,E</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba69"></span>BA69</td>
-<td class="instruction">JR NZ,<a href="BAB3.html#bab4">Redraw_Banner_Underline</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba6b"></span>BA6B</td>
-<td class="instruction">LD C,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba6c"></span>BA6C</td>
-<td class="instruction">JR NZ,$BA6D</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="ba6e"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="E79B.html">E79B</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="ba6e"></span>BA6E</td>
-<td class="instruction">LD A,($BAB3)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba71"></span>BA71</td>
-<td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba72"></span>BA72</td>
-<td class="instruction">RET NZ</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba73"></span>BA73</td>
-<td class="instruction">LD HL,$DFDC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba76"></span>BA76</td>
-<td class="instruction">LD ($B7E9),HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba79"></span>BA79</td>
-<td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba7c"></span>BA7C</td>
-<td class="instruction">LD HL,$7F1F</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba7f"></span>BA7F</td>
-<td class="instruction">CALL <a href="AC69.html#ac6c">$AC6C</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba82"></span>BA82</td>
-<td class="instruction">PUSH HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba83"></span>BA83</td>
-<td class="instruction">CALL <a href="BACE.html">$BACE</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba86"></span>BA86</td>
-<td class="instruction">LD C,B</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba87"></span>BA87</td>
-<td class="instruction">LD H,$7C</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba89"></span>BA89</td>
-<td class="instruction">LD L,(IY-$23)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba8c"></span>BA8C</td>
-<td class="instruction">PUSH HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba8d"></span>BA8D</td>
-<td class="instruction">CALL <a href="BACE.html">$BACE</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba90"></span>BA90</td>
-<td class="instruction">LD A,$07</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba92"></span>BA92</td>
-<td class="instruction">ADD A,B</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba93"></span>BA93</td>
-<td class="instruction">ADD A,C</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba94"></span>BA94</td>
-<td class="instruction">LD C,A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba95"></span>BA95</td>
-<td class="instruction">LD A,$20</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba97"></span>BA97</td>
-<td class="instruction">SUB C</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba98"></span>BA98</td>
-<td class="instruction">SRL A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba9a"></span>BA9A</td>
-<td class="instruction">LD E,A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba9b"></span>BA9B</td>
-<td class="instruction">LD D,$04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba9d"></span>BA9D</td>
-<td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ba9e"></span>BA9E</td>
-<td class="instruction">LD C,$4E</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="baa0"></span>BAA0</td>
-<td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="baa3"></span>BAA3</td>
-<td class="instruction">LD HL,$BA66</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="baa6"></span>BAA6</td>
-<td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="baa9"></span>BAA9</td>
-<td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="baaa"></span>BAAA</td>
-<td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="baad"></span>BAAD</td>
-<td class="instruction">LD A,$1E</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="baaf"></span>BAAF</td>
-<td class="instruction">LD ($BAB3),A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="bab2"></span>BAB2</td>
-<td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba6d"></span>BA6D</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -254,7 +61,7 @@ Prev: <a href="BA25.html">BA25</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#ba66">Map</a></td>
 <td class="next">
-Next: <a href="BAB3.html">BAB3</a>
+Next: <a href="BA6E.html">BA6E</a>
 </td>
 </tr>
 </table>

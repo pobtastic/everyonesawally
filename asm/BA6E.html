@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at BA6E</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="BA66.html">BA66</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ba6e">Map</a></td>
+<td class="next">
+Next: <a href="BAB3.html">BAB3</a>
+</td>
+</tr>
+</table>
+<div class="description">BA6E: Handler: Display Character Location</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="E79B.html">Handler_ChangeCharacters</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Handler_DisplayCharacterLocation</td>
+<td class="address-2"><span id="ba6e"></span>BA6E</td>
+<td class="instruction">LD A,($BAB3)</td>
+<td class="comment-1" rowspan="3">Return if *<a href="BAB3.html">BAB3</a> is not zero.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba71"></span>BA71</td>
+<td class="instruction">OR A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba72"></span>BA72</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba73"></span>BA73</td>
+<td class="instruction">LD HL,$DFDC</td>
+<td class="comment-1" rowspan="2">Write <a href="D1BC.html#dfdc">Font</a> to *<a href="B7BA.html#b7e8">B7E9</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba76"></span>BA76</td>
+<td class="instruction">LD ($B7E9),HL</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba79"></span>BA79</td>
+<td class="instruction">LD A,(IY+$0F)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+0F.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba7c"></span>BA7C</td>
+<td class="instruction">LD HL,$7F1F</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7F1F.html">Messaging_TownSquare</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba7f"></span>BA7F</td>
+<td class="instruction">CALL <a href="AC6C.html">FindDataById</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AC6C.html">FindDataById</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba82"></span>BA82</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba83"></span>BA83</td>
+<td class="instruction">CALL <a href="BACE.html">$BACE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="BACE.html">BACE</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba86"></span>BA86</td>
+<td class="instruction">LD C,B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba87"></span>BA87</td>
+<td class="instruction">LD H,$7C</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba89"></span>BA89</td>
+<td class="instruction">LD L,(IY-$23)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba8c"></span>BA8C</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba8d"></span>BA8D</td>
+<td class="instruction">CALL <a href="BACE.html">$BACE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="BACE.html">BACE</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba90"></span>BA90</td>
+<td class="instruction">LD A,$07</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba92"></span>BA92</td>
+<td class="instruction">ADD A,B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba93"></span>BA93</td>
+<td class="instruction">ADD A,C</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba94"></span>BA94</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba95"></span>BA95</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba97"></span>BA97</td>
+<td class="instruction">SUB C</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba98"></span>BA98</td>
+<td class="instruction">SRL A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba9a"></span>BA9A</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba9b"></span>BA9B</td>
+<td class="instruction">LD D,$04</td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=04.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba9d"></span>BA9D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="ba9e"></span>BA9E</td>
+<td class="instruction">LD C,$4E</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=4E (INK:
+YELLOW,
+PAPER:
+BLUE
+(BRIGHT)
+).</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="baa0"></span>BAA0</td>
+<td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B84B.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="baa3"></span>BAA3</td>
+<td class="instruction">LD HL,$BA66</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="BA66.html">Messaging_IsIn</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="baa6"></span>BAA6</td>
+<td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B84B.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="baa9"></span>BAA9</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="baaa"></span>BAAA</td>
+<td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B84B.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="baad"></span>BAAD</td>
+<td class="instruction">LD A,$1E</td>
+<td class="comment-1" rowspan="2">Write 1E to <a href="BAB3.html">BAB3</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="baaf"></span>BAAF</td>
+<td class="instruction">LD ($BAB3),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bab2"></span>BAB2</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="BA66.html">BA66</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ba6e">Map</a></td>
+<td class="next">
+Next: <a href="BAB3.html">BAB3</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/47726.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

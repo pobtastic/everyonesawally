@@ -237,6 +237,16 @@ Some parts of rooms are dynamic (depending on if a task is completed or not), ch
 <td class="instruction">JR NZ,<a href="B952.html#b982">DrawRoom_ProcessData</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b978"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the task ID.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b978"></span>B978</td>
 <td class="instruction">LD A,E</td>
@@ -308,7 +318,10 @@ Pull out the screen co-ordinates and graphics address.
 <span id="b984"></span>
 <div class="comments">
 <div class="paragraph">
-Grab the second byte from the room data pair.
+Grab the second byte from the room data pair, this contains both the x and y cursor position commands.
+</div>
+<div class="paragraph">
+Y is essentially <span class="register">C</span>=bits 3-7 of the second byte of the room data, shifted to bits 0-4. This is assigned to <span class="register">E</span> at <a href="B952.html#b995">B995</a> below.
 </div>
 </div>
 </td>
@@ -346,6 +359,16 @@ Grab the second byte from the room data pair.
 <td class="address-1"><span id="b98a"></span>B98A</td>
 <td class="instruction">LD C,A</td>
 <td class="comment-1" rowspan="1"><span class="register">C</span>=<span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b98b"></span>
+<div class="comments">
+<div class="paragraph">
+Todo.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -389,6 +412,16 @@ Grab the second byte from the room data pair.
 <td class="comment-1" rowspan="1"><span class="register">E</span>=<span class="register">C</span>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b996"></span>
+<div class="comments">
+<div class="paragraph">
+The offset below for the graphic ID is created using the first byte with bit 7 from <a href="B952.html#b96d">B96D</a> and <a href="B952.html#b983">B983</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b996"></span>B996</td>
 <td class="instruction">LD L,B</td>
@@ -416,6 +449,16 @@ Grab the second byte from the room data pair.
 <td class="asm-label"></td>
 <td class="address-1"><span id="b99d"></span>B99D</td>
 <td class="instruction">ADD HL,BC</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b99e"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the graphics control data from the lookup table.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

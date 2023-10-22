@@ -29,7 +29,7 @@ Prev: <a href="AC06.html">AC06</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#ac69">Map</a></td>
 <td class="next">
-Next: <a href="AC7F.html">AC7F</a>
+Next: <a href="AC6C.html">AC6C</a>
 </td>
 </tr>
 </table>
@@ -39,7 +39,7 @@ Next: <a href="AC7F.html">AC7F</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="AC06.html">AC06</a>, <a href="ADBA.html">ADBA</a>, <a href="E79B.html">E79B</a> and <a href="F10E.html">F10E</a>.
+Used by the routines at <a href="AC06.html">AC06</a>, <a href="ADBA.html">ADBA</a>, <a href="E79B.html">Handler_ChangeCharacters</a> and <a href="F10E.html">F10E</a>.
 </div>
 </div>
 </td>
@@ -51,75 +51,12 @@ Used by the routines at <a href="AC06.html">AC06</a>, <a href="ADBA.html">ADBA</
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
-<span id="ac6c"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="AA8C.html">AA8C</a>, <a href="BA66.html">BA66</a> and <a href="EABF.html">EABF</a>.
+Continue on to <a href="AC6C.html">FindDataById</a>.
 </div>
 </div>
 </td>
-</tr>
-<tr>
-<td class="address-2"><span id="ac6c"></span>AC6C</td>
-<td class="instruction">OR A</td>
-<td class="comment-1" rowspan="2">Return if <span class="register">A</span> is zero.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac6d"></span>AC6D</td>
-<td class="instruction">RET Z</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac6e"></span>AC6E</td>
-<td class="instruction">PUSH BC</td>
-<td class="comment-1" rowspan="2">Stash <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac6f"></span>AC6F</td>
-<td class="instruction">PUSH DE</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac70"></span>AC70</td>
-<td class="instruction">LD E,A</td>
-<td class="comment-1" rowspan="1"><span class="register">E</span>=<span class="register">A</span>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac71"></span>AC71</td>
-<td class="instruction">LD A,$FF</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=FF.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac73"></span>AC73</td>
-<td class="instruction">LD BC,$0000</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=0000.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="ac76"></span>AC76</td>
-<td class="instruction">CPIR</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac78"></span>AC78</td>
-<td class="instruction">DEC E</td>
-<td class="comment-1" rowspan="1">Decrease <span class="register">E</span> by one.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac79"></span>AC79</td>
-<td class="instruction">JP NZ,<a href="AC69.html#ac76">$AC76</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="AC69.html#ac76">AC76</a> until <span class="register">E</span> is zero.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac7c"></span>AC7C</td>
-<td class="instruction">POP DE</td>
-<td class="comment-1" rowspan="2">Restore <span class="register">DE</span> and <span class="register">BC</span> from the stack.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac7d"></span>AC7D</td>
-<td class="instruction">POP BC</td>
-</tr>
-<tr>
-<td class="address-1"><span id="ac7e"></span>AC7E</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -129,7 +66,7 @@ Prev: <a href="AC06.html">AC06</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#ac69">Map</a></td>
 <td class="next">
-Next: <a href="AC7F.html">AC7F</a>
+Next: <a href="AC6C.html">AC6C</a>
 </td>
 </tr>
 </table>

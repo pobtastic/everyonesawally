@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 47726</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47718.html">47718</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47726">Map</a></td>
+<td class="next">
+Next: <a href="47795.html">47795</a>
+</td>
+</tr>
+</table>
+<div class="description">47726: Handler: Display Character Location</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="59291.html">Handler_ChangeCharacters</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Handler_DisplayCharacterLocation</td>
+<td class="address-2"><span id="47726"></span>47726</td>
+<td class="instruction">LD A,(47795)</td>
+<td class="comment-1" rowspan="3">Return if *<a href="47795.html">47795</a> is not zero.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47729"></span>47729</td>
+<td class="instruction">OR A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47730"></span>47730</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47731"></span>47731</td>
+<td class="instruction">LD HL,57308</td>
+<td class="comment-1" rowspan="2">Write <a href="53692.html#57308">Font</a> to *<a href="47034.html#47080">47081</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47734"></span>47734</td>
+<td class="instruction">LD (47081),HL</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47737"></span>47737</td>
+<td class="instruction">LD A,(IY+15)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+15.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47740"></span>47740</td>
+<td class="instruction">LD HL,32543</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="32543.html">Messaging_TownSquare</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47743"></span>47743</td>
+<td class="instruction">CALL <a href="44140.html">FindDataById</a></td>
+<td class="comment-1" rowspan="1">Call <a href="44140.html">FindDataById</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47746"></span>47746</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47747"></span>47747</td>
+<td class="instruction">CALL <a href="47822.html">47822</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47822.html">47822</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47750"></span>47750</td>
+<td class="instruction">LD C,B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47751"></span>47751</td>
+<td class="instruction">LD H,124</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47753"></span>47753</td>
+<td class="instruction">LD L,(IY-35)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47756"></span>47756</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47757"></span>47757</td>
+<td class="instruction">CALL <a href="47822.html">47822</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47822.html">47822</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47760"></span>47760</td>
+<td class="instruction">LD A,7</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47762"></span>47762</td>
+<td class="instruction">ADD A,B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47763"></span>47763</td>
+<td class="instruction">ADD A,C</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47764"></span>47764</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47765"></span>47765</td>
+<td class="instruction">LD A,32</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47767"></span>47767</td>
+<td class="instruction">SUB C</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47768"></span>47768</td>
+<td class="instruction">SRL A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47770"></span>47770</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47771"></span>47771</td>
+<td class="instruction">LD D,4</td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=4.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47773"></span>47773</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47774"></span>47774</td>
+<td class="instruction">LD C,78</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=78 (INK:
+YELLOW,
+PAPER:
+BLUE
+(BRIGHT)
+).</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47776"></span>47776</td>
+<td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47779"></span>47779</td>
+<td class="instruction">LD HL,47718</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="47718.html">Messaging_IsIn</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47782"></span>47782</td>
+<td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47785"></span>47785</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47786"></span>47786</td>
+<td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47789"></span>47789</td>
+<td class="instruction">LD A,30</td>
+<td class="comment-1" rowspan="2">Write 30 to <a href="47795.html">47795</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47791"></span>47791</td>
+<td class="instruction">LD (47795),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47794"></span>47794</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47718.html">47718</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47726">Map</a></td>
+<td class="next">
+Next: <a href="47795.html">47795</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../../asm/BA6E.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>
