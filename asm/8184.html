@@ -33,7 +33,7 @@ Next: <a href="81AE.html">81AE</a>
 </td>
 </tr>
 </table>
-<div class="description">8184: Routine at 8184</div>
+<div class="description">8184: Game Loop</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,31 +45,37 @@ Used by the routines at <a href="5B80.html">5B80</a>, <a href="B34B.html">B34B</
 </td>
 </tr>
 <tr>
+<td class="asm-label">GameLoop</td>
 <td class="address-2"><span id="8184"></span>8184</td>
 <td class="instruction">DI</td>
 <td class="comment-1" rowspan="1">Disable interrupts.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8185"></span>8185</td>
 <td class="instruction">LD SP,$FC00</td>
 <td class="comment-1" rowspan="1">Set the stack pointer to <a href="FC00.html">ShadowBuffer_Attribute</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8188"></span>8188</td>
 <td class="instruction">CALL <a href="80E5.html">GameMenu</a></td>
 <td class="comment-1" rowspan="1">Call <a href="80E5.html">GameMenu</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="818b"></span>818B</td>
 <td class="instruction">CALL <a href="BAD8.html">Game_Initialisation</a></td>
 <td class="comment-1" rowspan="1">Call <a href="BAD8.html">Game_Initialisation</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="818e"></span>818E</td>
 <td class="instruction">CALL <a href="E3FD.html">PrintBanner</a></td>
 <td class="comment-1" rowspan="1">Call <a href="E3FD.html">PrintBanner</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8191"></span>8191</td>
 <td class="instruction">CALL <a href="813B.html">$813B</a></td>
 <td class="comment-1" rowspan="1">Call <a href="813B.html">813B</a>.</td>
@@ -85,49 +91,58 @@ This entry point is used by the routine at <a href="ED2A.html">ED2A</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">Game_Running_Loop</td>
 <td class="address-2"><span id="8194"></span>8194</td>
 <td class="instruction">CALL <a href="EB55.html">$EB55</a></td>
 <td class="comment-1" rowspan="1">Call <a href="EB55.html">EB55</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8197"></span>8197</td>
 <td class="instruction">CALL <a href="EABF.html">$EABF</a></td>
 <td class="comment-1" rowspan="1">Call <a href="EABF.html">EABF</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="819a"></span>819A</td>
 <td class="instruction">CALL <a href="AC06.html">$AC06</a></td>
 <td class="comment-1" rowspan="1">Call <a href="AC06.html">AC06</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="819d"></span>819D</td>
 <td class="instruction">CALL <a href="E79B.html">$E79B</a></td>
 <td class="comment-1" rowspan="1">Call <a href="E79B.html">E79B</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="81a0"></span>81A0</td>
 <td class="instruction">CALL <a href="B09F.html">$B09F</a></td>
 <td class="comment-1" rowspan="1">Call <a href="B09F.html">B09F</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="81a3"></span>81A3</td>
 <td class="instruction">CALL <a href="81AE.html">$81AE</a></td>
 <td class="comment-1" rowspan="1">Call <a href="81AE.html">81AE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="81a6"></span>81A6</td>
 <td class="instruction">CALL <a href="81C4.html">$81C4</a></td>
 <td class="comment-1" rowspan="1">Call <a href="81C4.html">81C4</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="81a9"></span>81A9</td>
 <td class="instruction">CALL <a href="ED2A.html">$ED2A</a></td>
 <td class="comment-1" rowspan="1">Call <a href="ED2A.html">ED2A</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="81ac"></span>81AC</td>
-<td class="instruction">JR <a href="8184.html#8194">$8194</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8184.html#8194">8194</a>.</td>
+<td class="instruction">JR <a href="8184.html#8194">Game_Running_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8184.html#8194">Game_Running_Loop</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

@@ -33,7 +33,7 @@ Next: <a href="BACE.html">BACE</a>
 </td>
 </tr>
 </table>
-<div class="description">BAB3: Routine at BAB3</div>
+<div class="description">BAB3: Redraws Banner Underline</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,6 +42,7 @@ Next: <a href="BACE.html">BACE</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-2"><span id="bab3"></span>BAB3</td>
 <td class="instruction">DEFB $00</td>
 <td class="comment-1" rowspan="1"></td>
@@ -57,64 +58,82 @@ This entry point is used by the routines at <a href="81AE.html">81AE</a>, <a hre
 </td>
 </tr>
 <tr>
+<td class="asm-label">Redraw_Banner_Underline</td>
 <td class="address-2"><span id="bab4"></span>BAB4</td>
 <td class="instruction">LD HL,$BAB3</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="BAB3.html">BAB3</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bab7"></span>BAB7</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bab8"></span>BAB8</td>
 <td class="instruction">OR A</td>
 <td class="comment-1" rowspan="2">Return if <span class="register">A</span> is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bab9"></span>BAB9</td>
 <td class="instruction">RET Z</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="baba"></span>BABA</td>
 <td class="instruction">DEC (HL)</td>
 <td class="comment-1" rowspan="1">Decrease *<span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="babb"></span>BABB</td>
 <td class="instruction">RET NZ</td>
 <td class="comment-1" rowspan="1">Return if the result is not zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="babc"></span>BABC</td>
 <td class="instruction">LD C,$42</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=42.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=42 (INK:
+RED,
+PAPER:
+BLACK
+(BRIGHT)
+).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="babe"></span>BABE</td>
 <td class="instruction">LD HL,$DFDC</td>
 <td class="comment-1" rowspan="2">Write <a href="D1BC.html#dfdc">Font</a> to <a href="B7BA.html#b7e8">B7E9</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bac1"></span>BAC1</td>
 <td class="instruction">LD ($B7E9),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bac4"></span>BAC4</td>
 <td class="instruction">LD DE,$0400</td>
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=0400.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bac7"></span>BAC7</td>
 <td class="instruction">LD HL,$7E68</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7E3F.html#7e68">7E68</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="7E3F.html#7e68">Messaging_Banner_Underline</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="baca"></span>BACA</td>
 <td class="instruction">CALL <a href="B84B.html">Controller_Tile</a></td>
 <td class="comment-1" rowspan="1">Call <a href="B84B.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bacd"></span>BACD</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

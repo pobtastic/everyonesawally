@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at E3D3</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="E329.html">E329</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#e3d3">Map</a></td>
+<td class="next">
+Next: <a href="E3FD.html">E3FD</a>
+</td>
+</tr>
+</table>
+<div class="description">E3D3: Routine at E3D3</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="AA7F.html">AA7F</a>, <a href="E2FC.html">E2FC</a>, <a href="E329.html">E329</a> and <a href="F814.html">F814</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="e3d3"></span>E3D3</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3d4"></span>E3D4</td>
+<td class="instruction">SUB H</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3d5"></span>E3D5</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3d6"></span>E3D6</td>
+<td class="instruction">CALL <a href="E3D3.html#e3ec">$E3EC</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3d9"></span>E3D9</td>
+<td class="instruction">DEC C</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3da"></span>E3DA</td>
+<td class="instruction">JR NZ,<a href="E3D3.html#e3d3">$E3D3</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="e3dc"></span>E3DC</td>
+<td class="instruction">CALL <a href="E3D3.html#e3ec">$E3EC</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3df"></span>E3DF</td>
+<td class="instruction">DEC D</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3e0"></span>E3E0</td>
+<td class="instruction">JR NZ,<a href="E3D3.html#e3dc">$E3DC</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="e3e2"></span>E3E2</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3e3"></span>E3E3</td>
+<td class="instruction">ADD A,L</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3e4"></span>E3E4</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3e5"></span>E3E5</td>
+<td class="instruction">CALL <a href="E3D3.html#e3ec">$E3EC</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3e8"></span>E3E8</td>
+<td class="instruction">DEC E</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3e9"></span>E3E9</td>
+<td class="instruction">JR NZ,<a href="E3D3.html#e3e2">$E3E2</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3eb"></span>E3EB</td>
+<td class="instruction">RET</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="e3ec"></span>E3EC</td>
+<td class="instruction">LD A,$10</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3ee"></span>E3EE</td>
+<td class="instruction">OUT ($FE),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3f0"></span>E3F0</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="e3f1"></span>E3F1</td>
+<td class="instruction">DJNZ <a href="E3D3.html#e3f1">$E3F1</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3f3"></span>E3F3</td>
+<td class="instruction">POP BC</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3f4"></span>E3F4</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3f6"></span>E3F6</td>
+<td class="instruction">OUT ($FE),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3f8"></span>E3F8</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="e3f9"></span>E3F9</td>
+<td class="instruction">DJNZ <a href="E3D3.html#e3f9">$E3F9</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3fb"></span>E3FB</td>
+<td class="instruction">POP BC</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="e3fc"></span>E3FC</td>
+<td class="instruction">RET</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="E329.html">E329</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#e3d3">Map</a></td>
+<td class="next">
+Next: <a href="E3FD.html">E3FD</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/58323.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

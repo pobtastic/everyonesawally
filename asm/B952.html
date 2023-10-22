@@ -62,10 +62,20 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="8155.html">Demo_S
 <td class="comment-1" rowspan="1">Call <a href="B902.html">Clear_PlayArea</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b95a"></span>
+<div class="comments">
+<div class="paragraph">
+Get the current room ID and double it. This is stored in <span class="register">DE</span> as an offset.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b95a"></span>B95A</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-1" rowspan="3"><span class="register">E</span>=(<span class="register">IY</span>+0F)*02.</td>
+<td class="comment-1" rowspan="3"><span class="register">E</span>=(*<span class="register">IY</span>+0F)*02.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -87,12 +97,22 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="8155.html">Demo_S
 <td class="asm-label"></td>
 <td class="address-1"><span id="b961"></span>B961</td>
 <td class="instruction">LD HL,$CDB5</td>
-<td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="CDB5.html">Data_Rooms</a>+<span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="CDB5.html">Table_RoomData</a>+<span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b964"></span>B964</td>
 <td class="instruction">ADD HL,DE</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b965"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the room data location from the lookup table.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -123,13 +143,13 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="8155.html">Demo_S
 <span id="b969"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="EFC7.html">EFC7</a>.
+Fetch a room data pair and store it in <span class="register">DE</span>. Note, this is <em>not</em> a memory address.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">DrawRoom_0</td>
+<td class="asm-label">DrawRoom_Loop</td>
 <td class="address-2"><span id="b969"></span>B969</td>
 <td class="instruction">LD D,(HL)</td>
 <td class="comment-1" rowspan="1"><span class="register">D</span>=*<span class="register">HL</span>.</td>
@@ -153,6 +173,16 @@ This entry point is used by the routine at <a href="EFC7.html">EFC7</a>.
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b96d"></span>
+<div class="comments">
+<div class="paragraph">
+Drop bit 7 of <span class="register">D</span> and test for the control characters.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b96d"></span>B96D</td>
 <td class="instruction">LD A,D</td>
@@ -165,26 +195,46 @@ This entry point is used by the routine at <a href="EFC7.html">EFC7</a>.
 <td class="comment-1" rowspan="1">Keep only bits 0-6.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b970"></span>
+<div class="comments">
+<div class="paragraph">
+Are we done?
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b970"></span>B970</td>
 <td class="instruction">CP $7F</td>
-<td class="comment-1" rowspan="2">If the result is 7F jump to <a href="B952.html#b9a8">DrawRoom_2</a>.</td>
+<td class="comment-1" rowspan="2">If the result is 7F jump to <a href="B952.html#b9a8">DrawRoom_Finish</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b972"></span>B972</td>
-<td class="instruction">JR Z,<a href="B952.html#b9a8">DrawRoom_2</a></td>
+<td class="instruction">JR Z,<a href="B952.html#b9a8">DrawRoom_Finish</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b974"></span>
+<div class="comments">
+<div class="paragraph">
+Some parts of rooms are dynamic (depending on if a task is completed or not), check if this should be actioned.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b974"></span>B974</td>
 <td class="instruction">CP $7E</td>
-<td class="comment-1" rowspan="2">If the result is not 7E jump to <a href="B952.html#b982">DrawRoom_1</a>.</td>
+<td class="comment-1" rowspan="2">If the result is not 7E jump to <a href="B952.html#b982">DrawRoom_ProcessData</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b976"></span>B976</td>
-<td class="instruction">JR NZ,<a href="B952.html#b982">DrawRoom_1</a></td>
+<td class="instruction">JR NZ,<a href="B952.html#b982">DrawRoom_ProcessData</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -201,8 +251,18 @@ This entry point is used by the routine at <a href="EFC7.html">EFC7</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b97c"></span>B97C</td>
-<td class="instruction">JR NZ,<a href="B952.html#b969">DrawRoom_0</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B952.html#b969">DrawRoom_Loop</a></td>
+<td class="comment-1" rowspan="1">If the task is not complete, jump to <a href="B952.html#b969">DrawRoom_Loop</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b97e"></span>
+<div class="comments">
+<div class="paragraph">
+Move onto the next room data pair.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -218,20 +278,40 @@ This entry point is used by the routine at <a href="EFC7.html">EFC7</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b980"></span>B980</td>
-<td class="instruction">JR <a href="B952.html#b969">DrawRoom_0</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B952.html#b969">DrawRoom_0</a>.</td>
+<td class="instruction">JR <a href="B952.html#b969">DrawRoom_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B952.html#b969">DrawRoom_Loop</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">DrawRoom_1</td>
+<td class="routine-comment" colspan="5">
+<span id="b982"></span>
+<div class="comments">
+<div class="paragraph">
+Pull out the screen co-ordinates and graphics address.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">DrawRoom_ProcessData</td>
 <td class="address-2"><span id="b982"></span>B982</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
+<td class="comment-1" rowspan="1">Stash the room data pointer held by <span class="register">HL</span> on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b983"></span>B983</td>
 <td class="instruction">LD B,A</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=<span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b984"></span>
+<div class="comments">
+<div class="paragraph">
+Grab the second byte from the room data pair.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -371,16 +451,26 @@ This entry point is used by the routine at <a href="EFC7.html">EFC7</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="b9a5"></span>B9A5</td>
 <td class="instruction">POP HL</td>
-<td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
+<td class="comment-1" rowspan="1">Restore the room data pointer held by <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b9a6"></span>B9A6</td>
-<td class="instruction">JR <a href="B952.html#b969">DrawRoom_0</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B952.html#b969">DrawRoom_0</a>.</td>
+<td class="instruction">JR <a href="B952.html#b969">DrawRoom_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B952.html#b969">DrawRoom_Loop</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">DrawRoom_2</td>
+<td class="routine-comment" colspan="5">
+<span id="b9a8"></span>
+<div class="comments">
+<div class="paragraph">
+Finish by blitting the shadow buffer to the screen and return to the calling routine.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">DrawRoom_Finish</td>
 <td class="address-2"><span id="b9a8"></span>B9A8</td>
 <td class="instruction">CALL <a href="B9AC.html">$B9AC</a></td>
 <td class="comment-1" rowspan="1">Call <a href="B9AC.html">B9AC</a>.</td>
