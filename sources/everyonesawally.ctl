@@ -663,16 +663,30 @@ c $AB9B
 c $AC06
 
 c $AC69
+E $AC69 Continue on to #R$AC6C.
   $AC69,$03 #REGhl=#R$AC7F.
 
+c $AC6C Find Data By ID
+@ $AC6C label=FindDataById
+R $AC6C A ID of data to find
+R $AC6C HL Pointer to data for searching
+R $AC6C O:HL Pointer to data correlating to the ID
+N $AC6C If #REGa is zero, just return instantly.
   $AC6C,$02 Return if #REGa is zero.
   $AC6E,$02 Stash #REGbc and #REGde on the stack.
+N $AC70 #REGe now holds the ID we want to find the memory location for. This is used as a "countdown".
   $AC70,$01 #REGe=#REGa.
+N $AC71 All data is terminated by #N$FF, so essentially we're going to count how many terminators we find. This will
+.       give us the start address of the data ID we're interested in.
   $AC71,$02 #REGa=#N$FF.
+N $AC73 Set the counter to #N$10000.
   $AC73,$03 #REGbc=#N($0000,$04,$04).
-  $AC76,$02
+@ $AC76 label=FindDataById_Loop
+  $AC76,$02 Search for the first occurrence of #N$FF using *#REGhl.
+N $AC78 Move onto the next ID, and keep looping back to #R$AC76 until we're on the ID we want to find the data for.
   $AC78,$01 Decrease #REGe by one.
   $AC79,$03 Jump to #R$AC76 until #REGe is zero.
+N $AC7C Once we're here, #REGhl will contain the start address of the data correlating to the given ID.
   $AC7C,$02 Restore #REGde and #REGbc from the stack.
   $AC7E,$01 Return.
 
@@ -1236,6 +1250,7 @@ N $B970 Are we done?
   $B970,$04 If the result is #N$7F jump to #R$B9A8.
 N $B974 Some parts of rooms are dynamic (depending on if a task is completed or not), check if this should be actioned.
   $B974,$04 If the result is not #N$7E jump to #R$B982.
+N $B978 Fetch the task ID.
   $B978,$01 #REGa=#REGe.
   $B979,$03 Call #R$EC1D.
   $B97C,$02 If the task is not complete, jump to #R$B969.
@@ -1246,21 +1261,26 @@ N $B982 Pull out the screen co-ordinates and graphics address.
 @ $B982 label=DrawRoom_ProcessData
   $B982,$01 Stash the room data pointer held by #REGhl on the stack.
   $B983,$01 #REGb=#REGa.
-N $B984 Grab the second byte from the room data pair.
+N $B984 Grab the second byte from the room data pair, this contains both the x and y cursor position commands.
+N $B984 Y is essentially #REGc=bits 3-7 of the second byte of the room data, shifted to bits 0-4. This is assigned to
+.       #REGe at #R$B995 below.
   $B984,$01 #REGa=#REGe.
   $B985,$02,b$01 Keep only bits 3-7.
   $B987,$03 Rotate #REGa right three times.
   $B98A,$01 #REGc=#REGa.
+N $B98B Todo.
   $B98B,$02 Rotate #REGd left once.
   $B98D,$02 Rotate #REGe left once.
   $B98F,$01 #REGa=#REGe.
   $B990,$02,b$01 Keep only bits 0-3.
   $B992,$03 #REGd=#REGa+#N$05.
   $B995,$01 #REGe=#REGc.
+N $B996 The offset below for the graphic ID is created using the first byte with bit 7 from #R$B96D and #R$B983.
   $B996,$01 #REGl=#REGb.
   $B997,$02 #REGh=#N$00.
   $B999,$01 #REGhl*=#N$02.
   $B99A,$04 #REGhl+=#R$BD86.
+N $B99E Fetch the graphics control data from the lookup table.
   $B99E,$01 #REGa=*#REGhl.
   $B99F,$01 Increment #REGhl by one.
   $B9A0,$01 #REGh=*#REGhl.
@@ -1334,7 +1354,34 @@ c $BA25 Copy Routine
 . </code> #N$20 times.)
   $BA65,$01 Return.
 
-c $BA66
+t $BA66 Messaging: Is In
+@ $BA66 label=Messaging_IsIn
+  $BA66,$07 #FONT:( IS IN )$E0DC,attr=$4E(is-in)
+B $BA6D,$01 Terminator.
+
+c $BA6E Handler: Display Character Location
+@ $BA6E label=Handler_DisplayCharacterLocation
+  $BA6E,$05 Return if *#R$BAB3 is not zero.
+  $BA73,$06 Write #R$DFDC to *#R$B7E8(#N$B7E9).
+  $BA79,$03 #REGa=*#REGiy+#N$0F.
+  $BA7C,$03 #REGhl=#R$7F1F.
+  $BA7F,$03 Call #R$AC6C.
+  $BA82,$01 Stash #REGhl on the stack.
+  $BA83,$03 Call #R$BACE.
+
+  $BA8C,$01 Stash #REGhl on the stack.
+  $BA8D,$03 Call #R$BACE.
+
+  $BA9B,$02 #REGd=#N$04.
+  $BA9D,$01 Restore #REGhl from the stack.
+  $BA9E,$02 #REGc=#N$4E (#COLOUR$4E).
+  $BAA0,$03 Call #R$B84B.
+  $BAA3,$03 #REGhl=#R$BA66.
+  $BAA6,$03 Call #R$B84B.
+  $BAA9,$01 Restore #REGhl from the stack.
+  $BAAA,$03 Call #R$B84B.
+  $BAAD,$05 Write #N$1E to #R$BAB3.
+  $BAB2,$01 Return.
 
 c $BAB3 Redraws Banner Underline
 B $BAB3,$01
@@ -1412,52 +1459,119 @@ b $BC30
 
 g $BC67 Character Data
 @ $BC67 label=Character_Data
-  $BC6B
-  $BC76,$01 Current room ID.
+B $BC67,$01
+B $BC68,$01
+B $BC69,$01
+B $BC6A,$01
+B $BC6B,$01
 
-g $BC94 Lives: Wally
+g $BC6C
+B $BC6C,$01
+B $BC6D,$01
+B $BC6E,$01
+B $BC6F,$01
+B $BC70,$01
+
+g $BC71
+B $BC71,$01
+B $BC72,$01
+B $BC73,$01
+B $BC74,$01
+B $BC75,$01
+
+g $BC76 Character: Current Room ID
+@ $BC76 label=CurrentRoom_Wally
+B $BC76,$01 Current room ID for Wally.
+@ $BC77 label=CurrentRoom_Wilma
+B $BC77,$01 Current room ID for Wilma.
+@ $BC78 label=CurrentRoom_Tom
+B $BC78,$01 Current room ID for Tom.
+@ $BC79 label=CurrentRoom_Dick
+B $BC79,$01 Current room ID for Dick.
+@ $BC7A label=CurrentRoom_Harry
+B $BC7A,$01 Current room ID for Harry.
+
+g $BC7B
+B $BC7B,$01
+B $BC7C,$01
+B $BC7D,$01
+B $BC7E,$01
+B $BC7F,$01
+
+g $BC80
+B $BC80,$01
+B $BC81,$01
+B $BC82,$01
+B $BC83,$01
+B $BC84,$01
+
+g $BC85
+B $BC85,$01
+B $BC86,$01
+B $BC87,$01
+B $BC88,$01
+B $BC89,$01
+
+g $BC8A
+B $BC8A,$01
+B $BC8B,$01
+B $BC8C,$01
+B $BC8D,$01
+B $BC8E,$01
+
+g $BC8F
+B $BC8F,$01
+B $BC90,$01
+B $BC91,$01
+B $BC92,$01
+B $BC93,$01
+
+g $BC94 Character: Lives
 @ $BC94 label=Lives_Wally
-B $BC94,$01
-
-g $BC95 Lives: Wilma
+B $BC94,$01 Current lives for Wally.
 @ $BC95 label=Lives_Wilma
-B $BC95,$01
-
-g $BC96 Lives: Tom
+B $BC95,$01 Current lives for Wilma.
 @ $BC96 label=Lives_Tom
-B $BC96,$01
-
-g $BC97 Lives: Dick
+B $BC96,$01 Current lives for Tom.
 @ $BC97 label=Lives_Dick
-B $BC97,$01
-
-g $BC98 Lives: Harry
+B $BC97,$01 Current lives for Dick.
 @ $BC98 label=Lives_Harry
-B $BC98,$01
+B $BC98,$01 Current lives for Harry.
 
-g $BCB7 Items
+g $BC99
+B $BC99,$01
+B $BC9A,$01
+B $BC9B,$01
+B $BC9C,$01
+B $BC9D,$01
+
+g $BC9E
+
+g $BCA8
+
+g $BCB7 Character: Items
 @ $BCB7 label=Item_1_Wally
-B $BCB7,$01
+B $BCB7,$01 Item 1 for Wally.
 @ $BCB8 label=Item_1_Wilma
-B $BCB8,$01
+B $BCB8,$01 Item 1 for Wilma.
 @ $BCB9 label=Item_1_Tom
-B $BCB9,$01
+B $BCB9,$01 Item 1 for Tom.
 @ $BCBA label=Item_1_Dick
-B $BCBA,$01
+B $BCBA,$01 Item 1 for Dick.
 @ $BCBB label=Item_1_Harry
-B $BCBB,$01
+B $BCBB,$01 Item 1 for Harry.
 @ $BCBC label=Item_2_Wally
-B $BCBC,$01
+B $BCBC,$01 Item 2 for Wally.
 @ $BCBD label=Item_2_Wilma
-B $BCBD,$01
+B $BCBD,$01 Item 2 for Wilma.
 @ $BCBE label=Item_2_Tom
-B $BCBE,$01
+B $BCBE,$01 Item 2 for Tom.
 @ $BCBF label=Item_2_Dick
-B $BCBF,$01
+B $BCBF,$01 Item 2 for Dick.
 @ $BCC0 label=Item_2_Harry
-B $BCC0,$01
+B $BCC0,$01 Item 2 for Harry.
 
-b $BCC1
+g $BCC1
 
 b $BCE9 Item Data
 @ $BCE9 label=Item_Data
@@ -5475,131 +5589,131 @@ b $CDF7 Room #N$00: Town Square
   $CDF7,$02 #ROOM(#PC).
 L $CDF7,$02,$05
 
-b $CE01 Room #N$01:
+b $CE01 Room #N$01: Stamp Street
   $CE01,$02 #ROOM(#PC).
 L $CE01,$02,$12
 
-b $CE25 Room #N$02:
+b $CE25 Room #N$02: The Post Office
   $CE25,$02 #ROOM(#PC).
 L $CE25,$02,$09
 
-b $CE37 Room #N$03:
+b $CE37 Room #N$03: Market Street
   $CE37,$02 #ROOM(#PC).
 L $CE37,$02,$19
 
-b $CE69 Room #N$04:
+b $CE69 Room #N$04: The Super Market
   $CE69,$02 #ROOM(#PC).
 L $CE69,$02,$09
 
-b $CE7B Room #N$05:
+b $CE7B Room #N$05: The Park
   $CE7B,$02 #ROOM(#PC).
 L $CE7B,$02,$07
 
-b $CE89 Room #N$06:
+b $CE89 Room #N$06: Wobbly Walk
   $CE89,$02 #ROOM(#PC).
 L $CE89,$02,$12
 
-b $CEAD Room #N$07:
+b $CEAD Room #N$07: Rubble Road
   $CEAD,$02 #ROOM(#PC).
 L $CEAD,$02,$0E
 
-b $CEC9 Room #N$08:
+b $CEC9 Room #N$08: Wall Street
   $CEC9,$02 #ROOM(#PC).
 L $CEC9,$02,$0C
 
-b $CEE1 Room #N$09:
+b $CEE1 Room #N$09: Pete Street
   $CEE1,$02 #ROOM(#PC).
 L $CEE1,$02,$0C
 
-b $CEF9 Room #N$0A:
+b $CEF9 Room #N$0A: The Work Shed
   $CEF9,$02 #ROOM(#PC).
 L $CEF9,$02,$08
 
-b $CF09 Room #N$0B:
+b $CF09 Room #N$0B: School Lane
   $CF09,$02 #ROOM(#PC).
 L $CF09,$02,$10
 
-b $CF29 Room #N$0C:
+b $CF29 Room #N$0C: The School
   $CF29,$02 #ROOM(#PC).
 L $CF29,$02,$10
 
-b $CF49 Room #N$0D:
+b $CF49 Room #N$0D: Baker Street
   $CF49,$02 #ROOM(#PC).
 L $CF49,$02,$14
 
-b $CF71 Room #N$0E:
+b $CF71 Room #N$0E: The Bakers
   $CF71,$02 #ROOM(#PC).
 L $CF71,$02,$13
 
-b $CF97 Room #N$0F:
+b $CF97 Room #N$0F: The Pub
   $CF97,$02 #ROOM(#PC).
 L $CF97,$02,$0F
 
-b $CFB5 Room #N$10:
+b $CFB5 Room #N$10: Motor Way
   $CFB5,$02 #ROOM(#PC).
 L $CFB5,$02,$12
 
-b $CFD9 Room #N$11:
+b $CFD9 Room #N$11: The Laboratory
   $CFD9,$02 #ROOM(#PC).
 L $CFD9,$02,$0B
 
-b $CFEF Room #N$12:
+b $CFEF Room #N$12: The Garage
   $CFEF,$02 #ROOM(#PC).
 L $CFEF,$02,$0D
 
-b $D009 Room #N$13:
+b $D009 Room #N$13: Reference Road
   $D009,$02 #ROOM(#PC).
 L $D009,$02,$18
 
-b $D039 Room #N$14:
+b $D039 Room #N$14: The Library
   $D039,$02 #ROOM(#PC).
 L $D039,$02,$0F
 
-b $D057 Room #N$15:
+b $D057 Room #N$15: Penny Lane
   $D057,$02 #ROOM(#PC).
 L $D057,$02,$1A
 
-b $D08B Room #N$16:
+b $D08B Room #N$16: The Bank
   $D08B,$02 #ROOM(#PC).
 L $D08B,$02,$12
 
-b $D0AF Room #N$17:
+b $D0AF Room #N$17: Wally's House
   $D0AF,$02 #ROOM(#PC).
 L $D0AF,$02,$0A
 
-b $D0C3 Room #N$18:
+b $D0C3 Room #N$18: Meat Street
   $D0C3,$02 #ROOM(#PC).
 L $D0C3,$02,$12
 
-b $D0E7 Room #N$19:
+b $D0E7 Room #N$19: The Butchers
   $D0E7,$02 #ROOM(#PC).
 L $D0E7,$02,$11
 
-b $D109 Room #N$1A:
+b $D109 Room #N$1A: Trunk Road
   $D109,$02 #ROOM(#PC).
 L $D109,$02,$0E
 
-b $D125 Room #N$1B:
+b $D125 Room #N$1B: The Zoo
   $D125,$02 #ROOM(#PC).
 L $D125,$02,$08
 
-b $D135 Room #N$1C:
+b $D135 Room #N$1C: Rail Road
   $D135,$02 #ROOM(#PC).
 L $D135,$02,$0F
 
-b $D153 Room #N$1D:
+b $D153 Room #N$1D: The Station
   $D153,$02 #ROOM(#PC).
 L $D153,$02,$0D
 
-b $D16D Room #N$1E:
+b $D16D Room #N$1E: The Docks
   $D16D,$02 #ROOM(#PC).
 L $D16D,$02,$08
 
-b $D17D Room #N$1F:
+b $D17D Room #N$1F: The Sewer
   $D17D,$02 #ROOM(#PC).
 L $D17D,$02,$0A
 
-b $D191 Room #N$20:
+b $D191 Room #N$20: The Cave
   $D191,$02 #ROOM(#PC).
 L $D191,$02,$15
 
@@ -5980,7 +6094,8 @@ c $E77A
   $E797,$03 Restore #REGde, #REGbc and #REGhl from the stack.
   $E79A,$01 Return.
 
-c $E79B
+c $E79B Handler: Change Characters
+@ $E79B label=Handler_ChangeCharacters
   $E79B,$04 Read from the keyboard;
 . #TABLE(default,centre,centre,centre,centre,centre,centre)
 . { =h,r2 Port Number | =h,c5 Bit }
@@ -5988,9 +6103,49 @@ c $E79B
 . { #N$F7 | 1 | 2 | 3 | 4 | 5 }
 . TABLE#
   $E79F,$02,b$01 Set bits 5-7.
+M $E7A1,$03 Return if no keys have been pressed.
   $E7A1,$02,b$01
-
+N $E7A4 Fetch room ID for the current character.
+  $E7A4,$03 #REGb=*#REGiy+#N$0F.
+  $E7A7,$02 Stash the character pointer in #REGiy on the stack.
+N $E7A9 Loop through the port bits and correlate them with the base character reference in #R$BC67(#REGiy).
+N $E7A9 This associates each character with a keypress.
+. #TABLE(default,centre,centre)
+. { =h Key | =h Character }
+. { #N$01 | Wally }
+. { #N$02 | Wilma }
+. { #N$03 | Tom }
+. { #N$04 | Dick }
+. { #N$05 | Harry }
+. TABLE#
+  $E7A9,$04 #REGiy=#R$BC67.
+@ $E7AD label=ChangeCharacters_WhichCharacter_Loop
+  $E7AD,$01 Rotate #REGa right once.
+  $E7AE,$02 If this key has been pressed, jump to #R$E7B4.
+  $E7B0,$02 Increment #REGiy by one.
+  $E7B2,$02 Jump to #R$E7AD.
+N $E7B4 Check if the current character is in the same room as the selected character.
+@ $E7B4 label=ChangeCharacters_CheckRoom
+  $E7B4,$03 #REGa=*#REGiy+#N$0F.
+  $E7B7,$03 If this is the same room, jump to #R$E7C0.
+  $E7BA,$03 Call #R$BA6E.
+@ $E7BD label=ChangeCharacters_Return
+  $E7BD,$02 Restore the character pointer in #REGiy from the stack.
   $E7BF,$01 Return.
+N $E7C0
+@ $E7C0 label=ChangeCharacters_Process
+  $E7C0,$03 Call #R$A921.
+  $E7C3,$02 If the selected character is the current character, jump to #R$E7BD.
+  $E7C5,$04 Write #REGiy to *#R$B09D.
+  $E7C9,$02 Restore #REGiy from the stack.
+  $E7CB,$01 #REGa=#REGb.
+  $E7CC,$03 Call #R$AC69.
+
+  $E7E1,$04 #REGiy=*#R$B09D.
+  $E7E5,$03 Call #R$E3FD.
+  $E7E8,$01 Return.
+
+b $E7E9
 
 c $EABF
 
@@ -6212,7 +6367,7 @@ b $FAEF
 
 b $FC00 Attribute Shadow Buffer
 @ $FC00 label=ShadowBuffer_Attribute
-  $FC00,$0200
+S $FC00,$0200
 
 b $FE00
 

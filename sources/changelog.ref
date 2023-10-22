@@ -7,3 +7,11 @@ SectionType=BulletPoints
 -
 
 - Added CHANGELOG!
+
+[Changelog:20231021]
+-
+
+- Index graphics in the order they are in the graphics lookup table.
+- Added commenting to #R$B952.
+- Added room macro for looking up graphic IDs (todo cursor "movements" too).
+- Worked out the room order/ naming.

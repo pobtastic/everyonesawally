@@ -41,7 +41,7 @@ POKE #R$E7B8,#N$18
   <tbody>
     <tr>
       <td class="address-1">#R$E7B8(#N$E7B8)</td>
-      <td class="instruction">JR Z,#R$E7C0</td>
+      <td class="instruction">JR Z,#R$E7C0(#N$E7C0)</td>
     </tr>
   </tbody>
 </table>

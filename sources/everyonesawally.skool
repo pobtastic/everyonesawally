@@ -3861,17 +3861,38 @@ c$AC06 LD A,(IY+$05) ;
 ;
 ; Used by the routines at #R$AC06, #R$ADBA, #R$E79B and #R$F10E.
 c$AC69 LD HL,$AC7F   ; #REGhl=#R$AC7F.
-; This entry point is used by the routines at #R$AA8C, #R$BA66 and #R$EABF.
-*$AC6C OR A          ; {Return if #REGa is zero.
+; Continue on to #R$AC6C.
+
+; Find Data By ID
+;
+; Used by the routines at #R$AA8C, #R$BA6E and #R$EABF.
+;
+;   A ID of data to find
+;   HL Pointer to data for searching
+; O:HL Pointer to data correlating to the ID
+;
+; If #REGa is zero, just return instantly.
+@label=FindDataById
+c$AC6C OR A          ; {Return if #REGa is zero.
  $AC6D RET Z         ; }
  $AC6E PUSH BC       ; {Stash #REGbc and #REGde on the stack.
  $AC6F PUSH DE       ; }
+; #REGe now holds the ID we want to find the memory location for. This is used
+; as a "countdown".
  $AC70 LD E,A        ; #REGe=#REGa.
+; All data is terminated by #N$FF, so essentially we're going to count how many terminators we find. This will
+;       give us the start address of the data ID we're interested in.
  $AC71 LD A,$FF      ; #REGa=#N$FF.
+; Set the counter to #N$10000.
  $AC73 LD BC,$0000   ; #REGbc=#N($0000,$04,$04).
-*$AC76 CPIR          ;
+@label=FindDataById_Loop
+*$AC76 CPIR          ; Search for the first occurrence of #N$FF using *#REGhl.
+; Move onto the next ID, and keep looping back to #R$AC76 until we're on the ID
+; we want to find the data for.
  $AC78 DEC E         ; Decrease #REGe by one.
  $AC79 JP NZ,$AC76   ; Jump to #R$AC76 until #REGe is zero.
+; Once we're here, #REGhl will contain the start address of the data
+; correlating to the given ID.
  $AC7C POP DE        ; {Restore #REGde and #REGbc from the stack.
  $AC7D POP BC        ; }
  $AC7E RET           ; Return.
@@ -5325,7 +5346,7 @@ c$B82B PUSH HL       ; Stash #REGhl on the stack.
 
 ; Handler: Graphics Controller
 ;
-; Used by the routines at #R$B34B, #R$B82B, #R$B952, #R$BA66, #R$BAB3, #R$E3FD,
+; Used by the routines at #R$B34B, #R$B82B, #R$B952, #R$BA6E, #R$BAB3, #R$E3FD,
 ; #R$E41D and #R$ED2A.
 ;
 ; DE Screen cursor commands
@@ -5590,6 +5611,7 @@ c$B952 LD A,$B8      ; {Write #N$B8 to #R$AF88.
 ; check if this should be actioned.
  $B974 CP $7E        ; {If the result is not #N$7E jump to #R$B982.
  $B976 JR NZ,$B982   ; }
+; Fetch the task ID.
  $B978 LD A,E        ; #REGa=#REGe.
  $B979 CALL $EC1D    ; Call #R$EC1D.
  $B97C JR NZ,$B969   ; If the task is not complete, jump to #R$B969.
@@ -5601,13 +5623,18 @@ c$B952 LD A,$B8      ; {Write #N$B8 to #R$AF88.
 @label=DrawRoom_ProcessData
 *$B982 PUSH HL       ; Stash the room data pointer held by #REGhl on the stack.
  $B983 LD B,A        ; #REGb=#REGa.
-; Grab the second byte from the room data pair.
+; Grab the second byte from the room data pair, this contains both the x and y
+; cursor position commands.
+; .
+; Y is essentially #REGc=bits 3-7 of the second byte of the room data, shifted to bits 0-4. This is assigned to
+;       #REGe at #R$B995 below.
  $B984 LD A,E        ; #REGa=#REGe.
  $B985 AND %11111000 ; Keep only bits 3-7.
  $B987 RRA           ; {Rotate #REGa right three times.
  $B988 RRA           ;
  $B989 RRA           ; }
  $B98A LD C,A        ; #REGc=#REGa.
+; Todo.
  $B98B RL D          ; Rotate #REGd left once.
  $B98D RL E          ; Rotate #REGe left once.
  $B98F LD A,E        ; #REGa=#REGe.
@@ -5615,11 +5642,14 @@ c$B952 LD A,$B8      ; {Write #N$B8 to #R$AF88.
  $B992 ADD A,$05     ; {#REGd=#REGa+#N$05.
  $B994 LD D,A        ; }
  $B995 LD E,C        ; #REGe=#REGc.
+; The offset below for the graphic ID is created using the first byte with bit
+; 7 from #R$B96D and #R$B983.
  $B996 LD L,B        ; #REGl=#REGb.
  $B997 LD H,$00      ; #REGh=#N$00.
  $B999 ADD HL,HL     ; #REGhl*=#N$02.
  $B99A LD BC,$BD86   ; {#REGhl+=#R$BD86.
  $B99D ADD HL,BC     ; }
+; Fetch the graphics control data from the lookup table.
  $B99E LD A,(HL)     ; #REGa=*#REGhl.
  $B99F INC HL        ; Increment #REGhl by one.
  $B9A0 LD H,(HL)     ; #REGh=*#REGhl.
@@ -5739,28 +5769,30 @@ c$BA25 LDI           ; {#HTML(Runs:
  $BA63 LDI           ; }
  $BA65 RET           ; Return.
 
-; Routine at BA66
-c$BA66 JR NZ,$BAB1   ;
- $BA68 LD D,E        ;
- $BA69 JR NZ,$BAB4   ;
- $BA6B LD C,(HL)     ;
- $BA6C JR NZ,$BA6D   ;
-; This entry point is used by the routine at #R$E79B.
-*$BA6E LD A,($BAB3)  ;
+; Messaging: Is In
+@label=Messaging_IsIn
+t$BA66 DEFM " IS IN " ; #FONT:( IS IN )$E0DC,attr=$4E(is-in)
+ $BA6D DEFB $FF       ; Terminator.
+
+; Handler: Display Character Location
+;
+; Used by the routine at #R$E79B.
+@label=Handler_DisplayCharacterLocation
+c$BA6E LD A,($BAB3)  ; {Return if *#R$BAB3 is not zero.
  $BA71 OR A          ;
- $BA72 RET NZ        ;
- $BA73 LD HL,$DFDC   ;
- $BA76 LD ($B7E9),HL ;
- $BA79 LD A,(IY+$0F) ;
- $BA7C LD HL,$7F1F   ;
- $BA7F CALL $AC6C    ;
- $BA82 PUSH HL       ;
- $BA83 CALL $BACE    ;
+ $BA72 RET NZ        ; }
+ $BA73 LD HL,$DFDC   ; {Write #R$DFDC to *#R$B7E8(#N$B7E9).
+ $BA76 LD ($B7E9),HL ; }
+ $BA79 LD A,(IY+$0F) ; #REGa=*#REGiy+#N$0F.
+ $BA7C LD HL,$7F1F   ; #REGhl=#R$7F1F.
+ $BA7F CALL $AC6C    ; Call #R$AC6C.
+ $BA82 PUSH HL       ; Stash #REGhl on the stack.
+ $BA83 CALL $BACE    ; Call #R$BACE.
  $BA86 LD C,B        ;
  $BA87 LD H,$7C      ;
  $BA89 LD L,(IY-$23) ;
- $BA8C PUSH HL       ;
- $BA8D CALL $BACE    ;
+ $BA8C PUSH HL       ; Stash #REGhl on the stack.
+ $BA8D CALL $BACE    ; Call #R$BACE.
  $BA90 LD A,$07      ;
  $BA92 ADD A,B       ;
  $BA93 ADD A,C       ;
@@ -5769,21 +5801,21 @@ c$BA66 JR NZ,$BAB1   ;
  $BA97 SUB C         ;
  $BA98 SRL A         ;
  $BA9A LD E,A        ;
- $BA9B LD D,$04      ;
- $BA9D POP HL        ;
- $BA9E LD C,$4E      ;
- $BAA0 CALL $B84B    ;
- $BAA3 LD HL,$BA66   ;
- $BAA6 CALL $B84B    ;
- $BAA9 POP HL        ;
- $BAAA CALL $B84B    ;
- $BAAD LD A,$1E      ;
- $BAAF LD ($BAB3),A  ;
- $BAB2 RET           ;
+ $BA9B LD D,$04      ; #REGd=#N$04.
+ $BA9D POP HL        ; Restore #REGhl from the stack.
+ $BA9E LD C,$4E      ; #REGc=#N$4E (#COLOUR$4E).
+ $BAA0 CALL $B84B    ; Call #R$B84B.
+ $BAA3 LD HL,$BA66   ; #REGhl=#R$BA66.
+ $BAA6 CALL $B84B    ; Call #R$B84B.
+ $BAA9 POP HL        ; Restore #REGhl from the stack.
+ $BAAA CALL $B84B    ; Call #R$B84B.
+ $BAAD LD A,$1E      ; {Write #N$1E to #R$BAB3.
+ $BAAF LD ($BAB3),A  ; }
+ $BAB2 RET           ; Return.
 
 ; Redraws Banner Underline
 c$BAB3 DEFB $00      ;
-; This entry point is used by the routines at #R$81AE, #R$BA66 and #R$ED2A.
+; This entry point is used by the routines at #R$81AE and #R$ED2A.
 @label=Redraw_Banner_Underline
 *$BAB4 LD HL,$BAB3   ; #REGhl=#R$BAB3.
  $BAB7 LD A,(HL)     ; #REGa=*#REGhl.
@@ -5801,7 +5833,7 @@ c$BAB3 DEFB $00      ;
 
 ; Routine at BACE
 ;
-; Used by the routine at #R$BA66.
+; Used by the routine at #R$BA6E.
 c$BACE LD B,$00      ; #REGb=#N$00.
 *$BAD0 LD A,(HL)     ; #REGa=*#REGhl.
  $BAD1 CP $FF        ; {If #REGa is #N$FF then return.
@@ -5912,63 +5944,124 @@ b$BC30 DEFB $1F,$1F,$1F,$1F,$1F,$1F,$1F,$1F
 
 ; Character Data
 @label=Character_Data
-g$BC67 DEFB $00,$00,$00,$00
- $BC6B DEFB $00,$40,$08,$90,$A8,$E8,$98,$98
- $BC73 DEFB $98,$98,$98
- $BC76 DEFB $00                             ; Current room ID.
- $BC77 DEFB $00,$00,$00,$00,$80,$80,$80,$80
- $BC7F DEFB $80,$5B,$5C,$5D,$5E,$5F,$46,$45
- $BC87 DEFB $44,$43,$07,$38,$38,$38,$38,$38
- $BC8F DEFB $94,$98,$9C,$A0,$A4
+g$BC67 DEFB $00
+ $BC68 DEFB $00
+ $BC69 DEFB $00
+ $BC6A DEFB $00
+ $BC6B DEFB $00
 
-; Lives: Wally
+; Game status buffer entry at BC6C
+g$BC6C DEFB $40
+ $BC6D DEFB $08
+ $BC6E DEFB $90
+ $BC6F DEFB $A8
+ $BC70 DEFB $E8
+
+; Game status buffer entry at BC71
+g$BC71 DEFB $98
+ $BC72 DEFB $98
+ $BC73 DEFB $98
+ $BC74 DEFB $98
+ $BC75 DEFB $98
+
+; Character: Current Room ID
+@label=CurrentRoom_Wally
+g$BC76 DEFB $00      ; Current room ID for Wally.
+@label=CurrentRoom_Wilma
+ $BC77 DEFB $00      ; Current room ID for Wilma.
+@label=CurrentRoom_Tom
+ $BC78 DEFB $00      ; Current room ID for Tom.
+@label=CurrentRoom_Dick
+ $BC79 DEFB $00      ; Current room ID for Dick.
+@label=CurrentRoom_Harry
+ $BC7A DEFB $00      ; Current room ID for Harry.
+
+; Game status buffer entry at BC7B
+g$BC7B DEFB $80
+ $BC7C DEFB $80
+ $BC7D DEFB $80
+ $BC7E DEFB $80
+ $BC7F DEFB $80
+
+; Game status buffer entry at BC80
+g$BC80 DEFB $5B
+ $BC81 DEFB $5C
+ $BC82 DEFB $5D
+ $BC83 DEFB $5E
+ $BC84 DEFB $5F
+
+; Game status buffer entry at BC85
+g$BC85 DEFB $46
+ $BC86 DEFB $45
+ $BC87 DEFB $44
+ $BC88 DEFB $43
+ $BC89 DEFB $07
+
+; Game status buffer entry at BC8A
+g$BC8A DEFB $38
+ $BC8B DEFB $38
+ $BC8C DEFB $38
+ $BC8D DEFB $38
+ $BC8E DEFB $38
+
+; Game status buffer entry at BC8F
+g$BC8F DEFB $94
+ $BC90 DEFB $98
+ $BC91 DEFB $9C
+ $BC92 DEFB $A0
+ $BC93 DEFB $A4
+
+; Character: Lives
 @label=Lives_Wally
-g$BC94 DEFB $03
-
-; Lives: Wilma
+g$BC94 DEFB $03      ; Current lives for Wally.
 @label=Lives_Wilma
-g$BC95 DEFB $03
-
-; Lives: Tom
+ $BC95 DEFB $03      ; Current lives for Wilma.
 @label=Lives_Tom
-g$BC96 DEFB $03
-
-; Lives: Dick
+ $BC96 DEFB $03      ; Current lives for Tom.
 @label=Lives_Dick
-g$BC97 DEFB $03
-
-; Lives: Harry
+ $BC97 DEFB $03      ; Current lives for Dick.
 @label=Lives_Harry
-g$BC98 DEFB $03
- $BC99 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $BCA1 DEFB $00,$00,$00,$00,$00,$00,$00,$01
- $BCA9 DEFB $01,$01,$01,$01,$00,$00,$00,$00
- $BCB1 DEFB $00,$00,$00,$00,$00,$00
+ $BC98 DEFB $03      ; Current lives for Harry.
 
-; Items
+; Game status buffer entry at BC99
+g$BC99 DEFB $00
+ $BC9A DEFB $00
+ $BC9B DEFB $00
+ $BC9C DEFB $00
+ $BC9D DEFB $00
+
+; Game status buffer entry at BC9E
+g$BC9E DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $BCA6 DEFB $00,$00
+
+; Game status buffer entry at BCA8
+g$BCA8 DEFB $01,$01,$01,$01,$01,$00,$00,$00
+ $BCB0 DEFB $00,$00,$00,$00,$00,$00,$00
+
+; Character: Items
 @label=Item_1_Wally
-g$BCB7 DEFB $1F
+g$BCB7 DEFB $1F      ; Item 1 for Wally.
 @label=Item_1_Wilma
- $BCB8 DEFB $21
+ $BCB8 DEFB $21      ; Item 1 for Wilma.
 @label=Item_1_Tom
- $BCB9 DEFB $23
+ $BCB9 DEFB $23      ; Item 1 for Tom.
 @label=Item_1_Dick
- $BCBA DEFB $25
+ $BCBA DEFB $25      ; Item 1 for Dick.
 @label=Item_1_Harry
- $BCBB DEFB $27
+ $BCBB DEFB $27      ; Item 1 for Harry.
 @label=Item_2_Wally
- $BCBC DEFB $20
+ $BCBC DEFB $20      ; Item 2 for Wally.
 @label=Item_2_Wilma
- $BCBD DEFB $22
+ $BCBD DEFB $22      ; Item 2 for Wilma.
 @label=Item_2_Tom
- $BCBE DEFB $24
+ $BCBE DEFB $24      ; Item 2 for Tom.
 @label=Item_2_Dick
- $BCBF DEFB $26
+ $BCBF DEFB $26      ; Item 2 for Dick.
 @label=Item_2_Harry
- $BCC0 DEFB $28
+ $BCC0 DEFB $28      ; Item 2 for Harry.
 
-; Data block at BCC1
-b$BCC1 DEFB $14,$05,$17,$12,$08,$00,$00,$00
+; Game status buffer entry at BCC1
+g$BCC1 DEFB $14,$05,$17,$12,$08,$00,$00,$00
  $BCC9 DEFB $00,$00,$00,$00,$00,$01,$01,$18
  $BCD1 DEFB $18,$18,$01,$01,$01,$01,$01,$18
  $BCD9 DEFB $18,$01,$01,$01,$00,$00,$A7,$B0
@@ -11183,7 +11276,7 @@ b$CDF7 DEFB $80,$07  ; #ROOM(#PC).
  $CDFD DEFB $85,$AF  ; #ROOM(#PC).
  $CDFF DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$01:
+; Room #N$01: Stamp Street
 b$CE01 DEFB $80,$07  ; #ROOM(#PC).
  $CE03 DEFB $08,$E7  ; #ROOM(#PC).
  $CE05 DEFB $30,$DE  ; #ROOM(#PC).
@@ -11203,7 +11296,7 @@ b$CE01 DEFB $80,$07  ; #ROOM(#PC).
  $CE21 DEFB $BB,$48  ; #ROOM(#PC).
  $CE23 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$02:
+; Room #N$02: The Post Office
 b$CE25 DEFB $A0,$07  ; #ROOM(#PC).
  $CE27 DEFB $49,$00  ; #ROOM(#PC).
  $CE29 DEFB $EA,$04  ; #ROOM(#PC).
@@ -11214,7 +11307,7 @@ b$CE25 DEFB $A0,$07  ; #ROOM(#PC).
  $CE33 DEFB $C6,$60  ; #ROOM(#PC).
  $CE35 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$03:
+; Room #N$03: Market Street
 b$CE37 DEFB $80,$07  ; #ROOM(#PC).
  $CE39 DEFB $0D,$20  ; #ROOM(#PC).
  $CE3B DEFB $8F,$22  ; #ROOM(#PC).
@@ -11241,7 +11334,7 @@ b$CE37 DEFB $80,$07  ; #ROOM(#PC).
  $CE65 DEFB $DD,$A5  ; #ROOM(#PC).
  $CE67 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$04:
+; Room #N$04: The Super Market
 b$CE69 DEFB $A0,$07  ; #ROOM(#PC).
  $CE6B DEFB $48,$0F  ; #ROOM(#PC).
  $CE6D DEFB $E8,$57  ; #ROOM(#PC).
@@ -11252,7 +11345,7 @@ b$CE69 DEFB $A0,$07  ; #ROOM(#PC).
  $CE77 DEFB $C7,$D0  ; #ROOM(#PC).
  $CE79 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$05:
+; Room #N$05: The Park
 b$CE7B DEFB $80,$07  ; #ROOM(#PC).
  $CE7D DEFB $83,$2F  ; #ROOM(#PC).
  $CE7F DEFB $86,$20  ; #ROOM(#PC).
@@ -11261,7 +11354,7 @@ b$CE7B DEFB $80,$07  ; #ROOM(#PC).
  $CE85 DEFB $85,$1F  ; #ROOM(#PC).
  $CE87 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$06:
+; Room #N$06: Wobbly Walk
 b$CE89 DEFB $80,$07  ; #ROOM(#PC).
  $CE8B DEFB $0D,$80  ; #ROOM(#PC).
  $CE8D DEFB $8F,$82  ; #ROOM(#PC).
@@ -11281,7 +11374,7 @@ b$CE89 DEFB $80,$07  ; #ROOM(#PC).
  $CEA9 DEFB $B7,$85  ; #ROOM(#PC).
  $CEAB DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$07:
+; Room #N$07: Rubble Road
 b$CEAD DEFB $80,$07  ; #ROOM(#PC).
  $CEAF DEFB $18,$85  ; #ROOM(#PC).
  $CEB1 DEFB $18,$87  ; #ROOM(#PC).
@@ -11297,7 +11390,7 @@ b$CEAD DEFB $80,$07  ; #ROOM(#PC).
  $CEC5 DEFB $0E,$96  ; #ROOM(#PC).
  $CEC7 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$08:
+; Room #N$08: Wall Street
 b$CEC9 DEFB $80,$07  ; #ROOM(#PC).
  $CECB DEFB $D0,$3C  ; #ROOM(#PC).
  $CECD DEFB $15,$C5  ; #ROOM(#PC).
@@ -11311,7 +11404,7 @@ b$CEC9 DEFB $80,$07  ; #ROOM(#PC).
  $CEDD DEFB $0C,$65  ; #ROOM(#PC).
  $CEDF DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$09:
+; Room #N$09: Pete Street
 b$CEE1 DEFB $80,$07  ; #ROOM(#PC).
  $CEE3 DEFB $4F,$5F  ; #ROOM(#PC).
  $CEE5 DEFB $18,$85  ; #ROOM(#PC).
@@ -11325,7 +11418,7 @@ b$CEE1 DEFB $80,$07  ; #ROOM(#PC).
  $CEF5 DEFB $86,$20  ; #ROOM(#PC).
  $CEF7 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$0A:
+; Room #N$0A: The Work Shed
 b$CEF9 DEFB $80,$07  ; #ROOM(#PC).
  $CEFB DEFB $A4,$2E  ; #ROOM(#PC).
  $CEFD DEFB $BF,$5F  ; #ROOM(#PC).
@@ -11335,7 +11428,7 @@ b$CEF9 DEFB $80,$07  ; #ROOM(#PC).
  $CF05 DEFB $68,$45  ; #ROOM(#PC).
  $CF07 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$0B:
+; Room #N$0B: School Lane
 b$CF09 DEFB $80,$07  ; #ROOM(#PC).
  $CF0B DEFB $64,$62  ; #ROOM(#PC).
  $CF0D DEFB $1B,$64  ; #ROOM(#PC).
@@ -11353,7 +11446,7 @@ b$CF09 DEFB $80,$07  ; #ROOM(#PC).
  $CF25 DEFB $4D,$29  ; #ROOM(#PC).
  $CF27 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$0C:
+; Room #N$0C: The School
 b$CF29 DEFB $A0,$07  ; #ROOM(#PC).
  $CF2B DEFB $A1,$37  ; #ROOM(#PC).
  $CF2D DEFB $A1,$5F  ; #ROOM(#PC).
@@ -11371,7 +11464,7 @@ b$CF29 DEFB $A0,$07  ; #ROOM(#PC).
  $CF45 DEFB $71,$03  ; #ROOM(#PC).
  $CF47 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$0D:
+; Room #N$0D: Baker Street
 b$CF49 DEFB $80,$07  ; #ROOM(#PC).
  $CF4B DEFB $08,$07  ; #ROOM(#PC).
  $CF4D DEFB $89,$DF  ; #ROOM(#PC).
@@ -11393,7 +11486,7 @@ b$CF49 DEFB $80,$07  ; #ROOM(#PC).
  $CF6D DEFB $DE,$75  ; #ROOM(#PC).
  $CF6F DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$0E:
+; Room #N$0E: The Bakers
 b$CF71 DEFB $A0,$07  ; #ROOM(#PC).
  $CF73 DEFB $48,$07  ; #ROOM(#PC).
  $CF75 DEFB $48,$47  ; #ROOM(#PC).
@@ -11414,7 +11507,7 @@ b$CF71 DEFB $A0,$07  ; #ROOM(#PC).
  $CF93 DEFB $E1,$5E  ; #ROOM(#PC).
  $CF95 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$0F:
+; Room #N$0F: The Pub
 b$CF97 DEFB $A0,$07  ; #ROOM(#PC).
  $CF99 DEFB $D7,$27  ; #ROOM(#PC).
  $CF9B DEFB $DA,$3E  ; #ROOM(#PC).
@@ -11431,7 +11524,7 @@ b$CF97 DEFB $A0,$07  ; #ROOM(#PC).
  $CFB1 DEFB $C6,$A0  ; #ROOM(#PC).
  $CFB3 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$10:
+; Room #N$10: Motor Way
 b$CFB5 DEFB $80,$07  ; #ROOM(#PC).
  $CFB7 DEFB $6C,$9B  ; #ROOM(#PC).
  $CFB9 DEFB $6C,$EB  ; #ROOM(#PC).
@@ -11451,7 +11544,7 @@ b$CFB5 DEFB $80,$07  ; #ROOM(#PC).
  $CFD5 DEFB $E0,$23  ; #ROOM(#PC).
  $CFD7 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$11:
+; Room #N$11: The Laboratory
 b$CFD9 DEFB $A0,$07  ; #ROOM(#PC).
  $CFDB DEFB $AB,$5F  ; #ROOM(#PC).
  $CFDD DEFB $AB,$B7  ; #ROOM(#PC).
@@ -11464,7 +11557,7 @@ b$CFD9 DEFB $A0,$07  ; #ROOM(#PC).
  $CFEB DEFB $2D,$15  ; #ROOM(#PC).
  $CFED DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$12:
+; Room #N$12: The Garage
 b$CFEF DEFB $80,$07  ; #ROOM(#PC).
  $CFF1 DEFB $C2,$16  ; #ROOM(#PC).
  $CFF3 DEFB $C2,$5E  ; #ROOM(#PC).
@@ -11479,7 +11572,7 @@ b$CFEF DEFB $80,$07  ; #ROOM(#PC).
  $D005 DEFB $D4,$81  ; #ROOM(#PC).
  $D007 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$13:
+; Room #N$13: Reference Road
 b$D009 DEFB $80,$07  ; #ROOM(#PC).
  $D00B DEFB $8D,$48  ; #ROOM(#PC).
  $D00D DEFB $AA,$B8  ; #ROOM(#PC).
@@ -11505,7 +11598,7 @@ b$D009 DEFB $80,$07  ; #ROOM(#PC).
  $D035 DEFB $9D,$DE  ; #ROOM(#PC).
  $D037 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$14:
+; Room #N$14: The Library
 b$D039 DEFB $A0,$07  ; #ROOM(#PC).
  $D03B DEFB $AB,$27  ; #ROOM(#PC).
  $D03D DEFB $AB,$6F  ; #ROOM(#PC).
@@ -11522,7 +11615,7 @@ b$D039 DEFB $A0,$07  ; #ROOM(#PC).
  $D053 DEFB $49,$00  ; #ROOM(#PC).
  $D055 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$15:
+; Room #N$15: Penny Lane
 b$D057 DEFB $80,$07  ; #ROOM(#PC).
  $D059 DEFB $16,$03  ; #ROOM(#PC).
  $D05B DEFB $16,$05  ; #ROOM(#PC).
@@ -11550,7 +11643,7 @@ b$D057 DEFB $80,$07  ; #ROOM(#PC).
  $D087 DEFB $BB,$20  ; #ROOM(#PC).
  $D089 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$16:
+; Room #N$16: The Bank
 b$D08B DEFB $80,$07  ; #ROOM(#PC).
  $D08D DEFB $BC,$44  ; #ROOM(#PC).
  $D08F DEFB $3D,$4D  ; #ROOM(#PC).
@@ -11570,7 +11663,7 @@ b$D08B DEFB $80,$07  ; #ROOM(#PC).
  $D0AB DEFB $49,$00  ; #ROOM(#PC).
  $D0AD DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$17:
+; Room #N$17: Wally's House
 b$D0AF DEFB $A0,$07  ; #ROOM(#PC).
  $D0B1 DEFB $C4,$07  ; #ROOM(#PC).
  $D0B3 DEFB $AB,$1F  ; #ROOM(#PC).
@@ -11582,7 +11675,7 @@ b$D0AF DEFB $A0,$07  ; #ROOM(#PC).
  $D0BF DEFB $49,$00  ; #ROOM(#PC).
  $D0C1 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$18:
+; Room #N$18: Meat Street
 b$D0C3 DEFB $80,$07  ; #ROOM(#PC).
  $D0C5 DEFB $0D,$20  ; #ROOM(#PC).
  $D0C7 DEFB $8F,$22  ; #ROOM(#PC).
@@ -11602,7 +11695,7 @@ b$D0C3 DEFB $80,$07  ; #ROOM(#PC).
  $D0E3 DEFB $5F,$34  ; #ROOM(#PC).
  $D0E5 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$19:
+; Room #N$19: The Butchers
 b$D0E7 DEFB $A0,$07  ; #ROOM(#PC).
  $D0E9 DEFB $48,$2F  ; #ROOM(#PC).
  $D0EB DEFB $48,$6F  ; #ROOM(#PC).
@@ -11621,7 +11714,7 @@ b$D0E7 DEFB $A0,$07  ; #ROOM(#PC).
  $D105 DEFB $4C,$0E  ; #ROOM(#PC).
  $D107 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$1A:
+; Room #N$1A: Trunk Road
 b$D109 DEFB $80,$07  ; #ROOM(#PC).
  $D10B DEFB $63,$05  ; #ROOM(#PC).
  $D10D DEFB $07,$DF  ; #ROOM(#PC).
@@ -11637,7 +11730,7 @@ b$D109 DEFB $80,$07  ; #ROOM(#PC).
  $D121 DEFB $67,$85  ; #ROOM(#PC).
  $D123 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$1B:
+; Room #N$1B: The Zoo
 b$D125 DEFB $80,$07  ; #ROOM(#PC).
  $D127 DEFB $64,$83  ; #ROOM(#PC).
  $D129 DEFB $63,$85  ; #ROOM(#PC).
@@ -11647,7 +11740,7 @@ b$D125 DEFB $80,$07  ; #ROOM(#PC).
  $D131 DEFB $E5,$03  ; #ROOM(#PC).
  $D133 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$1C:
+; Room #N$1C: Rail Road
 b$D135 DEFB $80,$07  ; #ROOM(#PC).
  $D137 DEFB $A3,$06  ; #ROOM(#PC).
  $D139 DEFB $A3,$26  ; #ROOM(#PC).
@@ -11664,7 +11757,7 @@ b$D135 DEFB $80,$07  ; #ROOM(#PC).
  $D14F DEFB $73,$2C  ; #ROOM(#PC).
  $D151 DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$1D:
+; Room #N$1D: The Station
 b$D153 DEFB $80,$07  ; #ROOM(#PC).
  $D155 DEFB $0D,$00  ; #ROOM(#PC).
  $D157 DEFB $0D,$80  ; #ROOM(#PC).
@@ -11679,7 +11772,7 @@ b$D153 DEFB $80,$07  ; #ROOM(#PC).
  $D169 DEFB $73,$AC  ; #ROOM(#PC).
  $D16B DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$1E:
+; Room #N$1E: The Docks
 b$D16D DEFB $A0,$07  ; #ROOM(#PC).
  $D16F DEFB $83,$77  ; #ROOM(#PC).
  $D171 DEFB $D5,$0C  ; #ROOM(#PC).
@@ -11689,7 +11782,7 @@ b$D16D DEFB $A0,$07  ; #ROOM(#PC).
  $D179 DEFB $D6,$C0  ; #ROOM(#PC).
  $D17B DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$1F:
+; Room #N$1F: The Sewer
 b$D17D DEFB $80,$07  ; #ROOM(#PC).
  $D17F DEFB $01,$04  ; #ROOM(#PC).
  $D181 DEFB $02,$D4  ; #ROOM(#PC).
@@ -11701,7 +11794,7 @@ b$D17D DEFB $80,$07  ; #ROOM(#PC).
  $D18D DEFB $6D,$DE  ; #ROOM(#PC).
  $D18F DEFB $7F,$00  ; #ROOM(#PC).
 
-; Room #N$20:
+; Room #N$20: The Cave
 b$D191 DEFB $80,$07  ; #ROOM(#PC).
  $D193 DEFB $52,$00  ; #ROOM(#PC).
  $D195 DEFB $52,$18  ; #ROOM(#PC).
@@ -12869,9 +12962,10 @@ c$E77A PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $E799 POP HL        ; }
  $E79A RET           ; Return.
 
-; Routine at E79B
+; Handler: Change Characters
 ;
 ; Used by the routine at #R$8184.
+@label=Handler_ChangeCharacters
 c$E79B LD A,$F7        ; {Read from the keyboard;
  $E79D IN A,($FE)      ; #TABLE(default,centre,centre,centre,centre,centre,centre)
                        ; { =h,r2 Port Number | =h,c5 Bit }
@@ -12879,27 +12973,47 @@ c$E79B LD A,$F7        ; {Read from the keyboard;
                        ; { #N$F7 | 1 | 2 | 3 | 4 | 5 }
                        ; TABLE#}
  $E79F OR %11100000    ; Set bits 5-7.
- $E7A1 XOR %11111111   ;
- $E7A3 RET Z           ;
- $E7A4 LD B,(IY+$0F)   ;
- $E7A7 PUSH IY         ;
- $E7A9 LD IY,$BC67     ;
-*$E7AD RRCA            ;
- $E7AE JR C,$E7B4      ;
- $E7B0 INC IY          ;
- $E7B2 JR $E7AD        ;
-*$E7B4 LD A,(IY+$0F)   ;
- $E7B7 CP B            ;
- $E7B8 JR Z,$E7C0      ;
- $E7BA CALL $BA6E      ;
-*$E7BD POP IY          ;
+ $E7A1 XOR %11111111   ; {Return if no keys have been pressed.
+ $E7A3 RET Z           ; }
+; Fetch room ID for the current character.
+ $E7A4 LD B,(IY+$0F)   ; #REGb=*#REGiy+#N$0F.
+ $E7A7 PUSH IY         ; Stash the character pointer in #REGiy on the stack.
+; Loop through the port bits and correlate them with the base character
+; reference in #R$BC67(#REGiy).
+; .
+; This associates each character with a keypress.
+; #TABLE(default,centre,centre)
+; { =h Key | =h Character }
+; { #N$01 | Wally }
+; { #N$02 | Wilma }
+; { #N$03 | Tom }
+; { #N$04 | Dick }
+; { #N$05 | Harry }
+; TABLE#
+ $E7A9 LD IY,$BC67     ; #REGiy=#R$BC67.
+@label=ChangeCharacters_WhichCharacter_Loop
+*$E7AD RRCA            ; Rotate #REGa right once.
+ $E7AE JR C,$E7B4      ; If this key has been pressed, jump to #R$E7B4.
+ $E7B0 INC IY          ; Increment #REGiy by one.
+ $E7B2 JR $E7AD        ; Jump to #R$E7AD.
+; Check if the current character is in the same room as the selected character.
+@label=ChangeCharacters_CheckRoom
+*$E7B4 LD A,(IY+$0F)   ; #REGa=*#REGiy+#N$0F.
+ $E7B7 CP B            ; {If this is the same room, jump to #R$E7C0.
+ $E7B8 JR Z,$E7C0      ; }
+ $E7BA CALL $BA6E      ; Call #R$BA6E.
+@label=ChangeCharacters_Return
+*$E7BD POP IY          ; Restore the character pointer in #REGiy from the
+                       ; stack.
  $E7BF RET             ; Return.
-*$E7C0 CALL $A921      ;
- $E7C3 JR Z,$E7BD      ;
- $E7C5 LD ($B09D),IY   ;
- $E7C9 POP IY          ;
- $E7CB LD A,B          ;
- $E7CC CALL $AC69      ;
+@label=ChangeCharacters_Process
+*$E7C0 CALL $A921      ; Call #R$A921.
+ $E7C3 JR Z,$E7BD      ; If the selected character is the current character,
+                       ; jump to #R$E7BD.
+ $E7C5 LD ($B09D),IY   ; Write #REGiy to *#R$B09D.
+ $E7C9 POP IY          ; Restore #REGiy from the stack.
+ $E7CB LD A,B          ; #REGa=#REGb.
+ $E7CC CALL $AC69      ; Call #R$AC69.
  $E7CF LD A,(HL)       ;
  $E7D0 LD (IY+$69),A   ;
  $E7D3 INC HL          ;
@@ -12909,517 +13023,102 @@ c$E79B LD A,$F7        ; {Read from the keyboard;
  $E7D9 LD A,(HL)       ;
  $E7DA LD (IY+$73),A   ;
  $E7DD LD (IY+$6E),$05 ;
- $E7E1 LD IY,($B09D)   ;
- $E7E5 CALL $E3FD      ;
- $E7E8 RET             ;
-*$E7E9 SUB L           ;
- $E7EA EX DE,HL        ;
- $E7EB DEFB $ED,$EB    ;
- $E7ED OR E            ;
- $E7EE DEFB $ED,$2B    ;
- $E7F0 CALL PE,$EBC4   ;
- $E7F3 JP PO,$FEEB     ;
- $E7F6 EX DE,HL        ;
- $E7F7 INC (HL)        ;
- $E7F8 CALL PE,$EB01   ;
- $E7FB RRCA            ;
- $E7FC EX DE,HL        ;
- $E7FD AND E           ;
- $E7FE LDD             ;
- $E800 DEFB $ED,$AC    ;
- $E802 DEFB $ED,$BC    ;
- $E804 CALL PE,$EB79   ;
- $E807 RST $30         ;
- $E808 DEFB $ED,$C6    ;
- $E80A DEFB $ED,$C7    ;
- $E80C RST $28         ;
- $E80D LD (HL),A       ;
- $E80E POP AF          ;
- $E80F INC B           ;
- $E810 LD C,B          ;
- $E811 LD H,B          ;
- $E812 DEC B           ;
- $E813 EX AF,AF'       ;
- $E814 LD BC,$0118     ;
- $E817 NOP             ;
- $E818 RST $30         ;
- $E819 DEC B           ;
- $E81A NOP             ;
- $E81B LD (BC),A       ;
- $E81C EX AF,AF'       ;
- $E81D OR $04          ;
- $E81F LD C,B          ;
- $E820 SBC A,B         ;
- $E821 LD BC,$0210     ;
- $E824 EX AF,AF'       ;
- $E825 RST $30         ;
- $E826 DEC B           ;
- $E827 LD (BC),A       ;
- $E828 LD (BC),A       ;
- $E829 INC B           ;
- $E82A OR $04          ;
- $E82C LD C,B          ;
- $E82D LD H,B          ;
- $E82E LD B,$18        ;
- $E830 RST $30         ;
- $E831 ADD HL,BC       ;
- $E832 OR $04          ;
- $E834 LD C,B          ;
- $E835 LD H,B          ;
- $E836 LD B,$00        ;
- $E838 RST $30         ;
- $E839 ADD HL,BC       ;
- $E83A OR $FF          ;
- $E83C INC B           ;
- $E83D RET PO          ;
- $E83E SUB B           ;
- $E83F RST $30         ;
- $E840 RLCA            ;
- $E841 OR $FF          ;
- $E843 NOP             ;
- $E844 NOP             ;
- $E845 RST $30         ;
- $E846 NOP             ;
- $E847 OR $01          ;
- $E849 DEC D           ;
- $E84A LD BC,$0526     ;
- $E84D LD (BC),A       ;
- $E84E INC B           ;
- $E84F JR $E7E9        ;
- $E851 RST $30         ;
- $E852 DEC B           ;
- $E853 ADD HL,BC       ;
- $E854 LD (BC),A       ;
- $E855 LD (BC),A       ;
- $E856 OR $FF          ;
- $E858 RST $38         ;
- $E859 DEC B           ;
- $E85A DJNZ $E85C      ;
-*$E85C NOP             ;
- $E85D RST $30         ;
- $E85E DEC B           ;
- $E85F INC E           ;
- $E860 NOP             ;
- $E861 OR $00          ;
- $E863 LD BC,$00F7     ;
- $E866 OR $04          ;
- $E868 RET P           ;
- $E869 SBC A,B         ;
- $E86A LD BC,$021F     ;
- $E86D RLCA            ;
- $E86E DEC B           ;
- $E86F INC B           ;
- $E870 RST $30         ;
- $E871 DEC B           ;
- $E872 DEC B           ;
- $E873 LD (BC),A       ;
- $E874 INC C           ;
- $E875 OR $FF          ;
- $E877 NOP             ;
- $E878 NOP             ;
- $E879 RST $30         ;
- $E87A NOP             ;
- $E87B OR $FF          ;
- $E87D RST $38         ;
- $E87E RST $38         ;
- $E87F DEC B           ;
- $E880 INC B           ;
- $E881 NOP             ;
- $E882 NOP             ;
- $E883 RST $30         ;
- $E884 NOP             ;
- $E885 OR $05          ;
- $E887 INC B           ;
- $E888 INC BC          ;
- $E889 NOP             ;
- $E88A INC B           ;
- $E88B LD (BC),A       ;
- $E88C LD B,$F7        ;
- $E88E DEC B           ;
- $E88F LD E,$F6        ;
- $E891 NOP             ;
- $E892 LD BC,$05F7     ;
- $E895 RRA             ;
- $E896 NOP             ;
- $E897 OR $05          ;
- $E899 LD BC,$0801     ;
- $E89C LD BC,$0406     ;
- $E89F ADD A,B         ;
- $E8A0 SBC A,B         ;
- $E8A1 RST $30         ;
- $E8A2 DEC B           ;
- $E8A3 DEC C           ;
- $E8A4 LD (BC),A       ;
- $E8A5 ADD HL,BC       ;
- $E8A6 LD B,$0C        ;
- $E8A8 INC C           ;
- $E8A9 RRCA            ;
- $E8AA LD B,$0C        ;
- $E8AC INC C           ;
- $E8AD INC DE          ;
- $E8AE OR $FF          ;
- $E8B0 DEC B           ;
- $E8B1 LD BC,$1001     ;
- $E8B4 LD (BC),A       ;
- $E8B5 INC B           ;
- $E8B6 LD BC,$0003     ;
- $E8B9 NOP             ;
- $E8BA RST $30         ;
- $E8BB DEC B           ;
- $E8BC INC C           ;
- $E8BD INC BC          ;
- $E8BE INC B           ;
- $E8BF LD BC,$F603     ;
- $E8C2 INC B           ;
- $E8C3 RET P           ;
- $E8C4 SBC A,B         ;
- $E8C5 RST $30         ;
- $E8C6 LD A,(BC)       ;
- $E8C7 OR $FF          ;
- $E8C9 NOP             ;
- $E8CA NOP             ;
- $E8CB RST $30         ;
- $E8CC NOP             ;
- $E8CD OR $00          ;
- $E8CF LD BC,$00F7     ;
- $E8D2 OR $00          ;
- $E8D4 LD (BC),A       ;
- $E8D5 RST $30         ;
- $E8D6 NOP             ;
- $E8D7 OR $03          ;
- $E8D9 NOP             ;
- $E8DA DEC E           ;
- $E8DB LD BC,$011C     ;
- $E8DE RRCA            ;
- $E8DF INC B           ;
- $E8E0 LD A,B          ;
- $E8E1 SBC A,B         ;
- $E8E2 DEC B           ;
- $E8E3 EX AF,AF'       ;
- $E8E4 RST $30         ;
- $E8E5 DEC B           ;
- $E8E6 RLCA            ;
- $E8E7 LD (BC),A       ;
- $E8E8 DEC B           ;
- $E8E9 OR $03          ;
- $E8EB NOP             ;
- $E8EC DEC DE          ;
- $E8ED LD BC,$040E     ;
- $E8F0 LD A,B          ;
- $E8F1 SBC A,B         ;
- $E8F2 DEC B           ;
- $E8F3 LD BC,$05F7     ;
- $E8F6 EX AF,AF'       ;
- $E8F7 LD (BC),A       ;
- $E8F8 INC BC          ;
- $E8F9 OR $FF          ;
- $E8FB LD B,$19        ;
- $E8FD NOP             ;
- $E8FE NOP             ;
- $E8FF RST $30         ;
- $E900 ADD HL,BC       ;
- $E901 OR $06          ;
- $E903 LD HL,$0007     ;
- $E906 LD HL,$0000     ;
- $E909 RST $30         ;
- $E90A ADD HL,BC       ;
- $E90B OR $05          ;
- $E90D DJNZ $E910      ;
- $E90F ADD HL,DE       ;
-*$E910 LD BC,$0221     ;
- $E913 DEC C           ;
- $E914 NOP             ;
- $E915 NOP             ;
- $E916 RST $30         ;
- $E917 DEC B           ;
- $E918 INC B           ;
- $E919 LD BC,$0221     ;
- $E91C DEC BC          ;
- $E91D OR $FF          ;
- $E91F NOP             ;
- $E920 NOP             ;
- $E921 RST $30         ;
- $E922 NOP             ;
- $E923 OR $FF          ;
- $E925 INC B           ;
- $E926 RET P           ;
- $E927 SBC A,B         ;
- $E928 RST $30         ;
- $E929 LD A,(BC)       ;
- $E92A OR $FF          ;
- $E92C NOP             ;
- $E92D NOP             ;
- $E92E RST $30         ;
- $E92F NOP             ;
- $E930 OR $FF          ;
- $E932 DEC B           ;
- $E933 INC B           ;
- $E934 LD BC,$0222     ;
- $E937 NOP             ;
- $E938 NOP             ;
- $E939 NOP             ;
- $E93A RST $30         ;
- $E93B DEC B           ;
- $E93C LD C,$01        ;
- $E93E LD ($FFF6),HL   ;
- $E941 RST $38         ;
- $E942 NOP             ;
- $E943 NOP             ;
- $E944 RST $30         ;
- $E945 NOP             ;
- $E946 OR $00          ;
- $E948 LD BC,$00F7     ;
- $E94B OR $05          ;
- $E94D INC B           ;
- $E94E LD (BC),A       ;
- $E94F LD A,(BC)       ;
- $E950 INC BC          ;
- $E951 NOP             ;
- $E952 LD (DE),A       ;
- $E953 INC BC          ;
- $E954 LD BC,$0122     ;
- $E957 ADD HL,BC       ;
- $E958 INC B           ;
- $E959 LD H,B          ;
- $E95A SBC A,B         ;
- $E95B RST $30         ;
- $E95C DEC B           ;
- $E95D INC BC          ;
- $E95E LD (BC),A       ;
- $E95F NOP             ;
- $E960 OR $FF          ;
- $E962 NOP             ;
- $E963 NOP             ;
- $E964 RST $30         ;
- $E965 NOP             ;
- $E966 OR $04          ;
- $E968 RET C           ;
- $E969 SBC A,B         ;
- $E96A LD BC,$010D     ;
- $E96D RRA             ;
- $E96E RST $30         ;
- $E96F DEC B           ;
- $E970 RLA             ;
- $E971 LD (BC),A       ;
- $E972 RLCA            ;
- $E973 OR $02          ;
- $E975 DEC BC          ;
- $E976 INC B           ;
- $E977 INC A           ;
- $E978 SBC A,B         ;
- $E979 LD BC,$0104     ;
- $E97C LD DE,$1005     ;
- $E97F RST $30         ;
- $E980 DEC B           ;
- $E981 DEC BC          ;
- $E982 LD (BC),A       ;
- $E983 LD B,$F6        ;
- $E985 RST $38         ;
- $E986 INC B           ;
- $E987 EX AF,AF'       ;
- $E988 SUB B           ;
- $E989 RST $30         ;
- $E98A RLCA            ;
- $E98B OR $04          ;
- $E98D NOP             ;
- $E98E SBC A,B         ;
- $E98F RST $30         ;
- $E990 LD A,(BC)       ;
- $E991 OR $FF          ;
- $E993 DEC B           ;
- $E994 LD (BC),A       ;
- $E995 LD BC,$000B     ;
- $E998 NOP             ;
- $E999 RST $30         ;
- $E99A NOP             ;
- $E99B OR $05          ;
- $E99D LD (BC),A       ;
- $E99E LD BC,$0302     ;
- $E9A1 NOP             ;
- $E9A2 DEC BC          ;
- $E9A3 NOP             ;
- $E9A4 LD BC,$05F7     ;
- $E9A7 DJNZ $E9A9      ;
-*$E9A9 OR $05          ;
- $E9AB LD (BC),A       ;
- $E9AC LD BC,$0307     ;
- $E9AF NOP             ;
- $E9B0 DEC BC          ;
- $E9B1 INC BC          ;
- $E9B2 LD BC,$0002     ;
- $E9B5 LD (BC),A       ;
- $E9B6 RST $30         ;
- $E9B7 DEC B           ;
- $E9B8 LD DE,$0701     ;
- $E9BB OR $FF          ;
- $E9BD RST $38         ;
- $E9BE NOP             ;
- $E9BF NOP             ;
- $E9C0 RST $30         ;
- $E9C1 NOP             ;
- $E9C2 OR $04          ;
- $E9C4 CALL PE,$0598   ;
- $E9C7 LD (BC),A       ;
- $E9C8 LD BC,$F713     ;
- $E9CB DEC B           ;
- $E9CC LD (DE),A       ;
- $E9CD EX AF,AF'       ;
- $E9CE OR $04          ;
- $E9D0 CALL PE,$0598   ;
- $E9D3 INC B           ;
- $E9D4 LD BC,$F71E     ;
- $E9D7 DEC B           ;
- $E9D8 INC DE          ;
- $E9D9 EX AF,AF'       ;
- $E9DA OR $04          ;
- $E9DC CALL PE,$0598   ;
- $E9DF EX AF,AF'       ;
- $E9E0 LD BC,$F71A     ;
- $E9E3 DEC B           ;
- $E9E4 INC D           ;
- $E9E5 EX AF,AF'       ;
- $E9E6 OR $04          ;
- $E9E8 CALL PE,$0598   ;
- $E9EB DJNZ $E9EE      ;
- $E9ED LD BC,$05F7     ;
- $E9F0 DEC D           ;
- $E9F1 EX AF,AF'       ;
- $E9F2 OR $04          ;
- $E9F4 CALL PE,$0598   ;
- $E9F7 LD BC,$0501     ;
- $E9FA RST $30         ;
- $E9FB DEC B           ;
- $E9FC LD D,$05        ;
- $E9FE LD BC,$F608     ;
- $EA01 INC B           ;
- $EA02 CALL PE,$0598   ;
- $EA05 LD (BC),A       ;
- $EA06 LD B,$13        ;
- $EA08 RST $30         ;
- $EA09 ADD HL,BC       ;
- $EA0A OR $04          ;
- $EA0C CALL PE,$0598   ;
- $EA0F INC B           ;
- $EA10 LD B,$1E        ;
- $EA12 RST $30         ;
- $EA13 ADD HL,BC       ;
- $EA14 OR $04          ;
- $EA16 CALL PE,$0598   ;
- $EA19 EX AF,AF'       ;
- $EA1A LD B,$1A        ;
- $EA1C RST $30         ;
- $EA1D ADD HL,BC       ;
- $EA1E OR $04          ;
- $EA20 CALL PE,$0598   ;
- $EA23 DJNZ $EA2B      ;
- $EA25 LD BC,$09F7     ;
- $EA28 OR $04          ;
- $EA2A CALL PE,$0598   ;
- $EA2D LD BC,$0506     ;
- $EA30 RST $30         ;
- $EA31 ADD HL,BC       ;
- $EA32 OR $FF          ;
- $EA34 NOP             ;
- $EA35 NOP             ;
- $EA36 RST $30         ;
- $EA37 NOP             ;
- $EA38 OR $FF          ;
- $EA3A RST $38         ;
- $EA3B NOP             ;
- $EA3C NOP             ;
- $EA3D RST $30         ;
- $EA3E NOP             ;
- $EA3F OR $03          ;
- $EA41 NOP             ;
- $EA42 LD D,$02        ;
- $EA44 LD BC,$0B02     ;
- $EA47 NOP             ;
- $EA48 LD BC,$00F7     ;
- $EA4B OR $01          ;
- $EA4D LD D,$01        ;
- $EA4F JR NZ,$EA56     ;
- $EA51 DJNZ $EA4A      ;
- $EA53 DEC B           ;
- $EA54 LD B,$02        ;
-*$EA56 LD BC,$FFF6     ;
- $EA59 INC B           ;
- $EA5A NOP             ;
- $EA5B SBC A,B         ;
- $EA5C RST $30         ;
- $EA5D LD A,(BC)       ;
- $EA5E OR $FF          ;
- $EA60 NOP             ;
- $EA61 NOP             ;
- $EA62 RST $30         ;
- $EA63 DEC B           ;
- $EA64 JR $EA66        ;
-*$EA66 OR $07          ;
- $EA68 NOP             ;
- $EA69 INC C           ;
- $EA6A LD B,$0C        ;
- $EA6C RST $30         ;
- $EA6D ADD HL,BC       ;
- $EA6E OR $FF          ;
- $EA70 RST $38         ;
- $EA71 NOP             ;
- $EA72 NOP             ;
- $EA73 RST $30         ;
- $EA74 NOP             ;
- $EA75 OR $FF          ;
- $EA77 INC BC          ;
- $EA78 LD BC,$021B     ;
- $EA7B INC BC          ;
- $EA7C DEC B           ;
- $EA7D LD (BC),A       ;
- $EA7E NOP             ;
- $EA7F NOP             ;
- $EA80 RST $30         ;
- $EA81 NOP             ;
- $EA82 DEC B           ;
- $EA83 LD A,(BC)       ;
- $EA84 OR $03          ;
- $EA86 LD BC,$021B     ;
- $EA89 INC BC          ;
- $EA8A RST $30         ;
- $EA8B DEC B           ;
- $EA8C ADD HL,DE       ;
- $EA8D OR $00          ;
- $EA8F LD BC,$00F7     ;
- $EA92 OR $FF          ;
- $EA94 INC BC          ;
- $EA95 NOP             ;
- $EA96 RLA             ;
- $EA97 RST $30         ;
- $EA98 DEC B           ;
- $EA99 LD A,(DE)       ;
- $EA9A OR $00          ;
- $EA9C NOP             ;
- $EA9D RST $30         ;
- $EA9E NOP             ;
- $EA9F OR $FF          ;
- $EAA1 DEC B           ;
- $EAA2 EX AF,AF'       ;
- $EAA3 NOP             ;
- $EAA4 NOP             ;
- $EAA5 RST $30         ;
- $EAA6 NOP             ;
- $EAA7 OR $03          ;
- $EAA9 NOP             ;
- $EAAA DEC E           ;
- $EAAB LD (BC),A       ;
- $EAAC DEC B           ;
- $EAAD RST $30         ;
- $EAAE DEC B           ;
- $EAAF RRCA            ;
- $EAB0 LD (BC),A       ;
- $EAB1 LD A,(BC)       ;
- $EAB2 OR $01          ;
- $EAB4 LD E,$F7        ;
- $EAB6 DEC B           ;
- $EAB7 DEC DE          ;
- $EAB8 OR $00          ;
- $EABA LD BC,$00F7     ;
- $EABD OR $FF          ;
+ $E7E1 LD IY,($B09D)   ; #REGiy=*#R$B09D.
+ $E7E5 CALL $E3FD      ; Call #R$E3FD.
+ $E7E8 RET             ; Return.
+
+; Data block at E7E9
+b$E7E9 DEFB $95,$EB,$ED,$EB,$B3,$ED,$2B,$EC
+ $E7F1 DEFB $C4,$EB,$E2,$EB,$FE,$EB,$34,$EC
+ $E7F9 DEFB $01,$EB,$0F,$EB,$A3,$ED,$A8,$ED
+ $E801 DEFB $AC,$ED,$BC,$EC,$79,$EB,$F7,$ED
+ $E809 DEFB $C6,$ED,$C7,$EF,$77,$F1,$04,$48
+ $E811 DEFB $60,$05,$08,$01,$18,$01,$00,$F7
+ $E819 DEFB $05,$00,$02,$08,$F6,$04,$48,$98
+ $E821 DEFB $01,$10,$02,$08,$F7,$05,$02,$02
+ $E829 DEFB $04,$F6,$04,$48,$60,$06,$18,$F7
+ $E831 DEFB $09,$F6,$04,$48,$60,$06,$00,$F7
+ $E839 DEFB $09,$F6,$FF,$04,$E0,$90,$F7,$07
+ $E841 DEFB $F6,$FF,$00,$00,$F7,$00,$F6,$01
+ $E849 DEFB $15,$01,$26,$05,$02,$04,$18,$98
+ $E851 DEFB $F7,$05,$09,$02,$02,$F6,$FF,$FF
+ $E859 DEFB $05,$10,$00,$00,$F7,$05,$1C,$00
+ $E861 DEFB $F6,$00,$01,$F7,$00,$F6,$04,$F0
+ $E869 DEFB $98,$01,$1F,$02,$07,$05,$04,$F7
+ $E871 DEFB $05,$05,$02,$0C,$F6,$FF,$00,$00
+ $E879 DEFB $F7,$00,$F6,$FF,$FF,$FF,$05,$04
+ $E881 DEFB $00,$00,$F7,$00,$F6,$05,$04,$03
+ $E889 DEFB $00,$04,$02,$06,$F7,$05,$1E,$F6
+ $E891 DEFB $00,$01,$F7,$05,$1F,$00,$F6,$05
+ $E899 DEFB $01,$01,$08,$01,$06,$04,$80,$98
+ $E8A1 DEFB $F7,$05,$0D,$02,$09,$06,$0C,$0C
+ $E8A9 DEFB $0F,$06,$0C,$0C,$13,$F6,$FF,$05
+ $E8B1 DEFB $01,$01,$10,$02,$04,$01,$03,$00
+ $E8B9 DEFB $00,$F7,$05,$0C,$03,$04,$01,$03
+ $E8C1 DEFB $F6,$04,$F0,$98,$F7,$0A,$F6,$FF
+ $E8C9 DEFB $00,$00,$F7,$00,$F6,$00,$01,$F7
+ $E8D1 DEFB $00,$F6,$00,$02,$F7,$00,$F6,$03
+ $E8D9 DEFB $00,$1D,$01,$1C,$01,$0F,$04,$78
+ $E8E1 DEFB $98,$05,$08,$F7,$05,$07,$02,$05
+ $E8E9 DEFB $F6,$03,$00,$1B,$01,$0E,$04,$78
+ $E8F1 DEFB $98,$05,$01,$F7,$05,$08,$02,$03
+ $E8F9 DEFB $F6,$FF,$06,$19,$00,$00,$F7,$09
+ $E901 DEFB $F6,$06,$21,$07,$00,$21,$00,$00
+ $E909 DEFB $F7,$09,$F6,$05,$10,$01,$19,$01
+ $E911 DEFB $21,$02,$0D,$00,$00,$F7,$05,$04
+ $E919 DEFB $01,$21,$02,$0B,$F6,$FF,$00,$00
+ $E921 DEFB $F7,$00,$F6,$FF,$04,$F0,$98,$F7
+ $E929 DEFB $0A,$F6,$FF,$00,$00,$F7,$00,$F6
+ $E931 DEFB $FF,$05,$04,$01,$22,$02,$00,$00
+ $E939 DEFB $00,$F7,$05,$0E,$01,$22,$F6,$FF
+ $E941 DEFB $FF,$00,$00,$F7,$00,$F6,$00,$01
+ $E949 DEFB $F7,$00,$F6,$05,$04,$02,$0A,$03
+ $E951 DEFB $00,$12,$03,$01,$22,$01,$09,$04
+ $E959 DEFB $60,$98,$F7,$05,$03,$02,$00,$F6
+ $E961 DEFB $FF,$00,$00,$F7,$00,$F6,$04,$D8
+ $E969 DEFB $98,$01,$0D,$01,$1F,$F7,$05,$17
+ $E971 DEFB $02,$07,$F6,$02,$0B,$04,$3C,$98
+ $E979 DEFB $01,$04,$01,$11,$05,$10,$F7,$05
+ $E981 DEFB $0B,$02,$06,$F6,$FF,$04,$08,$90
+ $E989 DEFB $F7,$07,$F6,$04,$00,$98,$F7,$0A
+ $E991 DEFB $F6,$FF,$05,$02,$01,$0B,$00,$00
+ $E999 DEFB $F7,$00,$F6,$05,$02,$01,$02,$03
+ $E9A1 DEFB $00,$0B,$00,$01,$F7,$05,$10,$00
+ $E9A9 DEFB $F6,$05,$02,$01,$07,$03,$00,$0B
+ $E9B1 DEFB $03,$01,$02,$00,$02,$F7,$05,$11
+ $E9B9 DEFB $01,$07,$F6,$FF,$FF,$00,$00,$F7
+ $E9C1 DEFB $00,$F6,$04,$EC,$98,$05,$02,$01
+ $E9C9 DEFB $13,$F7,$05,$12,$08,$F6,$04,$EC
+ $E9D1 DEFB $98,$05,$04,$01,$1E,$F7,$05,$13
+ $E9D9 DEFB $08,$F6,$04,$EC,$98,$05,$08,$01
+ $E9E1 DEFB $1A,$F7,$05,$14,$08,$F6,$04,$EC
+ $E9E9 DEFB $98,$05,$10,$01,$01,$F7,$05,$15
+ $E9F1 DEFB $08,$F6,$04,$EC,$98,$05,$01,$01
+ $E9F9 DEFB $05,$F7,$05,$16,$05,$01,$08,$F6
+ $EA01 DEFB $04,$EC,$98,$05,$02,$06,$13,$F7
+ $EA09 DEFB $09,$F6,$04,$EC,$98,$05,$04,$06
+ $EA11 DEFB $1E,$F7,$09,$F6,$04,$EC,$98,$05
+ $EA19 DEFB $08,$06,$1A,$F7,$09,$F6,$04,$EC
+ $EA21 DEFB $98,$05,$10,$06,$01,$F7,$09,$F6
+ $EA29 DEFB $04,$EC,$98,$05,$01,$06,$05,$F7
+ $EA31 DEFB $09,$F6,$FF,$00,$00,$F7,$00,$F6
+ $EA39 DEFB $FF,$FF,$00,$00,$F7,$00,$F6,$03
+ $EA41 DEFB $00,$16,$02,$01,$02,$0B,$00,$01
+ $EA49 DEFB $F7,$00,$F6,$01,$16,$01,$20,$05
+ $EA51 DEFB $10,$F7,$05,$06,$02,$01,$F6,$FF
+ $EA59 DEFB $04,$00,$98,$F7,$0A,$F6,$FF,$00
+ $EA61 DEFB $00,$F7,$05,$18,$00,$F6,$07,$00
+ $EA69 DEFB $0C,$06,$0C,$F7,$09,$F6,$FF,$FF
+ $EA71 DEFB $00,$00,$F7,$00,$F6,$FF,$03,$01
+ $EA79 DEFB $1B,$02,$03,$05,$02,$00,$00,$F7
+ $EA81 DEFB $00,$05,$0A,$F6,$03,$01,$1B,$02
+ $EA89 DEFB $03,$F7,$05,$19,$F6,$00,$01,$F7
+ $EA91 DEFB $00,$F6,$FF,$03,$00,$17,$F7,$05
+ $EA99 DEFB $1A,$F6,$00,$00,$F7,$00,$F6,$FF
+ $EAA1 DEFB $05,$08,$00,$00,$F7,$00,$F6,$03
+ $EAA9 DEFB $00,$1D,$02,$05,$F7,$05,$0F,$02
+ $EAB1 DEFB $0A,$F6,$01,$1E,$F7,$05,$1B,$F6
+ $EAB9 DEFB $00,$01,$F7,$00,$F6,$FF
 
 ; Routine at EABF
 ;
@@ -13470,8 +13169,7 @@ c$EABF LD A,(IY+$0F) ;
  $EAFE POP HL        ;
  $EAFF PUSH DE       ;
  $EB00 RET           ;
-; This entry point is used by the routine at #R$E79B.
-*$EB01 LD A,$01      ;
+ $EB01 LD A,$01      ;
  $EB03 LD ($EB54),A  ;
  $EB06 LD B,(IY-$2D) ;
  $EB09 CALL $AA30    ;
@@ -13542,8 +13240,6 @@ c$EB55 LD BC,$0000   ; #REGbc=#N($0000,$04,$04).
  $EB78 RET           ; Return.
 
 ; Routine at EB79
-;
-; Used by the routine at #R$E79B.
 c$EB79 LD A,(HL)     ;
  $EB7A INC HL        ;
  $EB7B LD E,(HL)     ;
@@ -13590,8 +13286,7 @@ c$EB79 LD A,(HL)     ;
  $EBBD JP $EACB      ;
 *$EBC0 POP HL        ;
  $EBC1 JP $EAE3      ;
-; This entry point is used by the routine at #R$E79B.
-*$EBC4 LD A,(IY+$05) ;
+ $EBC4 LD A,(IY+$05) ;
  $EBC7 SUB (HL)      ;
  $EBC8 SUB $04       ;
  $EBCA CP $F8        ;
@@ -15518,70 +15213,7 @@ b$FAEF DEFB $00,$DD,$E5,$DD,$21,$A9,$80,$F5
 
 ; Attribute Shadow Buffer
 @label=ShadowBuffer_Attribute
-b$FC00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC08 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC10 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC18 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC20 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC28 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC30 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC38 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC40 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC48 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC50 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC58 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC60 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC68 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC70 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC78 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC80 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC88 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC90 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FC98 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCA0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCA8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCB0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCB8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCC0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCC8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCD0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCD8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCE0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCE8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCF0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FCF8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD00 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD08 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD10 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD18 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD20 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD28 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD30 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD38 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD40 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD48 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD50 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD58 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD60 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD68 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD70 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD78 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD80 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD88 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD90 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FD98 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDA0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDA8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDB0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDB8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDC0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDC8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDD0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDD8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDE0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDE8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDF0 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $FDF8 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+b$FC00 DEFS $0200
 
 ; Data block at FE00
 b$FE00 DEFB $00,$00,$00,$00,$00,$00,$00,$00

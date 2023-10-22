@@ -28,13 +28,13 @@ class EveryonesAWally:
     def __init__(self, snapshot):
         self.snapshot = snapshot
 
-    def graphics_routine(self, graphics):
+    def graphics_routine(self, graphics, index):
         lines = []
         attribute = 0x00
 
         for i in range(len(graphics)):
-            lines.append('b ${:X} Graphic ID #N${:02X}'.format(graphics[i], i))
-            lines.append('@ ${:X} label=graphic_{:02x}'.format(graphics[i], i))
+            lines.append('b ${:X} Graphic ID #N${:02X}'.format(graphics[i], index[graphics[i]]))
+            lines.append('@ ${:X} label=graphic_{:02x}'.format(graphics[i], index[graphics[i]]))
             addr = graphics[i]
             base = 0x0000
             while self.snapshot[addr] != 0xFF:
@@ -112,12 +112,16 @@ class EveryonesAWally:
         Seems to work nicely.
         """
         graphics = []
+        index = {}
+        i = 0
 
         for a in range(0xBD86, 0xBE72, 0x02):
             graphics.append(self.snapshot[a] + self.snapshot[a + 0x01] * 0x100)
+            index[self.snapshot[a] + self.snapshot[a + 0x01] * 0x100] = i
+            i += 0x01
         graphics.sort()
 
-        return self.graphics_routine(graphics)
+        return self.graphics_routine(graphics, index)
 
     def get_items(self):
         """Creates item messaging.
