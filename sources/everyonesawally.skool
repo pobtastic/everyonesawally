@@ -1454,6 +1454,7 @@ t$7E3F DEFB $FB          ; {Sprite Bank:
  $7E62 DEFB $C6,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $7E64 DEFM "  "         ; #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
  $7E66 DEFB $C6,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+@label=Messaging_Banner_Underline
  $7E68 DEFB $FB          ; {Sprite Bank:
  $7E69 DEFW $DFDC        ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $7E6B DEFB $FE,$42      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
@@ -1804,9 +1805,10 @@ c$8155 CALL $BAD8    ; Call #R$BAD8.
  $817F JP NZ,$80E5   ; }
  $8182 JR $8164      ; Jump to #R$8164.
 
-; Routine at 8184
+; Game Loop
 ;
 ; Used by the routines at #R$5B80, #R$B34B and #R$B451.
+@label=GameLoop
 c$8184 DI            ; Disable interrupts.
  $8185 LD SP,$FC00   ; Set the stack pointer to #R$FC00.
  $8188 CALL $80E5    ; Call #R$80E5.
@@ -1814,6 +1816,7 @@ c$8184 DI            ; Disable interrupts.
  $818E CALL $E3FD    ; Call #R$E3FD.
  $8191 CALL $813B    ; Call #R$813B.
 ; This entry point is used by the routine at #R$ED2A.
+@label=Game_Running_Loop
 *$8194 CALL $EB55    ; Call #R$EB55.
  $8197 CALL $EABF    ; Call #R$EABF.
  $819A CALL $AC06    ; Call #R$AC06.
@@ -3263,7 +3266,7 @@ g$A83B DEFW $0000
 
 ; Routine at A83D
 ;
-; Used by the routines at #R$EEC1, #R$EFC7, #R$F578, #R$F5F1 and #R$F814.
+; Used by the routines at #R$EEC1, #R$F10E, #R$F578, #R$F5F1 and #R$F814.
 c$A83D DI            ; Disable interrupts.
  $A83E EXX           ; Switch to the shadow registers.
  $A83F PUSH AF       ; Stash #REGaf on the stack.
@@ -3334,7 +3337,7 @@ c$A83D DI            ; Disable interrupts.
 
 ; Routine at A8A0
 ;
-; Used by the routines at #R$ED2A, #R$EFC7, #R$F5F1 and #R$F814.
+; Used by the routines at #R$ED2A, #R$EFC7, #R$F10E, #R$F5F1 and #R$F814.
 c$A8A0 EXX           ; Switch to the shadow registers.
  $A8A1 PUSH AF       ; Stash #REGaf on the stack.
  $A8A2 LD ($A83B),SP ; Write #REGsp to #R$A83B.
@@ -3845,7 +3848,7 @@ c$AC06 LD A,(IY+$05) ;
  $AC5B OR A          ;
  $AC5C JR NZ,$AC58   ;
  $AC5E RET           ;
-; This entry point is used by the routines at #R$AE5D and #R$EFC7.
+; This entry point is used by the routines at #R$AE5D and #R$F10E.
 *$AC5F ADD A,A       ;
  $AC60 LD HL,$AF10   ;
  $AC63 ADD A,L       ;
@@ -3856,7 +3859,7 @@ c$AC06 LD A,(IY+$05) ;
 
 ; Routine at AC69
 ;
-; Used by the routines at #R$AC06, #R$ADBA, #R$E79B and #R$EFC7.
+; Used by the routines at #R$AC06, #R$ADBA, #R$E79B and #R$F10E.
 c$AC69 LD HL,$AC7F   ; #REGhl=#R$AC7F.
 ; This entry point is used by the routines at #R$AA8C, #R$BA66 and #R$EABF.
 *$AC6C OR A          ; {Return if #REGa is zero.
@@ -4090,7 +4093,7 @@ c$AED7 PUSH HL       ;
  $AEFC LD E,$1F      ;
  $AEFE JR NZ,$AEFF   ;
  $AF00 RRCA          ;
-; This entry point is used by the routine at #R$EFC7.
+; This entry point is used by the routine at #R$F10E.
 *$AF01 LD A,($AF00)  ;
  $AF04 INC A         ;
  $AF05 CP $20        ;
@@ -4151,7 +4154,8 @@ b$AF22 DEFB $FF         ; Terminator.
  $AF8B DEFB $78,$0C,$1C
  $AF8E DEFB $FF         ; Terminator.
 
-; Platform Table
+; Table: Platform Data
+@label=Table_PlatformData
 w$AF8F DEFW $AF22    ; Platform
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N($01+(#PC-$AF8F)/$02)).
  $AF91 DEFW $AF23    ; Platform
@@ -4314,7 +4318,7 @@ w$B09D DEFW $0000
 
 ; Routine at B09F
 ;
-; Used by the routines at #R$8184 and #R$EFC7.
+; Used by the routines at #R$8184 and #R$F10E.
 c$B09F LD IY,($B09D)   ;
  $B0A3 LD A,(IY+$0F)   ;
  $B0A6 LD ($B951),A    ;
@@ -4344,7 +4348,7 @@ c$B09F LD IY,($B09D)   ;
 
 ; Draws Sprites To The Shadow Buffer
 ;
-; Used by the routines at #R$B9D6 and #R$EFC7.
+; Used by the routines at #R$B9D6, #R$EFC7 and #R$F10E.
 @label=WriteSprite_ShadowBuffer
 c$B0E6 EXX           ; Switch to the shadow registers.
  $B0E7 LD E,(IY+$23) ; #REGe=*#REGiy+#N$23.
@@ -5197,6 +5201,7 @@ c$B77B PUSH AF       ; {Push #REGaf, #REGhl, #REGbc and #REGde on the stack.
 ;
 ; DE Screen Buffer Co-ordinates
 ; HL Sprite data
+; A Sprite ID
 ; C Sprite attribute value
 @label=DrawSprite
 c$B7BA PUSH AF       ; {Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
@@ -5258,7 +5263,7 @@ c$B7BA PUSH AF       ; {Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
 
 ; Routine at B7F9
 ;
-; Used by the routine at #R$EFC7.
+; Used by the routine at #R$F10E.
 c$B7F9 PUSH AF       ; {Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
  $B7FA PUSH HL       ;
  $B7FB PUSH BC       ;
@@ -5322,6 +5327,9 @@ c$B82B PUSH HL       ; Stash #REGhl on the stack.
 ;
 ; Used by the routines at #R$B34B, #R$B82B, #R$B952, #R$BA66, #R$BAB3, #R$E3FD,
 ; #R$E41D and #R$ED2A.
+;
+; DE Screen cursor commands
+; HL Pointer to graphics data
 @label=Controller_Tile
 c$B84B LD A,(HL)     ; #REGa=*#REGhl.
  $B84C INC HL        ; Increment #REGhl by one.
@@ -5483,7 +5491,7 @@ c$B8ED LD HL,$4000   ; {Clear the screen buffer.
 
 ; Clear Play Area
 ;
-; Used by the routines at #R$B952, #R$ED2A and #R$EFC7.
+; Used by the routines at #R$B952, #R$ED2A, #R$EFC7 and #R$F10E.
 @label=Clear_PlayArea
 c$B902 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $B903 PUSH BC       ;
@@ -5553,35 +5561,47 @@ b$B951 DEFB $00
 c$B952 LD A,$B8      ; {Write #N$B8 to #R$AF88.
  $B954 LD ($AF88),A  ; }
  $B957 CALL $B902    ; Call #R$B902.
- $B95A LD A,(IY+$0F) ; {#REGe=(#REGiy+#N$0F)*#N$02.
+; Get the current room ID and double it. This is stored in #REGde as an offset.
+ $B95A LD A,(IY+$0F) ; {#REGe=(*#REGiy+#N$0F)*#N$02.
  $B95D ADD A,A       ;
  $B95E LD E,A        ; }
  $B95F LD D,$00      ; #REGd=#N$00.
  $B961 LD HL,$CDB5   ; {#REGhl=#R$CDB5+#REGde.
  $B964 ADD HL,DE     ; }
+; Fetch the room data location from the lookup table.
  $B965 LD E,(HL)     ; #REGe=*#REGhl.
  $B966 INC HL        ; Increment #REGhl by one.
  $B967 LD D,(HL)     ; #REGd=*#REGhl.
  $B968 EX DE,HL      ; Exchange the #REGde and #REGhl registers.
-; This entry point is used by the routine at #R$EFC7.
+; #HTML(Fetch a room data pair and store it in #REGde. Note, this is
+; <em>not</em> a memory address.)
+@label=DrawRoom_Loop
 *$B969 LD D,(HL)     ; #REGd=*#REGhl.
  $B96A INC HL        ; Increment #REGhl by one.
  $B96B LD E,(HL)     ; #REGe=*#REGhl.
  $B96C INC HL        ; Increment #REGhl by one.
+; Drop bit 7 of #REGd and test for the control characters.
  $B96D LD A,D        ; #REGa=#REGd.
  $B96E AND %01111111 ; Keep only bits 0-6.
+; Are we done?
  $B970 CP $7F        ; {If the result is #N$7F jump to #R$B9A8.
  $B972 JR Z,$B9A8    ; }
+; Some parts of rooms are dynamic (depending on if a task is completed or not),
+; check if this should be actioned.
  $B974 CP $7E        ; {If the result is not #N$7E jump to #R$B982.
  $B976 JR NZ,$B982   ; }
  $B978 LD A,E        ; #REGa=#REGe.
  $B979 CALL $EC1D    ; Call #R$EC1D.
- $B97C JR NZ,$B969   ;
+ $B97C JR NZ,$B969   ; If the task is not complete, jump to #R$B969.
+; Move onto the next room data pair.
  $B97E INC HL        ; {Increment #REGhl by two.
  $B97F INC HL        ; }
  $B980 JR $B969      ; Jump to #R$B969.
-*$B982 PUSH HL       ; Stash #REGhl on the stack.
+; Pull out the screen co-ordinates and graphics address.
+@label=DrawRoom_ProcessData
+*$B982 PUSH HL       ; Stash the room data pointer held by #REGhl on the stack.
  $B983 LD B,A        ; #REGb=#REGa.
+; Grab the second byte from the room data pair.
  $B984 LD A,E        ; #REGa=#REGe.
  $B985 AND %11111000 ; Keep only bits 3-7.
  $B987 RRA           ; {Rotate #REGa right three times.
@@ -5605,8 +5625,12 @@ c$B952 LD A,$B8      ; {Write #N$B8 to #R$AF88.
  $B9A0 LD H,(HL)     ; #REGh=*#REGhl.
  $B9A1 LD L,A        ; #REGl=#REGa.
  $B9A2 CALL $B84B    ; Call #R$B84B.
- $B9A5 POP HL        ; Restore #REGhl from the stack.
+ $B9A5 POP HL        ; Restore the room data pointer held by #REGhl from the
+                     ; stack.
  $B9A6 JR $B969      ; Jump to #R$B969.
+; Finish by blitting the shadow buffer to the screen and return to the calling
+; routine.
+@label=DrawRoom_Finish
 *$B9A8 CALL $B9AC    ; Call #R$B9AC.
  $B9AB RET           ; Return.
 
@@ -5652,7 +5676,7 @@ c$B9D6 LD A,(IY+$0F) ; {Write #REGiy+#N$0F to #R$B951.
 
 ; Copy Shadow Buffer To Screen
 ;
-; Used by the routines at #R$813B, #R$B9D6, #R$ED2A and #R$EFC7.
+; Used by the routines at #R$813B, #R$B9D6, #R$ED2A, #R$EFC7 and #R$F10E.
 ;
 ; .
 ;
@@ -5757,16 +5781,17 @@ c$BA66 JR NZ,$BAB1   ;
  $BAAF LD ($BAB3),A  ;
  $BAB2 RET           ;
 
-; Routine at BAB3
+; Redraws Banner Underline
 c$BAB3 DEFB $00      ;
 ; This entry point is used by the routines at #R$81AE, #R$BA66 and #R$ED2A.
+@label=Redraw_Banner_Underline
 *$BAB4 LD HL,$BAB3   ; #REGhl=#R$BAB3.
  $BAB7 LD A,(HL)     ; #REGa=*#REGhl.
  $BAB8 OR A          ; {Return if #REGa is zero.
  $BAB9 RET Z         ; }
  $BABA DEC (HL)      ; Decrease *#REGhl by one.
  $BABB RET NZ        ; Return if the result is not zero.
- $BABC LD C,$42      ; #REGc=#N$42.
+ $BABC LD C,$42      ; #REGc=#N$42 (#COLOUR$42).
  $BABE LD HL,$DFDC   ; {Write #R$DFDC to #R$B7E8(#N$B7E9).
  $BAC1 LD ($B7E9),HL ; }
  $BAC4 LD DE,$0400   ; #REGde=#N$0400.
@@ -6035,245 +6060,245 @@ b$BCE9 DEFB $FF                             ; Terminator.
 
 ; Table: Graphic Data
 @label=Table_GraphicData
-b$BD86 DEFW $C352    ; Sprite ID:
+b$BD86 DEFW $C352    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD88 DEFW $C37C    ; Sprite ID:
+ $BD88 DEFW $C37C    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD8A DEFW $C3DB    ; Sprite ID:
+ $BD8A DEFW $C3DB    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD8C DEFW $C56B    ; Sprite ID:
+ $BD8C DEFW $C56B    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD8E DEFW $C580    ; Sprite ID:
+ $BD8E DEFW $C580    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD90 DEFW $C5C0    ; Sprite ID:
+ $BD90 DEFW $C5C0    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD92 DEFW $C651    ; Sprite ID:
+ $BD92 DEFW $C651    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD94 DEFW $C6E3    ; Sprite ID:
+ $BD94 DEFW $C6E3    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD96 DEFW $C703    ; Sprite ID:
+ $BD96 DEFW $C703    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD98 DEFW $C71F    ; Sprite ID:
+ $BD98 DEFW $C71F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD9A DEFW $C732    ; Sprite ID:
+ $BD9A DEFW $C732    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD9C DEFW $C745    ; Sprite ID:
+ $BD9C DEFW $C745    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BD9E DEFW $C77F    ; Sprite ID:
+ $BD9E DEFW $C77F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDA0 DEFW $C7BF    ; Sprite ID:
+ $BDA0 DEFW $C7BF    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDA2 DEFW $C844    ; Sprite ID:
+ $BDA2 DEFW $C844    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDA4 DEFW $C9BE    ; Sprite ID:
+ $BDA4 DEFW $C9BE    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDA6 DEFW $C9DD    ; Sprite ID:
+ $BDA6 DEFW $C9DD    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDA8 DEFW $C9FC    ; Sprite ID:
+ $BDA8 DEFW $C9FC    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDAA DEFW $CA57    ; Sprite ID:
+ $BDAA DEFW $CA57    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDAC DEFW $C860    ; Sprite ID:
+ $BDAC DEFW $C860    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDAE DEFW $C908    ; Sprite ID:
+ $BDAE DEFW $C908    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDB0 DEFW $C986    ; Sprite ID:
+ $BDB0 DEFW $C986    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDB2 DEFW $C9A2    ; Sprite ID:
+ $BDB2 DEFW $C9A2    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDB4 DEFW $CA9A    ; Sprite ID:
+ $BDB4 DEFW $CA9A    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDB6 DEFW $CAAE    ; Sprite ID:
+ $BDB6 DEFW $CAAE    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDB8 DEFW $C876    ; Sprite ID:
+ $BDB8 DEFW $C876    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDBA DEFW $C8E4    ; Sprite ID:
+ $BDBA DEFW $C8E4    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDBC DEFW $C9D4    ; Sprite ID:
+ $BDBC DEFW $C9D4    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDBE DEFW $C7B7    ; Sprite ID:
+ $BDBE DEFW $C7B7    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDC0 DEFW $C8B3    ; Sprite ID:
+ $BDC0 DEFW $C8B3    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDC2 DEFW $C8C3    ; Sprite ID:
+ $BDC2 DEFW $C8C3    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDC4 DEFW $C23C    ; Sprite ID:
+ $BDC4 DEFW $C23C    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDC6 DEFW $C35D    ; Sprite ID:
+ $BDC6 DEFW $C35D    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDC8 DEFW $C369    ; Sprite ID:
+ $BDC8 DEFW $C369    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDCA DEFW $C91A    ; Sprite ID:
+ $BDCA DEFW $C91A    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDCC DEFW $C762    ; Sprite ID:
+ $BDCC DEFW $C762    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDCE DEFW $C943    ; Sprite ID:
+ $BDCE DEFW $C943    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDD0 DEFW $C801    ; Sprite ID:
+ $BDD0 DEFW $C801    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDD2 DEFW $C82B    ; Sprite ID:
+ $BDD2 DEFW $C82B    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDD4 DEFW $C889    ; Sprite ID:
+ $BDD4 DEFW $C889    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDD6 DEFW $C89F    ; Sprite ID:
+ $BDD6 DEFW $C89F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDD8 DEFW $C79F    ; Sprite ID:
+ $BDD8 DEFW $C79F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDDA DEFW $C7E0    ; Sprite ID:
+ $BDDA DEFW $C7E0    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDDC DEFW $CB05    ; Sprite ID:
+ $BDDC DEFW $CB05    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDDE DEFW $C797    ; Sprite ID:
+ $BDDE DEFW $C797    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDE0 DEFW $C254    ; Sprite ID:
+ $BDE0 DEFW $C254    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDE2 DEFW $C20A    ; Sprite ID:
+ $BDE2 DEFW $C20A    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDE4 DEFW $C220    ; Sprite ID:
+ $BDE4 DEFW $C220    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDE6 DEFW $CB2F    ; Sprite ID:
+ $BDE6 DEFW $CB2F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDE8 DEFW $CB55    ; Sprite ID:
+ $BDE8 DEFW $CB55    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDEA DEFW $CB6B    ; Sprite ID:
+ $BDEA DEFW $CB6B    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDEC DEFW $CBA0    ; Sprite ID:
+ $BDEC DEFW $CBA0    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDEE DEFW $CBE0    ; Sprite ID:
+ $BDEE DEFW $CBE0    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDF0 DEFW $CBF0    ; Sprite ID:
+ $BDF0 DEFW $CBF0    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDF2 DEFW $CC03    ; Sprite ID:
+ $BDF2 DEFW $CC03    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDF4 DEFW $CC25    ; Sprite ID:
+ $BDF4 DEFW $CC25    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDF6 DEFW $CCDA    ; Sprite ID:
+ $BDF6 DEFW $CCDA    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDF8 DEFW $CCF2    ; Sprite ID:
+ $BDF8 DEFW $CCF2    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDFA DEFW $C857    ; Sprite ID:
+ $BDFA DEFW $C857    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDFC DEFW $C27C    ; Sprite ID:
+ $BDFC DEFW $C27C    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BDFE DEFW $C92E    ; Sprite ID:
+ $BDFE DEFW $C92E    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE00 DEFW $CC39    ; Sprite ID:
+ $BE00 DEFW $CC39    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE02 DEFW $CC97    ; Sprite ID:
+ $BE02 DEFW $CC97    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE04 DEFW $CB1A    ; Sprite ID:
+ $BE04 DEFW $CB1A    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE06 DEFW $CCAA    ; Sprite ID:
+ $BE06 DEFW $CCAA    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE08 DEFW $CC8D    ; Sprite ID:
+ $BE08 DEFW $CC8D    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE0A DEFW $CC5D    ; Sprite ID:
+ $BE0A DEFW $CC5D    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE0C DEFW $C5DA    ; Sprite ID:
+ $BE0C DEFW $C5DA    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE0E DEFW $C5F9    ; Sprite ID:
+ $BE0E DEFW $C5F9    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE10 DEFW $C610    ; Sprite ID:
+ $BE10 DEFW $C610    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE12 DEFW $C61A    ; Sprite ID:
+ $BE12 DEFW $C61A    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE14 DEFW $C625    ; Sprite ID:
+ $BE14 DEFW $C625    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE16 DEFW $C635    ; Sprite ID:
+ $BE16 DEFW $C635    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE18 DEFW $C291    ; Sprite ID:
+ $BE18 DEFW $C291    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE1A DEFW $C29A    ; Sprite ID:
+ $BE1A DEFW $C29A    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE1C DEFW $CACA    ; Sprite ID:
+ $BE1C DEFW $CACA    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE1E DEFW $CCB2    ; Sprite ID:
+ $BE1E DEFW $CCB2    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE20 DEFW $C19D    ; Sprite ID:
+ $BE20 DEFW $C19D    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE22 DEFW $CA1F    ; Sprite ID:
+ $BE22 DEFW $CA1F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE24 DEFW $BFE2    ; Sprite ID:
+ $BE24 DEFW $BFE2    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE26 DEFW $C0F1    ; Sprite ID:
+ $BE26 DEFW $C0F1    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE28 DEFW $BFA4    ; Sprite ID:
+ $BE28 DEFW $BFA4    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE2A DEFW $BFB2    ; Sprite ID:
+ $BE2A DEFW $BFB2    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE2C DEFW $BFDA    ; Sprite ID:
+ $BE2C DEFW $BFDA    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE2E DEFW $BFFE    ; Sprite ID:
+ $BE2E DEFW $BFFE    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE30 DEFW $BF27    ; Sprite ID:
+ $BE30 DEFW $BF27    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE32 DEFW $C132    ; Sprite ID:
+ $BE32 DEFW $C132    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE34 DEFW $BE8F    ; Sprite ID:
+ $BE34 DEFW $BE8F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE36 DEFW $BEDA    ; Sprite ID:
+ $BE36 DEFW $BEDA    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE38 DEFW $BF03    ; Sprite ID:
+ $BE38 DEFW $BF03    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE3A DEFW $BF19    ; Sprite ID:
+ $BE3A DEFW $BF19    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE3C DEFW $C026    ; Sprite ID:
+ $BE3C DEFW $C026    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE3E DEFW $C03C    ; Sprite ID:
+ $BE3E DEFW $C03C    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE40 DEFW $C045    ; Sprite ID:
+ $BE40 DEFW $C045    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE42 DEFW $C050    ; Sprite ID:
+ $BE42 DEFW $C050    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE44 DEFW $C05A    ; Sprite ID:
+ $BE44 DEFW $C05A    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE46 DEFW $C082    ; Sprite ID:
+ $BE46 DEFW $C082    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE48 DEFW $C0A0    ; Sprite ID:
+ $BE48 DEFW $C0A0    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE4A DEFW $C0AA    ; Sprite ID:
+ $BE4A DEFW $C0AA    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE4C DEFW $C0B8    ; Sprite ID:
+ $BE4C DEFW $C0B8    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE4E DEFW $C0D4    ; Sprite ID:
+ $BE4E DEFW $C0D4    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE50 DEFW $CAEC    ; Sprite ID:
+ $BE50 DEFW $CAEC    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE52 DEFW $C0DC    ; Sprite ID:
+ $BE52 DEFW $C0DC    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE54 DEFW $CD14    ; Sprite ID:
+ $BE54 DEFW $CD14    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE56 DEFW $C4CD    ; Sprite ID:
+ $BE56 DEFW $C4CD    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE58 DEFW $C437    ; Sprite ID:
+ $BE58 DEFW $C437    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE5A DEFW $C2A8    ; Sprite ID:
+ $BE5A DEFW $C2A8    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE5C DEFW $C312    ; Sprite ID:
+ $BE5C DEFW $C312    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE5E DEFW $C577    ; Sprite ID:
+ $BE5E DEFW $C577    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE60 DEFW $C960    ; Sprite ID:
+ $BE60 DEFW $C960    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE62 DEFW $BF81    ; Sprite ID:
+ $BE62 DEFW $BF81    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE64 DEFW $C957    ; Sprite ID:
+ $BE64 DEFW $C957    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE66 DEFW $BE72    ; Sprite ID:
+ $BE66 DEFW $BE72    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE68 DEFW $C334    ; Sprite ID:
+ $BE68 DEFW $C334    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE6A DEFW $C347    ; Sprite ID:
+ $BE6A DEFW $C347    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE6C DEFW $CB85    ; Sprite ID:
+ $BE6C DEFW $CB85    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE6E DEFW $CD2F    ; Sprite ID:
+ $BE6E DEFW $CD2F    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
- $BE70 DEFW $CD43    ; Sprite ID:
+ $BE70 DEFW $CD43    ; Graphic ID:
                      ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
 
-; Graphic ID #N$00
-@label=graphic_00
+; Graphic ID #N$70
+@label=graphic_70
 b$BE72 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BE73 DEFW $DFEC    ; }
  $BE75 DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
@@ -6304,8 +6329,8 @@ b$BE72 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $BE8E DEFB $FF      ; Terminator.
 
-; Graphic ID #N$01
-@label=graphic_01
+; Graphic ID #N$57
+@label=graphic_57
 b$BE8F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BE90 DEFW $D204       ; }
  $BE92 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
@@ -6428,8 +6453,8 @@ b$BE8F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $BED9 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$02
-@label=graphic_02
+; Graphic ID #N$58
+@label=graphic_58
 b$BEDA DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BEDB DEFW $DDD4       ; }
  $BEDD DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -6471,8 +6496,8 @@ b$BEDA DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $BF02 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$03
-@label=graphic_03
+; Graphic ID #N$59
+@label=graphic_59
 b$BF03 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BF04 DEFW $DDD4       ; }
  $BF06 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -6498,8 +6523,8 @@ b$BF03 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $BF18 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$04
-@label=graphic_04
+; Graphic ID #N$5A
+@label=graphic_5a
 b$BF19 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BF1A DEFW $DDD4    ; }
  $BF1C DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
@@ -6515,8 +6540,8 @@ b$BF19 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $BF26 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$05
-@label=graphic_05
+; Graphic ID #N$55
+@label=graphic_55
 b$BF27 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BF28 DEFW $DD54       ; }
  $BF2A DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -6646,8 +6671,8 @@ b$BF27 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $BF80 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$06
-@label=graphic_06
+; Graphic ID #N$6E
+@label=graphic_6e
 b$BF81 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BF82 DEFW $DD0C       ; }
  $BF84 DEFB $FE,$42     ; Attribute: #COLOUR(#PC+$01)
@@ -6689,8 +6714,8 @@ b$BF81 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $BFA3 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$07
-@label=graphic_07
+; Graphic ID #N$51
+@label=graphic_51
 b$BFA4 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BFA5 DEFW $DCEC    ; }
  $BFA7 DEFB $C8,$03  ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
@@ -6706,8 +6731,8 @@ b$BFA4 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $BFB1 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$08
-@label=graphic_08
+; Graphic ID #N$52
+@label=graphic_52
 b$BFB2 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BFB3 DEFW $DD0C    ; }
  $BFB5 DEFB $FE,$28  ; Attribute: #COLOUR(#PC+$01)
@@ -6757,16 +6782,16 @@ b$BFB2 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $BFD9 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$09
-@label=graphic_09
+; Graphic ID #N$53
+@label=graphic_53
 b$BFDA DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BFDB DEFW $DD0C    ; }
  $BFDD DEFB $FE,$50  ; Attribute: #COLOUR(#PC+$01)
  $BFDF DEFB $F3      ; {Switch #REGhl to
  $BFE0 DEFW $BFC7    ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
 
-; Graphic ID #N$0A
-@label=graphic_0a
+; Graphic ID #N$4F
+@label=graphic_4f
 b$BFE2 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BFE3 DEFW $DC24    ; }
  $BFE5 DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
@@ -6804,8 +6829,8 @@ b$BFE2 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $BFFD DEFB $FF      ; Terminator.
 
-; Graphic ID #N$0B
-@label=graphic_0b
+; Graphic ID #N$54
+@label=graphic_54
 b$BFFE DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $BFFF DEFW $D9E4       ; }
  $C001 DEFB $FE,$79     ; Attribute: #COLOUR(#PC+$01)
@@ -6850,8 +6875,8 @@ b$BFFE DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C025 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$0C
-@label=graphic_0c
+; Graphic ID #N$5B
+@label=graphic_5b
 b$C026 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C027 DEFW $DFDC       ; }
  $C029 DEFB $FE,$4E     ; Attribute: #COLOUR(#PC+$01)
@@ -6880,8 +6905,8 @@ b$C026 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C03B DEFB $FF         ; Terminator.
 
-; Graphic ID #N$0D
-@label=graphic_0d
+; Graphic ID #N$5C
+@label=graphic_5c
 b$C03C DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C03D DEFW $DE14    ; }
  $C03F DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -6893,8 +6918,8 @@ b$C03C DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C044 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$0E
-@label=graphic_0e
+; Graphic ID #N$5D
+@label=graphic_5d
 b$C045 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C046 DEFW $DE14    ; }
  $C048 DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
@@ -6910,8 +6935,8 @@ b$C045 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C04F DEFB $FF      ; Terminator.
 
-; Graphic ID #N$0F
-@label=graphic_0f
+; Graphic ID #N$5E
+@label=graphic_5e
 b$C050 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C051 DEFW $DE14    ; }
  $C053 DEFB $FE,$60  ; Attribute: #COLOUR(#PC+$01)
@@ -6925,8 +6950,8 @@ b$C050 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C059 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$10
-@label=graphic_10
+; Graphic ID #N$5F
+@label=graphic_5f
 b$C05A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C05B DEFW $DE14       ; }
  $C05D DEFB $FE,$4F     ; Attribute: #COLOUR(#PC+$01)
@@ -6979,8 +7004,8 @@ b$C05A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C081 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$11
-@label=graphic_11
+; Graphic ID #N$60
+@label=graphic_60
 b$C082 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C083 DEFW $DFDC       ; }
  $C085 DEFB $FE,$57     ; Attribute: #COLOUR(#PC+$01)
@@ -7014,8 +7039,8 @@ b$C082 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C09F DEFB $FF         ; Terminator.
 
-; Graphic ID #N$12
-@label=graphic_12
+; Graphic ID #N$61
+@label=graphic_61
 b$C0A0 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C0A1 DEFW $D72C    ; }
  $C0A3 DEFB $C8,$03  ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
@@ -7026,8 +7051,8 @@ b$C0A0 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C0A9 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$13
-@label=graphic_13
+; Graphic ID #N$62
+@label=graphic_62
 b$C0AA DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C0AB DEFW $D72C    ; }
  $C0AD DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
@@ -7043,8 +7068,8 @@ b$C0AA DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C0B7 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$14
-@label=graphic_14
+; Graphic ID #N$63
+@label=graphic_63
 b$C0B8 DEFB $FB             ; {Sprite Data:
  $C0B9 DEFW $D35C           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C0BB DEFB $FE,$44         ; Attribute: #COLOUR(#PC+$01)
@@ -7072,16 +7097,16 @@ b$C0B8 DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C0D3 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$15
-@label=graphic_15
+; Graphic ID #N$64
+@label=graphic_64
 b$C0D4 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C0D5 DEFW $D514    ; }
  $C0D7 DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
  $C0D9 DEFB $F3      ; {Switch #REGhl to
  $C0DA DEFW $CAD9    ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
 
-; Graphic ID #N$16
-@label=graphic_16
+; Graphic ID #N$66
+@label=graphic_66
 b$C0DC DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C0DD DEFW $DFAC    ; }
  $C0DF DEFB $C8,$03  ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
@@ -7108,8 +7133,8 @@ b$C0DC DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C0F0 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$17
-@label=graphic_17
+; Graphic ID #N$50
+@label=graphic_50
 b$C0F1 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C0F2 DEFW $DC24       ; }
  $C0F4 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -7193,8 +7218,8 @@ b$C0F1 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C131 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$18
-@label=graphic_18
+; Graphic ID #N$56
+@label=graphic_56
 b$C132 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C133 DEFW $DBAC       ; }
  $C135 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -7316,8 +7341,8 @@ b$C132 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C19C DEFB $FF         ; Terminator.
 
-; Graphic ID #N$19
-@label=graphic_19
+; Graphic ID #N$4D
+@label=graphic_4d
 b$C19D DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C19E DEFW $DBAC       ; }
  $C1A0 DEFB $FE,$07     ; Attribute: #COLOUR(#PC+$01)
@@ -7450,8 +7475,8 @@ b$C19D DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C209 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$1A
-@label=graphic_1a
+; Graphic ID #N$2E
+@label=graphic_2e
 b$C20A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C20B DEFW $D72C       ; }
  $C20D DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -7476,8 +7501,8 @@ b$C20A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C21F DEFB $FF         ; Terminator.
 
-; Graphic ID #N$1B
-@label=graphic_1b
+; Graphic ID #N$2F
+@label=graphic_2f
 b$C220 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C221 DEFW $D72C    ; }
  $C223 DEFB $FE,$44  ; Attribute: #COLOUR(#PC+$01)
@@ -7508,8 +7533,8 @@ b$C220 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C23B DEFB $FF      ; Terminator.
 
-; Graphic ID #N$1C
-@label=graphic_1c
+; Graphic ID #N$1F
+@label=graphic_1f
 b$C23C DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C23D DEFW $D514       ; }
  $C23F DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -7536,8 +7561,8 @@ b$C23C DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C253 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$1D
-@label=graphic_1d
+; Graphic ID #N$2D
+@label=graphic_2d
 b$C254 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C255 DEFW $D1BC    ; }
  $C257 DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -7584,8 +7609,8 @@ b$C254 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C27B DEFB $FF      ; Terminator.
 
-; Graphic ID #N$1E
-@label=graphic_1e
+; Graphic ID #N$3B
+@label=graphic_3b
 b$C27C DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C27D DEFW $D72C    ; }
  $C27F DEFB $FE,$45  ; Attribute: #COLOUR(#PC+$01)
@@ -7608,8 +7633,8 @@ b$C27C DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C290 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$1F
-@label=graphic_1f
+; Graphic ID #N$49
+@label=graphic_49
 b$C291 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C292 DEFW $DFEC       ; }
  $C294 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
@@ -7619,8 +7644,8 @@ b$C291 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C299 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$20
-@label=graphic_20
+; Graphic ID #N$4A
+@label=graphic_4a
 b$C29A DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C29B DEFW $D27C    ; }
  $C29D DEFB $FE,$45  ; Attribute: #COLOUR(#PC+$01)
@@ -7639,8 +7664,8 @@ b$C29A DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C2A7 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$21
-@label=graphic_21
+; Graphic ID #N$6A
+@label=graphic_6a
 b$C2A8 DEFB $FB             ; {Sprite Data:
  $C2A9 DEFW $D5FC           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C2AB DEFB $FE,$44         ; Attribute: #COLOUR(#PC+$01)
@@ -7766,8 +7791,8 @@ b$C2A8 DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C311 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$22
-@label=graphic_22
+; Graphic ID #N$6B
+@label=graphic_6b
 b$C312 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C313 DEFW $D9E4    ; }
  $C315 DEFB $C8,$03  ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
@@ -7826,8 +7851,8 @@ b$C312 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C333 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$23
-@label=graphic_23
+; Graphic ID #N$71
+@label=graphic_71
 b$C334 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C335 DEFW $D6BC       ; }
  $C337 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -7848,8 +7873,8 @@ b$C334 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C346 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$24
-@label=graphic_24
+; Graphic ID #N$72
+@label=graphic_72
 b$C347 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C348 DEFW $DFEC       ; }
  $C34A DEFB $C8,$03     ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
@@ -7860,8 +7885,8 @@ b$C347 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C351 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$25
-@label=graphic_25
+; Graphic ID #N$00
+@label=graphic_00
 b$C352 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C353 DEFW $DFEC       ; }
  $C355 DEFB $C8,$03     ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
@@ -7872,8 +7897,8 @@ b$C352 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C35C DEFB $FF         ; Terminator.
 
-; Graphic ID #N$26
-@label=graphic_26
+; Graphic ID #N$20
+@label=graphic_20
 b$C35D DEFB $FB             ; {Sprite Data:
  $C35E DEFW $DFEC           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C360 DEFB $C8,$03         ; Move cursor: #N(#PEEK(#PC)-$C8),
@@ -7885,8 +7910,8 @@ b$C35D DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C368 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$27
-@label=graphic_27
+; Graphic ID #N$21
+@label=graphic_21
 b$C369 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C36A DEFW $D204       ; }
  $C36C DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
@@ -7911,8 +7936,8 @@ b$C369 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C37B DEFB $FF         ; Terminator.
 
-; Graphic ID #N$28
-@label=graphic_28
+; Graphic ID #N$01
+@label=graphic_01
 b$C37C DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C37D DEFW $E06C       ; }
  $C37F DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
@@ -8018,8 +8043,8 @@ b$C37C DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C3DA DEFB $FF         ; Terminator.
 
-; Graphic ID #N$29
-@label=graphic_29
+; Graphic ID #N$02
+@label=graphic_02
 b$C3DB DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C3DC DEFW $E06C       ; }
  $C3DE DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
@@ -8122,8 +8147,8 @@ b$C3DB DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C436 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$2A
-@label=graphic_2a
+; Graphic ID #N$69
+@label=graphic_69
 b$C437 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C438 DEFW $DF44       ; }
  $C43A DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -8296,8 +8321,8 @@ b$C437 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C4CC DEFB $FF         ; Terminator.
 
-; Graphic ID #N$2B
-@label=graphic_2b
+; Graphic ID #N$68
+@label=graphic_68
 b$C4CD DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C4CE DEFW $D1BC       ; }
  $C4D0 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -8473,8 +8498,8 @@ b$C4CD DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C56A DEFB $FF         ; Terminator.
 
-; Graphic ID #N$2C
-@label=graphic_2c
+; Graphic ID #N$03
+@label=graphic_03
 b$C56B DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C56C DEFW $DFEC    ; }
  $C56E DEFB $C8,$03  ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
@@ -8489,8 +8514,8 @@ b$C56B DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C576 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$2D
-@label=graphic_2d
+; Graphic ID #N$6C
+@label=graphic_6c
 b$C577 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C578 DEFW $D49C       ; }
  $C57A DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
@@ -8500,8 +8525,8 @@ b$C577 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C57F DEFB $FF         ; Terminator.
 
-; Graphic ID #N$2E
-@label=graphic_2e
+; Graphic ID #N$04
+@label=graphic_04
 b$C580 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C581 DEFW $D424       ; }
  $C583 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -8578,8 +8603,8 @@ b$C580 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C5BF DEFB $FF         ; Terminator.
 
-; Graphic ID #N$2F
-@label=graphic_2f
+; Graphic ID #N$05
+@label=graphic_05
 b$C5C0 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C5C1 DEFW $D3E4       ; }
  $C5C3 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -8609,8 +8634,8 @@ b$C5C0 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C5D9 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$30
-@label=graphic_30
+; Graphic ID #N$43
+@label=graphic_43
 b$C5DA DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C5DB DEFW $D204       ; }
  $C5DD DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -8643,8 +8668,8 @@ b$C5DA DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C5F8 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$31
-@label=graphic_31
+; Graphic ID #N$44
+@label=graphic_44
 b$C5F9 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C5FA DEFW $D204    ; }
  $C5FC DEFB $FE,$43  ; Attribute: #COLOUR(#PC+$01)
@@ -8668,8 +8693,8 @@ b$C5F9 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C60F DEFB $FF      ; Terminator.
 
-; Graphic ID #N$32
-@label=graphic_32
+; Graphic ID #N$45
+@label=graphic_45
 b$C610 DEFB $FB             ; {Sprite Data:
  $C611 DEFW $D27C           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C613 DEFB $FE,$45         ; Attribute: #COLOUR(#PC+$01)
@@ -8679,8 +8704,8 @@ b$C610 DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C619 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$33
-@label=graphic_33
+; Graphic ID #N$46
+@label=graphic_46
 b$C61A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C61B DEFW $D27C       ; }
  $C61D DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -8694,8 +8719,8 @@ b$C61A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C624 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$34
-@label=graphic_34
+; Graphic ID #N$47
+@label=graphic_47
 b$C625 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C626 DEFW $D27C       ; }
  $C628 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -8713,8 +8738,8 @@ b$C625 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C634 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$35
-@label=graphic_35
+; Graphic ID #N$48
+@label=graphic_48
 b$C635 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C636 DEFW $D27C       ; }
  $C638 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -8747,8 +8772,8 @@ b$C635 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C650 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$36
-@label=graphic_36
+; Graphic ID #N$06
+@label=graphic_06
 b$C651 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C652 DEFW $D35C    ; }
  $C654 DEFB $FE,$44  ; Attribute: #COLOUR(#PC+$01)
@@ -8983,8 +9008,8 @@ b$C651 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C6E2 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$37
-@label=graphic_37
+; Graphic ID #N$07
+@label=graphic_07
 b$C6E3 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C6E4 DEFW $D35C    ; }
  $C6E6 DEFB $FE,$04  ; Attribute: #COLOUR(#PC+$01)
@@ -9033,8 +9058,8 @@ b$C6E3 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C702 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$38
-@label=graphic_38
+; Graphic ID #N$08
+@label=graphic_08
 b$C703 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C704 DEFW $D35C    ; }
  $C706 DEFB $FE,$04  ; Attribute: #COLOUR(#PC+$01)
@@ -9075,8 +9100,8 @@ b$C703 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C71E DEFB $FF      ; Terminator.
 
-; Graphic ID #N$39
-@label=graphic_39
+; Graphic ID #N$09
+@label=graphic_09
 b$C71F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C720 DEFW $D334       ; }
  $C722 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -9096,8 +9121,8 @@ b$C71F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C731 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$3A
-@label=graphic_3a
+; Graphic ID #N$0A
+@label=graphic_0a
 b$C732 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C733 DEFW $D334       ; }
  $C735 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -9117,8 +9142,8 @@ b$C732 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C744 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$3B
-@label=graphic_3b
+; Graphic ID #N$0B
+@label=graphic_0b
 b$C745 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C746 DEFW $D334       ; }
  $C748 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -9148,8 +9173,8 @@ b$C745 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C761 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$3C
-@label=graphic_3c
+; Graphic ID #N$23
+@label=graphic_23
 b$C762 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C763 DEFW $D334       ; }
  $C765 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -9179,8 +9204,8 @@ b$C762 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C77E DEFB $FF         ; Terminator.
 
-; Graphic ID #N$3D
-@label=graphic_3d
+; Graphic ID #N$0C
+@label=graphic_0c
 b$C77F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C780 DEFW $D514       ; }
  $C782 DEFB $FE,$72     ; Attribute: #COLOUR(#PC+$01)
@@ -9205,16 +9230,16 @@ b$C77F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C796 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$3E
-@label=graphic_3e
+; Graphic ID #N$2C
+@label=graphic_2c
 b$C797 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C798 DEFW $D5DC    ; }
  $C79A DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
  $C79C DEFB $F3      ; {Switch #REGhl to
  $C79D DEFW $C784    ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
 
-; Graphic ID #N$3F
-@label=graphic_3f
+; Graphic ID #N$29
+@label=graphic_29
 b$C79F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C7A0 DEFW $D514       ; }
  $C7A2 DEFB $FE,$72     ; Attribute: #COLOUR(#PC+$01)
@@ -9239,16 +9264,16 @@ b$C79F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C7B6 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$40
-@label=graphic_40
+; Graphic ID #N$1C
+@label=graphic_1c
 b$C7B7 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C7B8 DEFW $D514    ; }
  $C7BA DEFB $FE,$56  ; Attribute: #COLOUR(#PC+$01)
  $C7BC DEFB $F3      ; {Switch #REGhl to
  $C7BD DEFW $C784    ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
 
-; Graphic ID #N$41
-@label=graphic_41
+; Graphic ID #N$0D
+@label=graphic_0d
 b$C7BF DEFB $FB             ; {Sprite Data:
  $C7C0 DEFW $D514           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C7C2 DEFB $FE,$02         ; Attribute: #COLOUR(#PC+$01)
@@ -9282,8 +9307,8 @@ b$C7BF DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C7DF DEFB $FF             ; Terminator.
 
-; Graphic ID #N$42
-@label=graphic_42
+; Graphic ID #N$2A
+@label=graphic_2a
 b$C7E0 DEFB $FB             ; {Sprite Data:
  $C7E1 DEFW $D514           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C7E3 DEFB $FE,$02         ; Attribute: #COLOUR(#PC+$01)
@@ -9317,8 +9342,8 @@ b$C7E0 DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C800 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$43
-@label=graphic_43
+; Graphic ID #N$25
+@label=graphic_25
 b$C801 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C802 DEFW $D5FC       ; }
  $C804 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -9363,8 +9388,8 @@ b$C801 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C82A DEFB $FF         ; Terminator.
 
-; Graphic ID #N$44
-@label=graphic_44
+; Graphic ID #N$26
+@label=graphic_26
 b$C82B DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C82C DEFW $D5FC       ; }
  $C82E DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -9391,8 +9416,8 @@ b$C82B DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C841 DEFB $F3         ; {Switch #REGhl to
  $C842 DEFW $C815       ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
 
-; Graphic ID #N$45
-@label=graphic_45
+; Graphic ID #N$0E
+@label=graphic_0e
 b$C844 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C845 DEFW $D5FC    ; }
  $C847 DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -9418,8 +9443,8 @@ b$C844 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C856 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$46
-@label=graphic_46
+; Graphic ID #N$3A
+@label=graphic_3a
 b$C857 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C858 DEFW $DFDC       ; }
  $C85A DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
@@ -9429,8 +9454,8 @@ b$C857 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C85F DEFB $FF         ; Terminator.
 
-; Graphic ID #N$47
-@label=graphic_47
+; Graphic ID #N$13
+@label=graphic_13
 b$C860 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C861 DEFW $D5FC    ; }
  $C863 DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -9462,8 +9487,8 @@ b$C860 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C875 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$48
-@label=graphic_48
+; Graphic ID #N$19
+@label=graphic_19
 b$C876 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C877 DEFW $D334    ; }
  $C879 DEFB $FE,$45  ; Attribute: #COLOUR(#PC+$01)
@@ -9489,8 +9514,8 @@ b$C876 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C888 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$49
-@label=graphic_49
+; Graphic ID #N$27
+@label=graphic_27
 b$C889 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C88A DEFW $D5FC    ; }
  $C88C DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -9522,8 +9547,8 @@ b$C889 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C89E DEFB $FF      ; Terminator.
 
-; Graphic ID #N$4A
-@label=graphic_4a
+; Graphic ID #N$28
+@label=graphic_28
 b$C89F DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C8A0 DEFW $D514    ; }
  $C8A2 DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -9548,8 +9573,8 @@ b$C89F DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C8B2 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$4B
-@label=graphic_4b
+; Graphic ID #N$1D
+@label=graphic_1d
 b$C8B3 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C8B4 DEFW $D5FC    ; }
  $C8B6 DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -9569,8 +9594,8 @@ b$C8B3 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C8C2 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$4C
-@label=graphic_4c
+; Graphic ID #N$1E
+@label=graphic_1e
 b$C8C3 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C8C4 DEFW $D5FC       ; }
  $C8C6 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -9606,8 +9631,8 @@ b$C8C3 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C8E3 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$4D
-@label=graphic_4d
+; Graphic ID #N$1A
+@label=graphic_1a
 b$C8E4 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C8E5 DEFW $D334       ; }
  $C8E7 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -9645,8 +9670,8 @@ b$C8E4 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C907 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$4E
-@label=graphic_4e
+; Graphic ID #N$14
+@label=graphic_14
 b$C908 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C909 DEFW $D5FC       ; }
  $C90B DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -9667,8 +9692,8 @@ b$C908 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C919 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$4F
-@label=graphic_4f
+; Graphic ID #N$22
+@label=graphic_22
 b$C91A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C91B DEFW $D5FC       ; }
  $C91D DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -9692,8 +9717,8 @@ b$C91A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C92D DEFB $FF         ; Terminator.
 
-; Graphic ID #N$50
-@label=graphic_50
+; Graphic ID #N$3C
+@label=graphic_3c
 b$C92E DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C92F DEFW $D5FC       ; }
  $C931 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -9718,8 +9743,8 @@ b$C92E DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C942 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$51
-@label=graphic_51
+; Graphic ID #N$24
+@label=graphic_24
 b$C943 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C944 DEFW $D5FC       ; }
  $C946 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -9743,8 +9768,8 @@ b$C943 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C956 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$52
-@label=graphic_52
+; Graphic ID #N$6F
+@label=graphic_6f
 b$C957 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C958 DEFW $DFEC       ; }
  $C95A DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
@@ -9754,8 +9779,8 @@ b$C957 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C95F DEFB $FF         ; Terminator.
 
-; Graphic ID #N$53
-@label=graphic_53
+; Graphic ID #N$6D
+@label=graphic_6d
 b$C960 DEFB $FB             ; {Sprite Data:
  $C961 DEFW $D514           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C963 DEFB $FE,$46         ; Attribute: #COLOUR(#PC+$01)
@@ -9798,8 +9823,8 @@ b$C960 DEFB $FB             ; {Sprite Data:
                             ; #UDG($E02C,attr=$44) } UDGTABLE#
  $C985 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$54
-@label=graphic_54
+; Graphic ID #N$15
+@label=graphic_15
 b$C986 DEFB $FB             ; {Sprite Data:
  $C987 DEFW $D514           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C989 DEFB $FE,$46         ; Attribute: #COLOUR(#PC+$01)
@@ -9827,8 +9852,8 @@ b$C986 DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C9A1 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$55
-@label=graphic_55
+; Graphic ID #N$16
+@label=graphic_16
 b$C9A2 DEFB $FB             ; {Sprite Data:
  $C9A3 DEFW $D514           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $C9A5 DEFB $FE,$46         ; Attribute: #COLOUR(#PC+$01)
@@ -9856,8 +9881,8 @@ b$C9A2 DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $C9BD DEFB $FF             ; Terminator.
 
-; Graphic ID #N$56
-@label=graphic_56
+; Graphic ID #N$0F
+@label=graphic_0f
 b$C9BE DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C9BF DEFW $D514    ; }
  $C9C1 DEFB $FE,$43  ; Attribute: #COLOUR(#PC+$01)
@@ -9895,8 +9920,8 @@ b$C9BE DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $C9D3 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$57
-@label=graphic_57
+; Graphic ID #N$1B
+@label=graphic_1b
 b$C9D4 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C9D5 DEFW $D514       ; }
  $C9D7 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
@@ -9906,8 +9931,8 @@ b$C9D4 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $C9DC DEFB $FF         ; Terminator.
 
-; Graphic ID #N$58
-@label=graphic_58
+; Graphic ID #N$10
+@label=graphic_10
 b$C9DD DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C9DE DEFW $D514       ; }
  $C9E0 DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -9947,8 +9972,8 @@ b$C9DD DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $C9FB DEFB $FF         ; Terminator.
 
-; Graphic ID #N$59
-@label=graphic_59
+; Graphic ID #N$11
+@label=graphic_11
 b$C9FC DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $C9FD DEFW $D49C       ; }
  $C9FF DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -9989,8 +10014,8 @@ b$C9FC DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CA1E DEFB $FF         ; Terminator.
 
-; Graphic ID #N$5A
-@label=graphic_5a
+; Graphic ID #N$4E
+@label=graphic_4e
 b$CA1F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CA20 DEFW $D6BC       ; }
  $CA22 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
@@ -10063,8 +10088,8 @@ b$CA1F DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $CA56 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$5B
-@label=graphic_5b
+; Graphic ID #N$12
+@label=graphic_12
 b$CA57 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CA58 DEFW $D6BC       ; }
  $CA5A DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -10142,8 +10167,8 @@ b$CA57 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CA99 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$5C
-@label=graphic_5c
+; Graphic ID #N$17
+@label=graphic_17
 b$CA9A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CA9B DEFW $D49C       ; }
  $CA9D DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
@@ -10167,8 +10192,8 @@ b$CA9A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CAAD DEFB $FF         ; Terminator.
 
-; Graphic ID #N$5D
-@label=graphic_5d
+; Graphic ID #N$18
+@label=graphic_18
 b$CAAE DEFB $FB             ; {Sprite Data:
  $CAAF DEFW $D514           ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $CAB1 DEFB $FE,$42         ; Attribute: #COLOUR(#PC+$01)
@@ -10196,8 +10221,8 @@ b$CAAE DEFB $FB             ; {Sprite Data:
                             ; UDGTABLE#
  $CAC9 DEFB $FF             ; Terminator.
 
-; Graphic ID #N$5E
-@label=graphic_5e
+; Graphic ID #N$4B
+@label=graphic_4b
 b$CACA DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CACB DEFW $DA9C       ; }
  $CACD DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -10230,8 +10255,8 @@ b$CACA DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $CAEB DEFB $FF         ; Terminator.
 
-; Graphic ID #N$5F
-@label=graphic_5f
+; Graphic ID #N$65
+@label=graphic_65
 b$CAEC DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CAED DEFW $D6BC       ; }
  $CAEF DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -10258,8 +10283,8 @@ b$CAEC DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $CB04 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$60
-@label=graphic_60
+; Graphic ID #N$2B
+@label=graphic_2b
 b$CB05 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CB06 DEFW $D204       ; }
  $CB08 DEFB $FE,$46     ; Attribute: #COLOUR(#PC+$01)
@@ -10284,8 +10309,8 @@ b$CB05 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $CB19 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$61
-@label=graphic_61
+; Graphic ID #N$3F
+@label=graphic_3f
 b$CB1A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CB1B DEFW $D204       ; }
  $CB1D DEFB $FE,$43     ; Attribute: #COLOUR(#PC+$01)
@@ -10310,8 +10335,8 @@ b$CB1A DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $CB2E DEFB $FF         ; Terminator.
 
-; Graphic ID #N$62
-@label=graphic_62
+; Graphic ID #N$30
+@label=graphic_30
 b$CB2F DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CB30 DEFW $D7BC    ; }
  $CB32 DEFB $FE,$42  ; Attribute: #COLOUR(#PC+$01)
@@ -10360,8 +10385,8 @@ b$CB2F DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CB54 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$63
-@label=graphic_63
+; Graphic ID #N$31
+@label=graphic_31
 b$CB55 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CB56 DEFW $D7BC    ; }
  $CB58 DEFB $FE,$42  ; Attribute: #COLOUR(#PC+$01)
@@ -10387,8 +10412,8 @@ b$CB55 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CB6A DEFB $FF      ; Terminator.
 
-; Graphic ID #N$64
-@label=graphic_64
+; Graphic ID #N$32
+@label=graphic_32
 b$CB6B DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CB6C DEFW $D874    ; }
  $CB6E DEFB $FE,$42  ; Attribute: #COLOUR(#PC+$01)
@@ -10419,8 +10444,8 @@ b$CB6B DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CB84 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$65
-@label=graphic_65
+; Graphic ID #N$73
+@label=graphic_73
 b$CB85 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CB86 DEFW $D9E4    ; }
  $CB88 DEFB $FE,$42  ; Attribute: #COLOUR(#PC+$01)
@@ -10451,8 +10476,8 @@ b$CB85 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CB9F DEFB $FF      ; Terminator.
 
-; Graphic ID #N$66
-@label=graphic_66
+; Graphic ID #N$33
+@label=graphic_33
 b$CBA0 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CBA1 DEFW $D49C       ; }
  $CBA3 DEFB $FE,$47     ; Attribute: #COLOUR(#PC+$01)
@@ -10529,8 +10554,8 @@ b$CBA0 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CBDF DEFB $FF         ; Terminator.
 
-; Graphic ID #N$67
-@label=graphic_67
+; Graphic ID #N$34
+@label=graphic_34
 b$CBE0 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CBE1 DEFW $D7BC    ; }
  $CBE3 DEFB $FE,$43  ; Attribute: #COLOUR(#PC+$01)
@@ -10550,8 +10575,8 @@ b$CBE0 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CBEF DEFB $FF      ; Terminator.
 
-; Graphic ID #N$68
-@label=graphic_68
+; Graphic ID #N$35
+@label=graphic_35
 b$CBF0 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CBF1 DEFW $D91C    ; }
  $CBF3 DEFB $FE,$45  ; Attribute: #COLOUR(#PC+$01)
@@ -10577,8 +10602,8 @@ b$CBF0 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CC02 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$69
-@label=graphic_69
+; Graphic ID #N$36
+@label=graphic_36
 b$CC03 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CC04 DEFW $DFDC       ; }
  $CC06 DEFB $FE,$4F     ; Attribute: #COLOUR(#PC+$01)
@@ -10621,8 +10646,8 @@ b$CC03 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CC24 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$6A
-@label=graphic_6a
+; Graphic ID #N$37
+@label=graphic_37
 b$CC25 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CC26 DEFW $DFDC       ; }
  $CC28 DEFB $FE,$57     ; Attribute: #COLOUR(#PC+$01)
@@ -10647,8 +10672,8 @@ b$CC25 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CC38 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$6B
-@label=graphic_6b
+; Graphic ID #N$3D
+@label=graphic_3d
 b$CC39 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CC3A DEFW $DA9C       ; }
  $CC3C DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -10684,8 +10709,8 @@ b$CC39 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CC5A DEFB $C9,$FB     ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $CC5C DEFB $FF         ; Terminator.
 
-; Graphic ID #N$6C
-@label=graphic_6c
+; Graphic ID #N$42
+@label=graphic_42
 b$CC5D DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CC5E DEFW $D9E4       ; }
  $CC60 DEFB $FE,$45     ; Attribute: #COLOUR(#PC+$01)
@@ -10740,8 +10765,8 @@ b$CC5D DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CC8C DEFB $FF         ; Terminator.
 
-; Graphic ID #N$6D
-@label=graphic_6d
+; Graphic ID #N$41
+@label=graphic_41
 b$CC8D DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CC8E DEFW $DA9C       ; }
  $CC90 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
@@ -10753,8 +10778,8 @@ b$CC8D DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; } UDGTABLE#
  $CC96 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$6E
-@label=graphic_6e
+; Graphic ID #N$3E
+@label=graphic_3e
 b$CC97 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CC98 DEFW $DB64    ; }
  $CC9A DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
@@ -10780,8 +10805,8 @@ b$CC97 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CCA9 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$6F
-@label=graphic_6f
+; Graphic ID #N$40
+@label=graphic_40
 b$CCAA DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CCAB DEFW $DFDC    ; }
  $CCAD DEFB $FE,$46  ; Attribute: #COLOUR(#PC+$01)
@@ -10791,8 +10816,8 @@ b$CCAA DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CCB1 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$70
-@label=graphic_70
+; Graphic ID #N$4C
+@label=graphic_4c
 b$CCB2 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CCB3 DEFW $DA9C    ; }
  $CCB5 DEFB $FE,$47  ; Attribute: #COLOUR(#PC+$01)
@@ -10843,8 +10868,8 @@ b$CCB2 DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CCD9 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$71
-@label=graphic_71
+; Graphic ID #N$38
+@label=graphic_38
 b$CCDA DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CCDB DEFW $DA9C    ; }
  $CCDD DEFB $FE,$44  ; Attribute: #COLOUR(#PC+$01)
@@ -10877,8 +10902,8 @@ b$CCDA DEFB $FB      ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                      ; UDGTABLE#
  $CCF1 DEFB $FF      ; Terminator.
 
-; Graphic ID #N$72
-@label=graphic_72
+; Graphic ID #N$39
+@label=graphic_39
 b$CCF2 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CCF3 DEFW $DA9C       ; }
  $CCF5 DEFB $FE,$44     ; Attribute: #COLOUR(#PC+$01)
@@ -10920,8 +10945,8 @@ b$CCF2 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
                         ; UDGTABLE#
  $CD13 DEFB $FF         ; Terminator.
 
-; Graphic ID #N$73
-@label=graphic_73
+; Graphic ID #N$67
+@label=graphic_67
 b$CD14 DEFB $FB         ; {Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
  $CD15 DEFW $DFDC       ; }
  $CD17 DEFB $FE,$72     ; Attribute: #COLOUR(#PC+$01)
@@ -11115,214 +11140,592 @@ b$CD43 DEFB $FB             ; {Sprite Data:
                             ; #UDG($E24C,attr=$5F) } UDGTABLE#
  $CDB4 DEFB $FF             ; Terminator.
 
-; Room Data
-@label=Data_Rooms
-w$CDB5 DEFW $CDF7    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDB7 DEFW $CE01    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDB9 DEFW $CE25    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDBB DEFW $CE37    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDBD DEFW $CE69    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDBF DEFW $CE7B    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDC1 DEFW $CE89    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDC3 DEFW $CEAD    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDC5 DEFW $CEC9    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDC7 DEFW $CEE1    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDC9 DEFW $CEF9    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDCB DEFW $CF09    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDCD DEFW $CF29    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDCF DEFW $CF49    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDD1 DEFW $CF71    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDD3 DEFW $CF97    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDD5 DEFW $CFB5    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDD7 DEFW $CFD9    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDD9 DEFW $CFEF    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDDB DEFW $D009    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDDD DEFW $D039    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDDF DEFW $D057    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDE1 DEFW $D08B    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDE3 DEFW $D0AF    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDE5 DEFW $D0C3    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDE7 DEFW $D0E7    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDE9 DEFW $D109    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDEB DEFW $D125    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDED DEFW $D135    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDEF DEFW $D153    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDF1 DEFW $D16D    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDF3 DEFW $D17D    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
- $CDF5 DEFW $D191    ; Room
-                     ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+; Table: Room Data
+@label=Table_RoomData
+w$CDB5 DEFW $CDF7    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDB7 DEFW $CE01    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDB9 DEFW $CE25    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDBB DEFW $CE37    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDBD DEFW $CE69    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDBF DEFW $CE7B    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDC1 DEFW $CE89    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDC3 DEFW $CEAD    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDC5 DEFW $CEC9    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDC7 DEFW $CEE1    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDC9 DEFW $CEF9    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDCB DEFW $CF09    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDCD DEFW $CF29    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDCF DEFW $CF49    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDD1 DEFW $CF71    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDD3 DEFW $CF97    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDD5 DEFW $CFB5    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDD7 DEFW $CFD9    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDD9 DEFW $CFEF    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDDB DEFW $D009    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDDD DEFW $D039    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDDF DEFW $D057    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDE1 DEFW $D08B    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDE3 DEFW $D0AF    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDE5 DEFW $D0C3    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDE7 DEFW $D0E7    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDE9 DEFW $D109    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDEB DEFW $D125    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDED DEFW $D135    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDEF DEFW $D153    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDF1 DEFW $D16D    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDF3 DEFW $D17D    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
+ $CDF5 DEFW $D191    ; #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
 
-; Data block at CDF7
-b$CDF7 DEFB $80,$07,$86,$B0,$84,$4B,$85
- $CDFE DEFW $7FAF
- $CE00 DEFB $00                         ; Terminator.
+; Room #N$00: Town Square
+b$CDF7 DEFB $80,$07  ; #ROOM(#PC).
+ $CDF9 DEFB $86,$B0  ; #ROOM(#PC).
+ $CDFB DEFB $84,$4B  ; #ROOM(#PC).
+ $CDFD DEFB $85,$AF  ; #ROOM(#PC).
+ $CDFF DEFB $7F,$00  ; #ROOM(#PC).
 
-; Data block at CE01
-b$CE01 DEFB $80,$07,$08,$E7,$30,$DE,$8A,$87
- $CE09 DEFB $8A,$9F,$0C,$03,$0D,$01,$8F,$03
- $CE11 DEFB $0C,$05,$0C,$07,$14,$37,$A4,$2E
- $CE19 DEFB $B2,$84,$27,$5E,$34,$0F,$BB,$28
- $CE21 DEFB $BB,$48,$7F,$00
- $CE25 DEFB $A0,$07,$49,$00,$EA,$04,$EB,$0E
- $CE2D DEFB $6B,$0F,$C7,$20,$C7,$D8,$C6,$60
- $CE35 DEFB $7F,$00
- $CE37 DEFB $80,$07,$0D,$20,$8F,$22,$0C,$23
- $CE3F DEFB $0C,$25,$0C,$27,$2A,$A0,$29,$A3
- $CE47 DEFB $29,$A5,$29,$A7,$28,$7F,$A4,$76
- $CE4F DEFB $25,$2D,$26,$45,$25,$9D,$26,$B5
- $CE57 DEFB $08,$E7,$08,$07,$8F,$62,$5B,$24
- $CE5F DEFB $DC,$35,$5C,$AF,$DD,$3E,$DD,$A5
- $CE67 DEFB $7F,$00
- $CE69 DEFB $A0,$07,$48,$0F,$E8,$57,$E8,$55
- $CE71 DEFB $49,$00,$C7,$28,$C7,$80,$C7,$D0
- $CE79 DEFB $7F,$00
- $CE7B DEFB $80,$07,$83,$2F,$86,$20,$12,$6D
- $CE83 DEFB $86,$C8,$85,$1F,$7F,$00
- $CE89 DEFB $80,$07,$0D,$80,$8F,$82,$0C,$83
- $CE91 DEFB $0C,$85,$0C,$87,$11,$1A,$89,$07
- $CE99 DEFB $08,$4F,$08,$67,$33,$5A,$A4,$BE
- $CEA1 DEFB $14,$C7,$A7,$96,$A7,$93,$A7,$DB
- $CEA9 DEFB $B7,$85,$7F,$00
- $CEAD DEFB $80,$07,$18,$85,$18,$87,$4B,$82
- $CEB5 DEFB $8F,$84,$89,$07,$08,$4F,$08,$67
- $CEBD DEFB $97,$64,$31,$17,$A2,$BE,$14,$C7
- $CEC5 DEFB $0E,$96,$7F,$00
- $CEC9 DEFB $80,$07,$D0,$3C,$15,$C5,$15,$C7
- $CED1 DEFB $66,$67,$66,$A7,$66,$87,$7E,$09
- $CED9 DEFB $0C,$67,$7E,$09,$0C,$65,$7F,$00
- $CEE1 DEFB $80,$07,$4F,$5F,$18,$85,$18,$87
- $CEE9 DEFB $4B,$82,$8F,$84,$A2,$BE,$14,$C7
- $CEF1 DEFB $0E,$96,$0E,$E6,$86,$20,$7F,$00
- $CEF9 DEFB $80,$07,$A4,$2E,$BF,$5F,$BF,$B7
- $CF01 DEFB $70,$7F,$E8,$1A,$68,$45,$7F,$00
- $CF09 DEFB $80,$07,$64,$62,$1B,$64,$18,$64
- $CF11 DEFB $18,$65,$18,$67,$8A,$E7,$A4,$76
- $CF19 DEFB $14,$7F,$0E,$9E,$0E,$BE,$08,$07
- $CF21 DEFB $08,$27,$08,$47,$4D,$29,$7F,$00
- $CF29 DEFB $A0,$07,$A1,$37,$A1,$5F,$A1,$87
- $CF31 DEFB $A1,$AF,$A1,$D7,$49,$00,$C6,$60
- $CF39 DEFB $C7,$28,$C7,$D8,$0E,$3C,$0E,$7C
- $CF41 DEFB $0E,$BC,$F2,$37,$71,$03,$7F,$00
- $CF49 DEFB $80,$07,$08,$07,$89,$DF,$0D,$20
- $CF51 DEFB $08,$9F,$2C,$23,$2C,$25,$2C,$27
- $CF59 DEFB $A4,$76,$28,$7F,$11,$0A,$A5,$2D
- $CF61 DEFB $A6,$45,$2F,$4E,$97,$EC,$8F,$22
- $CF69 DEFB $93,$33,$93,$73,$DE,$75,$7F,$00
- $CF71 DEFB $A0,$07,$48,$07,$48,$47,$48,$87
- $CF79 DEFB $48,$C7,$C6,$18,$C7,$A0,$C7,$D0
- $CF81 DEFB $4A,$06,$49,$00,$2F,$35,$2F,$5D
- $CF89 DEFB $2F,$85,$62,$AE,$62,$D6,$E1,$DE
- $CF91 DEFB $E1,$AE,$E1,$5E,$7F,$00
- $CF97 DEFB $A0,$07,$D7,$27,$DA,$3E,$DA,$7E
- $CF9F DEFB $DA,$BE,$D8,$23,$D8,$4B,$D9,$7B
- $CFA7 DEFB $D9,$BB,$D9,$7C,$D9,$BC,$49,$00
- $CFAF DEFB $C6,$18,$C6,$A0,$7F,$00
- $CFB5 DEFB $80,$07,$6C,$9B,$6C,$EB,$2C,$03
- $CFBD DEFB $2C,$05,$2C,$07,$8D,$00,$0F,$03
- $CFC5 DEFB $27,$0D,$27,$55,$89,$97,$89,$DF
- $CFCD DEFB $A4,$2E,$14,$37,$3B,$10,$D4,$81
- $CFD5 DEFB $E0,$23,$7F,$00
- $CFD9 DEFB $A0,$07,$AB,$5F,$AB,$B7,$A4,$2E
- $CFE1 DEFB $69,$6B,$49,$00,$C6,$18,$C6,$A0
- $CFE9 DEFB $AD,$13,$2D,$15,$7F,$00
- $CFEF DEFB $80,$07,$C2,$16,$C2,$5E,$6C,$03
- $CFF7 DEFB $6C,$E3,$6C,$53,$6C,$9B,$C2,$A6
- $CFFF DEFB $4E,$D6,$D1,$3E,$D4,$01,$D4,$81
- $D007 DEFB $7F,$00
- $D009 DEFB $80,$07,$8D,$48,$AA,$B8,$1C,$4B
- $D011 DEFB $1C,$4D,$1C,$4F,$1C,$7B,$1C,$7D
- $D019 DEFB $1C,$7F,$A4,$76,$14,$7F,$08,$0F
- $D021 DEFB $11,$22,$30,$06,$1D,$5C,$1D,$7C
- $D029 DEFB $1D,$9C,$1D,$BC,$1D,$DC,$9D,$5E
- $D031 DEFB $9D,$9E,$9D,$BE,$9D,$DE,$7F,$00
- $D039 DEFB $A0,$07,$AB,$27,$AB,$6F,$AB,$B7
- $D041 DEFB $2D,$11,$2D,$13,$2D,$15,$2D,$61
- $D049 DEFB $2D,$63,$2D,$65,$2D,$B1,$2D,$B3
- $D051 DEFB $2D,$B5,$49,$00,$7F,$00
- $D057 DEFB $80,$07,$16,$03,$16,$05,$16,$07
- $D05F DEFB $B6,$04,$90,$7A,$0D,$80,$0C,$83
- $D067 DEFB $0C,$85,$0C,$87,$8F,$03,$8F,$82
- $D06F DEFB $A4,$2E,$14,$37,$14,$C7,$A2,$BE
- $D077 DEFB $35,$0F,$93,$96,$8E,$E6,$A7,$56
- $D07F DEFB $0D,$01,$93,$93,$93,$DB,$3A,$80
- $D087 DEFB $BB,$20,$7F,$00
- $D08B DEFB $80,$07,$BC,$44,$3D,$4D,$3D,$7D
- $D093 DEFB $3D,$AD,$40,$5F,$40,$8F,$40,$BF
- $D09B DEFB $C1,$26,$C1,$36,$BE,$12,$BF,$17
- $D0A3 DEFB $BF,$4F,$BF,$87,$BF,$BF,$38,$EF
- $D0AB DEFB $49,$00,$7F,$00
- $D0AF DEFB $A0,$07,$C4,$07,$AB,$1F,$C4,$67
- $D0B7 DEFB $C3,$97,$C7,$38,$C7,$78,$C7,$B8
- $D0BF DEFB $49,$00,$7F,$00
- $D0C3 DEFB $80,$07,$0D,$20,$8F,$22,$1C,$25
- $D0CB DEFB $8A,$9F,$1C,$27,$07,$DF,$08,$07
- $D0D3 DEFB $1C,$23,$28,$37,$A2,$2E,$A5,$55
- $D0DB DEFB $A6,$75,$2E,$66,$2E,$86,$97,$EC
- $D0E3 DEFB $5F,$34,$7F,$00
- $D0E7 DEFB $A0,$07,$48,$2F,$48,$6F,$48,$AF
- $D0EF DEFB $C5,$02,$C6,$18,$C6,$A0,$2E,$23
- $D0F7 DEFB $2E,$43,$2E,$63,$2E,$83,$2E,$A3
- $D0FF DEFB $2E,$C3,$2E,$E3,$49,$00,$4C,$0E
- $D107 DEFB $7F,$00
- $D109 DEFB $80,$07,$63,$05,$07,$DF,$8B,$06
- $D111 DEFB $A3,$46,$A3,$66,$64,$03,$9E,$2E
- $D119 DEFB $A3,$86,$A3,$9E,$11,$AA,$31,$E7
- $D121 DEFB $67,$85,$7F,$00
- $D125 DEFB $80,$07,$64,$83,$63,$85,$63,$87
- $D12D DEFB $0E,$96,$0E,$DE,$E5,$03,$7F,$00
- $D135 DEFB $80,$07,$A3,$06,$A3,$26,$0C,$47
- $D13D DEFB $0C,$45,$0C,$43,$9B,$42,$0D,$40
- $D145 DEFB $08,$C7,$08,$E7,$9E,$76,$1D,$56
- $D14D DEFB $1D,$A6,$73,$2C,$7F,$00
- $D153 DEFB $80,$07,$0D,$00,$0D,$80,$9B,$02
- $D15B DEFB $9B,$82,$1F,$13,$1F,$7B,$1F,$E3
- $D163 DEFB $85,$9F,$85,$37,$73,$44,$73,$AC
- $D16B DEFB $7F,$00
- $D16D DEFB $A0,$07,$83,$77,$D5,$0C,$07,$9F
- $D175 DEFB $08,$C7,$08,$E7,$D6,$C0,$7F,$00
- $D17D DEFB $80,$07,$01,$04,$02,$D4,$ED,$31
- $D185 DEFB $ED,$82,$ED,$75,$6D,$B1,$ED,$16
- $D18D DEFB $6D,$DE,$7F,$00
- $D191 DEFB $80
- $D192 DEFB $07
- $D193 DEFB $52,$00,$52,$18,$52,$58,$52,$88
- $D19B DEFB $52,$98,$52,$C8,$53,$30,$53,$48
- $D1A3 DEFB $53,$70,$53,$B0,$53,$D8,$53,$F0
- $D1AB DEFB $6D,$2C,$ED,$8C,$6D,$BD,$EF,$17
- $D1B3 DEFB $6E,$26,$6E,$76,$6E,$D6,$7F,$00
- $D1BB DEFB $00
+; Room #N$01:
+b$CE01 DEFB $80,$07  ; #ROOM(#PC).
+ $CE03 DEFB $08,$E7  ; #ROOM(#PC).
+ $CE05 DEFB $30,$DE  ; #ROOM(#PC).
+ $CE07 DEFB $8A,$87  ; #ROOM(#PC).
+ $CE09 DEFB $8A,$9F  ; #ROOM(#PC).
+ $CE0B DEFB $0C,$03  ; #ROOM(#PC).
+ $CE0D DEFB $0D,$01  ; #ROOM(#PC).
+ $CE0F DEFB $8F,$03  ; #ROOM(#PC).
+ $CE11 DEFB $0C,$05  ; #ROOM(#PC).
+ $CE13 DEFB $0C,$07  ; #ROOM(#PC).
+ $CE15 DEFB $14,$37  ; #ROOM(#PC).
+ $CE17 DEFB $A4,$2E  ; #ROOM(#PC).
+ $CE19 DEFB $B2,$84  ; #ROOM(#PC).
+ $CE1B DEFB $27,$5E  ; #ROOM(#PC).
+ $CE1D DEFB $34,$0F  ; #ROOM(#PC).
+ $CE1F DEFB $BB,$28  ; #ROOM(#PC).
+ $CE21 DEFB $BB,$48  ; #ROOM(#PC).
+ $CE23 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$02:
+b$CE25 DEFB $A0,$07  ; #ROOM(#PC).
+ $CE27 DEFB $49,$00  ; #ROOM(#PC).
+ $CE29 DEFB $EA,$04  ; #ROOM(#PC).
+ $CE2B DEFB $EB,$0E  ; #ROOM(#PC).
+ $CE2D DEFB $6B,$0F  ; #ROOM(#PC).
+ $CE2F DEFB $C7,$20  ; #ROOM(#PC).
+ $CE31 DEFB $C7,$D8  ; #ROOM(#PC).
+ $CE33 DEFB $C6,$60  ; #ROOM(#PC).
+ $CE35 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$03:
+b$CE37 DEFB $80,$07  ; #ROOM(#PC).
+ $CE39 DEFB $0D,$20  ; #ROOM(#PC).
+ $CE3B DEFB $8F,$22  ; #ROOM(#PC).
+ $CE3D DEFB $0C,$23  ; #ROOM(#PC).
+ $CE3F DEFB $0C,$25  ; #ROOM(#PC).
+ $CE41 DEFB $0C,$27  ; #ROOM(#PC).
+ $CE43 DEFB $2A,$A0  ; #ROOM(#PC).
+ $CE45 DEFB $29,$A3  ; #ROOM(#PC).
+ $CE47 DEFB $29,$A5  ; #ROOM(#PC).
+ $CE49 DEFB $29,$A7  ; #ROOM(#PC).
+ $CE4B DEFB $28,$7F  ; #ROOM(#PC).
+ $CE4D DEFB $A4,$76  ; #ROOM(#PC).
+ $CE4F DEFB $25,$2D  ; #ROOM(#PC).
+ $CE51 DEFB $26,$45  ; #ROOM(#PC).
+ $CE53 DEFB $25,$9D  ; #ROOM(#PC).
+ $CE55 DEFB $26,$B5  ; #ROOM(#PC).
+ $CE57 DEFB $08,$E7  ; #ROOM(#PC).
+ $CE59 DEFB $08,$07  ; #ROOM(#PC).
+ $CE5B DEFB $8F,$62  ; #ROOM(#PC).
+ $CE5D DEFB $5B,$24  ; #ROOM(#PC).
+ $CE5F DEFB $DC,$35  ; #ROOM(#PC).
+ $CE61 DEFB $5C,$AF  ; #ROOM(#PC).
+ $CE63 DEFB $DD,$3E  ; #ROOM(#PC).
+ $CE65 DEFB $DD,$A5  ; #ROOM(#PC).
+ $CE67 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$04:
+b$CE69 DEFB $A0,$07  ; #ROOM(#PC).
+ $CE6B DEFB $48,$0F  ; #ROOM(#PC).
+ $CE6D DEFB $E8,$57  ; #ROOM(#PC).
+ $CE6F DEFB $E8,$55  ; #ROOM(#PC).
+ $CE71 DEFB $49,$00  ; #ROOM(#PC).
+ $CE73 DEFB $C7,$28  ; #ROOM(#PC).
+ $CE75 DEFB $C7,$80  ; #ROOM(#PC).
+ $CE77 DEFB $C7,$D0  ; #ROOM(#PC).
+ $CE79 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$05:
+b$CE7B DEFB $80,$07  ; #ROOM(#PC).
+ $CE7D DEFB $83,$2F  ; #ROOM(#PC).
+ $CE7F DEFB $86,$20  ; #ROOM(#PC).
+ $CE81 DEFB $12,$6D  ; #ROOM(#PC).
+ $CE83 DEFB $86,$C8  ; #ROOM(#PC).
+ $CE85 DEFB $85,$1F  ; #ROOM(#PC).
+ $CE87 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$06:
+b$CE89 DEFB $80,$07  ; #ROOM(#PC).
+ $CE8B DEFB $0D,$80  ; #ROOM(#PC).
+ $CE8D DEFB $8F,$82  ; #ROOM(#PC).
+ $CE8F DEFB $0C,$83  ; #ROOM(#PC).
+ $CE91 DEFB $0C,$85  ; #ROOM(#PC).
+ $CE93 DEFB $0C,$87  ; #ROOM(#PC).
+ $CE95 DEFB $11,$1A  ; #ROOM(#PC).
+ $CE97 DEFB $89,$07  ; #ROOM(#PC).
+ $CE99 DEFB $08,$4F  ; #ROOM(#PC).
+ $CE9B DEFB $08,$67  ; #ROOM(#PC).
+ $CE9D DEFB $33,$5A  ; #ROOM(#PC).
+ $CE9F DEFB $A4,$BE  ; #ROOM(#PC).
+ $CEA1 DEFB $14,$C7  ; #ROOM(#PC).
+ $CEA3 DEFB $A7,$96  ; #ROOM(#PC).
+ $CEA5 DEFB $A7,$93  ; #ROOM(#PC).
+ $CEA7 DEFB $A7,$DB  ; #ROOM(#PC).
+ $CEA9 DEFB $B7,$85  ; #ROOM(#PC).
+ $CEAB DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$07:
+b$CEAD DEFB $80,$07  ; #ROOM(#PC).
+ $CEAF DEFB $18,$85  ; #ROOM(#PC).
+ $CEB1 DEFB $18,$87  ; #ROOM(#PC).
+ $CEB3 DEFB $4B,$82  ; #ROOM(#PC).
+ $CEB5 DEFB $8F,$84  ; #ROOM(#PC).
+ $CEB7 DEFB $89,$07  ; #ROOM(#PC).
+ $CEB9 DEFB $08,$4F  ; #ROOM(#PC).
+ $CEBB DEFB $08,$67  ; #ROOM(#PC).
+ $CEBD DEFB $97,$64  ; #ROOM(#PC).
+ $CEBF DEFB $31,$17  ; #ROOM(#PC).
+ $CEC1 DEFB $A2,$BE  ; #ROOM(#PC).
+ $CEC3 DEFB $14,$C7  ; #ROOM(#PC).
+ $CEC5 DEFB $0E,$96  ; #ROOM(#PC).
+ $CEC7 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$08:
+b$CEC9 DEFB $80,$07  ; #ROOM(#PC).
+ $CECB DEFB $D0,$3C  ; #ROOM(#PC).
+ $CECD DEFB $15,$C5  ; #ROOM(#PC).
+ $CECF DEFB $15,$C7  ; #ROOM(#PC).
+ $CED1 DEFB $66,$67  ; #ROOM(#PC).
+ $CED3 DEFB $66,$A7  ; #ROOM(#PC).
+ $CED5 DEFB $66,$87  ; #ROOM(#PC).
+ $CED7 DEFB $7E,$09  ; #ROOM(#PC).
+ $CED9 DEFB $0C,$67  ; #ROOM(#PC).
+ $CEDB DEFB $7E,$09  ; #ROOM(#PC).
+ $CEDD DEFB $0C,$65  ; #ROOM(#PC).
+ $CEDF DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$09:
+b$CEE1 DEFB $80,$07  ; #ROOM(#PC).
+ $CEE3 DEFB $4F,$5F  ; #ROOM(#PC).
+ $CEE5 DEFB $18,$85  ; #ROOM(#PC).
+ $CEE7 DEFB $18,$87  ; #ROOM(#PC).
+ $CEE9 DEFB $4B,$82  ; #ROOM(#PC).
+ $CEEB DEFB $8F,$84  ; #ROOM(#PC).
+ $CEED DEFB $A2,$BE  ; #ROOM(#PC).
+ $CEEF DEFB $14,$C7  ; #ROOM(#PC).
+ $CEF1 DEFB $0E,$96  ; #ROOM(#PC).
+ $CEF3 DEFB $0E,$E6  ; #ROOM(#PC).
+ $CEF5 DEFB $86,$20  ; #ROOM(#PC).
+ $CEF7 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$0A:
+b$CEF9 DEFB $80,$07  ; #ROOM(#PC).
+ $CEFB DEFB $A4,$2E  ; #ROOM(#PC).
+ $CEFD DEFB $BF,$5F  ; #ROOM(#PC).
+ $CEFF DEFB $BF,$B7  ; #ROOM(#PC).
+ $CF01 DEFB $70,$7F  ; #ROOM(#PC).
+ $CF03 DEFB $E8,$1A  ; #ROOM(#PC).
+ $CF05 DEFB $68,$45  ; #ROOM(#PC).
+ $CF07 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$0B:
+b$CF09 DEFB $80,$07  ; #ROOM(#PC).
+ $CF0B DEFB $64,$62  ; #ROOM(#PC).
+ $CF0D DEFB $1B,$64  ; #ROOM(#PC).
+ $CF0F DEFB $18,$64  ; #ROOM(#PC).
+ $CF11 DEFB $18,$65  ; #ROOM(#PC).
+ $CF13 DEFB $18,$67  ; #ROOM(#PC).
+ $CF15 DEFB $8A,$E7  ; #ROOM(#PC).
+ $CF17 DEFB $A4,$76  ; #ROOM(#PC).
+ $CF19 DEFB $14,$7F  ; #ROOM(#PC).
+ $CF1B DEFB $0E,$9E  ; #ROOM(#PC).
+ $CF1D DEFB $0E,$BE  ; #ROOM(#PC).
+ $CF1F DEFB $08,$07  ; #ROOM(#PC).
+ $CF21 DEFB $08,$27  ; #ROOM(#PC).
+ $CF23 DEFB $08,$47  ; #ROOM(#PC).
+ $CF25 DEFB $4D,$29  ; #ROOM(#PC).
+ $CF27 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$0C:
+b$CF29 DEFB $A0,$07  ; #ROOM(#PC).
+ $CF2B DEFB $A1,$37  ; #ROOM(#PC).
+ $CF2D DEFB $A1,$5F  ; #ROOM(#PC).
+ $CF2F DEFB $A1,$87  ; #ROOM(#PC).
+ $CF31 DEFB $A1,$AF  ; #ROOM(#PC).
+ $CF33 DEFB $A1,$D7  ; #ROOM(#PC).
+ $CF35 DEFB $49,$00  ; #ROOM(#PC).
+ $CF37 DEFB $C6,$60  ; #ROOM(#PC).
+ $CF39 DEFB $C7,$28  ; #ROOM(#PC).
+ $CF3B DEFB $C7,$D8  ; #ROOM(#PC).
+ $CF3D DEFB $0E,$3C  ; #ROOM(#PC).
+ $CF3F DEFB $0E,$7C  ; #ROOM(#PC).
+ $CF41 DEFB $0E,$BC  ; #ROOM(#PC).
+ $CF43 DEFB $F2,$37  ; #ROOM(#PC).
+ $CF45 DEFB $71,$03  ; #ROOM(#PC).
+ $CF47 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$0D:
+b$CF49 DEFB $80,$07  ; #ROOM(#PC).
+ $CF4B DEFB $08,$07  ; #ROOM(#PC).
+ $CF4D DEFB $89,$DF  ; #ROOM(#PC).
+ $CF4F DEFB $0D,$20  ; #ROOM(#PC).
+ $CF51 DEFB $08,$9F  ; #ROOM(#PC).
+ $CF53 DEFB $2C,$23  ; #ROOM(#PC).
+ $CF55 DEFB $2C,$25  ; #ROOM(#PC).
+ $CF57 DEFB $2C,$27  ; #ROOM(#PC).
+ $CF59 DEFB $A4,$76  ; #ROOM(#PC).
+ $CF5B DEFB $28,$7F  ; #ROOM(#PC).
+ $CF5D DEFB $11,$0A  ; #ROOM(#PC).
+ $CF5F DEFB $A5,$2D  ; #ROOM(#PC).
+ $CF61 DEFB $A6,$45  ; #ROOM(#PC).
+ $CF63 DEFB $2F,$4E  ; #ROOM(#PC).
+ $CF65 DEFB $97,$EC  ; #ROOM(#PC).
+ $CF67 DEFB $8F,$22  ; #ROOM(#PC).
+ $CF69 DEFB $93,$33  ; #ROOM(#PC).
+ $CF6B DEFB $93,$73  ; #ROOM(#PC).
+ $CF6D DEFB $DE,$75  ; #ROOM(#PC).
+ $CF6F DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$0E:
+b$CF71 DEFB $A0,$07  ; #ROOM(#PC).
+ $CF73 DEFB $48,$07  ; #ROOM(#PC).
+ $CF75 DEFB $48,$47  ; #ROOM(#PC).
+ $CF77 DEFB $48,$87  ; #ROOM(#PC).
+ $CF79 DEFB $48,$C7  ; #ROOM(#PC).
+ $CF7B DEFB $C6,$18  ; #ROOM(#PC).
+ $CF7D DEFB $C7,$A0  ; #ROOM(#PC).
+ $CF7F DEFB $C7,$D0  ; #ROOM(#PC).
+ $CF81 DEFB $4A,$06  ; #ROOM(#PC).
+ $CF83 DEFB $49,$00  ; #ROOM(#PC).
+ $CF85 DEFB $2F,$35  ; #ROOM(#PC).
+ $CF87 DEFB $2F,$5D  ; #ROOM(#PC).
+ $CF89 DEFB $2F,$85  ; #ROOM(#PC).
+ $CF8B DEFB $62,$AE  ; #ROOM(#PC).
+ $CF8D DEFB $62,$D6  ; #ROOM(#PC).
+ $CF8F DEFB $E1,$DE  ; #ROOM(#PC).
+ $CF91 DEFB $E1,$AE  ; #ROOM(#PC).
+ $CF93 DEFB $E1,$5E  ; #ROOM(#PC).
+ $CF95 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$0F:
+b$CF97 DEFB $A0,$07  ; #ROOM(#PC).
+ $CF99 DEFB $D7,$27  ; #ROOM(#PC).
+ $CF9B DEFB $DA,$3E  ; #ROOM(#PC).
+ $CF9D DEFB $DA,$7E  ; #ROOM(#PC).
+ $CF9F DEFB $DA,$BE  ; #ROOM(#PC).
+ $CFA1 DEFB $D8,$23  ; #ROOM(#PC).
+ $CFA3 DEFB $D8,$4B  ; #ROOM(#PC).
+ $CFA5 DEFB $D9,$7B  ; #ROOM(#PC).
+ $CFA7 DEFB $D9,$BB  ; #ROOM(#PC).
+ $CFA9 DEFB $D9,$7C  ; #ROOM(#PC).
+ $CFAB DEFB $D9,$BC  ; #ROOM(#PC).
+ $CFAD DEFB $49,$00  ; #ROOM(#PC).
+ $CFAF DEFB $C6,$18  ; #ROOM(#PC).
+ $CFB1 DEFB $C6,$A0  ; #ROOM(#PC).
+ $CFB3 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$10:
+b$CFB5 DEFB $80,$07  ; #ROOM(#PC).
+ $CFB7 DEFB $6C,$9B  ; #ROOM(#PC).
+ $CFB9 DEFB $6C,$EB  ; #ROOM(#PC).
+ $CFBB DEFB $2C,$03  ; #ROOM(#PC).
+ $CFBD DEFB $2C,$05  ; #ROOM(#PC).
+ $CFBF DEFB $2C,$07  ; #ROOM(#PC).
+ $CFC1 DEFB $8D,$00  ; #ROOM(#PC).
+ $CFC3 DEFB $0F,$03  ; #ROOM(#PC).
+ $CFC5 DEFB $27,$0D  ; #ROOM(#PC).
+ $CFC7 DEFB $27,$55  ; #ROOM(#PC).
+ $CFC9 DEFB $89,$97  ; #ROOM(#PC).
+ $CFCB DEFB $89,$DF  ; #ROOM(#PC).
+ $CFCD DEFB $A4,$2E  ; #ROOM(#PC).
+ $CFCF DEFB $14,$37  ; #ROOM(#PC).
+ $CFD1 DEFB $3B,$10  ; #ROOM(#PC).
+ $CFD3 DEFB $D4,$81  ; #ROOM(#PC).
+ $CFD5 DEFB $E0,$23  ; #ROOM(#PC).
+ $CFD7 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$11:
+b$CFD9 DEFB $A0,$07  ; #ROOM(#PC).
+ $CFDB DEFB $AB,$5F  ; #ROOM(#PC).
+ $CFDD DEFB $AB,$B7  ; #ROOM(#PC).
+ $CFDF DEFB $A4,$2E  ; #ROOM(#PC).
+ $CFE1 DEFB $69,$6B  ; #ROOM(#PC).
+ $CFE3 DEFB $49,$00  ; #ROOM(#PC).
+ $CFE5 DEFB $C6,$18  ; #ROOM(#PC).
+ $CFE7 DEFB $C6,$A0  ; #ROOM(#PC).
+ $CFE9 DEFB $AD,$13  ; #ROOM(#PC).
+ $CFEB DEFB $2D,$15  ; #ROOM(#PC).
+ $CFED DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$12:
+b$CFEF DEFB $80,$07  ; #ROOM(#PC).
+ $CFF1 DEFB $C2,$16  ; #ROOM(#PC).
+ $CFF3 DEFB $C2,$5E  ; #ROOM(#PC).
+ $CFF5 DEFB $6C,$03  ; #ROOM(#PC).
+ $CFF7 DEFB $6C,$E3  ; #ROOM(#PC).
+ $CFF9 DEFB $6C,$53  ; #ROOM(#PC).
+ $CFFB DEFB $6C,$9B  ; #ROOM(#PC).
+ $CFFD DEFB $C2,$A6  ; #ROOM(#PC).
+ $CFFF DEFB $4E,$D6  ; #ROOM(#PC).
+ $D001 DEFB $D1,$3E  ; #ROOM(#PC).
+ $D003 DEFB $D4,$01  ; #ROOM(#PC).
+ $D005 DEFB $D4,$81  ; #ROOM(#PC).
+ $D007 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$13:
+b$D009 DEFB $80,$07  ; #ROOM(#PC).
+ $D00B DEFB $8D,$48  ; #ROOM(#PC).
+ $D00D DEFB $AA,$B8  ; #ROOM(#PC).
+ $D00F DEFB $1C,$4B  ; #ROOM(#PC).
+ $D011 DEFB $1C,$4D  ; #ROOM(#PC).
+ $D013 DEFB $1C,$4F  ; #ROOM(#PC).
+ $D015 DEFB $1C,$7B  ; #ROOM(#PC).
+ $D017 DEFB $1C,$7D  ; #ROOM(#PC).
+ $D019 DEFB $1C,$7F  ; #ROOM(#PC).
+ $D01B DEFB $A4,$76  ; #ROOM(#PC).
+ $D01D DEFB $14,$7F  ; #ROOM(#PC).
+ $D01F DEFB $08,$0F  ; #ROOM(#PC).
+ $D021 DEFB $11,$22  ; #ROOM(#PC).
+ $D023 DEFB $30,$06  ; #ROOM(#PC).
+ $D025 DEFB $1D,$5C  ; #ROOM(#PC).
+ $D027 DEFB $1D,$7C  ; #ROOM(#PC).
+ $D029 DEFB $1D,$9C  ; #ROOM(#PC).
+ $D02B DEFB $1D,$BC  ; #ROOM(#PC).
+ $D02D DEFB $1D,$DC  ; #ROOM(#PC).
+ $D02F DEFB $9D,$5E  ; #ROOM(#PC).
+ $D031 DEFB $9D,$9E  ; #ROOM(#PC).
+ $D033 DEFB $9D,$BE  ; #ROOM(#PC).
+ $D035 DEFB $9D,$DE  ; #ROOM(#PC).
+ $D037 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$14:
+b$D039 DEFB $A0,$07  ; #ROOM(#PC).
+ $D03B DEFB $AB,$27  ; #ROOM(#PC).
+ $D03D DEFB $AB,$6F  ; #ROOM(#PC).
+ $D03F DEFB $AB,$B7  ; #ROOM(#PC).
+ $D041 DEFB $2D,$11  ; #ROOM(#PC).
+ $D043 DEFB $2D,$13  ; #ROOM(#PC).
+ $D045 DEFB $2D,$15  ; #ROOM(#PC).
+ $D047 DEFB $2D,$61  ; #ROOM(#PC).
+ $D049 DEFB $2D,$63  ; #ROOM(#PC).
+ $D04B DEFB $2D,$65  ; #ROOM(#PC).
+ $D04D DEFB $2D,$B1  ; #ROOM(#PC).
+ $D04F DEFB $2D,$B3  ; #ROOM(#PC).
+ $D051 DEFB $2D,$B5  ; #ROOM(#PC).
+ $D053 DEFB $49,$00  ; #ROOM(#PC).
+ $D055 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$15:
+b$D057 DEFB $80,$07  ; #ROOM(#PC).
+ $D059 DEFB $16,$03  ; #ROOM(#PC).
+ $D05B DEFB $16,$05  ; #ROOM(#PC).
+ $D05D DEFB $16,$07  ; #ROOM(#PC).
+ $D05F DEFB $B6,$04  ; #ROOM(#PC).
+ $D061 DEFB $90,$7A  ; #ROOM(#PC).
+ $D063 DEFB $0D,$80  ; #ROOM(#PC).
+ $D065 DEFB $0C,$83  ; #ROOM(#PC).
+ $D067 DEFB $0C,$85  ; #ROOM(#PC).
+ $D069 DEFB $0C,$87  ; #ROOM(#PC).
+ $D06B DEFB $8F,$03  ; #ROOM(#PC).
+ $D06D DEFB $8F,$82  ; #ROOM(#PC).
+ $D06F DEFB $A4,$2E  ; #ROOM(#PC).
+ $D071 DEFB $14,$37  ; #ROOM(#PC).
+ $D073 DEFB $14,$C7  ; #ROOM(#PC).
+ $D075 DEFB $A2,$BE  ; #ROOM(#PC).
+ $D077 DEFB $35,$0F  ; #ROOM(#PC).
+ $D079 DEFB $93,$96  ; #ROOM(#PC).
+ $D07B DEFB $8E,$E6  ; #ROOM(#PC).
+ $D07D DEFB $A7,$56  ; #ROOM(#PC).
+ $D07F DEFB $0D,$01  ; #ROOM(#PC).
+ $D081 DEFB $93,$93  ; #ROOM(#PC).
+ $D083 DEFB $93,$DB  ; #ROOM(#PC).
+ $D085 DEFB $3A,$80  ; #ROOM(#PC).
+ $D087 DEFB $BB,$20  ; #ROOM(#PC).
+ $D089 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$16:
+b$D08B DEFB $80,$07  ; #ROOM(#PC).
+ $D08D DEFB $BC,$44  ; #ROOM(#PC).
+ $D08F DEFB $3D,$4D  ; #ROOM(#PC).
+ $D091 DEFB $3D,$7D  ; #ROOM(#PC).
+ $D093 DEFB $3D,$AD  ; #ROOM(#PC).
+ $D095 DEFB $40,$5F  ; #ROOM(#PC).
+ $D097 DEFB $40,$8F  ; #ROOM(#PC).
+ $D099 DEFB $40,$BF  ; #ROOM(#PC).
+ $D09B DEFB $C1,$26  ; #ROOM(#PC).
+ $D09D DEFB $C1,$36  ; #ROOM(#PC).
+ $D09F DEFB $BE,$12  ; #ROOM(#PC).
+ $D0A1 DEFB $BF,$17  ; #ROOM(#PC).
+ $D0A3 DEFB $BF,$4F  ; #ROOM(#PC).
+ $D0A5 DEFB $BF,$87  ; #ROOM(#PC).
+ $D0A7 DEFB $BF,$BF  ; #ROOM(#PC).
+ $D0A9 DEFB $38,$EF  ; #ROOM(#PC).
+ $D0AB DEFB $49,$00  ; #ROOM(#PC).
+ $D0AD DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$17:
+b$D0AF DEFB $A0,$07  ; #ROOM(#PC).
+ $D0B1 DEFB $C4,$07  ; #ROOM(#PC).
+ $D0B3 DEFB $AB,$1F  ; #ROOM(#PC).
+ $D0B5 DEFB $C4,$67  ; #ROOM(#PC).
+ $D0B7 DEFB $C3,$97  ; #ROOM(#PC).
+ $D0B9 DEFB $C7,$38  ; #ROOM(#PC).
+ $D0BB DEFB $C7,$78  ; #ROOM(#PC).
+ $D0BD DEFB $C7,$B8  ; #ROOM(#PC).
+ $D0BF DEFB $49,$00  ; #ROOM(#PC).
+ $D0C1 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$18:
+b$D0C3 DEFB $80,$07  ; #ROOM(#PC).
+ $D0C5 DEFB $0D,$20  ; #ROOM(#PC).
+ $D0C7 DEFB $8F,$22  ; #ROOM(#PC).
+ $D0C9 DEFB $1C,$25  ; #ROOM(#PC).
+ $D0CB DEFB $8A,$9F  ; #ROOM(#PC).
+ $D0CD DEFB $1C,$27  ; #ROOM(#PC).
+ $D0CF DEFB $07,$DF  ; #ROOM(#PC).
+ $D0D1 DEFB $08,$07  ; #ROOM(#PC).
+ $D0D3 DEFB $1C,$23  ; #ROOM(#PC).
+ $D0D5 DEFB $28,$37  ; #ROOM(#PC).
+ $D0D7 DEFB $A2,$2E  ; #ROOM(#PC).
+ $D0D9 DEFB $A5,$55  ; #ROOM(#PC).
+ $D0DB DEFB $A6,$75  ; #ROOM(#PC).
+ $D0DD DEFB $2E,$66  ; #ROOM(#PC).
+ $D0DF DEFB $2E,$86  ; #ROOM(#PC).
+ $D0E1 DEFB $97,$EC  ; #ROOM(#PC).
+ $D0E3 DEFB $5F,$34  ; #ROOM(#PC).
+ $D0E5 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$19:
+b$D0E7 DEFB $A0,$07  ; #ROOM(#PC).
+ $D0E9 DEFB $48,$2F  ; #ROOM(#PC).
+ $D0EB DEFB $48,$6F  ; #ROOM(#PC).
+ $D0ED DEFB $48,$AF  ; #ROOM(#PC).
+ $D0EF DEFB $C5,$02  ; #ROOM(#PC).
+ $D0F1 DEFB $C6,$18  ; #ROOM(#PC).
+ $D0F3 DEFB $C6,$A0  ; #ROOM(#PC).
+ $D0F5 DEFB $2E,$23  ; #ROOM(#PC).
+ $D0F7 DEFB $2E,$43  ; #ROOM(#PC).
+ $D0F9 DEFB $2E,$63  ; #ROOM(#PC).
+ $D0FB DEFB $2E,$83  ; #ROOM(#PC).
+ $D0FD DEFB $2E,$A3  ; #ROOM(#PC).
+ $D0FF DEFB $2E,$C3  ; #ROOM(#PC).
+ $D101 DEFB $2E,$E3  ; #ROOM(#PC).
+ $D103 DEFB $49,$00  ; #ROOM(#PC).
+ $D105 DEFB $4C,$0E  ; #ROOM(#PC).
+ $D107 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$1A:
+b$D109 DEFB $80,$07  ; #ROOM(#PC).
+ $D10B DEFB $63,$05  ; #ROOM(#PC).
+ $D10D DEFB $07,$DF  ; #ROOM(#PC).
+ $D10F DEFB $8B,$06  ; #ROOM(#PC).
+ $D111 DEFB $A3,$46  ; #ROOM(#PC).
+ $D113 DEFB $A3,$66  ; #ROOM(#PC).
+ $D115 DEFB $64,$03  ; #ROOM(#PC).
+ $D117 DEFB $9E,$2E  ; #ROOM(#PC).
+ $D119 DEFB $A3,$86  ; #ROOM(#PC).
+ $D11B DEFB $A3,$9E  ; #ROOM(#PC).
+ $D11D DEFB $11,$AA  ; #ROOM(#PC).
+ $D11F DEFB $31,$E7  ; #ROOM(#PC).
+ $D121 DEFB $67,$85  ; #ROOM(#PC).
+ $D123 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$1B:
+b$D125 DEFB $80,$07  ; #ROOM(#PC).
+ $D127 DEFB $64,$83  ; #ROOM(#PC).
+ $D129 DEFB $63,$85  ; #ROOM(#PC).
+ $D12B DEFB $63,$87  ; #ROOM(#PC).
+ $D12D DEFB $0E,$96  ; #ROOM(#PC).
+ $D12F DEFB $0E,$DE  ; #ROOM(#PC).
+ $D131 DEFB $E5,$03  ; #ROOM(#PC).
+ $D133 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$1C:
+b$D135 DEFB $80,$07  ; #ROOM(#PC).
+ $D137 DEFB $A3,$06  ; #ROOM(#PC).
+ $D139 DEFB $A3,$26  ; #ROOM(#PC).
+ $D13B DEFB $0C,$47  ; #ROOM(#PC).
+ $D13D DEFB $0C,$45  ; #ROOM(#PC).
+ $D13F DEFB $0C,$43  ; #ROOM(#PC).
+ $D141 DEFB $9B,$42  ; #ROOM(#PC).
+ $D143 DEFB $0D,$40  ; #ROOM(#PC).
+ $D145 DEFB $08,$C7  ; #ROOM(#PC).
+ $D147 DEFB $08,$E7  ; #ROOM(#PC).
+ $D149 DEFB $9E,$76  ; #ROOM(#PC).
+ $D14B DEFB $1D,$56  ; #ROOM(#PC).
+ $D14D DEFB $1D,$A6  ; #ROOM(#PC).
+ $D14F DEFB $73,$2C  ; #ROOM(#PC).
+ $D151 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$1D:
+b$D153 DEFB $80,$07  ; #ROOM(#PC).
+ $D155 DEFB $0D,$00  ; #ROOM(#PC).
+ $D157 DEFB $0D,$80  ; #ROOM(#PC).
+ $D159 DEFB $9B,$02  ; #ROOM(#PC).
+ $D15B DEFB $9B,$82  ; #ROOM(#PC).
+ $D15D DEFB $1F,$13  ; #ROOM(#PC).
+ $D15F DEFB $1F,$7B  ; #ROOM(#PC).
+ $D161 DEFB $1F,$E3  ; #ROOM(#PC).
+ $D163 DEFB $85,$9F  ; #ROOM(#PC).
+ $D165 DEFB $85,$37  ; #ROOM(#PC).
+ $D167 DEFB $73,$44  ; #ROOM(#PC).
+ $D169 DEFB $73,$AC  ; #ROOM(#PC).
+ $D16B DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$1E:
+b$D16D DEFB $A0,$07  ; #ROOM(#PC).
+ $D16F DEFB $83,$77  ; #ROOM(#PC).
+ $D171 DEFB $D5,$0C  ; #ROOM(#PC).
+ $D173 DEFB $07,$9F  ; #ROOM(#PC).
+ $D175 DEFB $08,$C7  ; #ROOM(#PC).
+ $D177 DEFB $08,$E7  ; #ROOM(#PC).
+ $D179 DEFB $D6,$C0  ; #ROOM(#PC).
+ $D17B DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$1F:
+b$D17D DEFB $80,$07  ; #ROOM(#PC).
+ $D17F DEFB $01,$04  ; #ROOM(#PC).
+ $D181 DEFB $02,$D4  ; #ROOM(#PC).
+ $D183 DEFB $ED,$31  ; #ROOM(#PC).
+ $D185 DEFB $ED,$82  ; #ROOM(#PC).
+ $D187 DEFB $ED,$75  ; #ROOM(#PC).
+ $D189 DEFB $6D,$B1  ; #ROOM(#PC).
+ $D18B DEFB $ED,$16  ; #ROOM(#PC).
+ $D18D DEFB $6D,$DE  ; #ROOM(#PC).
+ $D18F DEFB $7F,$00  ; #ROOM(#PC).
+
+; Room #N$20:
+b$D191 DEFB $80,$07  ; #ROOM(#PC).
+ $D193 DEFB $52,$00  ; #ROOM(#PC).
+ $D195 DEFB $52,$18  ; #ROOM(#PC).
+ $D197 DEFB $52,$58  ; #ROOM(#PC).
+ $D199 DEFB $52,$88  ; #ROOM(#PC).
+ $D19B DEFB $52,$98  ; #ROOM(#PC).
+ $D19D DEFB $52,$C8  ; #ROOM(#PC).
+ $D19F DEFB $53,$30  ; #ROOM(#PC).
+ $D1A1 DEFB $53,$48  ; #ROOM(#PC).
+ $D1A3 DEFB $53,$70  ; #ROOM(#PC).
+ $D1A5 DEFB $53,$B0  ; #ROOM(#PC).
+ $D1A7 DEFB $53,$D8  ; #ROOM(#PC).
+ $D1A9 DEFB $53,$F0  ; #ROOM(#PC).
+ $D1AB DEFB $6D,$2C  ; #ROOM(#PC).
+ $D1AD DEFB $ED,$8C  ; #ROOM(#PC).
+ $D1AF DEFB $6D,$BD  ; #ROOM(#PC).
+ $D1B1 DEFB $EF,$17  ; #ROOM(#PC).
+ $D1B3 DEFB $6E,$26  ; #ROOM(#PC).
+ $D1B5 DEFB $6E,$76  ; #ROOM(#PC).
+ $D1B7 DEFB $6E,$D6  ; #ROOM(#PC).
+ $D1B9 DEFB $7F,$00  ; #ROOM(#PC).
+
+; Data block at D1BB
+b$D1BB DEFB $00
 
 ; Graphics
 @label=Graphics
@@ -11909,8 +12312,8 @@ c$E2FC LD A,(IY+$00) ;
 
 ; Routine at E329
 ;
-; Used by the routines at #R$ED2A, #R$EFC7 and #R$F5F1.
-c$E329 LD A,($A838)    ;
+; Used by the routines at #R$ED2A, #R$EFC7, #R$F10E and #R$F5F1.
+c$E329 LD A,($A838)    ; #REGa=*#R$A838.
  $E32C SUB (IY+$05)    ;
  $E32F SUB $0D         ;
  $E331 CP $E6          ;
@@ -11920,7 +12323,7 @@ c$E329 LD A,($A838)    ;
  $E33A SUB $1C         ;
  $E33C CP $D6          ;
  $E33E RET C           ;
-; This entry point is used by the routines at #R$EFC7, #R$F5F1 and #R$F814.
+; This entry point is used by the routines at #R$F10E, #R$F5F1 and #R$F814.
 *$E33F LD A,($B55F)    ;
  $E342 OR A            ;
  $E343 RET NZ          ;
@@ -11942,36 +12345,38 @@ c$E329 LD A,($A838)    ;
  $E369 JP Z,$B451      ;
 *$E36C EXX             ;
 ; This entry point is used by the routines at #R$E3FD and #R$F814.
-*$E36D EXX             ;
- $E36E LD C,$46        ;
- $E370 LD HL,$DFDC     ;
- $E373 LD ($B7E9),HL   ;
- $E376 LD DE,$021C     ;
- $E379 LD L,(IY+$2D)   ;
- $E37C DEC L           ;
- $E37D LD B,$02        ;
+*$E36D EXX             ; Switch to the shadow registers.
+; Draw the hearts to indicate the number of lives remaining.
+ $E36E LD C,$46        ; #REGc=#N$46 (#COLOUR$46).
+ $E370 LD HL,$DFDC     ; {Write #R$DFDC to #R$B7E8(#N$B7E9).
+ $E373 LD ($B7E9),HL   ; }
+ $E376 LD DE,$021C     ; #REGde=#N$021C.
+ $E379 LD L,(IY+$2D)   ; #REGl=*#REGiy+#N$2D.
+ $E37C DEC L           ; Decrease #REGl by one.
+ $E37D LD B,$02        ; #REGb=#N$02 (counter).
 *$E37F LD A,L          ;
  $E380 OR A            ;
- $E381 LD A,$1F        ;
+ $E381 LD A,$1F        ; #REGa=#R$E0D4(#N$1F).
  $E383 JR NZ,$E386     ;
  $E385 INC A           ;
-*$E386 CALL $B7BA      ;
- $E389 INC E           ;
- $E38A INC E           ;
+*$E386 CALL $B7BA      ; Call #R$B7BA.
+ $E389 INC E           ; {Increment #REGe by two.
+ $E38A INC E           ; }
  $E38B CP $20          ;
  $E38D JR Z,$E390      ;
  $E38F DEC L           ;
 *$E390 DJNZ $E37F      ;
- $E392 LD C,$43        ;
- $E394 LD DE,$0310     ;
- $E397 LD L,$5C        ;
- $E399 LD B,(IY+$14)   ;
+; Draws the endurance ribbon.
+ $E392 LD C,$43        ; #REGc=#N$43 (#COLOUR$43).
+ $E394 LD DE,$0310     ; #REGde=#N$0310.
+ $E397 LD L,$5C        ; #REGl=#R$E2BC(#N$5C).
+ $E399 LD B,(IY+$14)   ; #REGb=*#REGiy+#N$14.
 *$E39C LD A,B          ;
  $E39D SUB $08         ;
  $E39F JR C,$E3BC      ;
  $E3A1 LD B,A          ;
  $E3A2 LD A,L          ;
- $E3A3 CALL $B7BA      ;
+ $E3A3 CALL $B7BA      ; Call #R$B7BA.
  $E3A6 XOR $01         ;
  $E3A8 LD L,A          ;
  $E3A9 INC E           ;
@@ -11980,53 +12385,56 @@ c$E329 LD A,($A838)    ;
  $E3AC JR NZ,$E39C     ;
 *$E3AE BIT 5,E         ;
  $E3B0 JR Z,$E3B4      ;
- $E3B2 EXX             ;
- $E3B3 RET             ;
-*$E3B4 LD A,$20        ;
- $E3B6 CALL $B7BA      ;
- $E3B9 INC E           ;
- $E3BA JR $E3AE        ;
-*$E3BC ADD A,$08       ;
+ $E3B2 EXX             ; Switch back to the normal registers.
+ $E3B3 RET             ; Return.
+*$E3B4 LD A,$20        ; #REGa=#N$20.
+ $E3B6 CALL $B7BA      ; Call #R$B7BA.
+ $E3B9 INC E           ; Increment #REGe by one.
+ $E3BA JR $E3AE        ; Jump to #R$E3AE.
+*$E3BC ADD A,$08       ; #REGa+=#N$08.
  $E3BE SRL A           ;
  $E3C0 LD B,A          ;
  $E3C1 LD A,L          ;
  $E3C2 CP $5C          ;
  $E3C4 JR NZ,$E3CA     ;
- $E3C6 LD A,$5D        ;
- $E3C8 JR $E3CC        ;
-*$E3CA LD A,$60        ;
-*$E3CC ADD A,B         ;
- $E3CD CALL $B7BA      ;
- $E3D0 INC E           ;
- $E3D1 JR $E3AE        ;
-; This entry point is used by the routines at #R$AA7F, #R$E2FC and #R$F814.
-*$E3D3 LD A,B          ;
- $E3D4 SUB H           ;
- $E3D5 LD B,A          ;
- $E3D6 CALL $E3EC      ;
- $E3D9 DEC C           ;
- $E3DA JR NZ,$E3D3     ;
-*$E3DC CALL $E3EC      ;
- $E3DF DEC D           ;
- $E3E0 JR NZ,$E3DC     ;
-*$E3E2 LD A,B          ;
- $E3E3 ADD A,L         ;
- $E3E4 LD B,A          ;
- $E3E5 CALL $E3EC      ;
- $E3E8 DEC E           ;
- $E3E9 JR NZ,$E3E2     ;
- $E3EB RET             ;
-*$E3EC LD A,$10        ;
- $E3EE OUT ($FE),A     ;
- $E3F0 PUSH BC         ;
-*$E3F1 DJNZ $E3F1      ;
- $E3F3 POP BC          ;
- $E3F4 LD A,$00        ;
- $E3F6 OUT ($FE),A     ;
- $E3F8 PUSH BC         ;
-*$E3F9 DJNZ $E3F9      ;
- $E3FB POP BC          ;
- $E3FC RET             ;
+ $E3C6 LD A,$5D        ; #REGa=#N$5D.
+ $E3C8 JR $E3CC        ; Jump to #R$E3CC.
+*$E3CA LD A,$60        ; #REGa=#N$60.
+*$E3CC ADD A,B         ; #REGa+=#REGb.
+ $E3CD CALL $B7BA      ; Call #R$B7BA.
+ $E3D0 INC E           ; Increment #REGe by one.
+ $E3D1 JR $E3AE        ; Jump to #R$E3AE.
+
+; Routine at E3D3
+;
+; Used by the routines at #R$AA7F, #R$E2FC, #R$E329 and #R$F814.
+c$E3D3 LD A,B        ;
+ $E3D4 SUB H         ;
+ $E3D5 LD B,A        ;
+ $E3D6 CALL $E3EC    ;
+ $E3D9 DEC C         ;
+ $E3DA JR NZ,$E3D3   ;
+*$E3DC CALL $E3EC    ;
+ $E3DF DEC D         ;
+ $E3E0 JR NZ,$E3DC   ;
+*$E3E2 LD A,B        ;
+ $E3E3 ADD A,L       ;
+ $E3E4 LD B,A        ;
+ $E3E5 CALL $E3EC    ;
+ $E3E8 DEC E         ;
+ $E3E9 JR NZ,$E3E2   ;
+ $E3EB RET           ;
+*$E3EC LD A,$10      ;
+ $E3EE OUT ($FE),A   ;
+ $E3F0 PUSH BC       ;
+*$E3F1 DJNZ $E3F1    ;
+ $E3F3 POP BC        ;
+ $E3F4 LD A,$00      ;
+ $E3F6 OUT ($FE),A   ;
+ $E3F8 PUSH BC       ;
+*$E3F9 DJNZ $E3F9    ;
+ $E3FB POP BC        ;
+ $E3FC RET           ;
 
 ; Print Banner
 ;
@@ -12393,7 +12801,7 @@ t$E711 DEFM "THE PLIERS" ; #FONT:(THE PLIERS)$E0DC,attr=$45(the-pliers)
 t$E71C DEFM "THE WHISTLE" ; #FONT:(THE WHISTLE)$E0DC,attr=$45(the-whistle)
  $E727 DEFB $FF           ; Terminator.
 
-; Item Labels Table
+; Table: Item Labels
 @label=Table_ItemLabels
 w$E728 DEFW $E484    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
  $E72A DEFW $E490    ; #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
@@ -13248,7 +13656,7 @@ g$EC0F DEFB $00
 
 ; Handler: Is A Given Task Completed
 ;
-; Used by the routines at #R$B952, #R$E41D, #R$ED2A, #R$EFC7 and #R$F5F1.
+; Used by the routines at #R$B952, #R$E41D, #R$ED2A, #R$F10E and #R$F5F1.
 ;
 ; A Task ID
 @label=Handler_TaskCompleted
@@ -13332,7 +13740,7 @@ b$EC5C DEFB $00,$50,$01,$01,$00,$01,$02,$20
 
 ; Routine at ED13
 ;
-; Used by the routine at #R$EFC7.
+; Used by the routine at #R$F10E.
 c$ED13 LD A,$02      ;
  $ED15 LD ($F26E),A  ;
  $ED18 LD A,($ED12)  ;
@@ -13396,7 +13804,7 @@ c$ED2A LD A,($ECF5)    ; {#REGe=*#R$ECF5*#N$02.
  $ED85 INC (HL)        ; }
  $ED86 CALL $B952      ; Call #R$B952.
  $ED89 RET             ; Return.
-; This entry point is used by the routines at #R$ED13 and #R$EFC7.
+; This entry point is used by the routines at #R$ED13 and #R$F10E.
 *$ED8A LD IX,$ED06     ;
  $ED8E LD B,$03        ;
 *$ED90 PUSH BC         ;
@@ -13515,7 +13923,7 @@ c$ED2A LD A,($ECF5)    ; {#REGe=*#R$ECF5*#N$02.
  $EE83 JR $EE8D        ;
 *$EE85 LD (IY+$05),$DC ;
  $EE89 LD (IY+$0F),$01 ;
-; This entry point is used by the routine at #R$EFC7.
+; This entry point is used by the routines at #R$EFC7 and #R$F10E.
 *$EE8D CALL $B952      ;
  $EE90 LD (IY+$0A),$98 ;
  $EE94 LD (IY+$46),$00 ;
@@ -13525,7 +13933,7 @@ c$ED2A LD A,($ECF5)    ; {#REGe=*#R$ECF5*#N$02.
 
 ; Routine at EEA2
 ;
-; Used by the routines at #R$813B, #R$ED2A, #R$EEC1 and #R$EFC7.
+; Used by the routines at #R$813B, #R$ED2A, #R$EEC1, #R$EFC7 and #R$F10E.
 c$EEA2 LD DE,$6B00   ; #REGde=#R$6B00.
  $EEA5 LD HL,$5B00   ; #REGhl=#R$5B00.
  $EEA8 LD BC,$1000   ; #REGbc=#N$1000.
@@ -13608,7 +14016,7 @@ c$EEC1 CALL $EEA2    ;
  $EF32 DI            ;
  $EF33 LD C,A        ;
  $EF34 PUSH AF       ;
-; This entry point is used by the routines at #R$ED2A, #R$EFC7, #R$F5F1 and
+; This entry point is used by the routines at #R$ED2A, #R$F10E, #R$F5F1 and
 ; #R$F814.
 *$EF35 LD E,(IX+$02) ;
  $EF38 LD D,(IX+$03) ;
@@ -13666,7 +14074,7 @@ c$EEC1 CALL $EEA2    ;
 
 ; Routine at EF91
 ;
-; Used by the routines at #R$EFC7 and #R$F578.
+; Used by the routines at #R$F10E and #R$F578.
 c$EF91 PUSH AF       ; Stash #REGaf on the stack.
  $EF92 EXX           ; Switch to the shadow registers.
  $EF93 LD A,($F26F)  ; {#REGc=*#R$F26F.
@@ -13752,6 +14160,7 @@ c$EFC7 LD A,(IY+$05)   ;
  $F03F LD (IY+$05),$F0 ;
  $F043 JP $EE8D        ;
  $F046 NOP             ;
+; This entry point is used by the routine at #R$F10E.
 *$F047 EXX             ;
  $F048 XOR $01         ;
  $F04A LD ($F046),A    ;
@@ -13836,6 +14245,7 @@ c$EFC7 LD A,(IY+$05)   ;
  $F0E1 JR Z,$F0FB      ;
  $F0E3 LD A,$05        ;
  $F0E5 LD ($F0BE),A    ;
+; This entry point is used by the routine at #R$F10E.
 *$F0E8 LD A,($F0BF)    ;
  $F0EB XOR $01         ;
  $F0ED LD ($F0BF),A    ;
@@ -13848,17 +14258,15 @@ c$EFC7 LD A,(IY+$05)   ;
  $F100 RET Z           ;
  $F101 DEC (HL)        ;
  $F102 JR $F0F0        ;
- $F104 NOP             ;
- $F105 XOR B           ;
- $F106 LD (BC),A       ;
- $F107 CP $05          ;
- $F109 LD (BC),A       ;
- $F10A NOP             ;
- $F10B RET P           ;
- $F10C AND B           ;
- $F10D XOR B           ;
-; This entry point is used by the routine at #R$81AE.
-*$F10E LD A,$04        ;
+
+; Game status buffer entry at F104
+g$F104 DEFB $00,$A8,$02,$FE,$05,$02,$00,$F0
+ $F10C DEFB $A0,$A8
+
+; Routine at F10E
+;
+; Used by the routine at #R$81AE.
+c$F10E LD A,$04        ;
  $F110 LD ($F26E),A    ;
  $F113 LD IX,$F104     ;
  $F117 LD BC,$F10A     ;

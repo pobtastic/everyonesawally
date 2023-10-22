@@ -144,6 +144,7 @@ B $7E5E,$02 Attribute: #COLOUR(#PEEK(#PC+$01)).
 B $7E62 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $7E64,$02 #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
 B $7E66 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
+@ $7E68 label=Messaging_Banner_Underline
 M $7E68,$03 Sprite Bank: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
 B $7E68,$01
 W $7E69,$02
@@ -441,13 +442,15 @@ c $8155 Start Demo Mode
   $817D,$05 Jump to #R$80E5 if not #N$FF.
   $8182,$02 Jump to #R$8164.
 
-c $8184
+c $8184 Game Loop
+@ $8184 label=GameLoop
   $8184,$01 Disable interrupts.
   $8185,$03 Set the stack pointer to #R$FC00.
   $8188,$03 Call #R$80E5.
   $818B,$03 Call #R$BAD8.
   $818E,$03 Call #R$E3FD.
   $8191,$03 Call #R$813B.
+@ $8194 label=Game_Running_Loop
   $8194,$03 Call #R$EB55.
   $8197,$03 Call #R$EABF.
   $819A,$03 Call #R$AC06.
@@ -711,7 +714,8 @@ b $AF22 Platform Data
   $AF88,$06,$03
   $AF8E,$01 Terminator.
 
-w $AF8F Platform Table
+w $AF8F Table: Platform Data
+@ $AF8F label=Table_PlatformData
   $AF8F,$02 Platform #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N($01+(#PC-$AF8F)/$02)).
 L $AF8F,$02,$0A
 
@@ -976,6 +980,7 @@ c $B7BA Draw Sprite Block To Screen
 @ $B7BA label=DrawSprite
 R $B7BA DE Screen Buffer Co-ordinates
 R $B7BA HL Sprite data
+R $B7BA A Sprite ID
 R $B7BA C Sprite attribute value
   $B7BA,$04 Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
   $B7BE,$01 Exchange the #REGde and #REGhl registers.
@@ -1048,6 +1053,8 @@ c $B82B
 
 c $B84B Handler: Graphics Controller
 @ $B84B label=Controller_Tile
+R $B84B DE Screen cursor commands
+R $B84B HL Pointer to graphics data
   $B84B,$01 #REGa=*#REGhl.
   $B84C,$01 Increment #REGhl by one.
   $B84D,$04 If #REGa is lower than #N$80, jump to #R$B8BD.
@@ -1207,29 +1214,39 @@ c $B952 Draw Room
 @ $B952 label=DrawRoom
   $B952,$05 Write #N$B8 to #R$AF88.
   $B957,$03 Call #R$B902.
-  $B95A,$05 #REGe=(#REGiy+#N$0F)*#N$02.
+N $B95A Get the current room ID and double it. This is stored in #REGde as an offset.
+  $B95A,$05 #REGe=(*#REGiy+#N$0F)*#N$02.
   $B95F,$02 #REGd=#N$00.
   $B961,$04 #REGhl=#R$CDB5+#REGde.
+N $B965 Fetch the room data location from the lookup table.
   $B965,$01 #REGe=*#REGhl.
   $B966,$01 Increment #REGhl by one.
   $B967,$01 #REGd=*#REGhl.
   $B968,$01 Exchange the #REGde and #REGhl registers.
+N $B969 #HTML(Fetch a room data pair and store it in #REGde. Note, this is <em>not</em> a memory address.)
+@ $B969 label=DrawRoom_Loop
   $B969,$01 #REGd=*#REGhl.
   $B96A,$01 Increment #REGhl by one.
   $B96B,$01 #REGe=*#REGhl.
   $B96C,$01 Increment #REGhl by one.
+N $B96D Drop bit 7 of #REGd and test for the control characters.
   $B96D,$01 #REGa=#REGd.
   $B96E,$02,b$01 Keep only bits 0-6.
+N $B970 Are we done?
   $B970,$04 If the result is #N$7F jump to #R$B9A8.
+N $B974 Some parts of rooms are dynamic (depending on if a task is completed or not), check if this should be actioned.
   $B974,$04 If the result is not #N$7E jump to #R$B982.
   $B978,$01 #REGa=#REGe.
   $B979,$03 Call #R$EC1D.
-  $B97C,$02
+  $B97C,$02 If the task is not complete, jump to #R$B969.
+N $B97E Move onto the next room data pair.
   $B97E,$02 Increment #REGhl by two.
   $B980,$02 Jump to #R$B969.
-
-  $B982,$01 Stash #REGhl on the stack.
+N $B982 Pull out the screen co-ordinates and graphics address.
+@ $B982 label=DrawRoom_ProcessData
+  $B982,$01 Stash the room data pointer held by #REGhl on the stack.
   $B983,$01 #REGb=#REGa.
+N $B984 Grab the second byte from the room data pair.
   $B984,$01 #REGa=#REGe.
   $B985,$02,b$01 Keep only bits 3-7.
   $B987,$03 Rotate #REGa right three times.
@@ -1249,8 +1266,10 @@ c $B952 Draw Room
   $B9A0,$01 #REGh=*#REGhl.
   $B9A1,$01 #REGl=#REGa.
   $B9A2,$03 Call #R$B84B.
-  $B9A5,$01 Restore #REGhl from the stack.
+  $B9A5,$01 Restore the room data pointer held by #REGhl from the stack.
   $B9A6,$02 Jump to #R$B969.
+N $B9A8 Finish by blitting the shadow buffer to the screen and return to the calling routine.
+@ $B9A8 label=DrawRoom_Finish
   $B9A8,$03 Call #R$B9AC.
   $B9AB,$01 Return.
 
@@ -1317,14 +1336,15 @@ c $BA25 Copy Routine
 
 c $BA66
 
-c $BAB3
+c $BAB3 Redraws Banner Underline
 B $BAB3,$01
+@ $BAB4 label=Redraw_Banner_Underline
   $BAB4,$03 #REGhl=#R$BAB3.
   $BAB7,$01 #REGa=*#REGhl.
   $BAB8,$02 Return if #REGa is zero.
   $BABA,$01 Decrease *#REGhl by one.
   $BABB,$01 Return if the result is not zero.
-  $BABC,$02 #REGc=#N$42.
+  $BABC,$02 #REGc=#N$42 (#COLOUR$42).
   $BABE,$06 Write #R$DFDC to #R$B7E8(#N$B7E9).
   $BAC4,$03 #REGde=#N$0400.
   $BAC7,$03 #REGhl=#R$7E68.
@@ -1490,11 +1510,11 @@ B $BD6A,$01 Room ID #N(#PEEK(#PC)).
 
 b $BD86 Table: Graphic Data
 @ $BD86 label=Table_GraphicData
-W $BD86,$02 Sprite ID: #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
+W $BD86,$02 Graphic ID: #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$BD86)/$02)).
 L $BD86,$02,$76
 
-b $BE72 Graphic ID #N$00
-@ $BE72 label=graphic_00
+b $BE72 Graphic ID #N$70
+@ $BE72 label=graphic_70
 M $BE72,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BE72,$01
 W $BE73,$02
@@ -1519,8 +1539,8 @@ W $BE8B,$02
   $BE8D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E08C,attr=$46) } UDGTABLE#
   $BE8E,$01 Terminator.
 
-b $BE8F Graphic ID #N$01
-@ $BE8F label=graphic_01
+b $BE8F Graphic ID #N$57
+@ $BE8F label=graphic_57
 M $BE8F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BE8F,$01
 W $BE90,$02
@@ -1595,8 +1615,8 @@ W $BEBC,$02
   $BED8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6CC,attr=$47) } UDGTABLE#
   $BED9,$01 Terminator.
 
-b $BEDA Graphic ID #N$02
-@ $BEDA label=graphic_02
+b $BEDA Graphic ID #N$58
+@ $BEDA label=graphic_58
 M $BEDA,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BEDA,$01
 W $BEDB,$02
@@ -1635,8 +1655,8 @@ W $BEDB,$02
 . UDGTABLE#
   $BF02,$01 Terminator.
 
-b $BF03 Graphic ID #N$03
-@ $BF03 label=graphic_03
+b $BF03 Graphic ID #N$59
+@ $BF03 label=graphic_59
 M $BF03,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BF03,$01
 W $BF04,$02
@@ -1658,8 +1678,8 @@ W $BF0E,$02
   $BF17,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1C4,attr=$43) } UDGTABLE#
   $BF18,$01 Terminator.
 
-b $BF19 Graphic ID #N$04
-@ $BF19 label=graphic_04
+b $BF19 Graphic ID #N$5A
+@ $BF19 label=graphic_5a
 M $BF19,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BF19,$01
 W $BF1A,$02
@@ -1672,8 +1692,8 @@ W $BF1A,$02
   $BF25,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DDFC,attr=$45) } UDGTABLE#
   $BF26,$01 Terminator.
 
-b $BF27 Graphic ID #N$05
-@ $BF27 label=graphic_05
+b $BF27 Graphic ID #N$55
+@ $BF27 label=graphic_55
 M $BF27,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BF27,$01
 W $BF28,$02
@@ -1756,8 +1776,8 @@ W $BF28,$02
   $BF7F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD5C,attr=$42) } UDGTABLE#
   $BF80,$01 Terminator.
 
-b $BF81 Graphic ID #N$06
-@ $BF81 label=graphic_06
+b $BF81 Graphic ID #N$6E
+@ $BF81 label=graphic_6e
 M $BF81,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BF81,$01
 W $BF82,$02
@@ -1789,8 +1809,8 @@ W $BF9C,$02
   $BFA2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DA3C,attr=$42) } UDGTABLE#
   $BFA3,$01 Terminator.
 
-b $BFA4 Graphic ID #N$07
-@ $BFA4 label=graphic_07
+b $BFA4 Graphic ID #N$51
+@ $BFA4 label=graphic_51
 M $BFA4,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BFA4,$01
 W $BFA5,$02
@@ -1803,8 +1823,8 @@ W $BFA5,$02
   $BFB0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD04,attr=$44) } UDGTABLE#
   $BFB1,$01 Terminator.
 
-b $BFB2 Graphic ID #N$08
-@ $BFB2 label=graphic_08
+b $BFB2 Graphic ID #N$52
+@ $BFB2 label=graphic_52
 M $BFB2,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BFB2,$01
 W $BFB3,$02
@@ -1837,8 +1857,8 @@ W $BFB3,$02
   $BFD8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DD2C,attr=$28) } UDGTABLE#
   $BFD9,$01 Terminator.
 
-b $BFDA Graphic ID #N$09
-@ $BFDA label=graphic_09
+b $BFDA Graphic ID #N$53
+@ $BFDA label=graphic_53
 M $BFDA,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BFDA,$01
 W $BFDB,$02
@@ -1870,8 +1890,8 @@ W $BFE3,$02
   $BFFC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC34,attr=$44) } UDGTABLE#
   $BFFD,$01 Terminator.
 
-b $BFE2 Graphic ID #N$0A
-@ $BFE2 label=graphic_0a
+b $BFE2 Graphic ID #N$4F
+@ $BFE2 label=graphic_4f
 M $BFE2,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BFE2,$01
 W $BFE3,$02
@@ -1896,8 +1916,8 @@ W $BFE3,$02
   $BFFC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC34,attr=$44) } UDGTABLE#
   $BFFD,$01 Terminator.
 
-b $BFFE Graphic ID #N$0B
-@ $BFFE label=graphic_0b
+b $BFFE Graphic ID #N$54
+@ $BFFE label=graphic_54
 M $BFFE,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $BFFE,$01
 W $BFFF,$02
@@ -1939,8 +1959,8 @@ W $C020,$02
 . UDGTABLE#
   $C025,$01 Terminator.
 
-b $C026 Graphic ID #N$0C
-@ $C026 label=graphic_0c
+b $C026 Graphic ID #N$5B
+@ $C026 label=graphic_5b
 M $C026,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C026,$01
 W $C027,$02
@@ -1963,8 +1983,8 @@ W $C02F,$02
   $C03A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE8C,attr=$4E) } UDGTABLE#
   $C03B,$01 Terminator.
 
-b $C03C Graphic ID #N$0D
-@ $C03C label=graphic_0d
+b $C03C Graphic ID #N$5C
+@ $C03C label=graphic_5c
 M $C03C,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C03C,$01
 W $C03D,$02
@@ -1974,8 +1994,8 @@ W $C03D,$02
   $C043,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE24,attr=$47) } UDGTABLE#
   $C044,$01 Terminator.
 
-b $C045 Graphic ID #N$0E
-@ $C045 label=graphic_0e
+b $C045 Graphic ID #N$5D
+@ $C045 label=graphic_5d
 M $C045,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C045,$01
 W $C046,$02
@@ -1987,8 +2007,8 @@ W $C046,$02
   $C04E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DE4C,attr=$46) } UDGTABLE#
   $C04F,$01 Terminator.
 
-b $C050 Graphic ID #N$0F
-@ $C050 label=graphic_0f
+b $C050 Graphic ID #N$5E
+@ $C050 label=graphic_5e
 M $C050,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C050,$01
 W $C051,$02
@@ -1999,8 +2019,8 @@ W $C051,$02
   $C058,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DEAC,attr=$60) } UDGTABLE#
   $C059,$01 Terminator.
 
-b $C05A Graphic ID #N$10
-@ $C05A label=graphic_10
+b $C05A Graphic ID #N$5F
+@ $C05A label=graphic_5f
 M $C05A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C05A,$01
 W $C05B,$02
@@ -2040,8 +2060,8 @@ W $C06E,$02
 . UDGTABLE#
   $C081,$01 Terminator.
 
-b $C082 Graphic ID #N$11
-@ $C082 label=graphic_11
+b $C082 Graphic ID #N$60
+@ $C082 label=graphic_60
 M $C082,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C082,$01
 W $C083,$02
@@ -2070,8 +2090,8 @@ W $C098,$02
   $C09E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF2C,attr=$57) } UDGTABLE#
   $C09F,$01 Terminator.
 
-b $C0A0 Graphic ID #N$12
-@ $C0A0 label=graphic_12
+b $C0A0 Graphic ID #N$61
+@ $C0A0 label=graphic_61
 M $C0A0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0A0,$01
 W $C0A1,$02
@@ -2081,8 +2101,8 @@ W $C0A1,$02
   $C0A8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7B4,attr=$45) } UDGTABLE#
   $C0A9,$01 Terminator.
 
-b $C0AA Graphic ID #N$13
-@ $C0AA label=graphic_13
+b $C0AA Graphic ID #N$62
+@ $C0AA label=graphic_62
 M $C0AA,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0AA,$01
 W $C0AB,$02
@@ -2095,8 +2115,8 @@ W $C0AB,$02
   $C0B6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7A4,attr=$42) } UDGTABLE#
   $C0B7,$01 Terminator.
 
-b $C0B8 Graphic ID #N$14
-@ $C0B8 label=graphic_14
+b $C0B8 Graphic ID #N$63
+@ $C0B8 label=graphic_63
 M $C0B8,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0B8,$01
 W $C0B9,$02
@@ -2122,8 +2142,8 @@ W $C0B9,$02
 . UDGTABLE#
   $C0D3,$01 Terminator.
 
-b $C0D4 Graphic ID #N$15
-@ $C0D4 label=graphic_15
+b $C0D4 Graphic ID #N$64
+@ $C0D4 label=graphic_64
 M $C0D4,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0D4,$01
 W $C0D5,$02
@@ -2149,8 +2169,8 @@ W $C0DD,$02
   $C0EF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
   $C0F0,$01 Terminator.
 
-b $C0DC Graphic ID #N$16
-@ $C0DC label=graphic_16
+b $C0DC Graphic ID #N$66
+@ $C0DC label=graphic_66
 M $C0DC,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0DC,$01
 W $C0DD,$02
@@ -2169,8 +2189,8 @@ W $C0DD,$02
   $C0EF,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DFBC,attr=$42) } UDGTABLE#
   $C0F0,$01 Terminator.
 
-b $C0F1 Graphic ID #N$17
-@ $C0F1 label=graphic_17
+b $C0F1 Graphic ID #N$50
+@ $C0F1 label=graphic_50
 M $C0F1,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C0F1,$01
 W $C0F2,$02
@@ -2226,8 +2246,8 @@ W $C0F2,$02
   $C130,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DC2C,attr=$46) } UDGTABLE#
   $C131,$01 Terminator.
 
-b $C132 Graphic ID #N$18
-@ $C132 label=graphic_18
+b $C132 Graphic ID #N$56
+@ $C132 label=graphic_56
 M $C132,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C132,$01
 W $C133,$02
@@ -2323,8 +2343,8 @@ W $C195,$02
 . UDGTABLE#
   $C19C,$01 Terminator.
 
-b $C19D Graphic ID #N$19
-@ $C19D label=graphic_19
+b $C19D Graphic ID #N$4D
+@ $C19D label=graphic_4d
 M $C19D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C19D,$01
 W $C19E,$02
@@ -2414,8 +2434,8 @@ W $C19E,$02
 . UDGTABLE#
   $C209,$01 Terminator.
 
-b $C20A Graphic ID #N$1A
-@ $C20A label=graphic_1a
+b $C20A Graphic ID #N$2E
+@ $C20A label=graphic_2e
 M $C20A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C20A,$01
 W $C20B,$02
@@ -2437,8 +2457,8 @@ W $C20B,$02
   $C21E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D754,attr=$42) } UDGTABLE#
   $C21F,$01 Terminator.
 
-b $C220 Graphic ID #N$1B
-@ $C220 label=graphic_1b
+b $C220 Graphic ID #N$2F
+@ $C220 label=graphic_2f
 M $C220,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C220,$01
 W $C221,$02
@@ -2461,8 +2481,8 @@ W $C221,$02
   $C23A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D76C,attr=$47) } UDGTABLE#
   $C23B,$01 Terminator.
 
-b $C23C Graphic ID #N$1C
-@ $C23C label=graphic_1c
+b $C23C Graphic ID #N$1F
+@ $C23C label=graphic_1f
 M $C23C,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C23C,$01
 W $C23D,$02
@@ -2487,8 +2507,8 @@ W $C23D,$02
   $C252,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D574,attr=$43) } UDGTABLE#
   $C253,$01 Terminator.
 
-b $C254 Graphic ID #N$1D
-@ $C254 label=graphic_1d
+b $C254 Graphic ID #N$2D
+@ $C254 label=graphic_2d
 M $C254,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C254,$01
 W $C255,$02
@@ -2520,8 +2540,8 @@ W $C255,$02
   $C27A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1C4,attr=$45) } UDGTABLE#
   $C27B,$01 Terminator.
 
-b $C27C Graphic ID #N$1E
-@ $C27C label=graphic_1e
+b $C27C Graphic ID #N$3B
+@ $C27C label=graphic_3b
 M $C27C,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C27C,$01
 W $C27D,$02
@@ -2540,8 +2560,8 @@ W $C286,$02
   $C28F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D514,attr=$72) } UDGTABLE#
   $C290,$01 Terminator.
 
-b $C291 Graphic ID #N$1F
-@ $C291 label=graphic_1f
+b $C291 Graphic ID #N$49
+@ $C291 label=graphic_49
 M $C291,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C291,$01
 W $C292,$02
@@ -2552,8 +2572,8 @@ W $C292,$02
 . UDGTABLE#
   $C299,$01 Terminator.
 
-b $C29A Graphic ID #N$20
-@ $C29A label=graphic_20
+b $C29A Graphic ID #N$4A
+@ $C29A label=graphic_4a
 M $C29A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C29A,$01
 W $C29B,$02
@@ -2567,8 +2587,8 @@ W $C29B,$02
   $C2A6,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D32C,attr=$45) } UDGTABLE#
   $C2A7,$01 Terminator.
 
-b $C2A8 Graphic ID #N$21
-@ $C2A8 label=graphic_21
+b $C2A8 Graphic ID #N$6A
+@ $C2A8 label=graphic_6a
 M $C2A8,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C2A8,$01
 W $C2A9,$02
@@ -2673,8 +2693,8 @@ W $C300,$02
 . UDGTABLE#
   $C311,$01 Terminator.
 
-b $C312 Graphic ID #N$22
-@ $C312 label=graphic_22
+b $C312 Graphic ID #N$6B
+@ $C312 label=graphic_6b
 M $C312,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C312,$01
 W $C313,$02
@@ -2708,8 +2728,8 @@ W $C313,$02
   $C332,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9FC,attr=$45) } UDGTABLE#
   $C333,$01 Terminator.
 
-b $C334 Graphic ID #N$23
-@ $C334 label=graphic_23
+b $C334 Graphic ID #N$71
+@ $C334 label=graphic_71
 M $C334,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C334,$01
 W $C335,$02
@@ -2730,8 +2750,8 @@ W $C342,$02
   $C345,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1CC,attr=$44) } UDGTABLE#
   $C346,$01 Terminator.
 
-b $C347 Graphic ID #N$24
-@ $C347 label=graphic_24
+b $C347 Graphic ID #N$72
+@ $C347 label=graphic_72
 M $C347,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C347,$01
 W $C348,$02
@@ -2743,8 +2763,8 @@ W $C348,$02
 . UDGTABLE#
   $C351,$01 Terminator.
 
-b $C352 Graphic ID #N$25
-@ $C352 label=graphic_25
+b $C352 Graphic ID #N$00
+@ $C352 label=graphic_00
 M $C352,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C352,$01
 W $C353,$02
@@ -2756,8 +2776,8 @@ W $C353,$02
 . UDGTABLE#
   $C35C,$01 Terminator.
 
-b $C35D Graphic ID #N$26
-@ $C35D label=graphic_26
+b $C35D Graphic ID #N$20
+@ $C35D label=graphic_20
 M $C35D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C35D,$01
 W $C35E,$02
@@ -2769,8 +2789,8 @@ W $C35E,$02
 . UDGTABLE#
   $C368,$01 Terminator.
 
-b $C369 Graphic ID #N$27
-@ $C369 label=graphic_27
+b $C369 Graphic ID #N$21
+@ $C369 label=graphic_21
 M $C369,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C369,$01
 W $C36A,$02
@@ -2790,8 +2810,8 @@ W $C36A,$02
   $C37A,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D21C,attr=$46) } UDGTABLE#
   $C37B,$01 Terminator.
 
-b $C37C Graphic ID #N$28
-@ $C37C label=graphic_28
+b $C37C Graphic ID #N$01
+@ $C37C label=graphic_01
 M $C37C,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C37C,$01
 W $C37D,$02
@@ -2866,8 +2886,8 @@ W $C37D,$02
   $C3D9,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E084,attr=$45) } UDGTABLE#
   $C3DA,$01 Terminator.
 
-b $C3DB Graphic ID #N$29
-@ $C3DB label=graphic_29
+b $C3DB Graphic ID #N$02
+@ $C3DB label=graphic_02
 M $C3DB,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C3DB,$01
 W $C3DC,$02
@@ -2938,8 +2958,8 @@ W $C3DC,$02
   $C435,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0B4,attr=$45) } UDGTABLE#
   $C436,$01 Terminator.
 
-b $C437 Graphic ID #N$2A
-@ $C437 label=graphic_2a
+b $C437 Graphic ID #N$69
+@ $C437 label=graphic_69
 M $C437,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C437,$01
 W $C438,$02
@@ -3073,8 +3093,8 @@ W $C438,$02
   $C4CB,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DF4C,attr=$44) } UDGTABLE#
   $C4CC,$01 Terminator.
 
-b $C4CD Graphic ID #N$2B
-@ $C4CD label=graphic_2b
+b $C4CD Graphic ID #N$68
+@ $C4CD label=graphic_68
 M $C4CD,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C4CD,$01
 W $C4CE,$02
@@ -3202,8 +3222,8 @@ W $C4CE,$02
   $C569,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D1FC,attr=$44) } UDGTABLE#
   $C56A,$01 Terminator.
 
-b $C56B Graphic ID #N$2C
-@ $C56B label=graphic_2c
+b $C56B Graphic ID #N$03
+@ $C56B label=graphic_03
 M $C56B,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C56B,$01
 W $C56C,$02
@@ -3215,8 +3235,8 @@ W $C56C,$02
   $C575,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E00C,attr=$45) } UDGTABLE#
   $C576,$01 Terminator.
 
-b $C577 Graphic ID #N$2D
-@ $C577 label=graphic_2d
+b $C577 Graphic ID #N$6C
+@ $C577 label=graphic_6c
 M $C577,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C577,$01
 W $C578,$02
@@ -3227,8 +3247,8 @@ W $C578,$02
 . UDGTABLE#
   $C57F,$01 Terminator.
 
-b $C580 Graphic ID #N$2E
-@ $C580 label=graphic_2e
+b $C580 Graphic ID #N$04
+@ $C580 label=graphic_04
 M $C580,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C580,$01
 W $C581,$02
@@ -3288,8 +3308,8 @@ W $C581,$02
   $C5BE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D444,attr=$46) } UDGTABLE#
   $C5BF,$01 Terminator.
 
-b $C5C0 Graphic ID #N$2F
-@ $C5C0 label=graphic_2f
+b $C5C0 Graphic ID #N$05
+@ $C5C0 label=graphic_05
 M $C5C0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C5C0,$01
 W $C5C1,$02
@@ -3314,8 +3334,8 @@ W $C5C1,$02
   $C5D8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D41C,attr=$43) } UDGTABLE#
   $C5D9,$01 Terminator.
 
-b $C5DA Graphic ID #N$30
-@ $C5DA label=graphic_30
+b $C5DA Graphic ID #N$43
+@ $C5DA label=graphic_43
 M $C5DA,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C5DA,$01
 W $C5DB,$02
@@ -3344,8 +3364,8 @@ W $C5F0,$02
   $C5F7,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D41C,attr=$44) } UDGTABLE#
   $C5F8,$01 Terminator.
 
-b $C5F9 Graphic ID #N$31
-@ $C5F9 label=graphic_31
+b $C5F9 Graphic ID #N$44
+@ $C5F9 label=graphic_44
 M $C5F9,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C5F9,$01
 W $C5FA,$02
@@ -3365,8 +3385,8 @@ W $C60B,$02
   $C60E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D41C,attr=$44) } UDGTABLE#
   $C60F,$01 Terminator.
 
-b $C610 Graphic ID #N$32
-@ $C610 label=graphic_32
+b $C610 Graphic ID #N$45
+@ $C610 label=graphic_45
 M $C610,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C610,$01
 W $C611,$02
@@ -3377,8 +3397,8 @@ W $C611,$02
 . UDGTABLE#
   $C619,$01 Terminator.
 
-b $C61A Graphic ID #N$33
-@ $C61A label=graphic_33
+b $C61A Graphic ID #N$46
+@ $C61A label=graphic_46
 M $C61A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C61A,$01
 W $C61B,$02
@@ -3391,8 +3411,8 @@ W $C61B,$02
   $C623,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D28C,attr=$47) } UDGTABLE#
   $C624,$01 Terminator.
 
-b $C625 Graphic ID #N$34
-@ $C625 label=graphic_34
+b $C625 Graphic ID #N$47
+@ $C625 label=graphic_47
 M $C625,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C625,$01
 W $C626,$02
@@ -3408,8 +3428,8 @@ W $C626,$02
   $C633,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D2A4,attr=$43) } UDGTABLE#
   $C634,$01 Terminator.
 
-b $C635 Graphic ID #N$35
-@ $C635 label=graphic_35
+b $C635 Graphic ID #N$48
+@ $C635 label=graphic_48
 M $C635,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C635,$01
 W $C636,$02
@@ -3439,8 +3459,8 @@ W $C636,$02
   $C64F,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D2C4,attr=$46) } UDGTABLE#
   $C650,$01 Terminator.
 
-b $C651 Graphic ID #N$36
-@ $C651 label=graphic_36
+b $C651 Graphic ID #N$06
+@ $C651 label=graphic_06
 M $C651,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C651,$01
 W $C652,$02
@@ -3570,8 +3590,8 @@ W $C652,$02
   $C6E1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D3DC,attr=$42) } UDGTABLE#
   $C6E2,$01 Terminator.
 
-b $C6E3 Graphic ID #N$37
-@ $C6E3 label=graphic_37
+b $C6E3 Graphic ID #N$07
+@ $C6E3 label=graphic_07
 M $C6E3,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C6E3,$01
 W $C6E4,$02
@@ -3601,8 +3621,8 @@ W $C6E4,$02
   $C701,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D35C,attr=$4) } UDGTABLE#
   $C702,$01 Terminator.
 
-b $C703 Graphic ID #N$38
-@ $C703 label=graphic_38
+b $C703 Graphic ID #N$08
+@ $C703 label=graphic_08
 M $C703,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C703,$01
 W $C704,$02
@@ -3628,8 +3648,8 @@ W $C704,$02
   $C71D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D364,attr=$4) } UDGTABLE#
   $C71E,$01 Terminator.
 
-b $C71F Graphic ID #N$39
-@ $C71F label=graphic_39
+b $C71F Graphic ID #N$09
+@ $C71F label=graphic_09
 M $C71F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C71F,$01
 W $C720,$02
@@ -3650,8 +3670,8 @@ W $C720,$02
 . UDGTABLE#
   $C731,$01 Terminator.
 
-b $C732 Graphic ID #N$3A
-@ $C732 label=graphic_3a
+b $C732 Graphic ID #N$0A
+@ $C732 label=graphic_0a
 M $C732,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C732,$01
 W $C733,$02
@@ -3672,8 +3692,8 @@ W $C733,$02
 . UDGTABLE#
   $C744,$01 Terminator.
 
-b $C745 Graphic ID #N$3B
-@ $C745 label=graphic_3b
+b $C745 Graphic ID #N$0B
+@ $C745 label=graphic_0b
 M $C745,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C745,$01
 W $C746,$02
@@ -3704,8 +3724,8 @@ W $C746,$02
 . UDGTABLE#
   $C761,$01 Terminator.
 
-b $C762 Graphic ID #N$3C
-@ $C762 label=graphic_3c
+b $C762 Graphic ID #N$23
+@ $C762 label=graphic_23
 M $C762,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C762,$01
 W $C763,$02
@@ -3736,8 +3756,8 @@ W $C763,$02
 . UDGTABLE#
   $C77E,$01 Terminator.
 
-b $C77F Graphic ID #N$3D
-@ $C77F label=graphic_3d
+b $C77F Graphic ID #N$0C
+@ $C77F label=graphic_0c
 M $C77F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C77F,$01
 W $C780,$02
@@ -3763,8 +3783,8 @@ W $C780,$02
 . UDGTABLE#
   $C796,$01 Terminator.
 
-b $C797 Graphic ID #N$3E
-@ $C797 label=graphic_3e
+b $C797 Graphic ID #N$2C
+@ $C797 label=graphic_2c
 M $C797,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C797,$01
 W $C798,$02
@@ -3797,8 +3817,8 @@ W $C7A0,$02
 . UDGTABLE#
   $C7B6,$01 Terminator.
 
-b $C79F Graphic ID #N$3F
-@ $C79F label=graphic_3f
+b $C79F Graphic ID #N$29
+@ $C79F label=graphic_29
 M $C79F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C79F,$01
 W $C7A0,$02
@@ -3824,8 +3844,8 @@ W $C7A0,$02
 . UDGTABLE#
   $C7B6,$01 Terminator.
 
-b $C7B7 Graphic ID #N$40
-@ $C7B7 label=graphic_40
+b $C7B7 Graphic ID #N$1C
+@ $C7B7 label=graphic_1c
 M $C7B7,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C7B7,$01
 W $C7B8,$02
@@ -3863,8 +3883,8 @@ W $C7C0,$02
 . UDGTABLE#
   $C7DF,$01 Terminator.
 
-b $C7BF Graphic ID #N$41
-@ $C7BF label=graphic_41
+b $C7BF Graphic ID #N$0D
+@ $C7BF label=graphic_0d
 M $C7BF,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C7BF,$01
 W $C7C0,$02
@@ -3895,8 +3915,8 @@ W $C7C0,$02
 . UDGTABLE#
   $C7DF,$01 Terminator.
 
-b $C7E0 Graphic ID #N$42
-@ $C7E0 label=graphic_42
+b $C7E0 Graphic ID #N$2A
+@ $C7E0 label=graphic_2a
 M $C7E0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C7E0,$01
 W $C7E1,$02
@@ -3927,8 +3947,8 @@ W $C7E1,$02
 . UDGTABLE#
   $C800,$01 Terminator.
 
-b $C801 Graphic ID #N$43
-@ $C801 label=graphic_43
+b $C801 Graphic ID #N$25
+@ $C801 label=graphic_25
 M $C801,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C801,$01
 W $C802,$02
@@ -3973,8 +3993,8 @@ W $C816,$02
 . UDGTABLE#
   $C82A,$01 Terminator.
 
-b $C82B Graphic ID #N$44
-@ $C82B label=graphic_44
+b $C82B Graphic ID #N$26
+@ $C82B label=graphic_26
 M $C82B,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C82B,$01
 W $C82C,$02
@@ -4018,8 +4038,8 @@ W $C845,$02
   $C855,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D624,attr=$47) } UDGTABLE#
   $C856,$01 Terminator.
 
-b $C844 Graphic ID #N$45
-@ $C844 label=graphic_45
+b $C844 Graphic ID #N$0E
+@ $C844 label=graphic_0e
 M $C844,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C844,$01
 W $C845,$02
@@ -4037,8 +4057,8 @@ W $C845,$02
   $C855,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D624,attr=$47) } UDGTABLE#
   $C856,$01 Terminator.
 
-b $C857 Graphic ID #N$46
-@ $C857 label=graphic_46
+b $C857 Graphic ID #N$3A
+@ $C857 label=graphic_3a
 M $C857,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C857,$01
 W $C858,$02
@@ -4049,8 +4069,8 @@ W $C858,$02
 . UDGTABLE#
   $C85F,$01 Terminator.
 
-b $C860 Graphic ID #N$47
-@ $C860 label=graphic_47
+b $C860 Graphic ID #N$13
+@ $C860 label=graphic_13
 M $C860,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C860,$01
 W $C861,$02
@@ -4071,8 +4091,8 @@ W $C861,$02
   $C874,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D624,attr=$47) } UDGTABLE#
   $C875,$01 Terminator.
 
-b $C876 Graphic ID #N$48
-@ $C876 label=graphic_48
+b $C876 Graphic ID #N$19
+@ $C876 label=graphic_19
 M $C876,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C876,$01
 W $C877,$02
@@ -4090,8 +4110,8 @@ W $C877,$02
   $C887,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D34C,attr=$45) } UDGTABLE#
   $C888,$01 Terminator.
 
-b $C889 Graphic ID #N$49
-@ $C889 label=graphic_49
+b $C889 Graphic ID #N$27
+@ $C889 label=graphic_27
 M $C889,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C889,$01
 W $C88A,$02
@@ -4112,8 +4132,8 @@ W $C88A,$02
   $C89D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D68C,attr=$47) } UDGTABLE#
   $C89E,$01 Terminator.
 
-b $C89F Graphic ID #N$4A
-@ $C89F label=graphic_4a
+b $C89F Graphic ID #N$28
+@ $C89F label=graphic_28
 M $C89F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C89F,$01
 W $C8A0,$02
@@ -4131,8 +4151,8 @@ W $C8A0,$02
   $C8B1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D5D4,attr=$47) } UDGTABLE#
   $C8B2,$01 Terminator.
 
-b $C8B3 Graphic ID #N$4B
-@ $C8B3 label=graphic_4b
+b $C8B3 Graphic ID #N$1D
+@ $C8B3 label=graphic_1d
 M $C8B3,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C8B3,$01
 W $C8B4,$02
@@ -4147,8 +4167,8 @@ W $C8B4,$02
   $C8C1,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D674,attr=$47) } UDGTABLE#
   $C8C2,$01 Terminator.
 
-b $C8C3 Graphic ID #N$4C
-@ $C8C3 label=graphic_4c
+b $C8C3 Graphic ID #N$1E
+@ $C8C3 label=graphic_1e
 M $C8C3,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C8C3,$01
 W $C8C4,$02
@@ -4182,8 +4202,8 @@ W $C8D9,$02
 . UDGTABLE#
   $C8E3,$01 Terminator.
 
-b $C8E4 Graphic ID #N$4D
-@ $C8E4 label=graphic_4d
+b $C8E4 Graphic ID #N$1A
+@ $C8E4 label=graphic_1a
 M $C8E4,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C8E4,$01
 W $C8E5,$02
@@ -4220,8 +4240,8 @@ W $C8F9,$02
 . UDGTABLE#
   $C907,$01 Terminator.
 
-b $C908 Graphic ID #N$4E
-@ $C908 label=graphic_4e
+b $C908 Graphic ID #N$14
+@ $C908 label=graphic_14
 M $C908,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C908,$01
 W $C909,$02
@@ -4242,8 +4262,8 @@ W $C909,$02
 . UDGTABLE#
   $C919,$01 Terminator.
 
-b $C91A Graphic ID #N$4F
-@ $C91A label=graphic_4f
+b $C91A Graphic ID #N$22
+@ $C91A label=graphic_22
 M $C91A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C91A,$01
 W $C91B,$02
@@ -4264,8 +4284,8 @@ W $C91B,$02
 . UDGTABLE#
   $C92D,$01 Terminator.
 
-b $C92E Graphic ID #N$50
-@ $C92E label=graphic_50
+b $C92E Graphic ID #N$3C
+@ $C92E label=graphic_3c
 M $C92E,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C92E,$01
 W $C92F,$02
@@ -4290,8 +4310,8 @@ W $C92F,$02
 . UDGTABLE#
   $C942,$01 Terminator.
 
-b $C943 Graphic ID #N$51
-@ $C943 label=graphic_51
+b $C943 Graphic ID #N$24
+@ $C943 label=graphic_24
 M $C943,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C943,$01
 W $C944,$02
@@ -4312,8 +4332,8 @@ W $C944,$02
 . UDGTABLE#
   $C956,$01 Terminator.
 
-b $C957 Graphic ID #N$52
-@ $C957 label=graphic_52
+b $C957 Graphic ID #N$6F
+@ $C957 label=graphic_6f
 M $C957,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C957,$01
 W $C958,$02
@@ -4324,8 +4344,8 @@ W $C958,$02
 . UDGTABLE#
   $C95F,$01 Terminator.
 
-b $C960 Graphic ID #N$53
-@ $C960 label=graphic_53
+b $C960 Graphic ID #N$6D
+@ $C960 label=graphic_6d
 M $C960,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C960,$01
 W $C961,$02
@@ -4357,8 +4377,8 @@ W $C978,$02
   $C984,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E02C,attr=$44) } UDGTABLE#
   $C985,$01 Terminator.
 
-b $C986 Graphic ID #N$54
-@ $C986 label=graphic_54
+b $C986 Graphic ID #N$15
+@ $C986 label=graphic_15
 M $C986,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C986,$01
 W $C987,$02
@@ -4384,8 +4404,8 @@ W $C987,$02
 . UDGTABLE#
   $C9A1,$01 Terminator.
 
-b $C9A2 Graphic ID #N$55
-@ $C9A2 label=graphic_55
+b $C9A2 Graphic ID #N$16
+@ $C9A2 label=graphic_16
 M $C9A2,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C9A2,$01
 W $C9A3,$02
@@ -4411,8 +4431,8 @@ W $C9A3,$02
 . UDGTABLE#
   $C9BD,$01 Terminator.
 
-b $C9BE Graphic ID #N$56
-@ $C9BE label=graphic_56
+b $C9BE Graphic ID #N$0F
+@ $C9BE label=graphic_0f
 M $C9BE,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C9BE,$01
 W $C9BF,$02
@@ -4435,8 +4455,8 @@ W $C9BF,$02
   $C9D2,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D53C,attr=$43) } UDGTABLE#
   $C9D3,$01 Terminator.
 
-b $C9D4 Graphic ID #N$57
-@ $C9D4 label=graphic_57
+b $C9D4 Graphic ID #N$1B
+@ $C9D4 label=graphic_1b
 M $C9D4,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C9D4,$01
 W $C9D5,$02
@@ -4447,8 +4467,8 @@ W $C9D5,$02
 . UDGTABLE#
   $C9DC,$01 Terminator.
 
-b $C9DD Graphic ID #N$58
-@ $C9DD label=graphic_58
+b $C9DD Graphic ID #N$10
+@ $C9DD label=graphic_10
 M $C9DD,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C9DD,$01
 W $C9DE,$02
@@ -4488,8 +4508,8 @@ W $C9DE,$02
   $C9FA,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D554,attr=$43) } UDGTABLE#
   $C9FB,$01 Terminator.
 
-b $C9FC Graphic ID #N$59
-@ $C9FC label=graphic_59
+b $C9FC Graphic ID #N$11
+@ $C9FC label=graphic_11
 M $C9FC,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $C9FC,$01
 W $C9FD,$02
@@ -4519,8 +4539,8 @@ W $C9FD,$02
   $CA1D,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D4B4,attr=$45) } UDGTABLE#
   $CA1E,$01 Terminator.
 
-b $CA1F Graphic ID #N$5A
-@ $CA1F label=graphic_5a
+b $CA1F Graphic ID #N$4E
+@ $CA1F label=graphic_4e
 M $CA1F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CA1F,$01
 W $CA20,$02
@@ -4574,8 +4594,8 @@ W $CA20,$02
 . UDGTABLE#
   $CA56,$01 Terminator.
 
-b $CA57 Graphic ID #N$5B
-@ $CA57 label=graphic_5b
+b $CA57 Graphic ID #N$12
+@ $CA57 label=graphic_12
 M $CA57,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CA57,$01
 W $CA58,$02
@@ -4647,8 +4667,8 @@ W $CA58,$02
   $CA98,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D6F4,attr=$47) } UDGTABLE#
   $CA99,$01 Terminator.
 
-b $CA9A Graphic ID #N$5C
-@ $CA9A label=graphic_5c
+b $CA9A Graphic ID #N$17
+@ $CA9A label=graphic_17
 M $CA9A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CA9A,$01
 W $CA9B,$02
@@ -4669,8 +4689,8 @@ W $CA9B,$02
   $CAAC,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D50C,attr=$44) } UDGTABLE#
   $CAAD,$01 Terminator.
 
-b $CAAE Graphic ID #N$5D
-@ $CAAE label=graphic_5d
+b $CAAE Graphic ID #N$18
+@ $CAAE label=graphic_18
 M $CAAE,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CAAE,$01
 W $CAAF,$02
@@ -4696,8 +4716,8 @@ W $CAAF,$02
 . UDGTABLE#
   $CAC9,$01 Terminator.
 
-b $CACA Graphic ID #N$5E
-@ $CACA label=graphic_5e
+b $CACA Graphic ID #N$4B
+@ $CACA label=graphic_4b
 M $CACA,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CACA,$01
 W $CACB,$02
@@ -4732,8 +4752,8 @@ W $CAD5,$02
 . UDGTABLE#
   $CAEB,$01 Terminator.
 
-b $CAEC Graphic ID #N$5F
-@ $CAEC label=graphic_5f
+b $CAEC Graphic ID #N$65
+@ $CAEC label=graphic_65
 M $CAEC,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CAEC,$01
 W $CAED,$02
@@ -4760,8 +4780,8 @@ W $CAED,$02
 . UDGTABLE#
   $CB04,$01 Terminator.
 
-b $CB05 Graphic ID #N$60
-@ $CB05 label=graphic_60
+b $CB05 Graphic ID #N$2B
+@ $CB05 label=graphic_2b
 M $CB05,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CB05,$01
 W $CB06,$02
@@ -4786,8 +4806,8 @@ W $CB06,$02
 . UDGTABLE#
   $CB19,$01 Terminator.
 
-b $CB1A Graphic ID #N$61
-@ $CB1A label=graphic_61
+b $CB1A Graphic ID #N$3F
+@ $CB1A label=graphic_3f
 M $CB1A,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CB1A,$01
 W $CB1B,$02
@@ -4812,8 +4832,8 @@ W $CB1B,$02
 . UDGTABLE#
   $CB2E,$01 Terminator.
 
-b $CB2F Graphic ID #N$62
-@ $CB2F label=graphic_62
+b $CB2F Graphic ID #N$30
+@ $CB2F label=graphic_30
 M $CB2F,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CB2F,$01
 W $CB30,$02
@@ -4845,8 +4865,8 @@ W $CB30,$02
   $CB53,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D7D4,attr=$42) } UDGTABLE#
   $CB54,$01 Terminator.
 
-b $CB55 Graphic ID #N$63
-@ $CB55 label=graphic_63
+b $CB55 Graphic ID #N$31
+@ $CB55 label=graphic_31
 M $CB55,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CB55,$01
 W $CB56,$02
@@ -4865,8 +4885,8 @@ W $CB56,$02
   $CB69,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D824,attr=$45) } UDGTABLE#
   $CB6A,$01 Terminator.
 
-b $CB6B Graphic ID #N$64
-@ $CB6B label=graphic_64
+b $CB6B Graphic ID #N$32
+@ $CB6B label=graphic_32
 M $CB6B,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CB6B,$01
 W $CB6C,$02
@@ -4888,8 +4908,8 @@ W $CB6C,$02
   $CB83,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8BC,attr=$42) } UDGTABLE#
   $CB84,$01 Terminator.
 
-b $CB85 Graphic ID #N$65
-@ $CB85 label=graphic_65
+b $CB85 Graphic ID #N$73
+@ $CB85 label=graphic_73
 M $CB85,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CB85,$01
 W $CB86,$02
@@ -4913,8 +4933,8 @@ W $CB9C,$02
   $CB9E,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D8C4,attr=$56) } UDGTABLE#
   $CB9F,$01 Terminator.
 
-b $CBA0 Graphic ID #N$66
-@ $CBA0 label=graphic_66
+b $CBA0 Graphic ID #N$33
+@ $CBA0 label=graphic_33
 M $CBA0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CBA0,$01
 W $CBA1,$02
@@ -4975,8 +4995,8 @@ W $CBCC,$02
   $CBDE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D914,attr=$7A) } UDGTABLE#
   $CBDF,$01 Terminator.
 
-b $CBE0 Graphic ID #N$67
-@ $CBE0 label=graphic_67
+b $CBE0 Graphic ID #N$34
+@ $CBE0 label=graphic_34
 M $CBE0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CBE0,$01
 W $CBE1,$02
@@ -4991,8 +5011,8 @@ W $CBE1,$02
   $CBEE,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D834,attr=$43) } UDGTABLE#
   $CBEF,$01 Terminator.
 
-b $CBF0 Graphic ID #N$68
-@ $CBF0 label=graphic_68
+b $CBF0 Graphic ID #N$35
+@ $CBF0 label=graphic_35
 M $CBF0,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CBF0,$01
 W $CBF1,$02
@@ -5010,8 +5030,8 @@ W $CBF1,$02
   $CC01,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D95C,attr=$45) } UDGTABLE#
   $CC02,$01 Terminator.
 
-b $CC03 Graphic ID #N$69
-@ $CC03 label=graphic_69
+b $CC03 Graphic ID #N$36
+@ $CC03 label=graphic_36
 M $CC03,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC03,$01
 W $CC04,$02
@@ -5046,8 +5066,8 @@ W $CC18,$02
   $CC23,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D9CC,attr=$4F) } UDGTABLE#
   $CC24,$01 Terminator.
 
-b $CC25 Graphic ID #N$6A
-@ $CC25 label=graphic_6a
+b $CC25 Graphic ID #N$37
+@ $CC25 label=graphic_37
 M $CC25,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC25,$01
 W $CC26,$02
@@ -5068,8 +5088,8 @@ W $CC30,$02
   $CC37,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($D98C,attr=$57) } UDGTABLE#
   $CC38,$01 Terminator.
 
-b $CC39 Graphic ID #N$6B
-@ $CC39 label=graphic_6b
+b $CC39 Graphic ID #N$3D
+@ $CC39 label=graphic_3d
 M $CC39,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC39,$01
 W $CC3A,$02
@@ -5106,8 +5126,8 @@ W $CC3A,$02
   $CC5A,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
   $CC5C,$01 Terminator.
 
-b $CC5D Graphic ID #N$6C
-@ $CC5D label=graphic_6c
+b $CC5D Graphic ID #N$42
+@ $CC5D label=graphic_42
 M $CC5D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC5D,$01
 W $CC5E,$02
@@ -5151,8 +5171,8 @@ W $CC89,$02
   $CC8B,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E25C,attr=$45) } UDGTABLE#
   $CC8C,$01 Terminator.
 
-b $CC8D Graphic ID #N$6D
-@ $CC8D label=graphic_6d
+b $CC8D Graphic ID #N$41
+@ $CC8D label=graphic_41
 M $CC8D,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC8D,$01
 W $CC8E,$02
@@ -5164,8 +5184,8 @@ W $CC8E,$02
   $CC95,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB3C,attr=$44) } UDGTABLE#
   $CC96,$01 Terminator.
 
-b $CC97 Graphic ID #N$6E
-@ $CC97 label=graphic_6e
+b $CC97 Graphic ID #N$3E
+@ $CC97 label=graphic_3e
 M $CC97,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CC97,$01
 W $CC98,$02
@@ -5183,8 +5203,8 @@ W $CC98,$02
   $CCA8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DBA4,attr=$46) } UDGTABLE#
   $CCA9,$01 Terminator.
 
-b $CCAA Graphic ID #N$6F
-@ $CCAA label=graphic_6f
+b $CCAA Graphic ID #N$40
+@ $CCAA label=graphic_40
 M $CCAA,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CCAA,$01
 W $CCAB,$02
@@ -5193,8 +5213,8 @@ W $CCAB,$02
   $CCB0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E0DC,attr=$46) } UDGTABLE#
   $CCB1,$01 Terminator.
 
-b $CCB2 Graphic ID #N$70
-@ $CCB2 label=graphic_70
+b $CCB2 Graphic ID #N$4C
+@ $CCB2 label=graphic_4c
 M $CCB2,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CCB2,$01
 W $CCB3,$02
@@ -5230,8 +5250,8 @@ W $CCB3,$02
   $CCD8,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DB24,attr=$47) } UDGTABLE#
   $CCD9,$01 Terminator.
 
-b $CCDA Graphic ID #N$71
-@ $CCDA label=graphic_71
+b $CCDA Graphic ID #N$38
+@ $CCDA label=graphic_38
 M $CCDA,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CCDA,$01
 W $CCDB,$02
@@ -5253,8 +5273,8 @@ W $CCDB,$02
   $CCF0,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($DAE4,attr=$44) } UDGTABLE#
   $CCF1,$01 Terminator.
 
-b $CCF2 Graphic ID #N$72
-@ $CCF2 label=graphic_72
+b $CCF2 Graphic ID #N$39
+@ $CCF2 label=graphic_39
 M $CCF2,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CCF2,$01
 W $CCF3,$02
@@ -5286,8 +5306,8 @@ W $CD0C,$02
 . UDGTABLE#
   $CD13,$01 Terminator.
 
-b $CD14 Graphic ID #N$73
-@ $CD14 label=graphic_73
+b $CD14 Graphic ID #N$67
+@ $CD14 label=graphic_67
 M $CD14,$03 Sprite Data: #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).
   $CD14,$01
 W $CD15,$02
@@ -5446,51 +5466,144 @@ W $CD9E,$02
   $CDB3,$01 Tile #N(#PEEK(#PC)): #UDGTABLE { #UDG($E24C,attr=$5F) } UDGTABLE#
   $CDB4,$01 Terminator.
 
-w $CDB5 Room Data
-@ $CDB5 label=Data_Rooms
-  $CDB5,$02 Room #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$CDB5)/$02)).
+w $CDB5 Table: Room Data
+@ $CDB5 label=Table_RoomData
+  $CDB5,$02 #LET(room=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({room})(#D({room})).
 L $CDB5,$02,$21
 
-b $CDF7
-W $CDFE,$02
-  $CE00,$01 Terminator.
+b $CDF7 Room #N$00: Town Square
+  $CDF7,$02 #ROOM(#PC).
+L $CDF7,$02,$05
 
-b $CE01
-  $CE25
-  $CE37
-  $CE69
-  $CE7B
-  $CE89
-  $CEAD
-  $CEC9
-  $CEE1
-  $CEF9
-  $CF09
-  $CF29
-  $CF49
-  $CF71
-  $CF97
-  $CFB5
-  $CFD9
-  $CFEF
-  $D009
-  $D039
-  $D057
-  $D08B
-  $D0AF
-  $D0C3
-  $D0E7
-  $D109
-  $D125
-  $D135
-  $D153
-  $D16D
-  $D17D
-  $D191
+b $CE01 Room #N$01:
+  $CE01,$02 #ROOM(#PC).
+L $CE01,$02,$12
 
-  $D191,$01
-  $D192,$01
-  $D193
+b $CE25 Room #N$02:
+  $CE25,$02 #ROOM(#PC).
+L $CE25,$02,$09
+
+b $CE37 Room #N$03:
+  $CE37,$02 #ROOM(#PC).
+L $CE37,$02,$19
+
+b $CE69 Room #N$04:
+  $CE69,$02 #ROOM(#PC).
+L $CE69,$02,$09
+
+b $CE7B Room #N$05:
+  $CE7B,$02 #ROOM(#PC).
+L $CE7B,$02,$07
+
+b $CE89 Room #N$06:
+  $CE89,$02 #ROOM(#PC).
+L $CE89,$02,$12
+
+b $CEAD Room #N$07:
+  $CEAD,$02 #ROOM(#PC).
+L $CEAD,$02,$0E
+
+b $CEC9 Room #N$08:
+  $CEC9,$02 #ROOM(#PC).
+L $CEC9,$02,$0C
+
+b $CEE1 Room #N$09:
+  $CEE1,$02 #ROOM(#PC).
+L $CEE1,$02,$0C
+
+b $CEF9 Room #N$0A:
+  $CEF9,$02 #ROOM(#PC).
+L $CEF9,$02,$08
+
+b $CF09 Room #N$0B:
+  $CF09,$02 #ROOM(#PC).
+L $CF09,$02,$10
+
+b $CF29 Room #N$0C:
+  $CF29,$02 #ROOM(#PC).
+L $CF29,$02,$10
+
+b $CF49 Room #N$0D:
+  $CF49,$02 #ROOM(#PC).
+L $CF49,$02,$14
+
+b $CF71 Room #N$0E:
+  $CF71,$02 #ROOM(#PC).
+L $CF71,$02,$13
+
+b $CF97 Room #N$0F:
+  $CF97,$02 #ROOM(#PC).
+L $CF97,$02,$0F
+
+b $CFB5 Room #N$10:
+  $CFB5,$02 #ROOM(#PC).
+L $CFB5,$02,$12
+
+b $CFD9 Room #N$11:
+  $CFD9,$02 #ROOM(#PC).
+L $CFD9,$02,$0B
+
+b $CFEF Room #N$12:
+  $CFEF,$02 #ROOM(#PC).
+L $CFEF,$02,$0D
+
+b $D009 Room #N$13:
+  $D009,$02 #ROOM(#PC).
+L $D009,$02,$18
+
+b $D039 Room #N$14:
+  $D039,$02 #ROOM(#PC).
+L $D039,$02,$0F
+
+b $D057 Room #N$15:
+  $D057,$02 #ROOM(#PC).
+L $D057,$02,$1A
+
+b $D08B Room #N$16:
+  $D08B,$02 #ROOM(#PC).
+L $D08B,$02,$12
+
+b $D0AF Room #N$17:
+  $D0AF,$02 #ROOM(#PC).
+L $D0AF,$02,$0A
+
+b $D0C3 Room #N$18:
+  $D0C3,$02 #ROOM(#PC).
+L $D0C3,$02,$12
+
+b $D0E7 Room #N$19:
+  $D0E7,$02 #ROOM(#PC).
+L $D0E7,$02,$11
+
+b $D109 Room #N$1A:
+  $D109,$02 #ROOM(#PC).
+L $D109,$02,$0E
+
+b $D125 Room #N$1B:
+  $D125,$02 #ROOM(#PC).
+L $D125,$02,$08
+
+b $D135 Room #N$1C:
+  $D135,$02 #ROOM(#PC).
+L $D135,$02,$0F
+
+b $D153 Room #N$1D:
+  $D153,$02 #ROOM(#PC).
+L $D153,$02,$0D
+
+b $D16D Room #N$1E:
+  $D16D,$02 #ROOM(#PC).
+L $D16D,$02,$08
+
+b $D17D Room #N$1F:
+  $D17D,$02 #ROOM(#PC).
+L $D17D,$02,$0A
+
+b $D191 Room #N$20:
+  $D191,$02 #ROOM(#PC).
+L $D191,$02,$15
+
+b $D1BB
 
 b $D1BC Graphics
 @ $D1BC label=Graphics
@@ -5502,6 +5615,48 @@ L $D1BC,$08,$228
 c $E2FC
 
 c $E329
+  $E329,$03 #REGa=*#R$A838.
+
+  $E36D,$01 Switch to the shadow registers.
+N $E36E Draw the hearts to indicate the number of lives remaining.
+  $E36E,$02 #REGc=#N$46 (#COLOUR$46).
+  $E370,$06 Write #R$DFDC to #R$B7E8(#N$B7E9).
+  $E376,$03 #REGde=#N$021C.
+  $E379,$03 #REGl=*#REGiy+#N$2D.
+  $E37C,$01 Decrease #REGl by one.
+  $E37D,$02 #REGb=#N$02 (counter).
+  $E37F,$02
+  $E381,$02 #REGa=#R$E0D4(#N$1F).
+
+  $E386,$03 Call #R$B7BA.
+  $E389,$02 Increment #REGe by two.
+N $E392 Draws the endurance ribbon.
+  $E392,$02 #REGc=#N$43 (#COLOUR$43).
+  $E394,$03 #REGde=#N$0310.
+  $E397,$02 #REGl=#R$E2BC(#N$5C).
+  $E399,$03 #REGb=*#REGiy+#N$14.
+
+  $E3A3,$03 Call #R$B7BA.
+
+  $E3B2,$01 Switch back to the normal registers.
+  $E3B3,$01 Return.
+  $E3B4,$02 #REGa=#N$20.
+  $E3B6,$03 Call #R$B7BA.
+  $E3B9,$01 Increment #REGe by one.
+  $E3BA,$02 Jump to #R$E3AE.
+
+  $E3BC,$02 #REGa+=#N$08.
+
+  $E3C6,$02 #REGa=#N$5D.
+  $E3C8,$02 Jump to #R$E3CC.
+
+  $E3CA,$02 #REGa=#N$60.
+  $E3CC,$01 #REGa+=#REGb.
+  $E3CD,$03 Call #R$B7BA.
+  $E3D0,$01 Increment #REGe by one.
+  $E3D1,$02 Jump to #R$E3AE.
+
+c $E3D3
 
 c $E3FD Print Banner
 @ $E3FD label=PrintBanner
@@ -5804,7 +5959,7 @@ t $E71C Messaging: The Whistle
   $E71C,$0B #FONT:(THE WHISTLE)$E0DC,attr=$45(the-whistle)
 B $E727,$01 Terminator.
 
-w $E728 Item Labels Table
+w $E728 Table: Item Labels
 @ $E728 label=Table_ItemLabels
   $E728,$02 #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
 L $E728,$02,$29
@@ -5993,6 +6148,10 @@ c $EF91
   $EFC6,$01 Return.
 
 c $EFC7
+
+g $F104
+
+c $F10E
 
 c $F578
   $F578,$05 Write #N$45 to #R$F26F.
