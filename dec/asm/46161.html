@@ -25,7 +25,7 @@ gtag('config', 'G-75RERFCHBG');
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="45899.html">45899</a>
+Prev: <a href="46014.html">46014</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#46161">Map</a></td>
 <td class="next">
@@ -51,28 +51,53 @@ Used by the routine at <a href="58153.html">58153</a>.
 <td class="comment-1" rowspan="1">Call <a href="47341.html">Clear_Screen</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="46164"></span>
+<div class="comments">
+<div class="paragraph">
+Print the total gang earnings.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="46164"></span>46164</td>
 <td class="instruction">LD HL,60670</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="60508.html#60670">60670</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="60670.html">TotalGangEarnings</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="46167"></span>46167</td>
 <td class="instruction">LD DE,2058</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=2058.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=2058 (screen co-ordinates).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46170"></span>
+<div class="comments">
+<div class="paragraph">
+Hide the first character, it's not relevant for this page.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="46170"></span>46170</td>
 <td class="instruction">LD C,0</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=0.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=0 (INK:
+BLACK,
+PAPER:
+BLACK
+
+).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="46172"></span>46172</td>
-<td class="instruction">CALL <a href="45899.html#45900">45900</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45899.html#45900">45900</a>.</td>
+<td class="instruction">CALL <a href="45900.html">PrintEarnings</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45900.html">PrintEarnings</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -95,14 +120,14 @@ Used by the routine at <a href="58153.html">58153</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="46184"></span>46184</td>
-<td class="instruction">CALL <a href="45899.html#45995">45995</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45899.html#45995">45995</a>.</td>
+<td class="instruction">CALL <a href="45995.html">PressAnyKey</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45995.html">PressAnyKey</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="46187"></span>46187</td>
-<td class="instruction">CALL <a href="45809.html">45809</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45809.html">45809</a>.</td>
+<td class="instruction">CALL <a href="45809.html">PrintWages</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45809.html">PrintWages</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -114,7 +139,7 @@ Used by the routine at <a href="58153.html">58153</a>.
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="45899.html">45899</a>
+Prev: <a href="46014.html">46014</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#46161">Map</a></td>
 <td class="next">

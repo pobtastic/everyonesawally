@@ -25,7 +25,7 @@ gtag('config', 'G-75RERFCHBG');
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="B34B.html">B34B</a>
+Prev: <a href="B3BE.html">B3BE</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b451">Map</a></td>
 <td class="next">
@@ -51,28 +51,53 @@ Used by the routine at <a href="E329.html">E329</a>.
 <td class="comment-1" rowspan="1">Call <a href="B8ED.html">Clear_Screen</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b454"></span>
+<div class="comments">
+<div class="paragraph">
+Print the total gang earnings.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b454"></span>B454</td>
 <td class="instruction">LD HL,$ECFE</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="EC5C.html#ecfe">ECFE</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="ECFE.html">TotalGangEarnings</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b457"></span>B457</td>
 <td class="instruction">LD DE,$080A</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=080A.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=080A (screen co-ordinates).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b45a"></span>
+<div class="comments">
+<div class="paragraph">
+Hide the first character, it's not relevant for this page.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b45a"></span>B45A</td>
 <td class="instruction">LD C,$00</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=00.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=00 (INK:
+BLACK,
+PAPER:
+BLACK
+
+).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b45c"></span>B45C</td>
-<td class="instruction">CALL <a href="B34B.html#b34c">$B34C</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B34B.html#b34c">B34C</a>.</td>
+<td class="instruction">CALL <a href="B34C.html">PrintEarnings</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B34C.html">PrintEarnings</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -95,14 +120,14 @@ Used by the routine at <a href="E329.html">E329</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b468"></span>B468</td>
-<td class="instruction">CALL <a href="B34B.html#b3ab">$B3AB</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B34B.html#b3ab">B3AB</a>.</td>
+<td class="instruction">CALL <a href="B3AB.html">PressAnyKey</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B3AB.html">PressAnyKey</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="b46b"></span>B46B</td>
-<td class="instruction">CALL <a href="B2F1.html">$B2F1</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B2F1.html">B2F1</a>.</td>
+<td class="instruction">CALL <a href="B2F1.html">PrintWages</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B2F1.html">PrintWages</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -114,7 +139,7 @@ Used by the routine at <a href="E329.html">E329</a>.
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="B34B.html">B34B</a>
+Prev: <a href="B3BE.html">B3BE</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b451">Map</a></td>
 <td class="next">

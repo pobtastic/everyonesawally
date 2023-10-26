@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 45995</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45900.html">45900</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45995">Map</a></td>
+<td class="next">
+Next: <a href="46014.html">46014</a>
+</td>
+</tr>
+</table>
+<div class="description">45995: Press Any Key</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="45809.html">PrintWages</a>, <a href="46014.html">46014</a> and <a href="46161.html">GameOver</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="45995"></span>
+<div class="comments">
+<div class="paragraph">
+Test for a keypress...
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PressAnyKey</td>
+<td class="address-2"><span id="45995"></span>45995</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=0.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="45996"></span>45996</td>
+<td class="instruction">IN A,(254)</td>
+<td class="comment-1" rowspan="1">Check for keyboard input.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="45998"></span>45998</td>
+<td class="instruction">OR %11100000</td>
+<td class="comment-1" rowspan="1">Set bits 5-7.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46000"></span>46000</td>
+<td class="instruction">CP 255</td>
+<td class="comment-1" rowspan="2">If the result is not 255 jump to <a href="45995.html">PressAnyKey</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46002"></span>46002</td>
+<td class="instruction">JR NZ,<a href="45995.html#45995">PressAnyKey</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46004"></span>
+<div class="comments">
+<div class="paragraph">
+Test for a key release...
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PressAnyKey_Debounce</td>
+<td class="address-2"><span id="46004"></span>46004</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=0.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46005"></span>46005</td>
+<td class="instruction">IN A,(254)</td>
+<td class="comment-1" rowspan="1">Check for keyboard input.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46007"></span>46007</td>
+<td class="instruction">OR %11100000</td>
+<td class="comment-1" rowspan="1">Set bits 5-7.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46009"></span>46009</td>
+<td class="instruction">CP 255</td>
+<td class="comment-1" rowspan="2">If the result is 255 jump to <a href="45995.html#46004">PressAnyKey_Debounce</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46011"></span>46011</td>
+<td class="instruction">JR Z,<a href="45995.html#46004">PressAnyKey_Debounce</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46013"></span>46013</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45900.html">45900</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45995">Map</a></td>
+<td class="next">
+Next: <a href="46014.html">46014</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../../asm/B3AB.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

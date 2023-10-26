@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at B34C</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B34B.html">B34B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b34c">Map</a></td>
+<td class="next">
+Next: <a href="B3AB.html">B3AB</a>
+</td>
+</tr>
+</table>
+<div class="description">B34C: Print Earnings</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="B2F1.html">PrintWages</a> and <a href="B451.html">GameOver</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">Initial colour attribute value</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Screen co-ordinates</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Pointer to money earned memory location</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PrintEarnings</td>
+<td class="address-2"><span id="b34c"></span>B34C</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="3">Stash <span class="register">HL</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b34d"></span>B34D</td>
+<td class="instruction">PUSH BC</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b34e"></span>B34E</td>
+<td class="instruction">PUSH DE</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b34f"></span>
+<div class="comments">
+<div class="paragraph">
+Print (or don't print) the equals sign: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57796_69x4" src="../images/udgs/udg57796_69x4.png" /></td>
+</tr>
+</table> When called by <a href="B451.html">GameOver</a> the attribute for this is 00 (INK:
+BLACK,
+PAPER:
+BLACK
+
+ and so, is invisible).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b34f"></span>B34F</td>
+<td class="instruction">LD A,$3D</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=3D.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b351"></span>B351</td>
+<td class="instruction">CALL <a href="B715.html">PrintStringColour</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B715.html">PrintStringColour</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b354"></span>
+<div class="comments">
+<div class="paragraph">
+Move one character block to the right.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b354"></span>B354</td>
+<td class="instruction">INC E</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b355"></span>
+<div class="comments">
+<div class="paragraph">
+Print the GBP pounds sign. <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57612_66x4" src="../images/udgs/udg57612_66x4.png" /></td>
+</tr>
+</table>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b355"></span>B355</td>
+<td class="instruction">LD C,$42</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=42 (INK:
+RED,
+PAPER:
+BLACK
+(BRIGHT)
+).</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b357"></span>B357</td>
+<td class="instruction">LD A,$26</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=26.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b359"></span>B359</td>
+<td class="instruction">CALL <a href="B715.html">PrintStringColour</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B715.html">PrintStringColour</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b35c"></span>
+<div class="comments">
+<div class="paragraph">
+Move one character block to the right.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b35c"></span>B35C</td>
+<td class="instruction">INC E</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b35d"></span>
+<div class="comments">
+<div class="paragraph">
+Initialise the leading zero suppression flag. See <a href="B34B.html">Flag_MoneyHelper</a> for details.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b35d"></span>B35D</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="2">Write 00 to <a href="B34B.html">Flag_MoneyHelper</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b35e"></span>B35E</td>
+<td class="instruction">LD ($B34B),A</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b361"></span>
+<div class="comments">
+<div class="paragraph">
+Set the attribute for all the money digits.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b361"></span>B361</td>
+<td class="instruction">LD C,$45</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=45 (INK:
+CYAN,
+PAPER:
+BLACK
+(BRIGHT)
+).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b363"></span>
+<div class="comments">
+<div class="paragraph">
+Money is stored as two digits.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b363"></span>B363</td>
+<td class="instruction">LD B,$02</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=02 (counter).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b365"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the money digit.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PrintEarnings_Loop</td>
+<td class="address-2"><span id="b365"></span>B365</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b366"></span>B366</td>
+<td class="instruction">SRL A</td>
+<td class="comment-1" rowspan="4">Shift and rotate the upper bits to be the lower bits.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b368"></span>B368</td>
+<td class="instruction">SRL A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b36a"></span>B36A</td>
+<td class="instruction">SRL A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b36c"></span>B36C</td>
+<td class="instruction">SRL A</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b36e"></span>
+<div class="comments">
+<div class="paragraph">
+Convert the number into ASCII ready for printing to the screen.
+</div>
+<div class="paragraph">
+Add ASCII "0" - so for example 01 ends up being 01 + 30 = 31 (e.g. "1" in ASCII).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b36e"></span>B36E</td>
+<td class="instruction">ADD A,$30</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>+=30.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b370"></span>
+<div class="comments">
+<div class="paragraph">
+If the resulting number is not zero, then it needs to be printed to the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b370"></span>B370</td>
+<td class="instruction">CP $30</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not 30 jump to <a href="B34C.html#b37c">PrintEarnings_Print_Upper</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b372"></span>B372</td>
+<td class="instruction">JR NZ,<a href="B34C.html#b37c">PrintEarnings_Print_Upper</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b374"></span>
+<div class="comments">
+<div class="paragraph">
+And, if it is zero - print it, unless the leading zero suppression flag says otherwise.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b374"></span>B374</td>
+<td class="instruction">LD A,($B34B)</td>
+<td class="comment-1" rowspan="3">If <a href="B34B.html">Flag_MoneyHelper</a> is zero jump to <a href="B34C.html#b384">PrintEarnings_Skip</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b377"></span>B377</td>
+<td class="instruction">OR A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b378"></span>B378</td>
+<td class="instruction">JR Z,<a href="B34C.html#b384">PrintEarnings_Skip</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b37a"></span>
+<div class="comments">
+<div class="paragraph">
+Set the following printed character to be zero: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57692_69x4" src="../images/udgs/udg57692_69x4.png" /></td>
+</tr>
+</table>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b37a"></span>B37A</td>
+<td class="instruction">LD A,$30</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=30.</td>
+</tr>
+<tr>
+<td class="asm-label">PrintEarnings_Print_Upper</td>
+<td class="address-2"><span id="b37c"></span>B37C</td>
+<td class="instruction">CALL <a href="B715.html">PrintStringColour</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B715.html">PrintStringColour</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b37f"></span>
+<div class="comments">
+<div class="paragraph">
+Indicate that we have written a digit.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b37f"></span>B37F</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="B34B.html">Flag_MoneyHelper</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b381"></span>B381</td>
+<td class="instruction">LD ($B34B),A</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b384"></span>
+<div class="comments">
+<div class="paragraph">
+Move one character block to the right.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PrintEarnings_Skip</td>
+<td class="address-2"><span id="b384"></span>B384</td>
+<td class="instruction">INC E</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b385"></span>
+<div class="comments">
+<div class="paragraph">
+Refresh the money byte. We've processed the upper bits already and now we want to process the lower bits.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b385"></span>B385</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b386"></span>B386</td>
+<td class="instruction">AND %00001111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-3.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b388"></span>
+<div class="comments">
+<div class="paragraph">
+As above; add ASCII "0".
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b388"></span>B388</td>
+<td class="instruction">ADD A,$30</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>+=30.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b38a"></span>
+<div class="comments">
+<div class="paragraph">
+If the resulting number is not zero, then it needs to be printed to the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b38a"></span>B38A</td>
+<td class="instruction">CP $30</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not 30 jump to <a href="B34C.html#b39b">PrintEarnings_Print_Lower</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b38c"></span>B38C</td>
+<td class="instruction">JR NZ,<a href="B34C.html#b39b">PrintEarnings_Print_Lower</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b38e"></span>
+<div class="comments">
+<div class="paragraph">
+Force some output if everything is zero.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b38e"></span>B38E</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="3">If <span class="register">B</span> (the counter) is 01 jump to <a href="B34C.html#b399">PrintEarnings_Print_Zero</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b38f"></span>B38F</td>
+<td class="instruction">CP $01</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b391"></span>B391</td>
+<td class="instruction">JR Z,<a href="B34C.html#b399">PrintEarnings_Print_Zero</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b393"></span>
+<div class="comments">
+<div class="paragraph">
+If nothing has been printed yet just skip to the next money byte.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b393"></span>B393</td>
+<td class="instruction">LD A,($B34B)</td>
+<td class="comment-1" rowspan="3">If <a href="B34B.html">Flag_MoneyHelper</a> is zero jump to <a href="B34C.html#b3a3">PrintEarnings_NextByte</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b396"></span>B396</td>
+<td class="instruction">OR A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b397"></span>B397</td>
+<td class="instruction">JR Z,<a href="B34C.html#b3a3">PrintEarnings_NextByte</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b399"></span>
+<div class="comments">
+<div class="paragraph">
+<table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="udg57692_69x4" src="../images/udgs/udg57692_69x4.png" /></td>
+</tr>
+</table>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PrintEarnings_Print_Zero</td>
+<td class="address-2"><span id="b399"></span>B399</td>
+<td class="instruction">LD A,$30</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=30.</td>
+</tr>
+<tr>
+<td class="asm-label">PrintEarnings_Print_Lower</td>
+<td class="address-2"><span id="b39b"></span>B39B</td>
+<td class="instruction">CALL <a href="B715.html">PrintStringColour</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B715.html">PrintStringColour</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b39e"></span>B39E</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="B34B.html">Flag_MoneyHelper</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b3a0"></span>B3A0</td>
+<td class="instruction">LD ($B34B),A</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b3a3"></span>
+<div class="comments">
+<div class="paragraph">
+Move one character block to the right.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PrintEarnings_NextByte</td>
+<td class="address-2"><span id="b3a3"></span>B3A3</td>
+<td class="instruction">INC E</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">E</span> by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b3a4"></span>
+<div class="comments">
+<div class="paragraph">
+Move onto the next money byte.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b3a4"></span>B3A4</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b3a5"></span>B3A5</td>
+<td class="instruction">DJNZ <a href="B34C.html#b365">PrintEarnings_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="B34C.html#b365">PrintEarnings_Loop</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b3a7"></span>
+<div class="comments">
+<div class="paragraph">
+Restore all the previous registers and return.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b3a7"></span>B3A7</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="3">Restore <span class="register">DE</span>, <span class="register">BC</span> and <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b3a8"></span>B3A8</td>
+<td class="instruction">POP BC</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b3a9"></span>B3A9</td>
+<td class="instruction">POP HL</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b3aa"></span>B3AA</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B34B.html">B34B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b34c">Map</a></td>
+<td class="next">
+Next: <a href="B3AB.html">B3AB</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/45900.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

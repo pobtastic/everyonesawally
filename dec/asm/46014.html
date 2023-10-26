@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 46014</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45995.html">45995</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46014">Map</a></td>
+<td class="next">
+Next: <a href="46161.html">46161</a>
+</td>
+</tr>
+</table>
+<div class="description">46014: Routine at B3BE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46014"></span>46014</td>
+<td class="instruction">DEFB 176,136,96,56,16</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46019"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="60714.html">60714</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46019"></span>46019</td>
+<td class="instruction">LD DE,4892</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46022"></span>46022</td>
+<td class="instruction">LD HL,52466</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46025"></span>46025</td>
+<td class="instruction">CALL <a href="47147.html">47147</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46028"></span>46028</td>
+<td class="instruction">LD IY,48231</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46032"></span>46032</td>
+<td class="instruction">LD HL,46014</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46035"></span>46035</td>
+<td class="instruction">LD B,5</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46037"></span>46037</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46038"></span>46038</td>
+<td class="instruction">LD (IY+10),152</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46042"></span>46042</td>
+<td class="instruction">LD A,(IY+5)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46045"></span>46045</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46046"></span>46046</td>
+<td class="instruction">JR Z,<a href="46014.html#46109">46109</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46048"></span>46048</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46049"></span>46049</td>
+<td class="instruction">LD A,(IY+15)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46052"></span>46052</td>
+<td class="instruction">CP 22</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46054"></span>46054</td>
+<td class="instruction">JR Z,<a href="46014.html#46067">46067</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46056"></span>46056</td>
+<td class="instruction">LD (IY+15),22</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46060"></span>46060</td>
+<td class="instruction">LD (IY+5),0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46064"></span>46064</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46065"></span>46065</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46066"></span>46066</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46067"></span>46067</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46068"></span>46068</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46069"></span>46069</td>
+<td class="instruction">JR NC,<a href="46014.html#46084">46084</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46071"></span>46071</td>
+<td class="instruction">LD (IY+60),1</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46075"></span>46075</td>
+<td class="instruction">LD (IY+65),1</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46079"></span>46079</td>
+<td class="instruction">CALL <a href="45478.html#45704">45704</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46082"></span>46082</td>
+<td class="instruction">JR <a href="46014.html#46095">46095</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46084"></span>46084</td>
+<td class="instruction">LD (IY+60),255</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46088"></span>46088</td>
+<td class="instruction">LD (IY+65),255</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46092"></span>46092</td>
+<td class="instruction">CALL <a href="45478.html#45704">45704</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46095"></span>46095</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46096"></span>46096</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46097"></span>46097</td>
+<td class="instruction">LD IY,48231</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46101"></span>46101</td>
+<td class="instruction">CALL <a href="61121.html">61121</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46104"></span>46104</td>
+<td class="instruction">CALL <a href="47574.html">47574</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46107"></span>46107</td>
+<td class="instruction">JR <a href="46014.html#46028">46028</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46109"></span>46109</td>
+<td class="instruction">LD A,(IY+15)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46112"></span>46112</td>
+<td class="instruction">CP 22</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46114"></span>46114</td>
+<td class="instruction">JR NZ,<a href="46014.html#46048">46048</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46116"></span>46116</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46117"></span>46117</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46118"></span>46118</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46120"></span>46120</td>
+<td class="instruction">DJNZ <a href="46014.html#46037">46037</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46122"></span>46122</td>
+<td class="instruction">LD A,(63195)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46125"></span>46125</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46126"></span>46126</td>
+<td class="instruction">JR Z,<a href="46014.html#46097">46097</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46128"></span>46128</td>
+<td class="instruction">LD DE,1024</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=1024.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46131"></span>46131</td>
+<td class="instruction">LD HL,32360</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="32319.html#32360">Messaging_Banner_Underline</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46134"></span>46134</td>
+<td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46137"></span>46137</td>
+<td class="instruction">CALL <a href="45995.html">PressAnyKey</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45995.html">PressAnyKey</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46140"></span>46140</td>
+<td class="instruction">CALL <a href="47341.html">Clear_Screen</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47341.html">Clear_Screen</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46143"></span>46143</td>
+<td class="instruction">LD DE,2</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=0002.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46146"></span>46146</td>
+<td class="instruction">LD HL,31862</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="31862.html">Messaging_Congratulations</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46149"></span>46149</td>
+<td class="instruction">CALL <a href="47300.html">PrintString</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47300.html">PrintString</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46152"></span>46152</td>
+<td class="instruction">CALL <a href="45995.html">PressAnyKey</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45995.html">PressAnyKey</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46155"></span>46155</td>
+<td class="instruction">CALL <a href="45809.html">PrintWages</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45809.html">PrintWages</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46158"></span>46158</td>
+<td class="instruction">JP <a href="33156.html">GameLoop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="33156.html">GameLoop</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45995.html">45995</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46014">Map</a></td>
+<td class="next">
+Next: <a href="46161.html">46161</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../../asm/B3BE.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

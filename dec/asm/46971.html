@@ -136,47 +136,43 @@ Used by the routine at <a href="58397.html">58397</a>.
 <tr>
 <td class="address-1"><span id="46995"></span>46995</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="5"><span class="register">HL</span>*=256.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="46996"></span>46996</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="46997"></span>46997</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="46998"></span>46998</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="46999"></span>46999</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="47000"></span>47000</td>
 <td class="instruction">LD DE,33656</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="33656.html">33656</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="33656.html">Graphics_Items</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47003"></span>47003</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>+=<span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47004"></span>47004</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47005"></span>47005</td>
 <td class="instruction">LD A,16</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=16.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="47007"></span>47007</td>
@@ -191,22 +187,21 @@ Used by the routine at <a href="58397.html">58397</a>.
 <tr>
 <td class="address-1"><span id="47013"></span>47013</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>+=<span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47014"></span>47014</td>
 <td class="instruction">INC IX</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Increment <span class="register">IX</span> by two.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47016"></span>47016</td>
 <td class="instruction">INC IX</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="47018"></span>47018</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47019"></span>47019</td>
@@ -221,17 +216,16 @@ Used by the routine at <a href="58397.html">58397</a>.
 <tr>
 <td class="address-1"><span id="47023"></span>47023</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47024"></span>47024</td>
 <td class="instruction">INC BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Increment <span class="register">BC</span> by two.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47025"></span>47025</td>
 <td class="instruction">INC BC</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="47026"></span>47026</td>
@@ -241,7 +235,7 @@ Used by the routine at <a href="58397.html">58397</a>.
 <tr>
 <td class="address-1"><span id="47027"></span>47027</td>
 <td class="instruction">JR NZ,<a href="46971.html#47007">47007</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="46971.html#47007">47007</a> until <span class="register">A</span> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47029"></span>47029</td>
