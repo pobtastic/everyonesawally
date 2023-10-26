@@ -15,3 +15,11 @@ SectionType=BulletPoints
 - Added commenting to #R$B952.
 - Added room macro for looking up graphic IDs (todo cursor "movements" too).
 - Worked out the room order/ naming.
+
+[Changelog:20231026]
+-
+
+- Added #R$8378.
+- Commented #R$B2F1, #R$B34C and #R$B34B.
+- Commented #R$B3AB.
+- Starting to work out how backgrounds are constructed.

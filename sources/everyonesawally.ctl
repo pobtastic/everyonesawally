@@ -480,11 +480,96 @@ b $81F8 Screen Buffer Locations
 @ $81F8 label=ScreenBuffer_Locations
 W $81F8,$180,$02
 
-b $8378
-  $8378,$08
-L $8378,$08,$50
+b $8378 Graphics: Items
+@ $8378 label=Graphics_Items
+N $8378 Item: The Plunger.
+  $8378,$20,$02 #ITEM(#PC)(item-the-plunger.png)
+N $8398 Item: The Letter A.
+  $8398,$20,$02 #ITEM(#PC)(item-the-letter-a.png)
+N $83B8 Item: Book Two.
+  $83B8,$20,$02 #ITEM(#PC)(item-book-two.png)
+N $83D8 Item: The Sand.
+  $83D8,$20,$02 #ITEM(#PC)(item-the-sand.png)
+N $83F8 Item: The Battery.
+  $83F8,$20,$02 #ITEM(#PC)(item-the-battery.png)
+N $8418 Item: The Letter K.
+  $8418,$20,$02 #ITEM(#PC)(item-the-letter-k.png)
+N $8438 Item: The Cement.
+  $8438,$20,$02 #ITEM(#PC)(item-the-cement.png)
+N $8458 Item: Book Three.
+  $8458,$20,$02 #ITEM(#PC)(item-book-three.png)
+N $8478 Item: The Trowel.
+  $8478,$20,$02 #ITEM(#PC)(item-the-trowel.png)
+N $8498 Item: The Matches.
+  $8498,$20,$02 #ITEM(#PC)(item-the-matches.png)
+N $84B8 Item: The Cracked Insulator.
+  $84B8,$20,$02 #ITEM(#PC)(item-the-cracked-insulator.png)
+N $84D8 Item: Book One.
+  $84D8,$20,$02 #ITEM(#PC)(item-book-one.png)
+N $84F8 Item: The Monkey Nuts.
+  $84F8,$20,$02 #ITEM(#PC)(item-the-monkey-nuts.png)
+N $8518 Item: The Money.
+  $8518,$20,$02 #ITEM(#PC)(item-the-money.png)
+N $8538 Item: Superglue.
+  $8538,$20,$02 #ITEM(#PC)(item-superglue.png)
+N $8558 Item: The Chewing Gum.
+  $8558,$20,$02 #ITEM(#PC)(item-the-chewing-gum.png)
+N $8578 Item: The Bucket.
+  $8578,$20,$02 #ITEM(#PC)(item-the-bucket.png)
+N $8598 Item: The Jump Leads.
+  $8598,$20,$02 #ITEM(#PC)(item-the-jump-leads.png)
+N $85B8 Item: The Bunsen Burner.
+  $85B8,$20,$02 #ITEM(#PC)(item-the-bunsen-burner.png)
+N $85D8 Item: The Letter B.
+  $85D8,$20,$02 #ITEM(#PC)(item-the-letter-b.png)
+N $85F8 Item: Gas Mask.
+  $85F8,$20,$02 #ITEM(#PC)(item-gas-mask.png)
+N $8618 Item: The Parcel.
+  $8618,$20,$02 #ITEM(#PC)(item-the-parcel.png)
+N $8638 Item: The Fuse.
+  $8638,$20,$02 #ITEM(#PC)(item-the-fuse.png)
+N $8658 Item: The Meat.
+  $8658,$20,$02 #ITEM(#PC)(item-the-meat.png)
+N $8678 Item: The Monkey Wrench.
+  $8678,$20,$02 #ITEM(#PC)(item-the-monkey-wrench.png)
+N $8698 Item: Screwdriver.
+  $8698,$20,$02 #ITEM(#PC)(item-screwdriver.png)
+N $86B8 Item: The Letter E.
+  $86B8,$20,$02 #ITEM(#PC)(item-the-letter-e.png)
+N $86D8 Item: The Hook.
+  $86D8,$20,$02 #ITEM(#PC)(item-the-hook.png)
+N $86F8 Item: The Patch.
+  $86F8,$20,$02 #ITEM(#PC)(item-the-patch.png)
+N $8718 Item: The Pipe.
+  $8718,$20,$02 #ITEM(#PC)(item-the-pipe.png)
+N $8738 Item: The Letter R.
+  $8738,$20,$02 #ITEM(#PC)(item-the-letter-r.png)
+N $8758 Item: The Oil Can.
+  $8758,$20,$02 #ITEM(#PC)(item-the-oil-can.png)
+N $8778 Item: The Fuse Wire.
+  $8778,$20,$02 #ITEM(#PC)(item-the-fuse-wire.png)
+N $8798 Item: The Good Insulator.
+  $8798,$20,$02 #ITEM(#PC)(item-the-good-insulator.png)
+N $87B8 Item: The Bottle.
+  $87B8,$20,$02 #ITEM(#PC)(item-the-bottle.png)
+N $87D8 Item: The Red Herring.
+  $87D8,$20,$02 #ITEM(#PC)(item-the-red-herring.png)
+N $87F8 Item: The Test Tube.
+  $87F8,$20,$02 #ITEM(#PC)(item-the-test-tube.png)
+N $8818 Item: The Can Of Beans.
+  $8818,$20,$02 #ITEM(#PC)(item-the-can-of-beans.png)
+N $8838 Item: The Rubber Stamp.
+  $8838,$20,$02 #ITEM(#PC)(item-the-rubber-stamp.png)
+N $8858 Item: The Pliers.
+  $8858,$20,$02 #ITEM(#PC)(item-the-pliers.png)
+N $8878 Item: The Whistle.
+  $8878,$20,$02 #ITEM(#PC)(item-the-whistle.png)
+
+b $8898
+  $8898,$40,$04 #UDGARRAY$04,step=$04($8898-$88C8-$01-$20)(item-13.png)
 
 b $91D5
+  $91D5,$08
   $9818
   $9878
 
@@ -818,20 +903,29 @@ b $B2ED
 w $B2EF
   $B2EF,$02
 
-c $B2F1
+c $B2F1 Print Wages
+@ $B2F1 label=PrintWages
   $B2F1,$03 Call #R$B8ED.
   $B2F4,$03 #REGde=#N$010A.
   $B2F7,$03 #REGhl=#R$7C1B.
   $B2FA,$03 Call #R$B8C4.
   $B2FD,$02 Stash #REGiy on the stack.
   $B2FF,$03 #REGde=#N$0513.
+N $B302 There are #N$05 characters (#REGb counter) and the attribute is #N$45 (#REGc #COLOUR$45).
   $B302,$03 #REGbc=#N$0545.
   $B305,$03 #REGhl=#R$B2ED.
   $B308,$04 #REGiy=#R$BC67.
   $B30C,$04 #REGix=#R$B2ED.
+  $B310,$04 Write #N$00 to *#REGix+#N$00.
+  $B314,$04 Write #N$00 to *#REGix+#N$01.
+@ $B318 label=PrintWages_Loop
+  $B318,$03 #REGa=*#REGiy-#N$0A.
+  $B31B,$03 Write #REGa to *#REGix+#N$01.
 
   $B332,$03 Call #R$B34C.
-
+  $B335,$03 Increment #REGd by three.
+  $B338,$02 Increment #REGiy by one.
+  $B33A,$02 Decrease counter by one and loop back to #R$B318 until counter is zero.
   $B33C,$02 Restore #REGiy from the stack.
   $B33E,$02 #REGd=#N$15.
   $B340,$03 #REGhl=#R$B2EF.
@@ -839,8 +933,103 @@ c $B2F1
   $B345,$03 Call #R$B34C.
   $B348,$03 Jump to #R$B3AB.
 
-c $B34B
-B $B34B,$01
+g $B34B Flag: Money Helper
+@ $B34B label=Flag_MoneyHelper
+D $B34B This is #N$00 until a digit has been written. It's used to suppress writing leading #N$00's so the output is "£ 10" instead of "£010".
+B $B34B,$01 Either #N$00 or #N$01.
+
+c $B34C Print Earnings
+@ $B34C label=PrintEarnings
+R $B34C C Initial colour attribute value
+R $B34C DE Screen co-ordinates
+R $B34C HL Pointer to money earned memory location
+  $B34C,$03 Stash #REGhl, #REGbc and #REGde on the stack.
+N $B34F Print (or don't print) the equals sign:
+.       #UDGTABLE { #UDG($DFDC+$3D*$08,attr=$45) } UDGTABLE#
+.       When called by #R$B451 the attribute for this is #N$00 (#COLOUR$00 and so, is invisible).
+  $B34F,$02 #REGa=#N$3D.
+  $B351,$03 Call #R$B715.
+N $B354 Move one character block to the right.
+  $B354,$01 Increment #REGe by one.
+N $B355 Print the GBP pounds sign.
+.       #UDGTABLE { #UDG($DFDC+$26*$08,attr=$42) } UDGTABLE#
+  $B355,$02 #REGc=#N$42 (#COLOUR$42).
+  $B357,$02 #REGa=#N$26.
+  $B359,$03 Call #R$B715.
+N $B35C Move one character block to the right.
+  $B35C,$01 Increment #REGe by one.
+N $B35D Initialise the leading zero suppression flag. See #R$B34B for details.
+  $B35D,$04 Write #N$00 to #R$B34B.
+N $B361 Set the attribute for all the money digits.
+  $B361,$02 #REGc=#N$45 (#COLOUR$45).
+N $B363 Money is stored as two digits.
+  $B363,$02 #REGb=#N$02 (counter).
+N $B365 Fetch the money digit.
+@ $B365 label=PrintEarnings_Loop
+  $B365,$01 #REGa=*#REGhl.
+  $B366,$08 Shift and rotate the upper bits to be the lower bits.
+N $B36E Convert the number into ASCII ready for printing to the screen.
+N $B36E Add ASCII "0" - so for example #N$01 ends up being
+.       #N$01 + #N$30 = #N$31 (e.g. "1" in ASCII).
+  $B36E,$02 #REGa+=#N$30.
+N $B370 If the resulting number is not zero, then it needs to be printed to the screen.
+  $B370,$04 If #REGa is not #N$30 jump to #R$B37C.
+N $B374 And, if it is zero - print it, unless the leading zero suppression flag says otherwise.
+  $B374,$06 If #R$B34B is zero jump to #R$B384.
+N $B37A Set the following printed character to be zero:
+.       #UDGTABLE { #UDG($DFDC+$30*$08,attr=$45) } UDGTABLE#
+  $B37A,$02 #REGa=#N$30.
+@ $B37C label=PrintEarnings_Print_Upper
+  $B37C,$03 Call #R$B715.
+N $B37F Indicate that we have written a digit.
+  $B37F,$05 Write #N$01 to #R$B34B.
+N $B384 Move one character block to the right.
+@ $B384 label=PrintEarnings_Skip
+  $B384,$01 Increment #REGe by one.
+N $B385 Refresh the money byte. We've processed the upper bits already and now we want to process the lower bits.
+  $B385,$01 #REGa=*#REGhl.
+  $B386,$02,b$01 Keep only bits 0-3.
+N $B388 As above; add ASCII "0".
+  $B388,$02 #REGa+=#N$30.
+N $B38A If the resulting number is not zero, then it needs to be printed to the screen.
+  $B38A,$04 If #REGa is not #N$30 jump to #R$B39B.
+N $B38E Force some output if everything is zero.
+  $B38E,$05 If #REGb (the counter) is #N$01 jump to #R$B399.
+N $B393 If nothing has been printed yet just skip to the next money byte.
+  $B393,$06 If #R$B34B is zero jump to #R$B3A3.
+N $B399 #UDGTABLE { #UDG($DFDC+$30*$08,attr=$45) } UDGTABLE#
+@ $B399 label=PrintEarnings_Print_Zero
+  $B399,$02 #REGa=#N$30.
+@ $B39B label=PrintEarnings_Print_Lower
+  $B39B,$03 Call #R$B715.
+  $B39E,$05 Write #N$01 to #R$B34B.
+N $B3A3 Move one character block to the right.
+@ $B3A3 label=PrintEarnings_NextByte
+  $B3A3,$01 Increment #REGe by one.
+N $B3A4 Move onto the next money byte.
+  $B3A4,$01 Increment #REGhl by one.
+  $B3A5,$02 Decrease counter by one and loop back to #R$B365 until counter is zero.
+N $B3A7 Restore all the previous registers and return.
+  $B3A7,$03 Restore #REGde, #REGbc and #REGhl from the stack.
+  $B3AA,$01 Return.
+
+c $B3AB Press Any Key
+@ $B3AB label=PressAnyKey
+N $B3AB Test for a keypress...
+  $B3AB,$01 #REGa=#N$00.
+  $B3AC,$02 Check for keyboard input.
+  $B3AE,$02,b$01 Set bits 5-7.
+  $B3B0,$04 If the result is not #N$FF jump to #R$B3AB.
+N $B3B4 Test for a key release...
+@ $B3B4 label=PressAnyKey_Debounce
+  $B3B4,$01 #REGa=#N$00.
+  $B3B5,$02 Check for keyboard input.
+  $B3B7,$02,b$01 Set bits 5-7.
+  $B3B9,$04 If the result is #N$FF jump to #R$B3B4.
+  $B3BD,$01 Return.
+
+c $B3BE
+B $B3BE,$05
 
   $B430,$03 #REGde=#N($0400,$04,$04).
   $B433,$03 #REGhl=#R$7E68.
@@ -857,9 +1046,11 @@ B $B34B,$01
 c $B451 Game Over
 @ $B451 label=GameOver
   $B451,$03 Call #R$B8ED.
+N $B454 Print the total gang earnings.
   $B454,$03 #REGhl=#R$ECFE.
-  $B457,$03 #REGde=#N$080A.
-  $B45A,$02 #REGc=#N$00.
+  $B457,$03 #REGde=#N$080A (screen co-ordinates).
+N $B45A Hide the first character, it's not relevant for this page.
+  $B45A,$02 #REGc=#N$00 (#COLOUR$00).
   $B45C,$03 Call #R$B34C.
   $B45F,$03 #REGhl=#R$7D48.
   $B462,$03 #REGde=#N$0504.
@@ -983,10 +1174,20 @@ c $B77B
 
   $B789,$03 #REGde=#R$81F8.
 
+  $B793,$05 #REGhl*=#N$0100.
   $B798,$03 #REGde=#R$8378.
+  $B79B,$01 #REGhl+=#REGde.
+  $B79C,$01 Switch the #REGde and #REGhl registers.
+  $B79D,$02 #REGa=#N$10.
 
+  $B7A5,$01 #REGhl+=#REGbc.
+  $B7A6,$04 Increment #REGix by two.
+  $B7AA,$01 Switch the #REGde and #REGhl registers.
+  $B7AB,$04
+  $B7AF,$01 Switch the #REGde and #REGhl registers.
+  $B7B0,$02 Increment #REGbc by two.
   $B7B2,$01 Decrease #REGa by one.
-  $B7B3,$02
+  $B7B3,$02 Jump to #R$B79F until #REGa is zero.
   $B7B5,$04 Restore #REGde, #REGbc, #REGhl and #REGaf from the stack.
   $B7B9,$01 Return.
 
@@ -5586,134 +5787,167 @@ w $CDB5 Table: Room Data
 L $CDB5,$02,$21
 
 b $CDF7 Room #N$00: Town Square
+D $CDF7 #BACKGROUND($00)(town-square)
   $CDF7,$02 #ROOM(#PC).
 L $CDF7,$02,$05
 
 b $CE01 Room #N$01: Stamp Street
+D $CE01 #BACKGROUND($01)(stamp-street)
   $CE01,$02 #ROOM(#PC).
 L $CE01,$02,$12
 
 b $CE25 Room #N$02: The Post Office
+D $CE25 #BACKGROUND($02)(the-post-office)
   $CE25,$02 #ROOM(#PC).
 L $CE25,$02,$09
 
 b $CE37 Room #N$03: Market Street
+D $CE37 #BACKGROUND($03)(market-street)
   $CE37,$02 #ROOM(#PC).
 L $CE37,$02,$19
 
 b $CE69 Room #N$04: The Super Market
+D $CE69 #BACKGROUND($04)(the-super-market)
   $CE69,$02 #ROOM(#PC).
 L $CE69,$02,$09
 
 b $CE7B Room #N$05: The Park
+D $CE7B #BACKGROUND($05)(the-park)
   $CE7B,$02 #ROOM(#PC).
 L $CE7B,$02,$07
 
 b $CE89 Room #N$06: Wobbly Walk
+D $CE89 #BACKGROUND($06)(wobbly-walk)
   $CE89,$02 #ROOM(#PC).
 L $CE89,$02,$12
 
 b $CEAD Room #N$07: Rubble Road
+D $CEAD #BACKGROUND($07)(rubble-road)
   $CEAD,$02 #ROOM(#PC).
 L $CEAD,$02,$0E
 
 b $CEC9 Room #N$08: Wall Street
+D $CEC9 #BACKGROUND($08)(wall-street)
   $CEC9,$02 #ROOM(#PC).
 L $CEC9,$02,$0C
 
 b $CEE1 Room #N$09: Pete Street
+D $CEE1 #BACKGROUND($09)(pete-street)
   $CEE1,$02 #ROOM(#PC).
 L $CEE1,$02,$0C
 
 b $CEF9 Room #N$0A: The Work Shed
+D $CEF9 #BACKGROUND($0A)(the-work-shed)
   $CEF9,$02 #ROOM(#PC).
 L $CEF9,$02,$08
 
 b $CF09 Room #N$0B: School Lane
+D $CF09 #BACKGROUND($0B)(school-lane)
   $CF09,$02 #ROOM(#PC).
 L $CF09,$02,$10
 
 b $CF29 Room #N$0C: The School
+D $CF29 #BACKGROUND($0C)(the-school)
   $CF29,$02 #ROOM(#PC).
 L $CF29,$02,$10
 
 b $CF49 Room #N$0D: Baker Street
+D $CF49 #BACKGROUND($0D)(baker-street)
   $CF49,$02 #ROOM(#PC).
 L $CF49,$02,$14
 
 b $CF71 Room #N$0E: The Bakers
+D $CF71 #BACKGROUND($0E)(the-bakers)
   $CF71,$02 #ROOM(#PC).
 L $CF71,$02,$13
 
 b $CF97 Room #N$0F: The Pub
+D $CF97 #BACKGROUND($0F)(the-pub)
   $CF97,$02 #ROOM(#PC).
 L $CF97,$02,$0F
 
 b $CFB5 Room #N$10: Motor Way
+D $CFB5 #BACKGROUND($10)(motor-way)
   $CFB5,$02 #ROOM(#PC).
 L $CFB5,$02,$12
 
 b $CFD9 Room #N$11: The Laboratory
+D $CFD9 #BACKGROUND($11)(the-laboratory)
   $CFD9,$02 #ROOM(#PC).
 L $CFD9,$02,$0B
 
 b $CFEF Room #N$12: The Garage
+D $CFEF #BACKGROUND($12)(the-garage)
   $CFEF,$02 #ROOM(#PC).
 L $CFEF,$02,$0D
 
 b $D009 Room #N$13: Reference Road
+D $D009 #BACKGROUND($13)(reference-road)
   $D009,$02 #ROOM(#PC).
 L $D009,$02,$18
 
 b $D039 Room #N$14: The Library
+D $D039 #BACKGROUND($14)(the-library)
   $D039,$02 #ROOM(#PC).
 L $D039,$02,$0F
 
 b $D057 Room #N$15: Penny Lane
+D $D057 #BACKGROUND($15)(penny-lane)
   $D057,$02 #ROOM(#PC).
 L $D057,$02,$1A
 
 b $D08B Room #N$16: The Bank
+D $D08B #BACKGROUND($16)(the-bank)
   $D08B,$02 #ROOM(#PC).
 L $D08B,$02,$12
 
 b $D0AF Room #N$17: Wally's House
+D $D0AF #BACKGROUND($17)(wallys-house)
   $D0AF,$02 #ROOM(#PC).
 L $D0AF,$02,$0A
 
 b $D0C3 Room #N$18: Meat Street
+D $D0C3 #BACKGROUND($18)(meat-street)
   $D0C3,$02 #ROOM(#PC).
 L $D0C3,$02,$12
 
 b $D0E7 Room #N$19: The Butchers
+D $D0E7 #BACKGROUND($19)(the-butchers)
   $D0E7,$02 #ROOM(#PC).
 L $D0E7,$02,$11
 
 b $D109 Room #N$1A: Trunk Road
+D $D109 #BACKGROUND($1A)(trunk-road)
   $D109,$02 #ROOM(#PC).
 L $D109,$02,$0E
 
 b $D125 Room #N$1B: The Zoo
+D $D125 #BACKGROUND($1B)(the-zoo)
   $D125,$02 #ROOM(#PC).
 L $D125,$02,$08
 
 b $D135 Room #N$1C: Rail Road
+D $D135 #BACKGROUND($1C)(rail-road)
   $D135,$02 #ROOM(#PC).
 L $D135,$02,$0F
 
 b $D153 Room #N$1D: The Station
+D $D153 #BACKGROUND($1D)(the-station)
   $D153,$02 #ROOM(#PC).
 L $D153,$02,$0D
 
 b $D16D Room #N$1E: The Docks
+D $D16D #BACKGROUND($1E)(the-docks)
   $D16D,$02 #ROOM(#PC).
 L $D16D,$02,$08
 
 b $D17D Room #N$1F: The Sewer
+D $D17D #BACKGROUND($1F)(the-sewer)
   $D17D,$02 #ROOM(#PC).
 L $D17D,$02,$0A
 
 b $D191 Room #N$20: The Cave
+D $D191 #BACKGROUND($20)(the-cave)
   $D191,$02 #ROOM(#PC).
 L $D191,$02,$15
 
@@ -6224,8 +6458,12 @@ c $EC4A
 b $EC5C
   $ECF5
   $ECF6
-  $ECFE
-  $ECFF
+
+g $ECFE Total Gang Earnings
+@ $ECFE label=TotalGangEarnings
+  $ECFE,$02,$01
+
+g $ED00
 W $ED00,$06,$02
 
 c $ED13

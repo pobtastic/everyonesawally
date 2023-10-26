@@ -9,6 +9,7 @@
 [Config]
 Expand=#INCLUDE(Expand)
 RefFiles=bases.ref;analytics.ref;changelog.ref;pokes.ref
+HtmlWriterClass=:everyonesawally.EveryonesAWallyHtmlWriter
 GameDir=everyonesawally
 
 [Game]
@@ -45,6 +46,7 @@ Credits
 [Paths]
 Credits=reference/credits.html
 Links=reference/links.html
+PlayAreaImagePath={ImagePath}/playarea
 
 [Page:GraphicsTable]
 Content=asm/#N$BD86.html
@@ -123,3 +125,6 @@ PageContent=#INCLUDE(Links)
     #LET(room=$BD86+({byte}*$02))#LET(room=#PEEK({room})+#PEEK({room}+$01)*$100)#R({room})(#D({room})),
     126:#LET(task=$EC0F+#PEEK($addr+$01))Display the next graphic if #R({task}) is completed,
     127:Terminator))
+
+#DEF(#ITEM(addr)
+  #UDGARRAY$02,step=$02($addr-($addr+$18)-$01-$10))
