@@ -33,7 +33,7 @@ Next: <a href="E79B.html">E79B</a>
 </td>
 </tr>
 </table>
-<div class="description">E77A: Routine at E77A</div>
+<div class="description">E77A: Clear Character Items</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,91 +45,170 @@ Used by the routine at <a href="E41D.html">E41D</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">ClearCharacterItems</td>
 <td class="address-2"><span id="e77a"></span>E77A</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="3">Stash <span class="register">HL</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e77b"></span>E77B</td>
 <td class="instruction">PUSH BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e77c"></span>E77C</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e77d"></span>E77D</td>
 <td class="instruction">LD IX,$81F8</td>
 <td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="81F8.html">ScreenBuffer_Locations</a>.</td>
 </tr>
 <tr>
-<td class="address-1"><span id="e781"></span>E781</td>
-<td class="instruction">LD C,$20</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=20.</td>
+<td class="routine-comment" colspan="5">
+<span id="e781"></span>
+<div class="comments">
+<div class="paragraph">
+The number of rows to blank.
+</div>
+</div>
+</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e781"></span>E781</td>
+<td class="instruction">LD C,$20</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=20 (rows).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e783"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the screen buffer address.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">ClearCharacterItems_NextLine</td>
 <td class="address-2"><span id="e783"></span>E783</td>
 <td class="instruction">LD L,(IX+$00)</td>
 <td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">IX</span>+00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e786"></span>E786</td>
 <td class="instruction">LD H,(IX+$01)</td>
 <td class="comment-1" rowspan="1"><span class="register">H</span>=<span class="register">IX</span>+01.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e789"></span>
+<div class="comments">
+<div class="paragraph">
+The number of columns to blank.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e789"></span>E789</td>
 <td class="instruction">LD B,$0F</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=0F.</td>
 </tr>
 <tr>
+<td class="asm-label">ClearCharacterItems_Loop</td>
 <td class="address-2"><span id="e78b"></span>E78B</td>
 <td class="instruction">LD (HL),$00</td>
 <td class="comment-1" rowspan="1">Write 00 to *<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e78d"></span>E78D</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e78e"></span>E78E</td>
-<td class="instruction">DJNZ <a href="E77A.html#e78b">$E78B</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="E77A.html#e78b">E78B</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="E77A.html#e78b">ClearCharacterItems_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="E77A.html#e78b">ClearCharacterItems_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e790"></span>
+<div class="comments">
+<div class="paragraph">
+Move onto the next line down in the screen buffer.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e790"></span>E790</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="2">Increment <span class="register">IX</span> by two.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e792"></span>E792</td>
 <td class="instruction">INC IX</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e794"></span>
+<div class="comments">
+<div class="paragraph">
+Keep looping until all rows have been blanked.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e794"></span>E794</td>
 <td class="instruction">DEC C</td>
 <td class="comment-1" rowspan="1">Decrease <span class="register">C</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e795"></span>E795</td>
-<td class="instruction">JR NZ,<a href="E77A.html#e783">$E783</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="E77A.html#e783">E783</a> until <span class="register">C</span> is zero.</td>
+<td class="instruction">JR NZ,<a href="E77A.html#e783">ClearCharacterItems_NextLine</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="E77A.html#e783">ClearCharacterItems_NextLine</a> until <span class="register">C</span> is zero.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e797"></span>
+<div class="comments">
+<div class="paragraph">
+Restore the registers and return.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e797"></span>E797</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="3">Restore <span class="register">DE</span>, <span class="register">BC</span> and <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e798"></span>E798</td>
 <td class="instruction">POP BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e799"></span>E799</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e79a"></span>E79A</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

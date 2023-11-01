@@ -47,7 +47,7 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="81AE.html">81AE</
 <tr>
 <td class="address-2"><span id="b9d6"></span>B9D6</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-1" rowspan="2">Write <span class="register">IY</span>+0F to <a href="B951.html">B951</a>.</td>
+<td class="comment-1" rowspan="2">Write the current room (<span class="register">IY</span>+0F) to <a href="B951.html">B951</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9d9"></span>B9D9</td>
@@ -81,7 +81,7 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="81AE.html">81AE</
 <tr>
 <td class="address-1"><span id="b9e8"></span>B9E8</td>
 <td class="instruction">CP (IY+$0F)</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is not equal to *<span class="register">IY</span>+0F jump to <a href="B9D6.html#b9f0">B9F0</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not equal to the current room (*<span class="register">IY</span>+0F) jump to <a href="B9D6.html#b9f0">B9F0</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9eb"></span>B9EB</td>

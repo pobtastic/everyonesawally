@@ -39,7 +39,7 @@ Next: <a href="AA7F.html">AA7F</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="A92C.html">Handler_Move_Characters</a> and <a href="EABF.html">EABF</a>.
+Used by the routines at <a href="A92C.html">Handler_Move_Characters</a> and <a href="EB01.html">EB01</a>.
 </div>
 </div>
 </td>
@@ -193,10 +193,20 @@ Used by the routines at <a href="A92C.html">Handler_Move_Characters</a> and <a h
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="aa5d"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the item 2 ID, we're about to drop it.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aa5d"></span>AA5D</td>
 <td class="instruction">LD A,(IY+$55)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+55.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -215,34 +225,74 @@ Used by the routines at <a href="A92C.html">Handler_Move_Characters</a> and <a h
 <td class="instruction">DEC HL</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="aa63"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the picked up item ID.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aa63"></span>AA63</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="aa64"></span>
+<div class="comments">
+<div class="paragraph">
+Write the dropped item ID to *<span class="register">HL</span>.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aa64"></span>AA64</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to *<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="aa65"></span>
+<div class="comments">
+<div class="paragraph">
+Move the characters collected item 1 to item 2.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aa65"></span>AA65</td>
 <td class="instruction">LD A,(IY+$50)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+50.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aa68"></span>AA68</td>
 <td class="instruction">LD (IY+$55),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to *<span class="register">IY</span>+55.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="aa6b"></span>
+<div class="comments">
+<div class="paragraph">
+Write the picked up item to the characters item 1.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aa6b"></span>AA6B</td>
 <td class="instruction">LD (IY+$50),E</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">E</span> to *<span class="register">IY</span>+50.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

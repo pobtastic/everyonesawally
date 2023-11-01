@@ -29,11 +29,11 @@ Prev: <a href="58153.html">58153</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#58323">Map</a></td>
 <td class="next">
-Next: <a href="58365.html">58365</a>
+Next: <a href="58348.html">58348</a>
 </td>
 </tr>
 </table>
-<div class="description">58323: Routine at E3D3</div>
+<div class="description">58323: Play Wave Sequence</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,139 +45,96 @@ Used by the routines at <a href="43647.html">43647</a>, <a href="58108.html">581
 </td>
 </tr>
 <tr>
+<td class="asm-label">PlayWaveSequence</td>
 <td class="address-2"><span id="58323"></span>58323</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">B</span>-=<span class="register">H</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58324"></span>58324</td>
 <td class="instruction">SUB H</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58325"></span>58325</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58326"></span>58326</td>
-<td class="instruction">CALL <a href="58323.html#58348">58348</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="58348.html">PlaySquareWave</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58348.html">PlaySquareWave</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58329"></span>58329</td>
 <td class="instruction">DEC C</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">C</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58330"></span>58330</td>
-<td class="instruction">JR NZ,<a href="58323.html#58323">58323</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="58323.html#58323">PlayWaveSequence</a></td>
+<td class="comment-1" rowspan="1">If <span class="register">C</span> is not zero, jump to <a href="58323.html">PlayWaveSequence</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">PlayWaveSequence_0</td>
 <td class="address-2"><span id="58332"></span>58332</td>
-<td class="instruction">CALL <a href="58323.html#58348">58348</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="58348.html">PlaySquareWave</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58348.html">PlaySquareWave</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58335"></span>58335</td>
 <td class="instruction">DEC D</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">D</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58336"></span>58336</td>
-<td class="instruction">JR NZ,<a href="58323.html#58332">58332</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="58323.html#58332">PlayWaveSequence_0</a></td>
+<td class="comment-1" rowspan="1">If <span class="register">D</span> is not zero, jump to <a href="58323.html#58332">PlayWaveSequence_0</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">PlayWaveSequence_1</td>
 <td class="address-2"><span id="58338"></span>58338</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">B</span>+=<span class="register">L</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58339"></span>58339</td>
 <td class="instruction">ADD A,L</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58340"></span>58340</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58341"></span>58341</td>
-<td class="instruction">CALL <a href="58323.html#58348">58348</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="58348.html">PlaySquareWave</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58348.html">PlaySquareWave</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58344"></span>58344</td>
 <td class="instruction">DEC E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">E</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58345"></span>58345</td>
-<td class="instruction">JR NZ,<a href="58323.html#58338">58338</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="58323.html#58338">PlayWaveSequence_1</a></td>
+<td class="comment-1" rowspan="1">If <span class="register">E</span> is not zero, jump to <a href="58323.html#58338">PlayWaveSequence_1</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58347"></span>58347</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="58348"></span>58348</td>
-<td class="instruction">LD A,16</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58350"></span>58350</td>
-<td class="instruction">OUT (254),A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58352"></span>58352</td>
-<td class="instruction">PUSH BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="58353"></span>58353</td>
-<td class="instruction">DJNZ <a href="58323.html#58353">58353</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58355"></span>58355</td>
-<td class="instruction">POP BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58356"></span>58356</td>
-<td class="instruction">LD A,0</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58358"></span>58358</td>
-<td class="instruction">OUT (254),A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58360"></span>58360</td>
-<td class="instruction">PUSH BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="58361"></span>58361</td>
-<td class="instruction">DJNZ <a href="58323.html#58361">58361</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58363"></span>58363</td>
-<td class="instruction">POP BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58364"></span>58364</td>
-<td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -187,7 +144,7 @@ Prev: <a href="58153.html">58153</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#58323">Map</a></td>
 <td class="next">
-Next: <a href="58365.html">58365</a>
+Next: <a href="58348.html">58348</a>
 </td>
 </tr>
 </table>

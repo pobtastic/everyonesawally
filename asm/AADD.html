@@ -44,87 +44,79 @@ Next: <a href="AB09.html">AB09</a>
 <tr>
 <td class="address-2"><span id="aadd"></span>AADD</td>
 <td class="instruction">LD A,(IY+$0A)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+0A is 98 jump to <a href="AADD.html#aaf9">AAF9</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aae0"></span>AAE0</td>
 <td class="instruction">CP $98</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aae2"></span>AAE2</td>
 <td class="instruction">JR Z,<a href="AADD.html#aaf9">$AAF9</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aae4"></span>AAE4</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If the current room (<span class="register">IY</span>+0F) is not "The Sewer" (1F) jump to <a href="AADD.html#aaf9">AAF9</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aae7"></span>AAE7</td>
 <td class="instruction">CP $1F</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aae9"></span>AAE9</td>
 <td class="instruction">JR NZ,<a href="AADD.html#aaf9">$AAF9</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aaeb"></span>AAEB</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+05 is higher than 78 jump to <a href="AADD.html#aaf9">AAF9</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aaee"></span>AAEE</td>
 <td class="instruction">CP $78</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aaf0"></span>AAF0</td>
 <td class="instruction">JR C,<a href="AADD.html#aaf9">$AAF9</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aaf2"></span>AAF2</td>
 <td class="instruction">LD (IY+$3C),$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write FF to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aaf6"></span>AAF6</td>
-<td class="instruction">JP <a href="B1A6.html#b288">$B288</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JP <a href="B288.html">$B288</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B288.html">B288</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="aaf9"></span>AAF9</td>
 <td class="instruction">LD (IY+$3C),$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 01 to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aafd"></span>AAFD</td>
-<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B288.html">$B288</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B288.html">B288</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab00"></span>AB00</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+05 is F0 then jump to <a href="AE5D.html">AE5D</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab03"></span>AB03</td>
 <td class="instruction">CP $F0</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab05"></span>AB05</td>
 <td class="instruction">JP Z,<a href="AE5D.html">$AE5D</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab08"></span>AB08</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">

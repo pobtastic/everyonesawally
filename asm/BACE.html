@@ -25,7 +25,7 @@ gtag('config', 'G-75RERFCHBG');
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="BAB3.html">BAB3</a>
+Prev: <a href="BAB4.html">BAB4</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#bace">Map</a></td>
 <td class="next">
@@ -33,7 +33,7 @@ Next: <a href="BAD8.html">BAD8</a>
 </td>
 </tr>
 </table>
-<div class="description">BACE: Routine at BACE</div>
+<div class="description">BACE: Helper: Count Bytes To Terminator</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,47 +42,72 @@ Next: <a href="BAD8.html">BAD8</a>
 Used by the routine at <a href="BA6E.html">Handler_DisplayCharacterLocation</a>.
 </div>
 </div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Data to examine</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">Number of bytes till the terminator</td>
+</tr>
+</table>
 </td>
 </tr>
 <tr>
+<td class="asm-label">CountBytesToTerminator</td>
 <td class="address-2"><span id="bace"></span>BACE</td>
 <td class="instruction">LD B,$00</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=00.</td>
 </tr>
 <tr>
+<td class="asm-label">CountBytesToTerminator_Loop</td>
 <td class="address-2"><span id="bad0"></span>BAD0</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bad1"></span>BAD1</td>
 <td class="instruction">CP $FF</td>
 <td class="comment-1" rowspan="2">If <span class="register">A</span> is FF then return.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bad3"></span>BAD3</td>
 <td class="instruction">RET Z</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bad4"></span>BAD4</td>
 <td class="instruction">INC B</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">B</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bad5"></span>BAD5</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bad6"></span>BAD6</td>
-<td class="instruction">JR <a href="BACE.html#bad0">$BAD0</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="BACE.html#bad0">BAD0</a>.</td>
+<td class="instruction">JR <a href="BACE.html#bad0">CountBytesToTerminator_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="BACE.html#bad0">CountBytesToTerminator_Loop</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="BAB3.html">BAB3</a>
+Prev: <a href="BAB4.html">BAB4</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#bace">Map</a></td>
 <td class="next">

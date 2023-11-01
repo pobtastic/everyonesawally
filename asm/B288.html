@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at B288</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B1A6.html">B1A6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b288">Map</a></td>
+<td class="next">
+Next: <a href="B2DB.html">B2DB</a>
+</td>
+</tr>
+</table>
+<div class="description">B288: Routine at B288</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="A92C.html">Handler_Move_Characters</a>, <a href="AAB2.html">AAB2</a>, <a href="AADD.html">AADD</a>, <a href="AB09.html">AB09</a>, <a href="AB26.html">AB26</a>, <a href="AB43.html">AB43</a>, <a href="AB60.html">AB60</a>, <a href="AB9B.html">AB9B</a>, <a href="B09F.html">B09F</a>, <a href="B3BE.html">B3BE</a> and <a href="EFC7.html">EFC7</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="b288"></span>B288</td>
+<td class="instruction">CALL <a href="A921.html">$A921</a></td>
+<td class="comment-1" rowspan="1">Call <a href="A921.html">A921</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b28b"></span>B28B</td>
+<td class="instruction">JR Z,<a href="B288.html#b29e">$B29E</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b28d"></span>B28D</td>
+<td class="instruction">LD A,($B951)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b290"></span>B290</td>
+<td class="instruction">CP (IY+$0F)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b293"></span>B293</td>
+<td class="instruction">JR Z,<a href="B288.html#b29e">$B29E</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b295"></span>B295</td>
+<td class="instruction">LD A,(IY+$5F)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b298"></span>B298</td>
+<td class="instruction">XOR $01</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b29a"></span>B29A</td>
+<td class="instruction">LD (IY+$5F),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b29d"></span>B29D</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="b29e"></span>B29E</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2a1"></span>B2A1</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2a2"></span>B2A2</td>
+<td class="instruction">CP $06</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2a4"></span>B2A4</td>
+<td class="instruction">JR C,<a href="B288.html#b2a7">$B2A7</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2a6"></span>B2A6</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="b2a7"></span>B2A7</td>
+<td class="instruction">LD (IY+$00),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2aa"></span>B2AA</td>
+<td class="instruction">LD A,(IY+$3C)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2ad"></span>B2AD</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2af"></span>B2AF</td>
+<td class="instruction">JR NZ,<a href="B288.html#b2c6">$B2C6</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2b1"></span>B2B1</td>
+<td class="instruction">LD A,(IY-$3C)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2b4"></span>B2B4</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2b5"></span>B2B5</td>
+<td class="instruction">CALL Z,<a href="81D4.html">$81D4</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2b8"></span>B2B8</td>
+<td class="instruction">LD A,(IY+$05)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2bb"></span>B2BB</td>
+<td class="instruction">ADD A,$02</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2bd"></span>B2BD</td>
+<td class="instruction">CP $F0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2bf"></span>B2BF</td>
+<td class="instruction">JR C,<a href="B288.html#b2d5">$B2D5</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2c1"></span>B2C1</td>
+<td class="instruction">LD A,$F0</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=F0.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2c3"></span>B2C3</td>
+<td class="instruction">JP <a href="B288.html#b2d5">$B2D5</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B288.html#b2d5">B2D5</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="b2c6"></span>B2C6</td>
+<td class="instruction">LD A,(IY-$3C)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2c9"></span>B2C9</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2ca"></span>B2CA</td>
+<td class="instruction">CALL NZ,<a href="81D4.html">$81D4</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2cd"></span>B2CD</td>
+<td class="instruction">LD A,(IY+$05)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2d0"></span>B2D0</td>
+<td class="instruction">SUB $02</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2d2"></span>B2D2</td>
+<td class="instruction">JR NC,<a href="B288.html#b2d5">$B2D5</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2d4"></span>B2D4</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="b2d5"></span>B2D5</td>
+<td class="instruction">LD (IY+$05),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="b2d8"></span>B2D8</td>
+<td class="instruction">JP <a href="E2FC.html">$E2FC</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="E2FC.html">E2FC</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B1A6.html">B1A6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b288">Map</a></td>
+<td class="next">
+Next: <a href="B2DB.html">B2DB</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/45704.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

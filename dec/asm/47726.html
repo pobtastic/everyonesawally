@@ -45,10 +45,42 @@ Used by the routine at <a href="59291.html">Handler_ChangeCharacters</a>.
 </td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47726"></span>
+<div class="comments">
+<div class="paragraph">
+When a character switch is attempted but the character is not in the current room, this routine shows the current location of the chosen character.
+</div>
+<div class="paragraph">
+For example: <table class="">
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="wally-is-in-the-town-square" src="../../images/font/wally-is-in-the-town-square.png" /></td>
+</tr>
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="wilma-is-in-penny-lane" src="../../images/font/wilma-is-in-penny-lane.png" /></td>
+</tr>
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="tom-is-in-the-pub" src="../../images/font/tom-is-in-the-pub.png" /></td>
+</tr>
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="dick-is-in-the-docks" src="../../images/font/dick-is-in-the-docks.png" /></td>
+</tr>
+<tr>
+<td class="" colspan="1" rowspan="1"><img alt="harry-is-in-the-super-market" src="../../images/font/harry-is-in-the-super-market.png" /></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+Return if the messaging is already showing.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label">Handler_DisplayCharacterLocation</td>
 <td class="address-2"><span id="47726"></span>47726</td>
 <td class="instruction">LD A,(47795)</td>
-<td class="comment-1" rowspan="3">Return if *<a href="47795.html">47795</a> is not zero.</td>
+<td class="comment-1" rowspan="3">Return if *<a href="47795.html">MessagingCountdown</a> is not zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -59,6 +91,16 @@ Used by the routine at <a href="59291.html">Handler_ChangeCharacters</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="47730"></span>47730</td>
 <td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47731"></span>
+<div class="comments">
+<div class="paragraph">
+Set the appropriate UDG base address (<a href="53692.html#57308">Font</a>).
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -72,10 +114,33 @@ Used by the routine at <a href="59291.html">Handler_ChangeCharacters</a>.
 <td class="instruction">LD (47081),HL</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47737"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the current room for the active character.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47737"></span>47737</td>
 <td class="instruction">LD A,(IY+15)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+15.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+15 (current room).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47740"></span>
+<div class="comments">
+<div class="paragraph">
+Find the room name from the room ID.
+</div>
+<div class="paragraph">
+As the room names vary in length (and there's no lookup table), we call <a href="44140.html">FindDataById</a>, which counts through each terminator (255) to find the related room label memory location.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -93,97 +158,153 @@ Used by the routine at <a href="59291.html">Handler_ChangeCharacters</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="47746"></span>47746</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
+<td class="comment-1" rowspan="1">Stash the room name memory address (<span class="register">HL</span>) on the stack.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47747"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the length of the room name.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47747"></span>47747</td>
-<td class="instruction">CALL <a href="47822.html">47822</a></td>
-<td class="comment-1" rowspan="1">Call <a href="47822.html">47822</a>.</td>
+<td class="instruction">CALL <a href="47822.html">CountBytesToTerminator</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47822.html">CountBytesToTerminator</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47750"></span>47750</td>
 <td class="instruction">LD C,B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=length of the room name.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47751"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the character name.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47751"></span>47751</td>
 <td class="instruction">LD H,124</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">H</span>=124.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47753"></span>47753</td>
 <td class="instruction">LD L,(IY-35)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">L</span>=*<span class="register">IY</span>-35.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47756"></span>47756</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
+<td class="comment-1" rowspan="1">Stash the character name memory address (<span class="register">HL</span>) on the stack.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47757"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the length of the character name.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47757"></span>47757</td>
-<td class="instruction">CALL <a href="47822.html">47822</a></td>
-<td class="comment-1" rowspan="1">Call <a href="47822.html">47822</a>.</td>
+<td class="instruction">CALL <a href="47822.html">CountBytesToTerminator</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47822.html">CountBytesToTerminator</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47760"></span>
+<div class="comments">
+<div class="paragraph">
+Hold the length of all the segments in <span class="register">C</span> (7 is the length of " IS IN ").
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47760"></span>47760</td>
 <td class="instruction">LD A,7</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="4"><span class="register">C</span>=7+<span class="register">B</span>+<span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47762"></span>47762</td>
 <td class="instruction">ADD A,B</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47763"></span>47763</td>
 <td class="instruction">ADD A,C</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47764"></span>47764</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47765"></span>47765</td>
 <td class="instruction">LD A,32</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">A</span>=32-<span class="register">C</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47767"></span>47767</td>
 <td class="instruction">SUB C</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47768"></span>47768</td>
 <td class="instruction">SRL A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Shift and rotate <span class="register">A</span> left one bit.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47770"></span>
+<div class="comments">
+<div class="paragraph">
+Set this to the screen co-ordinates held in <span class="register">DE</span>.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47770"></span>47770</td>
 <td class="instruction">LD E,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=<span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47771"></span>47771</td>
 <td class="instruction">LD D,4</td>
 <td class="comment-1" rowspan="1"><span class="register">D</span>=4.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47773"></span>
+<div class="comments">
+<div class="paragraph">
+Retrieve the character name label memory location.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -209,6 +330,16 @@ BLUE
 <td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47779"></span>
+<div class="comments">
+<div class="paragraph">
+Prints " IS IN " to the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47779"></span>47779</td>
 <td class="instruction">LD HL,47718</td>
@@ -221,10 +352,30 @@ BLUE
 <td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47785"></span>
+<div class="comments">
+<div class="paragraph">
+Retrieve the room label memory location.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47785"></span>47785</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47786"></span>
+<div class="comments">
+<div class="paragraph">
+Print the room name to the screen.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -233,10 +384,20 @@ BLUE
 <td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47789"></span>
+<div class="comments">
+<div class="paragraph">
+Kick off a countdown for showing the messaging for a brief period of time.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="47789"></span>47789</td>
 <td class="instruction">LD A,30</td>
-<td class="comment-1" rowspan="2">Write 30 to <a href="47795.html">47795</a>.</td>
+<td class="comment-1" rowspan="2">Write 30 to <a href="47795.html">MessagingCountdown</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

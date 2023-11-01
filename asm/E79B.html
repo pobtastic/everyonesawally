@@ -171,6 +171,16 @@ This associates each character with a keypress. <table class="default">
 <td class="comment-1" rowspan="1">If this key has been pressed, jump to <a href="E79B.html#e7b4">ChangeCharacters_CheckRoom</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e7b0"></span>
+<div class="comments">
+<div class="paragraph">
+The character data is "interlaced" hence we can increment to point to the next character in the sequence.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7b0"></span>E7B0</td>
 <td class="instruction">INC IY</td>
@@ -210,10 +220,30 @@ Check if the current character is in the same room as the selected character.
 <td class="instruction">JR Z,<a href="E79B.html#e7c0">ChangeCharacters_Process</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="e7ba"></span>
+<div class="comments">
+<div class="paragraph">
+If the character is elsewhere, print where they are to the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7ba"></span>E7BA</td>
 <td class="instruction">CALL <a href="BA6E.html">Handler_DisplayCharacterLocation</a></td>
 <td class="comment-1" rowspan="1">Call <a href="BA6E.html">Handler_DisplayCharacterLocation</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e7bd"></span>
+<div class="comments">
+<div class="paragraph">
+Restore the current character pointer to <span class="register">IY</span> and return.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label">ChangeCharacters_Return</td>
@@ -226,6 +256,16 @@ Check if the current character is in the same room as the selected character.
 <td class="address-1"><span id="e7bf"></span>E7BF</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e7c0"></span>
+<div class="comments">
+<div class="paragraph">
+The chosen character is in the same room as the current character, so begin to action the request.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label">ChangeCharacters_Process</td>
@@ -267,61 +307,71 @@ Check if the current character is in the same room as the selected character.
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7cf"></span>E7CF</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7d0"></span>E7D0</td>
 <td class="instruction">LD (IY+$69),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <span class="register">IY</span>+69.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7d3"></span>E7D3</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7d4"></span>E7D4</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7d5"></span>E7D5</td>
 <td class="instruction">LD (IY+$64),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <span class="register">IY</span>+64.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7d8"></span>E7D8</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7d9"></span>E7D9</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7da"></span>E7DA</td>
 <td class="instruction">LD (IY+$73),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <span class="register">IY</span>+73.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7dd"></span>E7DD</td>
 <td class="instruction">LD (IY+$6E),$05</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 05 to <span class="register">IY</span>+6E.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7e1"></span>E7E1</td>
 <td class="instruction">LD IY,($B09D)</td>
 <td class="comment-1" rowspan="1"><span class="register">IY</span>=*<a href="B09D.html">B09D</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e7e5"></span>
+<div class="comments">
+<div class="paragraph">
+Update the banner to show the updated character name.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

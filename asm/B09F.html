@@ -39,7 +39,7 @@ Next: <a href="B0E6.html">B0E6</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="8184.html">GameLoop</a> and <a href="F10E.html">F10E</a>.
+Used by the routines at <a href="8184.html">GameLoop</a> and <a href="F177.html">F177</a>.
 </div>
 </div>
 </td>
@@ -47,132 +47,131 @@ Used by the routines at <a href="8184.html">GameLoop</a> and <a href="F10E.html"
 <tr>
 <td class="address-2"><span id="b09f"></span>B09F</td>
 <td class="instruction">LD IY,($B09D)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=*<a href="B09D.html">B09D</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0a3"></span>B0A3</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write *<span class="register">IY</span>+0F to <a href="B951.html">B951</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0a6"></span>B0A6</td>
 <td class="instruction">LD ($B951),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0a9"></span>B0A9</td>
 <td class="instruction">CALL <a href="AFC4.html">$AFC4</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="AFC4.html">AFC4</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0ac"></span>B0AC</td>
 <td class="instruction">LD A,(IY+$46)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0af"></span>B0AF</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0b0"></span>B0B0</td>
 <td class="instruction">JP NZ,<a href="B1A6.html#b1b9">$B1B9</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0b3"></span>B0B3</td>
 <td class="instruction">LD A,(IY+$37)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0b6"></span>B0B6</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0b7"></span>B0B7</td>
 <td class="instruction">JP NZ,<a href="B197.html">$B197</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0ba"></span>B0BA</td>
-<td class="instruction">CALL <a href="AFC4.html#b06d">$B06D</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B06D.html">Controls_Jump</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B06D.html">Controls_Jump</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0bd"></span>B0BD</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0be"></span>B0BE</td>
 <td class="instruction">JP NZ,<a href="B1A6.html">$B1A6</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0c1"></span>B0C1</td>
 <td class="instruction">LD (IY+$3C),$00</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0c5"></span>B0C5</td>
-<td class="instruction">CALL <a href="AFC4.html#b00b">$B00B</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B00B.html">Controls_Right</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B00B.html">Controls_Right</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0c8"></span>B0C8</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0c9"></span>B0C9</td>
 <td class="instruction">JR Z,<a href="B09F.html#b0d6">$B0D6</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0cb"></span>B0CB</td>
 <td class="instruction">LD (IY+$3C),$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0cf"></span>B0CF</td>
 <td class="instruction">LD (IY+$41),$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0d3"></span>B0D3</td>
-<td class="instruction">JP <a href="B1A6.html#b288">$B288</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JP <a href="B288.html">$B288</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B288.html">B288</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="b0d6"></span>B0D6</td>
-<td class="instruction">CALL <a href="AFC4.html#b03c">$B03C</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B03C.html">Controls_Left</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B03C.html">Controls_Left</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0d9"></span>B0D9</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0da"></span>B0DA</td>
 <td class="instruction">RET Z</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0db"></span>B0DB</td>
 <td class="instruction">LD (IY+$3C),$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write FF to *<span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0df"></span>B0DF</td>
 <td class="instruction">LD (IY+$41),$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write FF to *<span class="register">IY</span>+41.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b0e3"></span>B0E3</td>
-<td class="instruction">JP <a href="B1A6.html#b288">$B288</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JP <a href="B288.html">$B288</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B288.html">B288</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

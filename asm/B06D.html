@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at B06D</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B03C.html">B03C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b06d">Map</a></td>
+<td class="next">
+Next: <a href="B09D.html">B09D</a>
+</td>
+</tr>
+</table>
+<div class="description">B06D: Controls: Jump</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="B09F.html">B09F</a> and <a href="F814.html">F814</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">00 for no press and 01 for pressed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controls_Jump</td>
+<td class="address-2"><span id="b06d"></span>B06D</td>
+<td class="instruction">LD A,($B2DB)</td>
+<td class="comment-1" rowspan="3">If <a href="B2DB.html">Game_Options</a> is zero then jump to <a href="B06D.html#b08a">Controls_Jump_Keyboard</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b070"></span>B070</td>
+<td class="instruction">OR A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b071"></span>B071</td>
+<td class="instruction">JR Z,<a href="B06D.html#b08a">Controls_Jump_Keyboard</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b073"></span>B073</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="2">If <a href="B2DB.html">Game_Options</a> is not 01 then jump to <a href="B06D.html#b080">Controls_Jump_Sinclair</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b075"></span>B075</td>
+<td class="instruction">JR NZ,<a href="B06D.html#b080">Controls_Jump_Sinclair</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b077"></span>
+<div class="comments">
+<div class="paragraph">
+Handle Kempston Joystick.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b077"></span>B077</td>
+<td class="instruction">IN A,($1F)</td>
+<td class="comment-1" rowspan="1">Read from Kempston Joystick.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b079"></span>B079</td>
+<td class="instruction">BIT 4,A</td>
+<td class="comment-1" rowspan="2">If bit 4 is set/ "FIRE" is being pressed then jump to <a href="B06D.html#b09b">Controls_NoPress_Jump</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b07b"></span>B07B</td>
+<td class="instruction">JR Z,<a href="B06D.html#b09b">Controls_NoPress_Jump</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b07d"></span>
+<div class="comments">
+<div class="paragraph">
+Key was pressed so return <span class="register">A</span>=01.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controls_Pressed_Jump</td>
+<td class="address-2"><span id="b07d"></span>B07D</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=01.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b07f"></span>B07F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b080"></span>
+<div class="comments">
+<div class="paragraph">
+Handle Sinclair Joystick.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controls_Jump_Sinclair</td>
+<td class="address-2"><span id="b080"></span>B080</td>
+<td class="instruction">LD A,$EF</td>
+<td class="comment-1" rowspan="2">Read from the keyboard; <table class="default">
+<tr>
+<th colspan="1" rowspan="2">Port Number</th>
+<th colspan="5" rowspan="1">Bit</th>
+</tr>
+<tr>
+<th colspan="1" rowspan="1">0</th>
+<th colspan="1" rowspan="1">1</th>
+<th colspan="1" rowspan="1">2</th>
+<th colspan="1" rowspan="1">3</th>
+<th colspan="1" rowspan="1">4</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">EF</td>
+<td class="centre" colspan="1" rowspan="1">0</td>
+<td class="centre" colspan="1" rowspan="1">9</td>
+<td class="centre" colspan="1" rowspan="1">8</td>
+<td class="centre" colspan="1" rowspan="1">7</td>
+<td class="centre" colspan="1" rowspan="1">6</td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b082"></span>B082</td>
+<td class="instruction">IN A,($FE)</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b084"></span>B084</td>
+<td class="instruction">BIT 0,A</td>
+<td class="comment-1" rowspan="2">If bit 0 is set jump to <a href="B06D.html#b07d">Controls_Pressed_Jump</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b086"></span>B086</td>
+<td class="instruction">JR Z,<a href="B06D.html#b07d">Controls_Pressed_Jump</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b088"></span>B088</td>
+<td class="instruction">JR <a href="B06D.html#b09b">Controls_NoPress_Jump</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B06D.html#b09b">Controls_NoPress_Jump</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b08a"></span>
+<div class="comments">
+<div class="paragraph">
+Handle Keyboard controls.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controls_Jump_Keyboard</td>
+<td class="address-2"><span id="b08a"></span>B08A</td>
+<td class="instruction">LD A,$FE</td>
+<td class="comment-1" rowspan="2">Read from the keyboard; <table class="default">
+<tr>
+<th colspan="1" rowspan="2">Port Number</th>
+<th colspan="5" rowspan="1">Bit</th>
+</tr>
+<tr>
+<th colspan="1" rowspan="1">0</th>
+<th colspan="1" rowspan="1">1</th>
+<th colspan="1" rowspan="1">2</th>
+<th colspan="1" rowspan="1">3</th>
+<th colspan="1" rowspan="1">4</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">FE</td>
+<td class="centre" colspan="1" rowspan="1">SHIFT</td>
+<td class="centre" colspan="1" rowspan="1">Z</td>
+<td class="centre" colspan="1" rowspan="1">X</td>
+<td class="centre" colspan="1" rowspan="1">C</td>
+<td class="centre" colspan="1" rowspan="1">V</td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b08c"></span>B08C</td>
+<td class="instruction">IN A,($FE)</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b08e"></span>B08E</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Store the result in <span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b08f"></span>B08F</td>
+<td class="instruction">LD A,$7F</td>
+<td class="comment-1" rowspan="2">Read from the keyboard; <table class="default">
+<tr>
+<th colspan="1" rowspan="2">Port Number</th>
+<th colspan="5" rowspan="1">Bit</th>
+</tr>
+<tr>
+<th colspan="1" rowspan="1">0</th>
+<th colspan="1" rowspan="1">1</th>
+<th colspan="1" rowspan="1">2</th>
+<th colspan="1" rowspan="1">3</th>
+<th colspan="1" rowspan="1">4</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">7F</td>
+<td class="centre" colspan="1" rowspan="1">SPACE</td>
+<td class="centre" colspan="1" rowspan="1">FULL-STOP</td>
+<td class="centre" colspan="1" rowspan="1">M</td>
+<td class="centre" colspan="1" rowspan="1">N</td>
+<td class="centre" colspan="1" rowspan="1">B</td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b091"></span>B091</td>
+<td class="instruction">IN A,($FE)</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b093"></span>B093</td>
+<td class="instruction">AND B</td>
+<td class="comment-1" rowspan="1">Merge in the bits from <span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b094"></span>
+<div class="comments">
+<div class="paragraph">
+Fill in the "blanks".
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b094"></span>B094</td>
+<td class="instruction">OR %11100000</td>
+<td class="comment-1" rowspan="1">Set bits 5-7.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b096"></span>
+<div class="comments">
+<div class="paragraph">
+If there's been any keypress at all then <span class="register">A</span> won't be FF.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b096"></span>B096</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="2">If the result is not FF jump to <a href="B06D.html#b07d">Controls_Pressed_Jump</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b098"></span>B098</td>
+<td class="instruction">JP NZ,<a href="B06D.html#b07d">Controls_Pressed_Jump</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b09b"></span>
+<div class="comments">
+<div class="paragraph">
+No key was pressed so return <span class="register">A</span>=00.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Controls_NoPress_Jump</td>
+<td class="address-2"><span id="b09b"></span>B09B</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=00.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="b09c"></span>B09C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="B03C.html">B03C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#b06d">Map</a></td>
+<td class="next">
+Next: <a href="B09D.html">B09D</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/45165.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

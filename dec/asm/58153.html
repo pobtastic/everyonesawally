@@ -39,7 +39,7 @@ Next: <a href="58323.html">58323</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="60714.html">60714</a>, <a href="61383.html">61383</a>, <a href="61710.html">61710</a> and <a href="62961.html">62961</a>.
+Used by the routines at <a href="60714.html">60714</a>, <a href="61383.html">61383</a>, <a href="61710.html">61710</a>, <a href="61815.html">61815</a> and <a href="62961.html">62961</a>.
 </div>
 </div>
 </td>
@@ -47,17 +47,15 @@ Used by the routines at <a href="60714.html">60714</a>, <a href="61383.html">613
 <tr>
 <td class="address-2"><span id="58153"></span>58153</td>
 <td class="instruction">LD A,(43064)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="43064.html">43064</a>.</td>
+<td class="comment-1" rowspan="3"><span class="register">A</span>=*<a href="43064.html">43064</a>-(*<span class="register">IY</span>+5)-13.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58156"></span>58156</td>
 <td class="instruction">SUB (IY+5)</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58159"></span>58159</td>
 <td class="instruction">SUB 13</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58161"></span>58161</td>
@@ -72,17 +70,15 @@ Used by the routines at <a href="60714.html">60714</a>, <a href="61383.html">613
 <tr>
 <td class="address-1"><span id="58164"></span>58164</td>
 <td class="instruction">LD A,(43065)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">A</span>=*<a href="43065.html">43065</a>-(*<span class="register">IY</span>+10)-28.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58167"></span>58167</td>
 <td class="instruction">SUB (IY+10)</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58170"></span>58170</td>
 <td class="instruction">SUB 28</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58172"></span>58172</td>
@@ -99,7 +95,7 @@ Used by the routines at <a href="60714.html">60714</a>, <a href="61383.html">613
 <span id="58175"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="61710.html">61710</a>, <a href="62961.html">62961</a> and <a href="63508.html">63508</a>.
+This entry point is used by the routines at <a href="61815.html">61815</a>, <a href="62961.html">62961</a> and <a href="63508.html">63508</a>.
 </div>
 </div>
 </td>
@@ -107,102 +103,125 @@ This entry point is used by the routines at <a href="61710.html">61710</a>, <a h
 <tr>
 <td class="address-2"><span id="58175"></span>58175</td>
 <td class="instruction">LD A,(46431)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Return if <a href="46431.html">46431</a> is not zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58178"></span>58178</td>
 <td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58179"></span>58179</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58180"></span>58180</td>
 <td class="instruction">EXX</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch to the shadow registers.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58181"></span>58181</td>
 <td class="instruction">LD BC,25610</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=25610.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58184"></span>58184</td>
 <td class="instruction">LD DE,257</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=257.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58187"></span>58187</td>
 <td class="instruction">LD HL,25601</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=25601.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58190"></span>58190</td>
-<td class="instruction">CALL <a href="58323.html">58323</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">CALL <a href="58323.html">PlayWaveSequence</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58323.html">PlayWaveSequence</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58193"></span>58193</td>
 <td class="instruction">LD A,(62062)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="5">*<span class="register">IY</span>+20-=*<a href="61815.html#62062">62062</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58196"></span>58196</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58197"></span>58197</td>
 <td class="instruction">LD A,(IY+20)</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58200"></span>58200</td>
 <td class="instruction">SUB B</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58201"></span>58201</td>
 <td class="instruction">LD (IY+20),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58204"></span>58204</td>
 <td class="instruction">JR Z,<a href="58153.html#58210">58210</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If *<span class="register">IY</span>+20 &lt;= 0 jump to <a href="58153.html#58210">58210</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58206"></span>58206</td>
 <td class="instruction">JR C,<a href="58153.html#58210">58210</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="58208"></span>58208</td>
 <td class="instruction">JR <a href="58153.html#58220">58220</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="58153.html#58220">58220</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58210"></span>
+<div class="comments">
+<div class="paragraph">
+A life has been "spent" so refill the endurance meter to the top.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-2"><span id="58210"></span>58210</td>
 <td class="instruction">LD (IY+20),128</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 128 to *<span class="register">IY</span>+20.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58214"></span>
+<div class="comments">
+<div class="paragraph">
+Lose one heart...
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58214"></span>58214</td>
 <td class="instruction">DEC (IY+45)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease *<span class="register">IY</span>+45 by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58217"></span>
+<div class="comments">
+<div class="paragraph">
+If the players hearts are now zero the game is over.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58217"></span>58217</td>
 <td class="instruction">JP Z,<a href="46161.html">GameOver</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">If current players hearts (*<span class="register">IY</span>+45) are now zero jump to <a href="46161.html">GameOver</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="58220"></span>58220</td>
 <td class="instruction">EXX</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch back to the normal registers.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -251,12 +270,12 @@ BLACK
 <tr>
 <td class="address-1"><span id="58230"></span>58230</td>
 <td class="instruction">LD DE,540</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=540.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=540 (screen co-ordinates).</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58233"></span>58233</td>
 <td class="instruction">LD L,(IY+45)</td>
-<td class="comment-1" rowspan="1"><span class="register">L</span>=*<span class="register">IY</span>+45.</td>
+<td class="comment-1" rowspan="1"><span class="register">L</span>=*<span class="register">IY</span>+45 (current players hearts).</td>
 </tr>
 <tr>
 <td class="address-1"><span id="58236"></span>58236</td>

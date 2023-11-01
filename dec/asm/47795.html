@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Everyone's a Wally: Routine at 47795</title>
+<title>Everyone's a Wally: Game status buffer entry at 47795</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
@@ -15,11 +15,11 @@ gtag('js', new Date());
 gtag('config', 'G-75RERFCHBG');
 </script>
 </head>
-<body class="Asm-c">
+<body class="Asm-g">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Routines</td>
+<td class="page-header">Game status buffer</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -29,114 +29,26 @@ Prev: <a href="47726.html">47726</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#47795">Map</a></td>
 <td class="next">
-Next: <a href="47822.html">47822</a>
+Next: <a href="47796.html">47796</a>
 </td>
 </tr>
 </table>
-<div class="description">47795: Redraws Banner Underline</div>
+<div class="description">47795: Messaging Countdown</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-2"><span id="47795"></span>47795</td>
-<td class="instruction">DEFB 0</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="47796"></span>
-<div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="33198.html">33198</a> and <a href="60714.html">60714</a>.
+Initialised to 30 at <a href="47726.html#47789">47789</a> and the countdown is made by <a href="47796.html">Redraw_Banner_Underline</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">Redraw_Banner_Underline</td>
-<td class="address-2"><span id="47796"></span>47796</td>
-<td class="instruction">LD HL,47795</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="47795.html">47795</a>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47799"></span>47799</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47800"></span>47800</td>
-<td class="instruction">OR A</td>
-<td class="comment-1" rowspan="2">Return if <span class="register">A</span> is zero.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47801"></span>47801</td>
-<td class="instruction">RET Z</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47802"></span>47802</td>
-<td class="instruction">DEC (HL)</td>
-<td class="comment-1" rowspan="1">Decrease *<span class="register">HL</span> by one.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47803"></span>47803</td>
-<td class="instruction">RET NZ</td>
-<td class="comment-1" rowspan="1">Return if the result is not zero.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47804"></span>47804</td>
-<td class="instruction">LD C,66</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=66 (INK:
-RED,
-PAPER:
-BLACK
-(BRIGHT)
-).</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47806"></span>47806</td>
-<td class="instruction">LD HL,57308</td>
-<td class="comment-1" rowspan="2">Write <a href="53692.html#57308">Font</a> to <a href="47034.html#47080">47081</a>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47809"></span>47809</td>
-<td class="instruction">LD (47081),HL</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47812"></span>47812</td>
-<td class="instruction">LD DE,1024</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=1024.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47815"></span>47815</td>
-<td class="instruction">LD HL,32360</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="32319.html#32360">Messaging_Banner_Underline</a>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47818"></span>47818</td>
-<td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
-<td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="47821"></span>47821</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
+<td class="asm-label">MessagingCountdown</td>
+<td class="address-1"><span id="47795"></span>47795</td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -146,7 +58,7 @@ Prev: <a href="47726.html">47726</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#47795">Map</a></td>
 <td class="next">
-Next: <a href="47822.html">47822</a>
+Next: <a href="47796.html">47796</a>
 </td>
 </tr>
 </table>

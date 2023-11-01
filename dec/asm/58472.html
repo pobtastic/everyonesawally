@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 58472</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58397.html">58397</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58472">Map</a></td>
+<td class="next">
+Next: <a href="58500.html">58500</a>
+</td>
+</tr>
+</table>
+<div class="description">58472: Draw Character Item Label</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="58397.html">58397</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">DrawCharacterItemLabel</td>
+<td class="address-2"><span id="58472"></span>58472</td>
+<td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58475"></span>58475</td>
+<td class="instruction">LD C,7</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=7.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58477"></span>
+<div class="comments">
+<div class="paragraph">
+Check to see if there is a task associated with this item.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58477"></span>58477</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="3">Return if *<span class="register">HL</span> is not 244 (control character).</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58478"></span>58478</td>
+<td class="instruction">CP 244</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58480"></span>58480</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58481"></span>58481</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58482"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the task ID.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58482"></span>58482</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58483"></span>58483</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58484"></span>58484</td>
+<td class="instruction">CALL <a href="60445.html">Handler_TaskCompleted</a></td>
+<td class="comment-1" rowspan="1">Call <a href="60445.html">Handler_TaskCompleted</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58487"></span>58487</td>
+<td class="instruction">JP NZ,<a href="47179.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">If the task has completed, jump to <a href="47179.html">Controller_Tile</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58490"></span>
+<div class="comments">
+<div class="paragraph">
+The task has not yet been completed, so move onto the next messaging label.
+</div>
+<div class="paragraph">
+This works as the items are stored as "completed label"+"termintor", "not completed label"+"termintor".
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58490"></span>58490</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">BC</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58491"></span>58491</td>
+<td class="instruction">LD B,255</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=255.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58493"></span>58493</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<span class="register">B</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58494"></span>58494</td>
+<td class="instruction">CPIR</td>
+<td class="comment-1" rowspan="1">Find the next messaging label.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58496"></span>58496</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="58497"></span>58497</td>
+<td class="instruction">JP <a href="47179.html">Controller_Tile</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="47179.html">Controller_Tile</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58397.html">58397</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58472">Map</a></td>
+<td class="next">
+Next: <a href="58500.html">58500</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../../asm/E468.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

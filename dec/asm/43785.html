@@ -44,57 +44,53 @@ Next: <a href="43814.html">43814</a>
 <tr>
 <td class="address-2"><span id="43785"></span>43785</td>
 <td class="instruction">LD A,(IY+5)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+5 is lower than 120 jump to <a href="43785.html#43798">43798</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43788"></span>43788</td>
 <td class="instruction">CP 120</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43790"></span>43790</td>
 <td class="instruction">JR NC,<a href="43785.html#43798">43798</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43792"></span>43792</td>
 <td class="instruction">LD (IY+60),1</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 1 to <span class="register">IY</span>+60.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43796"></span>43796</td>
 <td class="instruction">JR <a href="43785.html#43802">43802</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="43785.html#43802">43802</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="43798"></span>43798</td>
 <td class="instruction">LD (IY+60),255</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 255 to <span class="register">IY</span>+60.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="43802"></span>43802</td>
-<td class="instruction">CALL <a href="45478.html#45704">45704</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="45704.html">45704</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45704.html">45704</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43805"></span>43805</td>
 <td class="instruction">LD A,(IY+5)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+5 is 120 jump to <a href="44637.html">44637</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43808"></span>43808</td>
 <td class="instruction">CP 120</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43810"></span>43810</td>
 <td class="instruction">JP Z,<a href="44637.html">44637</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43813"></span>43813</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">

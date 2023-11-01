@@ -39,7 +39,7 @@ Next: <a href="AAA0.html">AAA0</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="A92C.html">Handler_Move_Characters</a>, <a href="AA30.html">Handler_PickUpObjects</a>, <a href="EABF.html">EABF</a>, <a href="EB55.html">EB55</a>, <a href="EB79.html">EB79</a>, <a href="EC2B.html">EC2B</a> and <a href="EEC1.html">EEC1</a>.
+Used by the routines at <a href="A92C.html">Handler_Move_Characters</a>, <a href="AA30.html">Handler_PickUpObjects</a>, <a href="EB0F.html">EB0F</a>, <a href="EB55.html">EB55</a>, <a href="EB95.html">EB95</a>, <a href="EC34.html">EC34</a> and <a href="EEC1.html">EEC1</a>.
 </div>
 </div>
 </td>
@@ -47,7 +47,7 @@ Used by the routines at <a href="A92C.html">Handler_Move_Characters</a>, <a href
 <tr>
 <td class="address-2"><span id="aa8c"></span>AA8C</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+0F.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+0F (current room).</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aa8f"></span>AA8F</td>
@@ -77,27 +77,24 @@ Used by the routines at <a href="A92C.html">Handler_Move_Characters</a>, <a href
 <tr>
 <td class="address-2"><span id="aa99"></span>AA99</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="4">Increment <span class="register">HL</span> by four.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aa9a"></span>AA9A</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aa9b"></span>AA9B</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aa9c"></span>AA9C</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="aa9d"></span>AA9D</td>
 <td class="instruction">DJNZ <a href="AA8C.html#aa99">$AA99</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AA8C.html#aa99">AA99</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="aa9f"></span>AA9F</td>

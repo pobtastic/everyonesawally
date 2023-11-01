@@ -33,7 +33,7 @@ Next: <a href="AA30.html">AA30</a>
 </td>
 </tr>
 </table>
-<div class="description">A92C: Move Non-Player Characters</div>
+<div class="description">A92C: Handler: Move Non-Player Characters</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -93,19 +93,17 @@ Used by the routine at <a href="81AE.html">81AE</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="a93f"></span>A93F</td>
 <td class="instruction">LD A,($B55F)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <a href="B55F.html">B55F</a> is not zero jump to <a href="A92C.html#a94c">Handler_Move_Characters_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="a942"></span>A942</td>
 <td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="a943"></span>A943</td>
 <td class="instruction">JR NZ,<a href="A92C.html#a94c">Handler_Move_Characters_1</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -129,19 +127,17 @@ Used by the routine at <a href="81AE.html">81AE</a>.
 <td class="asm-label">Handler_Move_Characters_1</td>
 <td class="address-2"><span id="a94c"></span>A94C</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Compare the current room (<span class="register">IY</span>+0F) against (<span class="register">IY</span>+5A) jump to <a href="A92C.html#a95b">Handler_Move_Characters_2</a> if they are different.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="a94f"></span>A94F</td>
 <td class="instruction">CP (IY+$5A)</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="a952"></span>A952</td>
 <td class="instruction">JR NZ,<a href="A92C.html#a95b">Handler_Move_Characters_2</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -452,7 +448,7 @@ TODO.
 <tr>
 <td class="asm-label">Handler_Move_Characters_9</td>
 <td class="address-2"><span id="a9be"></span>A9BE</td>
-<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
+<td class="instruction">CALL <a href="B288.html">$B288</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -542,7 +538,7 @@ TODO.
 <tr>
 <td class="asm-label">Handler_Move_Characters_13</td>
 <td class="address-2"><span id="a9e3"></span>A9E3</td>
-<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
+<td class="instruction">CALL <a href="B288.html">$B288</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>

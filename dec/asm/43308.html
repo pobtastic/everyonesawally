@@ -33,7 +33,7 @@ Next: <a href="43568.html">43568</a>
 </td>
 </tr>
 </table>
-<div class="description">43308: Move Non-Player Characters</div>
+<div class="description">43308: Handler: Move Non-Player Characters</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -93,19 +93,17 @@ Used by the routine at <a href="33198.html">33198</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="43327"></span>43327</td>
 <td class="instruction">LD A,(46431)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <a href="46431.html">46431</a> is not zero jump to <a href="43308.html#43340">Handler_Move_Characters_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="43330"></span>43330</td>
 <td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="43331"></span>43331</td>
 <td class="instruction">JR NZ,<a href="43308.html#43340">Handler_Move_Characters_1</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -129,19 +127,17 @@ Used by the routine at <a href="33198.html">33198</a>.
 <td class="asm-label">Handler_Move_Characters_1</td>
 <td class="address-2"><span id="43340"></span>43340</td>
 <td class="instruction">LD A,(IY+15)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Compare the current room (<span class="register">IY</span>+15) against (<span class="register">IY</span>+90) jump to <a href="43308.html#43355">Handler_Move_Characters_2</a> if they are different.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="43343"></span>43343</td>
 <td class="instruction">CP (IY+90)</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="43346"></span>43346</td>
 <td class="instruction">JR NZ,<a href="43308.html#43355">Handler_Move_Characters_2</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -452,7 +448,7 @@ TODO.
 <tr>
 <td class="asm-label">Handler_Move_Characters_9</td>
 <td class="address-2"><span id="43454"></span>43454</td>
-<td class="instruction">CALL <a href="45478.html#45704">45704</a></td>
+<td class="instruction">CALL <a href="45704.html">45704</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -542,7 +538,7 @@ TODO.
 <tr>
 <td class="asm-label">Handler_Move_Characters_13</td>
 <td class="address-2"><span id="43491"></span>43491</td>
-<td class="instruction">CALL <a href="45478.html#45704">45704</a></td>
+<td class="instruction">CALL <a href="45704.html">45704</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>

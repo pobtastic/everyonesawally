@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at ECBC</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="EC5C.html">EC5C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ecbc">Map</a></td>
+<td class="next">
+Next: <a href="ECF5.html">ECF5</a>
+</td>
+</tr>
+</table>
+<div class="description">ECBC: Routine at ECBC</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ecbc"></span>ECBC</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecbd"></span>ECBD</td>
+<td class="instruction">INC HL</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecbe"></span>ECBE</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc0"></span>ECC0</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc1"></span>ECC1</td>
+<td class="instruction">LD HL,$EC5C</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc4"></span>ECC4</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc5"></span>ECC5</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc6"></span>ECC6</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc7"></span>ECC7</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc8"></span>ECC8</td>
+<td class="instruction">OR A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecc9"></span>ECC9</td>
+<td class="instruction">JR NZ,<a href="ECBC.html#ecf1">$ECF1</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="eccb"></span>ECCB</td>
+<td class="instruction">LD (HL),$01</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="eccd"></span>ECCD</td>
+<td class="instruction">INC HL</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecce"></span>ECCE</td>
+<td class="instruction">LD A,(IY-$0A)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecd1"></span>ECD1</td>
+<td class="instruction">ADD A,(HL)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecd2"></span>ECD2</td>
+<td class="instruction">DAA</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecd3"></span>ECD3</td>
+<td class="instruction">LD (IY-$0A),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecd6"></span>ECD6</td>
+<td class="instruction">INC HL</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecd7"></span>ECD7</td>
+<td class="instruction">LD A,(IY-$1E)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecda"></span>ECDA</td>
+<td class="instruction">ADC A,(HL)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecdb"></span>ECDB</td>
+<td class="instruction">DAA</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecdc"></span>ECDC</td>
+<td class="instruction">LD (IY-$1E),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecdf"></span>ECDF</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ece0"></span>ECE0</td>
+<td class="instruction">LD A,($ECFF)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ece3"></span>ECE3</td>
+<td class="instruction">ADD A,(HL)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ece4"></span>ECE4</td>
+<td class="instruction">DAA</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ece5"></span>ECE5</td>
+<td class="instruction">LD ($ECFF),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ece8"></span>ECE8</td>
+<td class="instruction">INC HL</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ece9"></span>ECE9</td>
+<td class="instruction">LD A,($ECFE)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecec"></span>ECEC</td>
+<td class="instruction">ADC A,(HL)</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="eced"></span>ECED</td>
+<td class="instruction">DAA</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecee"></span>ECEE</td>
+<td class="instruction">LD ($ECFE),A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ecf1"></span>ECF1</td>
+<td class="instruction">POP HL</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ecf2"></span>ECF2</td>
+<td class="instruction">JP <a href="EABF.html#eaeb">$EAEB</a></td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="EC5C.html">EC5C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ecbc">Map</a></td>
+<td class="next">
+Next: <a href="ECF5.html">ECF5</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/60604.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

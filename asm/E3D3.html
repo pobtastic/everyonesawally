@@ -29,11 +29,11 @@ Prev: <a href="E329.html">E329</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#e3d3">Map</a></td>
 <td class="next">
-Next: <a href="E3FD.html">E3FD</a>
+Next: <a href="E3EC.html">E3EC</a>
 </td>
 </tr>
 </table>
-<div class="description">E3D3: Routine at E3D3</div>
+<div class="description">E3D3: Play Wave Sequence</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,139 +45,96 @@ Used by the routines at <a href="AA7F.html">AA7F</a>, <a href="E2FC.html">E2FC</
 </td>
 </tr>
 <tr>
+<td class="asm-label">PlayWaveSequence</td>
 <td class="address-2"><span id="e3d3"></span>E3D3</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">B</span>-=<span class="register">H</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3d4"></span>E3D4</td>
 <td class="instruction">SUB H</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3d5"></span>E3D5</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3d6"></span>E3D6</td>
-<td class="instruction">CALL <a href="E3D3.html#e3ec">$E3EC</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="E3EC.html">PlaySquareWave</a></td>
+<td class="comment-1" rowspan="1">Call <a href="E3EC.html">PlaySquareWave</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3d9"></span>E3D9</td>
 <td class="instruction">DEC C</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">C</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3da"></span>E3DA</td>
-<td class="instruction">JR NZ,<a href="E3D3.html#e3d3">$E3D3</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="E3D3.html#e3d3">PlayWaveSequence</a></td>
+<td class="comment-1" rowspan="1">If <span class="register">C</span> is not zero, jump to <a href="E3D3.html">PlayWaveSequence</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">PlayWaveSequence_0</td>
 <td class="address-2"><span id="e3dc"></span>E3DC</td>
-<td class="instruction">CALL <a href="E3D3.html#e3ec">$E3EC</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="E3EC.html">PlaySquareWave</a></td>
+<td class="comment-1" rowspan="1">Call <a href="E3EC.html">PlaySquareWave</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3df"></span>E3DF</td>
 <td class="instruction">DEC D</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">D</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3e0"></span>E3E0</td>
-<td class="instruction">JR NZ,<a href="E3D3.html#e3dc">$E3DC</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="E3D3.html#e3dc">PlayWaveSequence_0</a></td>
+<td class="comment-1" rowspan="1">If <span class="register">D</span> is not zero, jump to <a href="E3D3.html#e3dc">PlayWaveSequence_0</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">PlayWaveSequence_1</td>
 <td class="address-2"><span id="e3e2"></span>E3E2</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">B</span>+=<span class="register">L</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3e3"></span>E3E3</td>
 <td class="instruction">ADD A,L</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3e4"></span>E3E4</td>
 <td class="instruction">LD B,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3e5"></span>E3E5</td>
-<td class="instruction">CALL <a href="E3D3.html#e3ec">$E3EC</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="E3EC.html">PlaySquareWave</a></td>
+<td class="comment-1" rowspan="1">Call <a href="E3EC.html">PlaySquareWave</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3e8"></span>E3E8</td>
 <td class="instruction">DEC E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">E</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3e9"></span>E3E9</td>
-<td class="instruction">JR NZ,<a href="E3D3.html#e3e2">$E3E2</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="E3D3.html#e3e2">PlayWaveSequence_1</a></td>
+<td class="comment-1" rowspan="1">If <span class="register">E</span> is not zero, jump to <a href="E3D3.html#e3e2">PlayWaveSequence_1</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="e3eb"></span>E3EB</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="e3ec"></span>E3EC</td>
-<td class="instruction">LD A,$10</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3ee"></span>E3EE</td>
-<td class="instruction">OUT ($FE),A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3f0"></span>E3F0</td>
-<td class="instruction">PUSH BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="e3f1"></span>E3F1</td>
-<td class="instruction">DJNZ <a href="E3D3.html#e3f1">$E3F1</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3f3"></span>E3F3</td>
-<td class="instruction">POP BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3f4"></span>E3F4</td>
-<td class="instruction">LD A,$00</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3f6"></span>E3F6</td>
-<td class="instruction">OUT ($FE),A</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3f8"></span>E3F8</td>
-<td class="instruction">PUSH BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="e3f9"></span>E3F9</td>
-<td class="instruction">DJNZ <a href="E3D3.html#e3f9">$E3F9</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3fb"></span>E3FB</td>
-<td class="instruction">POP BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="e3fc"></span>E3FC</td>
-<td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -187,7 +144,7 @@ Prev: <a href="E329.html">E329</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#e3d3">Map</a></td>
 <td class="next">
-Next: <a href="E3FD.html">E3FD</a>
+Next: <a href="E3EC.html">E3EC</a>
 </td>
 </tr>
 </table>

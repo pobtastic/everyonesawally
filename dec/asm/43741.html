@@ -44,87 +44,79 @@ Next: <a href="43785.html">43785</a>
 <tr>
 <td class="address-2"><span id="43741"></span>43741</td>
 <td class="instruction">LD A,(IY+10)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+10 is 152 jump to <a href="43741.html#43769">43769</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43744"></span>43744</td>
 <td class="instruction">CP 152</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43746"></span>43746</td>
 <td class="instruction">JR Z,<a href="43741.html#43769">43769</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43748"></span>43748</td>
 <td class="instruction">LD A,(IY+15)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If the current room (<span class="register">IY</span>+15) is not "The Sewer" (31) jump to <a href="43741.html#43769">43769</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43751"></span>43751</td>
 <td class="instruction">CP 31</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43753"></span>43753</td>
 <td class="instruction">JR NZ,<a href="43741.html#43769">43769</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43755"></span>43755</td>
 <td class="instruction">LD A,(IY+5)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+5 is higher than 120 jump to <a href="43741.html#43769">43769</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43758"></span>43758</td>
 <td class="instruction">CP 120</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43760"></span>43760</td>
 <td class="instruction">JR C,<a href="43741.html#43769">43769</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43762"></span>43762</td>
 <td class="instruction">LD (IY+60),255</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 255 to <span class="register">IY</span>+60.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43766"></span>43766</td>
-<td class="instruction">JP <a href="45478.html#45704">45704</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">JP <a href="45704.html">45704</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="45704.html">45704</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="43769"></span>43769</td>
 <td class="instruction">LD (IY+60),1</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 1 to <span class="register">IY</span>+60.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43773"></span>43773</td>
-<td class="instruction">CALL <a href="45478.html#45704">45704</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="45704.html">45704</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45704.html">45704</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43776"></span>43776</td>
 <td class="instruction">LD A,(IY+5)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+5 is 240 then jump to <a href="44637.html">44637</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43779"></span>43779</td>
 <td class="instruction">CP 240</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43781"></span>43781</td>
 <td class="instruction">JP Z,<a href="44637.html">44637</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43784"></span>43784</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">

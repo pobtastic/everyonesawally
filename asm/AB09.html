@@ -44,57 +44,53 @@ Next: <a href="AB26.html">AB26</a>
 <tr>
 <td class="address-2"><span id="ab09"></span>AB09</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+05 is lower than 78 jump to <a href="AB09.html#ab16">AB16</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab0c"></span>AB0C</td>
 <td class="instruction">CP $78</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab0e"></span>AB0E</td>
 <td class="instruction">JR NC,<a href="AB09.html#ab16">$AB16</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab10"></span>AB10</td>
 <td class="instruction">LD (IY+$3C),$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 01 to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab14"></span>AB14</td>
 <td class="instruction">JR <a href="AB09.html#ab1a">$AB1A</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="AB09.html#ab1a">AB1A</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="ab16"></span>AB16</td>
 <td class="instruction">LD (IY+$3C),$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write FF to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="ab1a"></span>AB1A</td>
-<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B288.html">$B288</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B288.html">B288</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab1d"></span>AB1D</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+05 is 78 jump to <a href="AE5D.html">AE5D</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab20"></span>AB20</td>
 <td class="instruction">CP $78</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab22"></span>AB22</td>
 <td class="instruction">JP Z,<a href="AE5D.html">$AE5D</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab25"></span>AB25</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">

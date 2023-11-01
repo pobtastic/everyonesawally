@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at E3EC</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="E3D3.html">E3D3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#e3ec">Map</a></td>
+<td class="next">
+Next: <a href="E3FD.html">E3FD</a>
+</td>
+</tr>
+</table>
+<div class="description">E3EC: Play square wave sound.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="E3D3.html">PlayWaveSequence</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e3ec"></span>
+<div class="comments">
+<div class="paragraph">
+Flip speaker on (set bit 4).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">PlaySquareWave</td>
+<td class="address-2"><span id="e3ec"></span>E3EC</td>
+<td class="instruction">LD A,%00010000</td>
+<td class="comment-1" rowspan="2"><span class="register">A</span>=10 (speaker on = bit 4).</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3ee"></span>E3EE</td>
+<td class="instruction">OUT ($FE),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3f0"></span>E3F0</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">BC</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label">PlaySquareWave_Loop</td>
+<td class="address-2"><span id="e3f1"></span>E3F1</td>
+<td class="instruction">DJNZ <a href="E3EC.html#e3f1">PlaySquareWave_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease duration by one and loop back to <a href="E3EC.html#e3f1">PlaySquareWave_Loop</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3f3"></span>E3F3</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e3f4"></span>
+<div class="comments">
+<div class="paragraph">
+Flip speaker off (unset bit 4).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3f4"></span>E3F4</td>
+<td class="instruction">LD A,%00000000</td>
+<td class="comment-1" rowspan="2"><span class="register">A</span>=00 (speaker off).</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3f6"></span>E3F6</td>
+<td class="instruction">OUT ($FE),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3f8"></span>E3F8</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">BC</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label">Silence_Loop</td>
+<td class="address-2"><span id="e3f9"></span>E3F9</td>
+<td class="instruction">DJNZ <a href="E3EC.html#e3f9">Silence_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease duration by one and loop back to <a href="E3EC.html#e3f9">Silence_Loop</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3fb"></span>E3FB</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="e3fc"></span>E3FC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="E3D3.html">E3D3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#e3ec">Map</a></td>
+<td class="next">
+Next: <a href="E3FD.html">E3FD</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../dec/asm/58348.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -33,7 +33,7 @@ Next: <a href="59291.html">59291</a>
 </td>
 </tr>
 </table>
-<div class="description">59258: Routine at E77A</div>
+<div class="description">59258: Clear Character Items</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,91 +45,170 @@ Used by the routine at <a href="58397.html">58397</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">ClearCharacterItems</td>
 <td class="address-2"><span id="59258"></span>59258</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="3">Stash <span class="register">HL</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59259"></span>59259</td>
 <td class="instruction">PUSH BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59260"></span>59260</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59261"></span>59261</td>
 <td class="instruction">LD IX,33272</td>
 <td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="33272.html">ScreenBuffer_Locations</a>.</td>
 </tr>
 <tr>
-<td class="address-1"><span id="59265"></span>59265</td>
-<td class="instruction">LD C,32</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=32.</td>
+<td class="routine-comment" colspan="5">
+<span id="59265"></span>
+<div class="comments">
+<div class="paragraph">
+The number of rows to blank.
+</div>
+</div>
+</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="59265"></span>59265</td>
+<td class="instruction">LD C,32</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=32 (rows).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="59267"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the screen buffer address.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">ClearCharacterItems_NextLine</td>
 <td class="address-2"><span id="59267"></span>59267</td>
 <td class="instruction">LD L,(IX+0)</td>
 <td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">IX</span>+0.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59270"></span>59270</td>
 <td class="instruction">LD H,(IX+1)</td>
 <td class="comment-1" rowspan="1"><span class="register">H</span>=<span class="register">IX</span>+1.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="59273"></span>
+<div class="comments">
+<div class="paragraph">
+The number of columns to blank.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59273"></span>59273</td>
 <td class="instruction">LD B,15</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=15.</td>
 </tr>
 <tr>
+<td class="asm-label">ClearCharacterItems_Loop</td>
 <td class="address-2"><span id="59275"></span>59275</td>
 <td class="instruction">LD (HL),0</td>
 <td class="comment-1" rowspan="1">Write 0 to *<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59277"></span>59277</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59278"></span>59278</td>
-<td class="instruction">DJNZ <a href="59258.html#59275">59275</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="59258.html#59275">59275</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="59258.html#59275">ClearCharacterItems_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="59258.html#59275">ClearCharacterItems_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="59280"></span>
+<div class="comments">
+<div class="paragraph">
+Move onto the next line down in the screen buffer.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59280"></span>59280</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="2">Increment <span class="register">IX</span> by two.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59282"></span>59282</td>
 <td class="instruction">INC IX</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="59284"></span>
+<div class="comments">
+<div class="paragraph">
+Keep looping until all rows have been blanked.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59284"></span>59284</td>
 <td class="instruction">DEC C</td>
 <td class="comment-1" rowspan="1">Decrease <span class="register">C</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59285"></span>59285</td>
-<td class="instruction">JR NZ,<a href="59258.html#59267">59267</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="59258.html#59267">59267</a> until <span class="register">C</span> is zero.</td>
+<td class="instruction">JR NZ,<a href="59258.html#59267">ClearCharacterItems_NextLine</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="59258.html#59267">ClearCharacterItems_NextLine</a> until <span class="register">C</span> is zero.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="59287"></span>
+<div class="comments">
+<div class="paragraph">
+Restore the registers and return.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59287"></span>59287</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="3">Restore <span class="register">DE</span>, <span class="register">BC</span> and <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59288"></span>59288</td>
 <td class="instruction">POP BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59289"></span>59289</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="59290"></span>59290</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

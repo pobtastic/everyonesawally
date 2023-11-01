@@ -33,7 +33,7 @@ Next: <a href="B7BA.html">B7BA</a>
 </td>
 </tr>
 </table>
-<div class="description">B77B: Routine at B77B</div>
+<div class="description">B77B: Draw Character Item Graphics</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,219 +42,342 @@ Next: <a href="B7BA.html">B7BA</a>
 Used by the routine at <a href="E41D.html">E41D</a>.
 </div>
 </div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The item ID</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Screen co-ordinate for printing the item</td>
+</tr>
+</table>
 </td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b77b"></span>
+<div class="comments">
+<div class="paragraph">
+Stash all the registers.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">DrawCharacterItemGraphics</td>
 <td class="address-2"><span id="b77b"></span>B77B</td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-1" rowspan="4">Push <span class="register">AF</span>, <span class="register">HL</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b77c"></span>B77C</td>
 <td class="instruction">PUSH HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b77d"></span>B77D</td>
 <td class="instruction">PUSH BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b77e"></span>B77E</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b77f"></span>B77F</td>
 <td class="instruction">LD C,E</td>
 <td class="comment-1" rowspan="1"><span class="register">C</span>=<span class="register">E</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b780"></span>B780</td>
 <td class="instruction">LD L,D</td>
 <td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">D</span>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b781"></span>
+<div class="comments">
+<div class="paragraph">
+Set <span class="register">B</span>, <span class="register">D</span> and <span class="register">H</span> to 00.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b781"></span>B781</td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-1" rowspan="1"><span class="register">D</span>=00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b783"></span>B783</td>
 <td class="instruction">LD H,D</td>
 <td class="comment-1" rowspan="1"><span class="register">H</span>=<span class="register">D</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b784"></span>B784</td>
 <td class="instruction">LD B,D</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=<span class="register">D</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b785"></span>B785</td>
 <td class="instruction">ADD HL,HL</td>
 <td class="comment-1" rowspan="4"><span class="register">HL</span>*=10.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b786"></span>B786</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b787"></span>B787</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b788"></span>B788</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b789"></span>B789</td>
 <td class="instruction">LD DE,$81F8</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="81F8.html">ScreenBuffer_Locations</a>.</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>+=<a href="81F8.html">ScreenBuffer_Locations</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b78c"></span>B78C</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b78d"></span>B78D</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">IX</span>=<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b78e"></span>B78E</td>
 <td class="instruction">POP IX</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b790"></span>
+<div class="comments">
+<div class="paragraph">
+Look up the item graphics data.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b790"></span>B790</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Create an offset for the item graphics data in <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b791"></span>B791</td>
 <td class="instruction">LD H,$00</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b793"></span>
+<div class="comments">
+<div class="paragraph">
+All items are 2x2 (so 02 bytes width * 10 bytes high).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b793"></span>B793</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="5"><span class="register">HL</span>*=0100.</td>
+<td class="comment-1" rowspan="5"><span class="register">HL</span>*=20.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b794"></span>B794</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b795"></span>B795</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b796"></span>B796</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b797"></span>B797</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b798"></span>B798</td>
 <td class="instruction">LD DE,$8378</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="8378.html">Graphics_Items</a>.</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>+=<a href="8378.html">Graphics_Items</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b79b"></span>B79B</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>+=<span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b79c"></span>B79C</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b79d"></span>
+<div class="comments">
+<div class="paragraph">
+Draw the item graphic to the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b79d"></span>B79D</td>
 <td class="instruction">LD A,$10</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=10.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=10 (height of items).</td>
 </tr>
 <tr>
+<td class="asm-label">DrawPossesions_Loop</td>
 <td class="address-2"><span id="b79f"></span>B79F</td>
 <td class="instruction">LD L,(IX+$00)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>=the screen address from <span class="register">IX</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7a2"></span>B7A2</td>
 <td class="instruction">LD H,(IX+$01)</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7a5"></span>B7A5</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>+=<span class="register">BC</span>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b7a6"></span>
+<div class="comments">
+<div class="paragraph">
+Move onto the next line down.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7a6"></span>B7A6</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="2">Increment <span class="register">IX</span> by two.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7a8"></span>B7A8</td>
 <td class="instruction">INC IX</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7aa"></span>B7AA</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7ab"></span>B7AB</td>
 <td class="instruction">LDI</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Blit two bytes of item graphics to the screen buffer.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7ad"></span>B7AD</td>
 <td class="instruction">LDI</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7af"></span>B7AF</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b0"></span>B7B0</td>
 <td class="instruction">INC BC</td>
 <td class="comment-1" rowspan="2">Increment <span class="register">BC</span> by two.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b1"></span>B7B1</td>
 <td class="instruction">INC BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b2"></span>B7B2</td>
 <td class="instruction">DEC A</td>
 <td class="comment-1" rowspan="1">Decrease <span class="register">A</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b3"></span>B7B3</td>
-<td class="instruction">JR NZ,<a href="B77B.html#b79f">$B79F</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B77B.html#b79f">B79F</a> until <span class="register">A</span> is zero.</td>
+<td class="instruction">JR NZ,<a href="B77B.html#b79f">DrawPossesions_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B77B.html#b79f">DrawPossesions_Loop</a> until <span class="register">A</span> is zero.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b7b5"></span>
+<div class="comments">
+<div class="paragraph">
+Restore all the registers and return.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b5"></span>B7B5</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="4">Restore <span class="register">DE</span>, <span class="register">BC</span>, <span class="register">HL</span> and <span class="register">AF</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b6"></span>B7B6</td>
 <td class="instruction">POP BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b7"></span>B7B7</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b8"></span>B7B8</td>
 <td class="instruction">POP AF</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b7b9"></span>B7B9</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

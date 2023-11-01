@@ -29,295 +29,315 @@ Prev: <a href="58365.html">58365</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#58397">Map</a></td>
 <td class="next">
-Next: <a href="58500.html">58500</a>
+Next: <a href="58472.html">58472</a>
 </td>
 </tr>
 </table>
-<div class="description">58397: Routine at E41D</div>
+<div class="description">58397: Print Characters Items</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="43568.html">Handler_PickUpObjects</a>, <a href="60095.html">60095</a> and <a href="60490.html">60490</a>.
+Used by the routines at <a href="43568.html">Handler_PickUpObjects</a>, <a href="60175.html">60175</a> and <a href="60490.html">60490</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-2"><span id="58397"></span>58397</td>
-<td class="instruction">CALL <a href="59258.html">59258</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="59258.html">ClearCharacterItems</a></td>
+<td class="comment-1" rowspan="1">Call <a href="59258.html">ClearCharacterItems</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
 <span id="58400"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="58365.html">PrintBanner</a>.
+Fetch item 1 (<span class="register">IY</span>+80) for the current character and calculate an offset.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">PrintCharacterItems</td>
 <td class="address-2"><span id="58400"></span>58400</td>
 <td class="instruction">LD A,(IY+80)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">E</span>=(<span class="register">IY</span>+80)*2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58403"></span>58403</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58404"></span>58404</td>
 <td class="instruction">LD E,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58405"></span>58405</td>
 <td class="instruction">LD D,0</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=0.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58407"></span>58407</td>
 <td class="instruction">LD HL,59176</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="59176.html">Table_ItemLabels</a>+<span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58410"></span>58410</td>
 <td class="instruction">ADD HL,DE</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="58411"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the item 1 label memory location.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58411"></span>58411</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58412"></span>58412</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58413"></span>58413</td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="58414"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch item 2 (<span class="register">IY</span>+85) for the current character and calculate an offset.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58414"></span>58414</td>
 <td class="instruction">LD A,(IY+85)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">C</span>=(<span class="register">IY</span>+85)*2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58417"></span>58417</td>
 <td class="instruction">ADD A,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58418"></span>58418</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58419"></span>58419</td>
 <td class="instruction">LD B,0</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=0.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58421"></span>58421</td>
 <td class="instruction">LD HL,59176</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="59176.html">Table_ItemLabels</a>+<span class="register">BC</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58424"></span>58424</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="58425"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the item 2 label memory location.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58425"></span>58425</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58426"></span>58426</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58427"></span>58427</td>
 <td class="instruction">LD B,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58428"></span>58428</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash the item 2 label memory location (<span class="register">BC</span>) on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58429"></span>58429</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58430"></span>58430</td>
 <td class="instruction">LD DE,57308</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write <a href="53692.html#57308">Font</a> to <a href="47034.html#47080">47081</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58433"></span>58433</td>
 <td class="instruction">LD (47081),DE</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="58437"></span>
+<div class="comments">
+<div class="paragraph">
+Print the item labels to the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58437"></span>58437</td>
 <td class="instruction">LD DE,3</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=0003 (screen co-ordinates).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58440"></span>58440</td>
 <td class="instruction">LD C,67</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=67 (INK:
+MAGENTA,
+PAPER:
+BLACK
+(BRIGHT)
+).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58442"></span>58442</td>
-<td class="instruction">CALL <a href="58397.html#58472">58472</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="58472.html">DrawCharacterItemLabel</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58472.html">DrawCharacterItemLabel</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58445"></span>58445</td>
 <td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore the item 2 label memory location from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58446"></span>58446</td>
 <td class="instruction">LD DE,515</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=515 (screen co-ordinates).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58449"></span>58449</td>
 <td class="instruction">LD C,69</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=69 (INK:
+CYAN,
+PAPER:
+BLACK
+(BRIGHT)
+).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58451"></span>58451</td>
-<td class="instruction">CALL <a href="58397.html#58472">58472</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="58472.html">DrawCharacterItemLabel</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58472.html">DrawCharacterItemLabel</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="58454"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch item 1 (<span class="register">IY</span>+80) for the current character.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58454"></span>58454</td>
 <td class="instruction">LD A,(IY+80)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=(<span class="register">IY</span>+80).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58457"></span>58457</td>
 <td class="instruction">LD DE,0</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=0000 (screen co-ordinates).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58460"></span>58460</td>
-<td class="instruction">CALL <a href="46971.html">46971</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="46971.html">DrawCharacterItemGraphics</a></td>
+<td class="comment-1" rowspan="1">Call <a href="46971.html">DrawCharacterItemGraphics</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="58463"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch item 2 (<span class="register">IY</span>+85) for the current character.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58463"></span>58463</td>
 <td class="instruction">LD A,(IY+85)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=(<span class="register">IY</span>+85).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58466"></span>58466</td>
 <td class="instruction">LD D,2</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=2 (update screen co-ordinates).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58468"></span>58468</td>
-<td class="instruction">CALL <a href="46971.html">46971</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="46971.html">DrawCharacterItemGraphics</a></td>
+<td class="comment-1" rowspan="1">Call <a href="46971.html">DrawCharacterItemGraphics</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="58471"></span>58471</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="58472"></span>58472</td>
-<td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58475"></span>58475</td>
-<td class="instruction">LD C,7</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58477"></span>58477</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58478"></span>58478</td>
-<td class="instruction">CP 244</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58480"></span>58480</td>
-<td class="instruction">RET NZ</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58481"></span>58481</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58482"></span>58482</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58483"></span>58483</td>
-<td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58484"></span>58484</td>
-<td class="instruction">CALL <a href="60445.html">Handler_TaskCompleted</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58487"></span>58487</td>
-<td class="instruction">JP NZ,<a href="47179.html">Controller_Tile</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58490"></span>58490</td>
-<td class="instruction">PUSH BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58491"></span>58491</td>
-<td class="instruction">LD B,255</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58493"></span>58493</td>
-<td class="instruction">LD A,B</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58494"></span>58494</td>
-<td class="instruction">CPIR</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58496"></span>58496</td>
-<td class="instruction">POP BC</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="58497"></span>58497</td>
-<td class="instruction">JP <a href="47179.html">Controller_Tile</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -327,7 +347,7 @@ Prev: <a href="58365.html">58365</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#58397">Map</a></td>
 <td class="next">
-Next: <a href="58500.html">58500</a>
+Next: <a href="58472.html">58472</a>
 </td>
 </tr>
 </table>

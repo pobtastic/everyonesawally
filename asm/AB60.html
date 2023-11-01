@@ -44,117 +44,108 @@ Next: <a href="AB9B.html">AB9B</a>
 <tr>
 <td class="address-2"><span id="ab60"></span>AB60</td>
 <td class="instruction">LD A,(IY+$0A)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+0A is not 98 jump to <a href="AB60.html#ab88">AB88</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab63"></span>AB63</td>
 <td class="instruction">CP $98</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab65"></span>AB65</td>
 <td class="instruction">JR NZ,<a href="AB60.html#ab88">$AB88</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab67"></span>AB67</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+05 is lower than 66 jump to <a href="AB60.html#ab74">AB74</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab6a"></span>AB6A</td>
 <td class="instruction">CP $66</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab6c"></span>AB6C</td>
 <td class="instruction">JR NC,<a href="AB60.html#ab74">$AB74</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab6e"></span>AB6E</td>
 <td class="instruction">LD (IY+$3C),$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write 01 to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab72"></span>AB72</td>
 <td class="instruction">JR <a href="AB60.html#ab78">$AB78</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="AB60.html#ab78">AB78</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="ab74"></span>AB74</td>
 <td class="instruction">LD (IY+$3C),$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write FF to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="ab78"></span>AB78</td>
-<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B288.html">$B288</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B288.html">B288</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab7b"></span>AB7B</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Return if <span class="register">IY</span>+05 is not 66.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab7e"></span>AB7E</td>
 <td class="instruction">CP $66</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab80"></span>AB80</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-2"><span id="ab81"></span>AB81</td>
 <td class="instruction">LD (IY+$3C),$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write FF to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab85"></span>AB85</td>
 <td class="instruction">JP <a href="B1A6.html">$B1A6</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B1A6.html">B1A6</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="ab88"></span>AB88</td>
 <td class="instruction">CP $58</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">IY</span>+0A is not 58 jump to <a href="AB60.html#ab81">AB81</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab8a"></span>AB8A</td>
 <td class="instruction">JR NZ,<a href="AB60.html#ab81">$AB81</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab8c"></span>AB8C</td>
 <td class="instruction">LD (IY+$3C),$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write FF to <span class="register">IY</span>+3C.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab90"></span>AB90</td>
-<td class="instruction">CALL <a href="B1A6.html#b288">$B288</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="B288.html">$B288</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B288.html">B288</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab93"></span>AB93</td>
 <td class="instruction">LD A,(IY+$05)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">IY</span>+05 is zero then jump to <a href="AE5D.html">AE5D</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab96"></span>AB96</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab97"></span>AB97</td>
 <td class="instruction">JP Z,<a href="AE5D.html">$AE5D</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ab9a"></span>AB9A</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">

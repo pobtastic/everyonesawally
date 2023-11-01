@@ -47,97 +47,94 @@ Used by the routine at <a href="A92C.html">Handler_Move_Characters</a>.
 <tr>
 <td class="address-2"><span id="ae8a"></span>AE8A</td>
 <td class="instruction">LD D,$00</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=00.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae8c"></span>AE8C</td>
 <td class="instruction">LD BC,$21FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=21FF.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae8f"></span>AE8F</td>
 <td class="instruction">LD HL,$BCE9</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="BCE9.html">Item_Data</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="ae92"></span>AE92</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae93"></span>AE93</td>
 <td class="instruction">CP $FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae95"></span>AE95</td>
 <td class="instruction">JR Z,<a href="AE8A.html#aea0">$AEA0</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae97"></span>AE97</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="4">Increment <span class="register">HL</span> by four.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae98"></span>AE98</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae99"></span>AE99</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae9a"></span>AE9A</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae9b"></span>AE9B</td>
 <td class="instruction">INC C</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">C</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae9c"></span>AE9C</td>
 <td class="instruction">CP E</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae9d"></span>AE9D</td>
 <td class="instruction">JR NZ,<a href="AE8A.html#ae92">$AE92</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="ae9f"></span>AE9F</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="aea0"></span>AEA0</td>
 <td class="instruction">LD C,$FF</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=FF.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aea2"></span>AEA2</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aea3"></span>AEA3</td>
 <td class="instruction">INC D</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">D</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aea4"></span>AEA4</td>
 <td class="instruction">DJNZ <a href="AE8A.html#ae92">$AE92</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AE8A.html#ae92">AE92</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="aea6"></span>AEA6</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
