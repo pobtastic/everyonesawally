@@ -23,3 +23,10 @@ SectionType=BulletPoints
 - Commented #R$B2F1, #R$B34C and #R$B34B.
 - Commented #R$B3AB.
 - Starting to work out how backgrounds are constructed.
+
+[Changelog:20231031]
+-
+
+- Added controls at #R$B00B, #R$B03C, #R$B06D and #R$ABD7.
+- Worked out how the banner #R$E77A(handles the items).
+- Found what the control characters do in the item messaging, e.g. #R$E4BE.

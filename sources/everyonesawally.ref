@@ -128,3 +128,6 @@ PageContent=#INCLUDE(Links)
 
 #DEF(#ITEM(addr)
   #UDGARRAY$02,step=$02($addr-($addr+$18)-$01-$10))
+
+#DEF(#SPRITE(addr)
+  #UDGARRAY$04,step=$04($addr-($addr+$28)-$01-$20))

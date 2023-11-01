@@ -566,7 +566,40 @@ N $8878 Item: The Whistle.
   $8878,$20,$02 #ITEM(#PC)(item-the-whistle.png)
 
 b $8898
-  $8898,$40,$04 #UDGARRAY$04,step=$04($8898-$88C8-$01-$20)(item-13.png)
+  $8898,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $88F8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8938,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8978,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $89B8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $89F8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8A38,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8A78,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8AB8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8AF8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8B38,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8B78,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8BB8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8BF8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8C38,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8C78,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8CB8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8CF8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8D38,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8D78,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8DB8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8DF8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8E38,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8E78,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8EB8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8EF8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8F38,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8F78,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8FB8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $8FF8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $9038,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $9078,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $90B8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
+  $90F8,$40,$04 #SPRITE(#PC)(item-(#PC).png)
 
 b $91D5
   $91D5,$08
@@ -586,7 +619,7 @@ c $A83D
   $A83F,$01 Stash #REGaf on the stack.
   $A840,$04 Write #REGsp to #R$A83B.
   $A844,$03 Create an offset in #REGhl.
-  $A847,$05
+  $A847,$05 #REGhl*=#N$20.
   $A84C,$05 #REGsp=#R$8378+#REGhl.
   $A851,$04 #REGb=*#R$A838.
   $A855,$02,b$01 Keep only bits 0-2.
@@ -596,6 +629,8 @@ c $A83D
   $A85C,$02,b$01 Keep only bits 3-7.
   $A85E,$03
 
+  $A86C,$03 Create an offset in #REGhl.
+  $A86F,$05 #REGhl*=#N$20.
   $A874,$02 #REGd=#N$6B.
   $A876,$01 #REGhl+=#REGde.
   $A877,$02 #REGc=#N$10.
@@ -640,21 +675,21 @@ c $A8A0
 c $A921
   $A921,$03 #REGhl=#REGiy.
   $A924,$04 #REGde=*#R$B09D.
-  $A928,$01
+  $A928,$01 Reset the flags.
   $A929,$02 #REGhl-=#REGde.
   $A92B,$01 Return.
 
-c $A92C Move Non-Player Characters
+c $A92C Handler: Move Non-Player Characters
 @ $A92C label=Handler_Move_Characters
   $A92C,$02 Stash #REGiy on the stack.
   $A92E,$06 Write #REGiy+#N$0F to #R$B951.
   $A934,$04 #REGiy=#R$BC67.
   $A938,$06 #REGb=(*#R$B55F)+#N$04.
   $A93E,$01 Stash #REGbc on the stack.
-  $A93F
+  $A93F,$06 If #R$B55F is not zero jump to #R$A94C.
   $A945,$03 Call #R$A921.
   $A94A,$02 Increment #REGiy by one.
-  $A94C
+  $A94C,$08 Compare the current room (#REGiy+#N$0F) against (#REGiy+#N$5A) jump to #R$A95B if they are different.
   $A95B,$03 Call #R$AFC4.
 
   $A964,$03 Call #R$B1B9.
@@ -706,8 +741,18 @@ c $AA30 Handler: Pick Up Objects
 
   $AA4E,$02,b$01 Keep only bit 7.
 
+N $AA5D Fetch the item 2 ID, we're about to drop it.
+  $AA5D,$03 #REGa=*#REGiy+#N$55.
   $AA60,$03 Decrease #REGhl by three.
-
+N $AA63 Fetch the picked up item ID.
+  $AA63,$01 #REGe=*#REGhl.
+N $AA64 Write the dropped item ID to *#REGhl.
+  $AA64,$01 Write #REGa to *#REGhl.
+N $AA65 Move the characters collected item 1 to item 2.
+  $AA65,$03 #REGa=*#REGiy+#N$50.
+  $AA68,$03 Write #REGa to *#REGiy+#N$55.
+N $AA6B Write the picked up item to the characters item 1.
+  $AA6B,$03 Write #REGe to *#REGiy+#N$50.
   $AA6E,$03 Call #R$A921.
 
   $AA7D,$01 Restore #REGhl from the stack.
@@ -721,10 +766,12 @@ c $AA7F
   $AA8B,$01 Return.
 
 c $AA8C
-  $AA8C,$03 #REGa=*#REGiy+#N$0F.
+  $AA8C,$03 #REGa=*#REGiy+#N$0F (current room).
   $AA8F,$03 #REGhl=#R$BCE9.
   $AA92,$03 Call #R$AC6C.
 
+  $AA99,$04 Increment #REGhl by four.
+  $AA9D,$02 Decrease counter by one and loop back to #R$AA99 until counter is zero.
   $AA9F,$01 Return.
 
 w $AAA0 Jump Table
@@ -732,18 +779,120 @@ w $AAA0 Jump Table
   $AAA0,$12,$02
 
 c $AAB2
+  $AAB2,$07 If #REGiy+#N$0A is #N$98 jump to #R$AACE.
+  $AAB9,$07 If the current room (#REGiy+#N$0F) is not "The Sewer" (#N$1F) jump to #R$AACE.
+  $AAC0,$07 If #REGiy+#N$05 is lower than #N$78 jump to #R$AACE.
+  $AAC7,$04 Write #N$01 to #REGiy+#N$3C.
+  $AACB,$03 Jump to #R$B288.
+
+  $AACE,$04 Write #N$FF to #REGiy+#N$3C.
+  $AAD2,$03 Call #R$B288.
+  $AAD5,$07 If #REGiy+#N$05 is zero then jump to #R$AE5D.
+  $AADC,$01 Return.
 
 c $AADD
+  $AADD,$07 If #REGiy+#N$0A is #N$98 jump to #R$AAF9.
+  $AAE4,$07 If the current room (#REGiy+#N$0F) is not "The Sewer" (#N$1F) jump to #R$AAF9.
+  $AAEB,$07 If #REGiy+#N$05 is higher than #N$78 jump to #R$AAF9.
+  $AAF2,$04 Write #N$FF to #REGiy+#N$3C.
+  $AAF6,$03 Jump to #R$B288.
+
+  $AAF9,$04 Write #N$01 to #REGiy+#N$3C.
+  $AAFD,$03 Call #R$B288.
+  $AB00,$08 If #REGiy+#N$05 is #N$F0 then jump to #R$AE5D.
+  $AB08,$01 Return.
 
 c $AB09
+  $AB09,$07 If #REGiy+#N$05 is lower than #N$78 jump to #R$AB16.
+  $AB10,$04 Write #N$01 to #REGiy+#N$3C.
+  $AB14,$02 Jump to #R$AB1A.
+  $AB16,$04 Write #N$FF to #REGiy+#N$3C.
+  $AB1A,$03 Call #R$B288.
+  $AB1D,$08 If #REGiy+#N$05 is #N$78 jump to #R$AE5D.
+  $AB25,$01 Return.
 
 c $AB26
 
 c $AB43
 
 c $AB60
+  $AB60,$07 If #REGiy+#N$0A is not #N$98 jump to #R$AB88.
+  $AB67,$07 If #REGiy+#N$05 is lower than #N$66 jump to #R$AB74.
+  $AB6E,$04 Write #N$01 to #REGiy+#N$3C.
+  $AB72,$02 Jump to #R$AB78.
+  $AB74,$04 Write #N$FF to #REGiy+#N$3C.
+  $AB78,$03 Call #R$B288.
+  $AB7B,$06 Return if #REGiy+#N$05 is not #N$66.
+  $AB81,$04 Write #N$FF to #REGiy+#N$3C.
+  $AB85,$03 Jump to #R$B1A6.
+  $AB88,$04 If #REGiy+#N$0A is not #N$58 jump to #R$AB81.
+  $AB8C,$04 Write #N$FF to #REGiy+#N$3C.
+  $AB90,$03 Call #R$B288.
+  $AB93,$07 If #REGiy+#N$05 is zero then jump to #R$AE5D.
+  $AB9A,$01 Return.
 
 c $AB9B
+  $AB9B,$07 If #REGiy+#N$0A is not #N$98 jump to #R$ABC3.
+  $ABA2,$07 If #REGiy+#N$05 is lower than #N$8A jump to #R$ABAF.
+  $ABA9,$04 Write #N$01 to #REGiy+#N$3C.
+  $ABAD,$02 Jump to #R$ABB3.
+  $ABAF,$04 Write #N$FF to #REGiy+#N$3C.
+  $ABB3,$03 Call #R$B288.
+  $ABB6,$06 Return if #REGiy+#N$05 is not #N$8A.
+  $ABBC,$04 Write #N$01 to #REGiy+#N$3C.
+  $ABC0,$03 Jump to #R$B1A6.
+  $ABC3,$04 If #REGiy+#N$0A is not #N$58 jump to #R$ABBC.
+  $ABC7,$04 Write #N$01 to #REGiy+#N$3C.
+  $ABCB,$03 Call #R$B288.
+  $ABCE,$08 If #REGiy+#N$05 is #N$F0 jump to #R$AE5D.
+  $ABD6,$01 Return.
+
+c $ABD7 Controls: Exit Screen
+@ $ABD7 label=Controls_ExitScreen
+R $ABD7 O:A #N$00 for no press and #N$01 for pressed
+  $ABD7,$06 If #R$B2DB is zero then jump to #R$ABEA.
+  $ABDD,$04 If #R$B2DB is not #N$01 then jump to #R$ABFC.
+N $ABE1 Handle Kempston Joystick.
+  $ABE1,$02 Read from Kempston Joystick.
+  $ABE3,$04 If bit 3 is set/ "UP" is being pressed then jump to #R$AC04.
+N $ABE7 Key was pressed so return #REGa=#N$01.
+@ $ABE7 label=Controls_Pressed_ExitScreen
+  $ABE7,$02 #REGa=#N$01.
+  $ABE9,$01 Return.
+N $ABEA Handle Keyboard controls.
+@ $ABEA label=Controls_ExitScreen_Keyboard
+  $ABEA,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$FD | A | S | D | F | G }
+. TABLE#
+  $ABEE,$01 Store the result in #REGb.
+  $ABEF,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$BF | ENTER | L | K | J | H }
+. TABLE#
+  $ABF3,$01 Merge in the bits from #REGb.
+N $ABF4 Fill in the "blanks".
+  $ABF4,$02,b$01 Set bits 5-7.
+N $ABF6 If there's been any keypress at all then #REGa won't be #N$FF.
+  $ABF6,$04 If the result is not #N$FF jump to #R$ABE7.
+  $ABFA,$02 Jump to #R$AC04.
+N $ABFC Handle Sinclair Joystick.
+@ $ABFC label=Controls_ExitScreen_Sinclair
+  $ABFC,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$EF | 0 | 9 | 8 | 7 | 6 }
+. TABLE#
+  $AC00,$04 If bit 1 is set jump to #R$ABE7.
+N $AC04 No key was pressed so return #REGa=#N$00.
+@ $AC04 label=Controls_NoPress_ExitScreen
+  $AC04,$01 #REGa=#N$00.
+  $AC05,$01 Return.
 
 c $AC06
 
@@ -776,14 +925,54 @@ N $AC7C Once we're here, #REGhl will contain the start address of the data corre
   $AC7E,$01 Return.
 
 b $AC7F
+  $AD78
 
 c $ADBA
+  $ADBA,$03 #REGa=current room ID (*#REGiy+#N$0F).
+  $ADBD,$03
+
+  $ADC2,$04 Write #N$01 to *#REGiy-#N$14.
+  $ADC6,$01 Return.
+
+  $ADC7,$02 #REGd=#N$FF.
+  $ADC9,$03 Call #R$AC69.
+  $ADCC,$03 #REGa=current room ID (*#REGiy+#N$0F).
+  $ADCF,$03 Call #R$AE30.
+
+  $ADDA,$03 Call #R$AE30.
+
+  $ADE8,$02 Jump to #R$AE18.
+
+  $ADF2,$03 Create an offset in #REGde.
+  $ADF5,$04 #REGhl=#R$AD78+#REGde.
 
 b $AE3C
 
 c $AE5D
+  $AE5D,$06 Write the current room ID (*#REGiy+#N$0F) to *#REGiy+#N$6E.
+
+  $AE6C,$03 Call #R$AC5F.
+
+  $AE78,$04 Write #N$00 to *#REGiy+#N$00.
+  $AE7C,$03 Call #R$ADBA.
+  $AE7F,$0A Write #N$00 to: #LIST { *#REGiy+#N$37 } { *#REGiy+#N$3C } { *#REGiy+#N$46 } LIST#
+  $AE89,$01 Return.
 
 c $AE8A
+  $AE8A,$02 #REGd=#N$00.
+  $AE8C,$03 #REGbc=#N$21FF.
+  $AE8F,$03 #REGhl=#R$BCE9.
+
+  $AE97,$04 Increment #REGhl by four.
+  $AE9B,$01 Increment #REGc by one.
+
+  $AE9F,$01 Return.
+
+  $AEA0,$02 #REGc=#N$FF.
+  $AEA2,$01 Increment #REGhl by one.
+  $AEA3,$01 Increment #REGd by one.
+  $AEA4,$02 Decrease counter by one and loop back to #R$AE92 until counter is zero.
+  $AEA6,$01 Return.
 
 b $AEA7
   $AED1
@@ -793,39 +982,228 @@ c $AED7
 b $AF10
 
 b $AF22 Platform Data
-@ $AF22 label=Platform_Data
+@ $AF22 label=Data_Platform_0
+N $AF22 Platform 0.
   $AF22,$01 Terminator.
+N $AF23 Platform 1.
+@ $AF23 label=Data_Platform_1
   $AF23,$30,$03
   $AF53,$01 Terminator.
+N $AF54 Platform 2.
+@ $AF54 label=Data_Platform_2
   $AF54,$0F,$03
   $AF63,$01 Terminator.
+N $AF64 Platform 3.
+@ $AF64 label=Data_Platform_3
   $AF64,$03
   $AF67,$01 Terminator.
+N $AF68 Platform 4.
+@ $AF68 label=Data_Platform_4
   $AF68,$09,$03
   $AF71,$01 Terminator.
+N $AF72 Platform 5.
+@ $AF72 label=Data_Platform_5
   $AF72,$09,$03
   $AF7B,$01 Terminator.
+N $AF7C Platform 6.
+@ $AF7C label=Data_Platform_6
   $AF7C,$01 Terminator.
+N $AF7D Platform 7.
+@ $AF7D label=Data_Platform_7
   $AF7D,$06,$03
   $AF83,$01 Terminator.
+N $AF84 Platform 8.
+@ $AF84 label=Data_Platform_8
   $AF84,$03
   $AF87,$01 Terminator.
+N $AF88 Platform 9.
+@ $AF88 label=Data_Platform_9
   $AF88,$06,$03
   $AF8E,$01 Terminator.
 
 w $AF8F Table: Platform Data
 @ $AF8F label=Table_PlatformData
-  $AF8F,$02 Platform #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N($01+(#PC-$AF8F)/$02)).
+  $AF8F,$02 Platform #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$AF8F)/$02)).
 L $AF8F,$02,$0A
 
-b $AFA3 Index Table
+b $AFA3 Table: Room Platforms
+@ $AFA3 label=Table_RoomPlatforms
+  $AFA3,$01 #LET(room=#PC-$AFA3)#IF(#PEEK(#PC)>$00)(Platform #R($AF8F+#PEEK(#PC)*$02)(#N(#PEEK(#PC))) present in Room:,No platforms present in Room:) #R($CDB5+{room}*$02)(#N({room})).
+L $AFA3,$01,$21
 
 c $AFC4
+  $AFC4,$04 Write #N$01 to *#REGiy+#N$37.
+  $AFC8,$04 #REGe=current room ID (*#REGiy+#N$0F).
+  $AFCC,$02 #REGd=#N$00.
+  $AFCE,$04 #REGhl=#R$AFA3+#REGde.
+  $AFD2,$03 #REGe=*#REGhl*#N$02.
+  $AFD5,$04 #REGhl=#R$AF8F+#REGde.
+
+  $AFF1,$02 Jump to #R$AFE7.
+
+  $B00A,$01 Return.
+
+c $B00B Controls: Right
+@ $B00B label=Controls_Right
+R $B00B O:A #N$00 for no press and #N$01 for pressed
+  $B00B,$06 If #R$B2DB is zero then jump to #R$B028.
+  $B011,$04 If #R$B2DB is not #N$01 then jump to #R$B01D.
+N $B015 Handle Kempston Joystick.
+  $B015,$02 Read from Kempston Joystick.
+  $B017,$04 If bit 0 is not set/ "RIGHT" is being pressed then jump to #R$B025.
+  $B01B,$02 Jump to #R$B03A.
+N $B01D Handle Sinclair Joystick.
+@ $B01D label=Controls_Right_Sinclair
+  $B01D,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$EF | 0 | 9 | 8 | 7 | 6 }
+. TABLE#
+  $B021,$04 If bit 3 is not set jump to #R$B03A.
+N $B025 Key was pressed so return #REGa=#N$01.
+@ $B025 label=Controls_Pressed_Right
+  $B025,$02 #REGa=#N$01.
+  $B027,$01 Return.
+N $B028 Handle Keyboard controls.
+@ $B028 label=Controls_Right_Keyboard
+  $B028,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$FB | Q | W | E | R | T }
+. TABLE#
+N $B02C Filter out the keys leaving only: W and R.
+  $B02C,$02,b$01 Set bits 0, 2, 4-7.
+  $B02E,$01 Store the result in #REGb.
+  $B02F,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$DF | P | O | I | U | Y }
+. TABLE#
+N $B033 Filter out the keys leaving only: P, I and Y.
+  $B033,$02,b$01 Set bits 1, 3, 5-7.
+  $B035,$01 Merge in the bits from #REGb.
+  $B036,$04 If the result is not #N$FF jump to #R$B025.
+N $B03A No key was pressed so return #REGa=#N$00.
+@ $B03A label=Controls_NoPress_Right
+  $B03A,$01 #REGa=#N$00.
+  $B03B,$01 Return.
+
+c $B03C Controls: Left
+@ $B03C label=Controls_Left
+R $B03C O:A #N$00 for no press and #N$01 for pressed
+  $B03C,$06 If #R$B2DB is zero then jump to #R$B059.
+  $B042,$04 If #R$B2DB is not #N$01 then jump to #R$B04E.
+N $B046 Handle Kempston Joystick.
+  $B046,$02 Read from Kempston Joystick.
+  $B048,$04 If bit 1 is not set/ "LEFT" is being pressed then jump to #R$B056.
+  $B04C,$02 Jump to #R$B06B.
+N $B04E Handle Sinclair Joystick.
+@ $B04E label=Controls_Left_Sinclair
+  $B04E,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$EF | 0 | 9 | 8 | 7 | 6 }
+. TABLE#
+  $B052,$04 If bit 4 is not set jump to #R$B06B.
+N $B056 Key was pressed so return #REGa=#N$01.
+@ $B056 label=Controls_Pressed_Left
+  $B056,$02 #REGa=#N$01.
+  $B058,$01 Return.
+N $B059 Handle Keyboard controls.
+@ $B059 label=Controls_Left_Keyboard
+  $B059,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$FB | Q | W | E | R | T }
+. TABLE#
+N $B05D Filter out the keys leaving only: Q, E and T.
+  $B05D,$02,b$01 Set bits 1, 3, 5-7.
+  $B05F,$01 Store the result in #REGb.
+  $B060,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$DF | P | O | I | U | Y }
+. TABLE#
+N $B064 Filter out the keys leaving only: O and U.
+  $B064,$02,b$01 Set bits 0, 2, 4-7.
+  $B066,$01 Merge in the bits from #REGb.
+  $B067,$04 If the result is not #N$FF jump to #R$B056.
+N $B06B No key was pressed so return #REGa=#N$00.
+@ $B06B label=Controls_NoPress_Left
+  $B06B,$01 #REGa=#N$00.
+  $B06C,$01 Return.
+
+c $B06D Controls: Jump
+@ $B06D label=Controls_Jump
+R $B06D O:A #N$00 for no press and #N$01 for pressed
+  $B06D,$06 If #R$B2DB is zero then jump to #R$B08A.
+  $B073,$04 If #R$B2DB is not #N$01 then jump to #R$B080.
+N $B077 Handle Kempston Joystick.
+  $B077,$02 Read from Kempston Joystick.
+  $B079,$04 If bit 4 is set/ "FIRE" is being pressed then jump to #R$B09B.
+N $B07D Key was pressed so return #REGa=#N$01.
+@ $B07D label=Controls_Pressed_Jump
+  $B07D,$02 #REGa=#N$01.
+  $B07F,$01 Return.
+N $B080 Handle Sinclair Joystick.
+@ $B080 label=Controls_Jump_Sinclair
+  $B080,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$EF | 0 | 9 | 8 | 7 | 6 }
+. TABLE#
+  $B084,$04 If bit 0 is set jump to #R$B07D.
+  $B088,$02 Jump to #R$B09B.
+N $B08A Handle Keyboard controls.
+@ $B08A label=Controls_Jump_Keyboard
+  $B08A,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$FE | SHIFT | Z | X | C | V }
+. TABLE#
+  $B08E,$01 Store the result in #REGb.
+  $B08F,$04 Read from the keyboard;
+. #TABLE(default,centre,centre,centre,centre,centre,centre)
+. { =h,r2 Port Number | =h,c5 Bit }
+. { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
+. { #N$7F | SPACE | FULL-STOP | M | N | B }
+. TABLE#
+  $B093,$01 Merge in the bits from #REGb.
+N $B094 Fill in the "blanks".
+  $B094,$02,b$01 Set bits 5-7.
+N $B096 If there's been any keypress at all then #REGa won't be #N$FF.
+  $B096,$05 If the result is not #N$FF jump to #R$B07D.
+N $B09B No key was pressed so return #REGa=#N$00.
+@ $B09B label=Controls_NoPress_Jump
+  $B09B,$01 #REGa=#N$00.
+  $B09C,$01 Return.
 
 w $B09D
   $B09D,$02
 
 c $B09F
+  $B09F,$04 #REGiy=*#R$B09D.
+  $B0A3,$06 Write *#REGiy+#N$0F to #R$B951.
+  $B0A9,$03 Call #R$AFC4.
+
+  $B0BA,$03 Call #R$B06D.
+
+  $B0C5,$03 Call #R$B00B.
+
+  $B0D3,$03 Jump to #R$B288.
+  $B0D6,$03 Call #R$B03C.
+
+  $B0DB,$04 Write #N$FF to *#REGiy+#N$3C.
+  $B0DF,$04 Write #N$FF to *#REGiy+#N$41.
+  $B0E3,$03 Jump to #R$B288.
 
 c $B0E6 Draws Sprites To The Shadow Buffer
 @ $B0E6 label=WriteSprite_ShadowBuffer
@@ -872,6 +1250,49 @@ c $B197
   $B1A5,$01 Return.
 
 c $B1A6
+
+  $B1B9,$07 If #REGiy+#N$3C is #N$01 jump to #R$B21C.
+  $B1C0,$07 #REGe=(*#REGiy+#N$4B)*#N$03.
+  $B1C7,$02 #REGd=#N$00.
+  $B1C9,$04 #REGhl=#R$B264+#REGde.
+
+
+  $B1E1,$02,b$01 Keep only bits 0-2.
+
+  $B1E5,$04 Write #N$0B to #REGiy+#N$4B.
+  $B1E9,$02 #REGb=#N$00.
+  $B1EB,$02 Jump to #R$B205.
+
+  $B201,$04 Write #N$00 to #REGiy+#N$05.
+  $B205,$03 Write #REGb to #REGiy+#N$00.
+
+  $B211,$04 Write #N$00 to #REGiy+#N$3C.
+  $B215,$04 Write #N$00 to #REGiy+#N$46.
+  $B219,$03 Jump to #R$E315.
+  $B21C,$07 #REGe=(*#REGiy+#N$4B)*#N$03.
+  $B223,$02 #REGd=#N$00.
+  $B225,$04 #REGhl=#R$B264+#REGde.
+
+  $B23D,$02,b$01 Keep only bits 0-2.
+
+  $B241,$04 Write #N$0B to #REGiy+#N$4B.
+  $B245,$02 #REGb=#N$00.
+  $B247,$02 Jump to #R$B205.
+
+  $B25F,$02 #REGa=#N$F0.
+  $B261,$03 Jump to #R$B202.
+B $B264,$24,$03
+
+c $B288
+  $B288,$03 Call #R$A921.
+  $B28B,$02
+  $B28D,$08
+  $B295,$08
+
+  $B2C1,$02 #REGa=#N$F0.
+  $B2C3,$03 Jump to #R$B2D5.
+
+  $B2D8,$03 Jump to #R$E2FC.
 
 g $B2DB Game Options
 @ $B2DB label=Game_Options
@@ -1030,6 +1451,16 @@ N $B3B4 Test for a key release...
 
 c $B3BE
 B $B3BE,$05
+  $B3C3,$03 #REGde=#N$131C.
+  $B3C6,$03 #REGhl=#R$CCF2.
+  $B3C9,$03 Call #R$B82B.
+  $B3CC,$04 #REGiy=#R$BC67.
+  $B3D0,$03 #REGhl=#R$B3BE.
+  $B3D3,$02 #REGb=#N$05.
+  $B3D5,$01 Stash #REGbc on the stack.
+  $B3D6,$04 Write #N$98 to #REGiy+#N$0A.
+  $B3DA,$06
+  $B3E0,$01 Stash #REGaf on the stack.
 
   $B430,$03 #REGde=#N($0400,$04,$04).
   $B433,$03 #REGhl=#R$7E68.
@@ -1163,31 +1594,41 @@ R $B715 C Attribute colour
   $B774,$06 Restore #REGde, #REGbc, #REGhl, #REGix and #REGaf from the stack.
   $B77A,$01 Return.
 
-c $B77B
+c $B77B Draw Character Item Graphics
+@ $B77B label=DrawCharacterItemGraphics
+R $B77B A The item ID
+R $B77B DE Screen co-ordinate for printing the item
+N $B77B Stash all the registers.
   $B77B,$04 Push #REGaf, #REGhl, #REGbc and #REGde on the stack.
   $B77F,$01 #REGc=#REGe.
   $B780,$01 #REGl=#REGd.
+N $B781 Set #REGb, #REGd and #REGh to #N$00.
   $B781,$02 #REGd=#N$00.
   $B783,$01 #REGh=#REGd.
   $B784,$01 #REGb=#REGd.
   $B785,$04 #REGhl*=#N$10.
-
-  $B789,$03 #REGde=#R$81F8.
-
-  $B793,$05 #REGhl*=#N$0100.
-  $B798,$03 #REGde=#R$8378.
-  $B79B,$01 #REGhl+=#REGde.
+  $B789,$04 #REGhl+=#R$81F8.
+  $B78D,$03 #REGix=#REGhl.
+N $B790 Look up the item graphics data.
+  $B790,$03 Create an offset for the item graphics data in #REGhl.
+N $B793 All items are 2x2 (so #N$02 bytes width * #N$10 bytes high).
+  $B793,$05 #REGhl*=#N$20.
+  $B798,$04 #REGhl+=#R$8378.
   $B79C,$01 Switch the #REGde and #REGhl registers.
-  $B79D,$02 #REGa=#N$10.
-
+N $B79D Draw the item graphic to the screen.
+  $B79D,$02 #REGa=#N$10 (height of items).
+@ $B79F label=DrawPossesions_Loop
+  $B79F,$06 #REGhl=the screen address from #REGix.
   $B7A5,$01 #REGhl+=#REGbc.
+N $B7A6 Move onto the next line down.
   $B7A6,$04 Increment #REGix by two.
   $B7AA,$01 Switch the #REGde and #REGhl registers.
-  $B7AB,$04
+  $B7AB,$04 Blit two bytes of item graphics to the screen buffer.
   $B7AF,$01 Switch the #REGde and #REGhl registers.
   $B7B0,$02 Increment #REGbc by two.
   $B7B2,$01 Decrease #REGa by one.
   $B7B3,$02 Jump to #R$B79F until #REGa is zero.
+N $B7B5 Restore all the registers and return.
   $B7B5,$04 Restore #REGde, #REGbc, #REGhl and #REGaf from the stack.
   $B7B9,$01 Return.
 
@@ -1511,13 +1952,13 @@ c $B9AC
   $B9D5,$01 Return.
 
 c $B9D6
-  $B9D6,$06 Write #REGiy+#N$0F to #R$B951.
+  $B9D6,$06 Write the current room (#REGiy+#N$0F) to #R$B951.
   $B9DC,$02 #REGb=#N$05.
   $B9DE,$02 Stash #REGiy on the stack.
   $B9E0,$04 #REGiy=#R$BC6B.
   $B9E4,$01 Stash #REGbc on the stack.
   $B9E5,$03 #REGa=*#R$B951.
-  $B9E8,$05 If #REGa is not equal to *#REGiy+#N$0F, jump to #R$B9F0.
+  $B9E8,$05 If #REGa is not equal to the current room (*#REGiy+#N$0F) jump to #R$B9F0.
   $B9ED,$03 Call #R$B0E6.
   $B9F0,$02 Decrease #REGiy by one.
   $B9F2,$01 Restore #REGbc from the stack.
@@ -1557,50 +1998,93 @@ c $BA25 Copy Routine
 
 t $BA66 Messaging: Is In
 @ $BA66 label=Messaging_IsIn
-  $BA66,$07 #FONT:( IS IN )$E0DC,attr=$4E(is-in)
+  $BA66,$07 #UDGTABLE { #FONT:( IS IN )$E0DC,attr=$4E(is-in) } UDGTABLE#
 B $BA6D,$01 Terminator.
 
 c $BA6E Handler: Display Character Location
 @ $BA6E label=Handler_DisplayCharacterLocation
+N $BA6E When a character switch is attempted but the character is not in the current room, this routine shows the
+.       current location of the chosen character.
+N $BA6E For example:
+. #UDGTABLE
+. { #FONT:(WALLY IS IN THE TOWN SQUARE)$E0DC,attr=$4E(wally-is-in-the-town-square) }
+. { #FONT:(WILMA IS IN PENNY LANE)$E0DC,attr=$4E(wilma-is-in-penny-lane) }
+. { #FONT:(TOM IS IN THE PUB)$E0DC,attr=$4E(tom-is-in-the-pub) }
+. { #FONT:(DICK IS IN THE DOCKS)$E0DC,attr=$4E(dick-is-in-the-docks) }
+. { #FONT:(HARRY IS IN THE SUPER MARKET)$E0DC,attr=$4E(harry-is-in-the-super-market) }
+. UDGTABLE#
+N $BA6E Return if the messaging is already showing.
   $BA6E,$05 Return if *#R$BAB3 is not zero.
+N $BA73 Set the appropriate UDG base address (#R$DFDC).
   $BA73,$06 Write #R$DFDC to *#R$B7E8(#N$B7E9).
-  $BA79,$03 #REGa=*#REGiy+#N$0F.
+N $BA79 Fetch the current room for the active character.
+  $BA79,$03 #REGa=*#REGiy+#N$0F (current room).
+N $BA7C Find the room name from the room ID.
+N $BA7C As the room names vary in length (and there's no lookup table), we call #R$AC6C, which counts through each
+.       terminator (#N$FF) to find the related room label memory location.
   $BA7C,$03 #REGhl=#R$7F1F.
   $BA7F,$03 Call #R$AC6C.
-  $BA82,$01 Stash #REGhl on the stack.
+  $BA82,$01 Stash the room name memory address (#REGhl) on the stack.
+N $BA83 Fetch the length of the room name.
   $BA83,$03 Call #R$BACE.
-
-  $BA8C,$01 Stash #REGhl on the stack.
+  $BA86,$01 #REGc=length of the room name.
+N $BA87 Fetch the character name.
+  $BA87,$02 #REGh=#N$7C.
+  $BA89,$03 #REGl=*#REGiy-#N$23.
+  $BA8C,$01 Stash the character name memory address (#REGhl) on the stack.
+N $BA8D Fetch the length of the character name.
   $BA8D,$03 Call #R$BACE.
-
+N $BA90 Hold the length of all the segments in #REGc (#N$07 is the length of " IS IN ").
+  $BA90,$05 #REGc=#N$07+#REGb+#REGc.
+  $BA95,$03 #REGa=#N$20-#REGc.
+  $BA98,$02 Shift and rotate #REGa left one bit.
+N $BA9A Set this to the screen co-ordinates held in #REGde.
+  $BA9A,$01 #REGe=#REGa.
   $BA9B,$02 #REGd=#N$04.
+N $BA9D Retrieve the character name label memory location.
   $BA9D,$01 Restore #REGhl from the stack.
   $BA9E,$02 #REGc=#N$4E (#COLOUR$4E).
   $BAA0,$03 Call #R$B84B.
+N $BAA3 Prints " IS IN " to the screen.
   $BAA3,$03 #REGhl=#R$BA66.
   $BAA6,$03 Call #R$B84B.
+N $BAA9 Retrieve the room label memory location.
   $BAA9,$01 Restore #REGhl from the stack.
+N $BAAA Print the room name to the screen.
   $BAAA,$03 Call #R$B84B.
+N $BAAD Kick off a countdown for showing the messaging for a brief period of time.
   $BAAD,$05 Write #N$1E to #R$BAB3.
   $BAB2,$01 Return.
 
-c $BAB3 Redraws Banner Underline
+g $BAB3 Messaging Countdown
+D $BAB3 Initialised to #N$1E at #R$BAAD and the countdown is made by #R$BAB4.
+@ $BAB3 label=MessagingCountdown
 B $BAB3,$01
+
+c $BAB4 Redraws Banner Underline
 @ $BAB4 label=Redraw_Banner_Underline
   $BAB4,$03 #REGhl=#R$BAB3.
+N $BAB7 Return if the "Character Is In Place" messaging countdown has already finished (i.e. is zero).
   $BAB7,$01 #REGa=*#REGhl.
   $BAB8,$02 Return if #REGa is zero.
+N $BABA Take one away from the countdown count.
   $BABA,$01 Decrease *#REGhl by one.
+N $BABB Return if the countdown is still "in-progress".
   $BABB,$01 Return if the result is not zero.
+N $BABC If the countdown is now zero, refresh/ redraw the banner (which the messaging overlays).
   $BABC,$02 #REGc=#N$42 (#COLOUR$42).
   $BABE,$06 Write #R$DFDC to #R$B7E8(#N$B7E9).
-  $BAC4,$03 #REGde=#N$0400.
+  $BAC4,$03 #REGde=#N$0400 (screen co-ordinates).
   $BAC7,$03 #REGhl=#R$7E68.
   $BACA,$03 Call #R$B84B.
   $BACD,$01 Return.
 
-c $BACE
+c $BACE Helper: Count Bytes To Terminator
+@ $BACE label=CountBytesToTerminator
+R $BACE HL Data to examine
+R $BACE O:B Number of bytes till the terminator
   $BACE,$02 #REGb=#N$00.
+@ $BAD0 label=CountBytesToTerminator_Loop
   $BAD0,$01 #REGa=*#REGhl.
   $BAD1,$03 If #REGa is #N$FF then return.
   $BAD4,$01 Increment #REGb by one.
@@ -5963,14 +6447,34 @@ L $D1BC,$08,$228
 c $E2FC
 
 c $E329
-  $E329,$03 #REGa=*#R$A838.
+  $E329,$08 #REGa=*#R$A838-(*#REGiy+#N$05)-#N$0D.
+  $E331,$03
+  $E334,$08 #REGa=*#R$A839-(*#REGiy+#N$0A)-#N$1C.
+  $E33C,$03
+
+  $E33F,$05 Return if #R$B55F is not zero.
+  $E344,$01 Switch to the shadow registers.
+  $E345,$03 #REGbc=#N$640A.
+  $E348,$03 #REGde=#N$0101.
+  $E34B,$03 #REGhl=#N$6401.
+  $E34E,$03 Call #R$E3D3.
+  $E351,$0B *#REGiy+#N$14-=*#R$F26E.
+  $E35C,$04 If *#REGiy+#N$14 <= #N$00 jump to #R$E362.
+  $E360,$02 Jump to #R$E36C.
+N $E362 A life has been "spent" so refill the endurance meter to the top.
+  $E362,$04 Write #N$80 to *#REGiy+#N$14.
+N $E366 Lose one heart...
+  $E366,$03 Decrease *#REGiy+#N$2D by one.
+N $E369 If the players hearts are now zero the game is over.
+  $E369,$03 If current players hearts (*#REGiy+#N$2D) are now zero jump to #R$B451.
+  $E36C,$01 Switch back to the normal registers.
 
   $E36D,$01 Switch to the shadow registers.
 N $E36E Draw the hearts to indicate the number of lives remaining.
   $E36E,$02 #REGc=#N$46 (#COLOUR$46).
   $E370,$06 Write #R$DFDC to #R$B7E8(#N$B7E9).
-  $E376,$03 #REGde=#N$021C.
-  $E379,$03 #REGl=*#REGiy+#N$2D.
+  $E376,$03 #REGde=#N$021C (screen co-ordinates).
+  $E379,$03 #REGl=*#REGiy+#N$2D (current players hearts).
   $E37C,$01 Decrease #REGl by one.
   $E37D,$02 #REGb=#N$02 (counter).
   $E37F,$02
@@ -6004,7 +6508,39 @@ N $E392 Draws the endurance ribbon.
   $E3D0,$01 Increment #REGe by one.
   $E3D1,$02 Jump to #R$E3AE.
 
-c $E3D3
+c $E3D3 Play Wave Sequence
+@ $E3D3 label=PlayWaveSequence
+  $E3D3,$03 #REGb-=#REGh.
+  $E3D6,$03 Call #R$E3EC.
+  $E3D9,$01 Decrease #REGc by one.
+  $E3DA,$02 If #REGc is not zero, jump to #R$E3D3.
+  $E3DC,$03 Call #R$E3EC.
+  $E3DF,$01 Decrease #REGd by one.
+  $E3E0,$02 If #REGd is not zero, jump to #R$E3DC.
+  $E3E2,$03 #REGb+=#REGl.
+  $E3E5,$03 Call #R$E3EC.
+  $E3E8,$01,$01 Decrease #REGe by one.
+  $E3E9,$02 If #REGe is not zero, jump to #R$E3E2.
+  $E3EB,$01 Return.
+
+c $E3EC Play square wave sound.
+@ $E3EC label=PlaySquareWave
+N $E3EC Flip speaker on (set bit 4).
+M $E3EC,$04 #REGa=#N$10 (speaker on = bit 4).
+  $E3EC,$02,b$01 #REGa=#N$10 (speaker on = bit 4).
+  $E3F0,$01 Stash #REGbc on the stack.
+@ $E3F1 label=PlaySquareWave_Loop
+  $E3F1,$02 Decrease duration by one and loop back to #R$E3F1 until counter is zero.
+  $E3F3,$01 Restore #REGbc from the stack.
+N $E3F4 Flip speaker off (unset bit 4).
+M $E3F4,$04 #REGa=#N$00 (speaker off).
+  $E3F4,$02,b$01
+  $E3F6,$02 Send to port #N$FE.
+  $E3F8,$01 Stash #REGbc on the stack.
+@ $E3F9 label=Silence_Loop
+  $E3F9,$02 Decrease duration by one and loop back to #R$E3F9 until counter is zero.
+  $E3FB,$01 Restore #REGbc from the stack.
+  $E3FC,$01 Return.
 
 c $E3FD Print Banner
 @ $E3FD label=PrintBanner
@@ -6026,7 +6562,66 @@ N $E419 Display the currently held items.
   $E419,$03 Call #R$E420.
   $E41C,$01 Return.
 
-c $E41D
+c $E41D Print Characters Items
+  $E41D,$03 Call #R$E77A.
+@ $E420 label=PrintCharacterItems
+N $E420 Fetch item 1 (#REGiy+#N$50) for the current character and calculate an offset.
+  $E420,$05 #REGe=(#REGiy+#N$50)*#N$02.
+  $E425,$02 #REGd=#N$00.
+  $E427,$04 #REGhl=#R$E728+#REGde.
+N $E42B Fetch the item 1 label memory location.
+  $E42B,$01 #REGe=*#REGhl.
+  $E42C,$01 Increment #REGhl by one.
+  $E42D,$01 #REGd=*#REGhl.
+N $E42E Fetch item 2 (#REGiy+#N$55) for the current character and calculate an offset.
+  $E42E,$05 #REGc=(#REGiy+#N$55)*#N$02.
+  $E433,$02 #REGb=#N$00.
+  $E435,$04 #REGhl=#R$E728+#REGbc.
+N $E439 Fetch the item 2 label memory location.
+  $E439,$01 #REGc=*#REGhl.
+  $E43A,$01 Increment #REGhl by one.
+  $E43B,$01 #REGb=*#REGhl.
+  $E43C,$01 Stash the item 2 label memory location (#REGbc) on the stack.
+  $E43D,$01 Switch the #REGde and #REGhl registers.
+  $E43E,$07 Write #R$DFDC to #R$B7E8(#N$B7E9).
+N $E445 Print the item labels to the screen.
+  $E445,$03 #REGde=#N($0003,$04,$04) (screen co-ordinates).
+  $E448,$02 #REGc=#N$43 (#COLOUR$43).
+  $E44A,$03 Call #R$E468.
+  $E44D,$01 Restore the item 2 label memory location from the stack.
+  $E44E,$03 #REGde=#N$0203 (screen co-ordinates).
+  $E451,$02 #REGc=#N$45 (#COLOUR$45).
+  $E453,$03 Call #R$E468.
+N $E456 Fetch item 1 (#REGiy+#N$50) for the current character.
+  $E456,$03 #REGa=(#REGiy+#N$50).
+  $E459,$03 #REGde=#N($0000,$04,$04) (screen co-ordinates).
+  $E45C,$03 Call #R$B77B.
+N $E45F Fetch item 2 (#REGiy+#N$55) for the current character.
+  $E45F,$03 #REGa=(#REGiy+#N$55).
+  $E462,$02 #REGd=#N$02 (update screen co-ordinates).
+  $E464,$03 Call #R$B77B.
+  $E467,$01 Return.
+
+c $E468 Draw Character Item Label
+@ $E468 label=DrawCharacterItemLabel
+  $E468,$03 Call #R$B84B.
+  $E46B,$02 #REGc=#N$07.
+N $E46D Check to see if there is a task associated with this item.
+  $E46D,$04 Return if *#REGhl is not #N$F4 (control character).
+  $E471,$01 Increment #REGhl by one.
+N $E472 Fetch the task ID.
+  $E472,$01 #REGa=*#REGhl.
+  $E473,$01 Increment #REGhl by one.
+  $E474,$03 Call #R$EC1D.
+  $E477,$03 If the task has completed, jump to #R$B84B.
+N $E47A The task has not yet been completed, so move onto the next messaging label.
+N $E47A This works as the items are stored as "completed label"+"termintor", "not completed label"+"termintor".
+  $E47A,$01 Stash #REGbc on the stack.
+  $E47B,$02 #REGb=#N$FF.
+  $E47D,$01 #REGa=#REGb.
+  $E47E,$02 Find the next messaging label.
+  $E480,$01 Restore #REGbc from the stack.
+  $E481,$03 Jump to #R$B84B.
 
 t $E484 Messaging: The Plunger
   $E484,$0B #FONT:(THE PLUNGER)$E0DC,attr=$45(the-plunger)
@@ -6052,7 +6647,7 @@ B $E4BB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E4BD,$01 Terminator.
 
 t $E4BE Messaging: Charged
-B $E4BE,$02
+B $E4BE,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E4C0,$07 #FONT:(CHARGED)$E0DC,attr=$45(charged)
 B $E4C7,$01 Terminator.
 
@@ -6118,7 +6713,7 @@ B $E568,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E56A,$01 Terminator.
 
 t $E56B Messaging: Full
-B $E56B,$02
+B $E56B,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E56D,$04 #FONT:(FULL)$E0DC,attr=$45(full)
 B $E571,$01 Terminator.
 
@@ -6154,7 +6749,7 @@ B $E5BC,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E5BE,$01 Terminator.
 
 t $E5BF Messaging: Stamped
-B $E5BF,$02
+B $E5BF,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E5C1,$07 #FONT:(STAMPED)$E0DC,attr=$45(stamped)
 B $E5C8,$01 Terminator.
 
@@ -6168,7 +6763,7 @@ B $E5DB,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E5DD,$01 Terminator.
 
 t $E5DE Messaging: Rewired
-B $E5DE,$02
+B $E5DE,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E5E0,$07 #FONT:(REWIRED)$E0DC,attr=$45(rewired)
 B $E5E7,$01 Terminator.
 
@@ -6202,7 +6797,7 @@ B $E62C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E62E,$01 Terminator.
 
 t $E62F Messaging: Working
-B $E62F,$02
+B $E62F,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E631,$07 #FONT:(WORKING)$E0DC,attr=$45(working)
 B $E638,$01 Terminator.
 
@@ -6220,7 +6815,7 @@ B $E652,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E654,$01 Terminator.
 
 t $E655 Messaging: Patched
-B $E655,$02
+B $E655,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E657,$07 #FONT:(PATCHED)$E0DC,attr=$45(patched)
 B $E65E,$01 Terminator.
 
@@ -6241,7 +6836,7 @@ B $E67C,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E682,$01 Terminator.
 
 t $E683 Messaging: Full
-B $E683,$02
+B $E683,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E685,$04 #FONT:(FULL)$E0DC,attr=$45(full)
 B $E689,$01 Terminator.
 
@@ -6267,7 +6862,7 @@ B $E6BD,$02 Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 B $E6BF,$01 Terminator.
 
 t $E6C0 Messaging: Full
-B $E6C0,$02
+B $E6C0,$02 Check task: #R($EC0F+#PEEK(#PC+$01)).
   $E6C2,$04 #FONT:(FULL)$E0DC,attr=$45(full)
 B $E6C6,$01 Terminator.
 
@@ -6309,22 +6904,31 @@ B $E727,$01 Terminator.
 
 w $E728 Table: Item Labels
 @ $E728 label=Table_ItemLabels
-  $E728,$02 #D(#PEEK(#PC)+#PEEK(#PC+$01)*$100).
+  $E728,$02 #LET(item=#PEEK(#PC)+#PEEK(#PC+$01)*$100)#R({item})(#D({item})).
 L $E728,$02,$29
 
-c $E77A
+c $E77A Clear Character Items
+@ $E77A label=ClearCharacterItems
   $E77A,$03 Stash #REGhl, #REGbc and #REGde on the stack.
   $E77D,$04 #REGix=#R$81F8.
-  $E781,$02 #REGc=#N$20.
+N $E781 The number of rows to blank.
+  $E781,$02 #REGc=#N$20 (rows).
+N $E783 Fetch the screen buffer address.
+@ $E783 label=ClearCharacterItems_NextLine
   $E783,$03 #REGl=#REGix+#N$00.
   $E786,$03 #REGh=#REGix+#N$01.
+N $E789 The number of columns to blank.
   $E789,$02 #REGb=#N$0F.
+@ $E78B label=ClearCharacterItems_Loop
   $E78B,$02 Write #N$00 to *#REGhl.
   $E78D,$01 Increment #REGhl by one.
   $E78E,$02 Decrease counter by one and loop back to #R$E78B until counter is zero.
+N $E790 Move onto the next line down in the screen buffer.
   $E790,$04 Increment #REGix by two.
+N $E794 Keep looping until all rows have been blanked.
   $E794,$01 Decrease #REGc by one.
   $E795,$02 Jump to #R$E783 until #REGc is zero.
+N $E797 Restore the registers and return.
   $E797,$03 Restore #REGde, #REGbc and #REGhl from the stack.
   $E79A,$01 Return.
 
@@ -6356,17 +6960,20 @@ N $E7A9 This associates each character with a keypress.
 @ $E7AD label=ChangeCharacters_WhichCharacter_Loop
   $E7AD,$01 Rotate #REGa right once.
   $E7AE,$02 If this key has been pressed, jump to #R$E7B4.
+N $E7B0 The character data is "interlaced" hence we can increment to point to the next character in the sequence.
   $E7B0,$02 Increment #REGiy by one.
   $E7B2,$02 Jump to #R$E7AD.
 N $E7B4 Check if the current character is in the same room as the selected character.
 @ $E7B4 label=ChangeCharacters_CheckRoom
   $E7B4,$03 #REGa=*#REGiy+#N$0F.
   $E7B7,$03 If this is the same room, jump to #R$E7C0.
+N $E7BA If the character is elsewhere, print where they are to the screen.
   $E7BA,$03 Call #R$BA6E.
+N $E7BD Restore the current character pointer to #REGiy and return.
 @ $E7BD label=ChangeCharacters_Return
   $E7BD,$02 Restore the character pointer in #REGiy from the stack.
   $E7BF,$01 Return.
-N $E7C0
+N $E7C0 The chosen character is in the same room as the current character, so begin to action the request.
 @ $E7C0 label=ChangeCharacters_Process
   $E7C0,$03 Call #R$A921.
   $E7C3,$02 If the selected character is the current character, jump to #R$E7BD.
@@ -6374,14 +6981,103 @@ N $E7C0
   $E7C9,$02 Restore #REGiy from the stack.
   $E7CB,$01 #REGa=#REGb.
   $E7CC,$03 Call #R$AC69.
-
+  $E7CF,$01 #REGa=*#REGhl.
+  $E7D0,$03 Write #REGa to #REGiy+#N$69.
+  $E7D3,$01 Increment #REGhl by one.
+  $E7D4,$01 #REGa=*#REGhl.
+  $E7D5,$03 Write #REGa to #REGiy+#N$64.
+  $E7D8,$01 Increment #REGhl by one.
+  $E7D9,$01 #REGa=*#REGhl.
+  $E7DA,$03 Write #REGa to #REGiy+#N$73.
+  $E7DD,$04 Write #N$05 to #REGiy+#N$6E.
   $E7E1,$04 #REGiy=*#R$B09D.
+N $E7E5 Update the banner to show the updated character name.
   $E7E5,$03 Call #R$E3FD.
   $E7E8,$01 Return.
 
-b $E7E9
+w $E7E9
+  $E7E9,$02 #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$E7E9)/$02)).
+L $E7E9,$02,$13
+
+b $E80F
+  $E83B,$01 Terminator.
+  $E842,$01 Terminator.
+  $E857,$01 Terminator.
+  $E858,$01 Terminator.
+  $E876,$01 Terminator.
+  $E87C,$01 Terminator.
+  $E87D,$01 Terminator.
+  $E87E,$01 Terminator.
+  $E8AF,$01 Terminator.
+  $E8C8,$01 Terminator.
+  $E8FA,$01 Terminator.
+  $E91E,$01 Terminator.
+  $E924,$01 Terminator.
+  $E92B,$01 Terminator.
+  $E931,$01 Terminator.
+  $E940,$01 Terminator.
+  $E941,$01 Terminator.
+  $E961,$01 Terminator.
+  $E985,$01 Terminator.
+  $E992,$01 Terminator.
+  $E9BC,$01 Terminator.
+  $E9BD,$01 Terminator.
+  $EA33,$01 Terminator.
+  $EA39,$01 Terminator.
+  $EA3A,$01 Terminator.
+  $EA58,$01 Terminator.
+  $EA5F,$01 Terminator.
+  $EA6F,$01 Terminator.
+  $EA70,$01 Terminator.
+  $EA76,$01 Terminator.
+  $EA93,$01 Terminator.
+  $EAA0,$01 Terminator.
+  $EABE,$01 Terminator.
 
 c $EABF
+  $EABF,$03 #REGa=*#REGiy+#N$0F.
+  $EAC2,$03 Write #REGa to #R$B951.
+  $EAC5,$03 #REGhl=#R$E80F.
+  $EAC8,$03 Call #R$AC6C.
+  $EACB,$01 #REGa=*#REGhl.
+  $EACC,$01 Increment #REGhl by one.
+  $EACD,$03 If #REGa is #N$FF (the terminator) then return.
+  $EAD0,$04 If #REGa is #N$F7 jump to #R$EAEB.
+  $EAD4,$01 #REGa*=#N$02.
+  $EAD5,$03 Create an offset in #REGde.
+  $EAD8,$01 Stash #REGhl on the stack.
+  $EAD9,$04 #REGhl=#R$E7E9+#REGde.
+  $EADD,$01 #REGe=*#REGhl.
+  $EADE,$01 Increment #REGhl by one.
+  $EADF,$01 #REGd=*#REGhl.
+  $EAE0,$01 Restore #REGhl from the stack.
+  $EAE1,$01 Stash #REGde on the stack.
+  $EAE2,$01 Return.
+
+  $EAE3,$01 #REGa=*#REGhl.
+  $EAE4,$01 Increment #REGhl by one.
+  $EAE5,$04 If #REGa is #N$F6 jump to #R$EACB.
+  $EAE9,$02 Jump to #R$EAE3.
+
+  $EAEB,$01 #REGa=*#REGhl.
+  $EAEC,$01 Increment #REGhl by one.
+  $EAED,$05 If #REGa is #N$F6 jump to #R$EACB.
+  $EAF2,$01 #REGa*=#N$02.
+  $EAF3,$03 Create an offset in #REGde.
+  $EAF6,$01 Stash #REGhl on the stack.
+  $EAF7,$04 #REGhl=#R$E7F9+#REGde.
+  $EAFB,$01 #REGe=*#REGhl.
+  $EAFC,$01 Increment #REGhl by one.
+  $EAFD,$01 #REGd=*#REGhl.
+  $EAFE,$01 Restore #REGhl from the stack.
+  $EAFF,$01 Stash #REGde on the stack.
+  $EB00,$01 Return.
+
+c $EB01
+
+  $EB0C,$03 Jump to #R$EAEB.
+
+c $EB0F
 
 g $EB54
 
@@ -6394,6 +7090,16 @@ c $EB55
   $EB78,$01 Return.
 
 c $EB79
+
+c $EB95
+
+c $EBC4
+
+c $EBE2
+
+c $EBED
+
+c $EBFE
 
 g $EC0F Game Flags
 @ $EC0F label=Flag_Bottle_Full
@@ -6437,7 +7143,8 @@ c $EC2B
   $EC2B,$03 Call #R$EC3D.
   $EC2E,$03 If the return zero flag is zero, jump to #R$EACB.
   $EC31,$03 Jump to #R$EAE3.
-N $EC34
+
+c $EC34
   $EC34,$03 Call #R$EC3D.
   $EC37,$03 If the return zero flag is not zero, jump to #R$EACB.
   $EC3A,$03 Jump to #R$EAE3.
@@ -6456,8 +7163,11 @@ N $EC3D
 c $EC4A
 
 b $EC5C
-  $ECF5
-  $ECF6
+
+c $ECBC
+
+b $ECF5
+b $ECF6
 
 g $ECFE Total Gang Earnings
 @ $ECFE label=TotalGangEarnings
@@ -6493,6 +7203,21 @@ c $ED2A
   $ED82,$04 Incremnt *#R$ECF5 by one.
   $ED86,$03 Call #R$B952.
   $ED89,$01 Return.
+
+c $EDA3
+
+c $EDA8
+
+c $EDAC
+
+c $EDB3
+
+b $EDBE
+  $EDC5
+
+c $EDC6
+
+c $EDF7
 
 c $EEA2
   $EEA2,$03 #REGde=#R$6B00.
@@ -6545,6 +7270,8 @@ c $EFC7
 g $F104
 
 c $F10E
+
+c $F177
 
 c $F578
   $F578,$05 Write #N$45 to #R$F26F.
