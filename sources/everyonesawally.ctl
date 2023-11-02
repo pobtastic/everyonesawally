@@ -381,6 +381,7 @@ b $80A9
 c $80E5 Game Selection Menu
 @ $80E5 label=GameMenu
   $80E5,$03 Call #R$B8ED.
+N $80EB Print up all the options.
 @ $80EB label=GameMenu_Loop
   $80E8,$03 Call #R$B471.
   $80EB,$03 #REGhl=#R$7DC6.
@@ -392,24 +393,37 @@ N $80F7 Calculate the screen position of the active control method.
   $80F7,$08 #REGb=#N$02-*#R$B2DB.
 N $80FF #REGd contains the vertical position.
   $80FF,$05 #REGd=(#REGb*#N$08)-#REGb.
+N $8104 And #REGe is hardcoded for the horizontal position.
   $8104,$02 #REGe=#N$03.
+N $8106 Print the active key to the screen, this just overwrites the one which is already present (so turns it white).
   $8106,$03 Call #R$B8C4.
+@ $8109 label=GameMenu_Initialise
   $8109,$05 Write #N$FF to #R$B4E9.
   $810E,$03 Call #R$B482.
-
+N $8111 Check if demo mode should start.
+  $8111,$06 If #R$B55F is not zero jump to #R$8155.
+  $8117,$03 #REGa=*#R$B4E9.
+N $811A Handler for selecting "Sinclair Joystick".
   $811A,$04 If bit 0 is not set, jump to #R$8123.
   $811E,$03 Call #R$B2DC.
   $8121,$02 Jump to #R$80EB.
+N $8123 Handler for selecting "Kempston Joystick".
 @ $8123 label=GameMenu_Kempston
   $8123,$04 If bit 1 is not set, jump to #R$812C.
   $8127,$03 Call #R$B2E2.
   $812A,$02 Jump to #R$80EB.
+N $812C Handler for selecting "Keyboard".
 @ $812C label=GameMenu_Keyboard
   $812C,$04 If bit 2 is not set, jump to #R$8135.
   $8130,$03 Call #R$B2E8.
   $8133,$02 Jump to #R$80EB.
+N $8135 Handler for selecting "Start".
+@ $8135 label=GameMenu_StartGame
   $8135,$04 If bit 3 is not set, jump to #R$8109.
   $8139,$01 Return.
+
+g $813A
+B $813A,$01
 
 c $813B
   $813B,$03 Call #R$B952.
@@ -1498,29 +1512,54 @@ c $B471 Initialise Theme Music
   $B47D,$04 Write #N$00 to #R$B55F.
   $B481,$01 Return.
 
-c $B482
+c $B482 Check Music
+@ $B482 label=Check_Music
+N $B482 If the music is still playing, jump ahead to #R$B494.
   $B482,$03 #REGhl=*#R$B4E7.
+N $B485 Retrieve music data (the terminator is #N$00).
   $B485,$01 #REGa=*#REGhl.
-  $B486,$01
-  $B487,$02
+  $B486,$03 If #REGa is not zero jump to #R$B494.
+N $B489 Music has finished, so kick off demo mode.
   $B489,$05 Write #N$01 to #R$B55F.
   $B48E,$05 Write #N$FF to #R$B4E9.
   $B493,$01 Return.
 
-  $B494,$01 Increment #REGhl by one.
-  $B495,$04
-  $B499,$04 Write #N$00 to #R$B4EA.
+c $B494 Handler: Theme Music
+@ $B494 label=ThemeMusic
+R $B494 A Music data
+R $B494 HL Music data address pointer
+  $B494,$01 Increment music data address pointer held in #REGhl by one.
+N $B495 The control character #N$FE signifies a key change.
+  $B495,$04 If #REGa is not #N$FE jump to #R$B4A2.
+  $B499,$01 #REGa=#N$00.
+@ $B49A label=ThemeMusic_SetKey
+  $B49A,$03 Write #REGa to #R$B4EA.
+  $B49D,$03 Write #REGhl to #R$B4E7.
   $B4A0,$02 Jump to #R$B482.
-
-  $B4A2,$04
+N $B4A2 The control character #N$FF signifies a key change.
+@ $B4A2 label=ThemeMusic_CheckKeyChange
+  $B4A2,$04 If #REGa is not #N$FF jump to #R$B4AA.
   $B4A6,$02 #REGa=#N$01.
   $B4A8,$02 Jump to #R$B49A.
 
   $B4AA,$01 Stash #REGaf on the stack.
   $B4AB,$01 #REGa=*#REGhl.
-  $B4AC,$01 Increment #REGhl by one.
+  $B4AC,$01 Increment music data address pointer held in #REGhl by one.
   $B4AD,$03 Write #REGhl to #R$B4E7.
-
+  $B4B0,$03 If #REGa is zero jump to #R$B4DB.
+  $B4B3,$03 Create an offset in #REGhl.
+  $B4B6,$01 #REGhl*=#N$02.
+  $B4B7,$04 #REGhl+=#R$B537.
+  $B4BB,$01 #REGc=*#REGhl.
+  $B4BC,$02 #REGb=#N$00.
+  $B4BE,$01 Increment music data address pointer held in #REGhl by one.
+  $B4BF,$01 #REGe=*#REGhl.
+  $B4C0,$01 #REGd=#N$00.
+  $B4C1,$01 Restore #REGaf from the stack.
+  $B4C2,$04 #REGhl+=#N($0000,$04,$04).
+  $B4C6,$01 Decrease #REGa by one.
+  $B4C7,$02 Jump to #R$B4C5 until #REGa is zero.
+  $B4C9,$01 Switch the #REGde and #REGhl registers.
   $B4CA,$03 Call #R$B505.
   $B4CD,$03 #REGa=*#R$B4E9.
   $B4D0,$03 Return if #REGa is not #N$FF.
@@ -1531,39 +1570,95 @@ c $B482
   $B4DE,$01 Restore #REGaf from the stack.
   $B4DF,$03 Call #R$B4EB.
   $B4E2,$01 Decrease #REGa by one.
-  $B4E3,$02
+  $B4E3,$02 Jump to #R$B4DF until #REGa is zero.
   $B4E5,$02 Jump to #R$B4D3.
 
-w $B4E7
+w $B4E7 Music Data Pointer
+@ $B4E7 label=Pointer_MusicData
   $B4E7,$02
 
-b $B4E9
-  $B4EA
+g $B4E9 Flag: Temp Game Options
+@ $B4E9 label=Flag_Temp_GameOptions
+B $B4E9,$01
 
-c $B4EB
+g $B4EA Flag: Theme Music Key Change
+@ $B4EA label=Flag_ThemeMusic_KeyChange
+B $B4EA,$01
+
+c $B4EB Handler: Game Menu Input
+@ $B4EB label=Handler_GameMenuInput
+R $B4EB BC Counter for a slight pause
   $B4EB,$03 Stash #REGaf, #REGbc and #REGde on the stack.
+@ $B4EE label=Handler_GameMenuInput_Pause
   $B4EE,$01 Decrease #REGbc by one.
   $B4EF,$04 Jump to #R$B4EE until #REGbc is #N($0000,$04,$04).
-
+N $B4F3 Collect the user input.
   $B4F3,$04 Read from the keyboard;
 . #TABLE(default,centre,centre,centre,centre,centre,centre)
 . { =h,r2 Port Number | =h,c5 Bit }
 . { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
 . { #N$F7 | 1 | 2 | 3 | 4 | 5 }
 . TABLE#
-
+N $B4F7 Pad out the bits we're not interested in (only keys 1, 2, 3 and 4).
   $B4F7,$02,b$01 Set bits 4-7.
-
+  $B4F9,$01 Store the result in #REGe.
+  $B4FA,$03 #REGa=*#R$B4E9.
+  $B4FD,$01 Merge in the bits from #REGe.
+  $B4FE,$03 Write #REGa to *#R$B4E9.
   $B501,$03 Restore #REGde, #REGbc and #REGaf from the stack.
   $B504,$01 Return.
 
-c $B505
+c $B505 Play Theme Music
+@ $B505 label=Play_ThemeMusic
+  $B505,$06 If #R$B4EA is zero jump to #R$B50F.
+  $B50B,$01 #REGh=#REGb.
+  $B50C,$01 #REGl=#REGc.
+  $B50D,$02 Jump to #R$B520.
+@ $B50F label=Play_ThemeMusic_KeyChange
+  $B50F,$01 #REGh=#REGb.
+  $B510,$01 #REGl=#REGc.
+  $B511,$02
+  $B513,$02
+  $B515,$01 #REGhl+=#REGbc.
+  $B516,$02
+  $B518,$02
+  $B51A,$01 #REGhl+=#REGbc.
+  $B51B,$02
+  $B51D,$02
+  $B51F,$01 #REGhl+=#REGbc.
+N $B520 Flip speaker on (set bit 4).
+M $B520,$04 #REGa=#N$10 (speaker on = bit 4).
+@ $B520 label=Play_ThemeMusic_Sound
+  $B520,$02,b$01
+  $B522,$02
+  $B524,$03 Call #R$B4EB.
+N $B527 Flip speaker off (unset bit 4).
+M $B527,$03 #REGa=#N$00 (speaker off).
+  $B527,$01
+  $B528,$02
+  $B52A,$01 Stash #REGbc on the stack.
+  $B52B,$01 #REGb=#REGh.
+  $B52C,$01 #REGc=#REGl.
+  $B52D,$03 Call #R$B4EB.
+  $B530,$01 Restore #REGbc from the stack.
+  $B531,$01 Decrease #REGde by one.
+  $B532,$04 Jump to #R$B520 until #REGde is zero.
   $B536,$01 Return.
 
 b $B537
 
-b $B55F
-  $B560
+g $B55F Flag: Demo Mode
+@ $B55F label=Flag_DemoMode
+B $B55F,$01
+
+b $B560 Theme Music Data
+@ $B560 label=Data_ThemeTune
+  $B560,$01 Control character: "Normal".
+  $B59B,$01 Control character: "High".
+  $B620,$01 Control character: "Normal".
+  $B68D,$01 Control character: "High".
+  $B6D0,$01 Control character: "Normal".
+  $B713,$02,$01 Terminator.
 
 c $B715 Print Colour String
 @ $B715 label=PrintStringColour

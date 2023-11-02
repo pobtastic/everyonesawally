@@ -1,0 +1,10 @@
+; Copyright 2023 Paul Maddern (paul@arcadegeek.co.uk)
+
+[Page:Sound]
+SectionPrefix=Audio
+
+[Audio:themetune:Theme tune]
+This tune is played by the routine at #R$B494 using the music data at #R$B560
+and is played before a new game or the demo mode starts.
+
+#AUDIO$01(tune.wav)(#INCLUDE(ThemeTune))

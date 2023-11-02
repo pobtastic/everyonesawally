@@ -1719,6 +1719,7 @@ b$80A9 DEFB $FF,$00,$00,$00,$00,$FF,$00,$00
 @label=GameMenu
 c$80E5 CALL $B8ED    ; Call #R$B8ED.
  $80E8 CALL $B471    ; Call #R$B471.
+; Print up all the options.
 @label=GameMenu_Loop
 *$80EB LD HL,$7DC6   ; #REGhl=#R$7DC6.
  $80EE LD DE,$0003   ; #REGde=#N($0003,$04,$04).
@@ -1737,33 +1738,45 @@ c$80E5 CALL $B8ED    ; Call #R$B8ED.
  $8101 ADD A,A       ;
  $8102 SUB B         ;
  $8103 LD D,A        ; }
+; And #REGe is hardcoded for the horizontal position.
  $8104 LD E,$03      ; #REGe=#N$03.
+; Print the active key to the screen, this just overwrites the one which is
+; already present (so turns it white).
  $8106 CALL $B8C4    ; Call #R$B8C4.
+@label=GameMenu_Initialise
 *$8109 LD A,$FF      ; {Write #N$FF to #R$B4E9.
  $810B LD ($B4E9),A  ; }
  $810E CALL $B482    ; Call #R$B482.
- $8111 LD A,($B55F)  ;
+; Check if demo mode should start.
+ $8111 LD A,($B55F)  ; {If #R$B55F is not zero jump to #R$8155.
  $8114 OR A          ;
- $8115 JR NZ,$8155   ;
- $8117 LD A,($B4E9)  ;
+ $8115 JR NZ,$8155   ; }
+ $8117 LD A,($B4E9)  ; #REGa=*#R$B4E9.
+; Handler for selecting "Sinclair Joystick".
  $811A BIT 0,A       ; {If bit 0 is not set, jump to #R$8123.
  $811C JR NZ,$8123   ; }
  $811E CALL $B2DC    ; Call #R$B2DC.
  $8121 JR $80EB      ; Jump to #R$80EB.
+; Handler for selecting "Kempston Joystick".
 @label=GameMenu_Kempston
 *$8123 BIT 1,A       ; {If bit 1 is not set, jump to #R$812C.
  $8125 JR NZ,$812C   ; }
  $8127 CALL $B2E2    ; Call #R$B2E2.
  $812A JR $80EB      ; Jump to #R$80EB.
+; Handler for selecting "Keyboard".
 @label=GameMenu_Keyboard
 *$812C BIT 2,A       ; {If bit 2 is not set, jump to #R$8135.
  $812E JR NZ,$8135   ; }
  $8130 CALL $B2E8    ; Call #R$B2E8.
  $8133 JR $80EB      ; Jump to #R$80EB.
+; Handler for selecting "Start".
+@label=GameMenu_StartGame
 *$8135 BIT 3,A       ; {If bit 3 is not set, jump to #R$8109.
  $8137 JR NZ,$8109   ; }
  $8139 RET           ; Return.
- $813A NOP           ;
+
+; Game status buffer entry at 813A
+g$813A DEFB $00
 
 ; Routine at 813B
 ;
@@ -6048,51 +6061,73 @@ c$B471 DI            ; Disable interrupts.
  $B47E LD ($B55F),A  ; }
  $B481 RET           ; Return.
 
-; Routine at B482
+; Check Music
 ;
-; Used by the routine at #R$80E5.
+; Used by the routines at #R$80E5 and #R$B494.
+;
+; .
+;
+; If the music is still playing, jump ahead to #R$B494.
+@label=Check_Music
 c$B482 LD HL,($B4E7) ; #REGhl=*#R$B4E7.
+; Retrieve music data (the terminator is #N$00).
  $B485 LD A,(HL)     ; #REGa=*#REGhl.
- $B486 OR A          ;
- $B487 JR NZ,$B494   ;
+ $B486 OR A          ; {If #REGa is not zero jump to #R$B494.
+ $B487 JR NZ,$B494   ; }
+; Music has finished, so kick off demo mode.
  $B489 LD A,$01      ; {Write #N$01 to #R$B55F.
  $B48B LD ($B55F),A  ; }
  $B48E LD A,$FF      ; {Write #N$FF to #R$B4E9.
  $B490 LD ($B4E9),A  ; }
  $B493 RET           ; Return.
-*$B494 INC HL        ; Increment #REGhl by one.
- $B495 CP $FE        ;
- $B497 JR NZ,$B4A2   ;
- $B499 XOR A         ; {Write #N$00 to #R$B4EA.
-*$B49A LD ($B4EA),A  ; }
- $B49D LD ($B4E7),HL ;
+
+; Handler: Theme Music
+;
+; Used by the routine at #R$B482.
+;
+; A Music data
+; HL Music data address pointer
+@label=ThemeMusic
+c$B494 INC HL        ; Increment music data address pointer held in #REGhl by
+                     ; one.
+; The control character #N$FE signifies a key change.
+ $B495 CP $FE        ; {If #REGa is not #N$FE jump to #R$B4A2.
+ $B497 JR NZ,$B4A2   ; }
+ $B499 XOR A         ; #REGa=#N$00.
+@label=ThemeMusic_SetKey
+*$B49A LD ($B4EA),A  ; Write #REGa to #R$B4EA.
+ $B49D LD ($B4E7),HL ; Write #REGhl to #R$B4E7.
  $B4A0 JR $B482      ; Jump to #R$B482.
-*$B4A2 CP $FF        ;
- $B4A4 JR NZ,$B4AA   ;
+; The control character #N$FF signifies a key change.
+@label=ThemeMusic_CheckKeyChange
+*$B4A2 CP $FF        ; {If #REGa is not #N$FF jump to #R$B4AA.
+ $B4A4 JR NZ,$B4AA   ; }
  $B4A6 LD A,$01      ; #REGa=#N$01.
  $B4A8 JR $B49A      ; Jump to #R$B49A.
 *$B4AA PUSH AF       ; Stash #REGaf on the stack.
  $B4AB LD A,(HL)     ; #REGa=*#REGhl.
- $B4AC INC HL        ; Increment #REGhl by one.
+ $B4AC INC HL        ; Increment music data address pointer held in #REGhl by
+                     ; one.
  $B4AD LD ($B4E7),HL ; Write #REGhl to #R$B4E7.
- $B4B0 OR A          ;
- $B4B1 JR Z,$B4DB    ;
- $B4B3 LD L,A        ;
- $B4B4 LD H,$00      ;
- $B4B6 ADD HL,HL     ;
- $B4B7 LD DE,$B537   ;
- $B4BA ADD HL,DE     ;
- $B4BB LD C,(HL)     ;
- $B4BC LD B,$00      ;
- $B4BE INC HL        ;
- $B4BF LD E,(HL)     ;
- $B4C0 LD D,B        ;
- $B4C1 POP AF        ;
- $B4C2 LD HL,$0000   ;
-*$B4C5 ADD HL,DE     ;
- $B4C6 DEC A         ;
- $B4C7 JR NZ,$B4C5   ;
- $B4C9 EX DE,HL      ;
+ $B4B0 OR A          ; {If #REGa is zero jump to #R$B4DB.
+ $B4B1 JR Z,$B4DB    ; }
+ $B4B3 LD L,A        ; {Create an offset in #REGhl.
+ $B4B4 LD H,$00      ; }
+ $B4B6 ADD HL,HL     ; #REGhl*=#N$02.
+ $B4B7 LD DE,$B537   ; {#REGhl+=#R$B537.
+ $B4BA ADD HL,DE     ; }
+ $B4BB LD C,(HL)     ; #REGc=*#REGhl.
+ $B4BC LD B,$00      ; #REGb=#N$00.
+ $B4BE INC HL        ; Increment music data address pointer held in #REGhl by
+                     ; one.
+ $B4BF LD E,(HL)     ; #REGe=*#REGhl.
+ $B4C0 LD D,B        ; #REGd=#N$00.
+ $B4C1 POP AF        ; Restore #REGaf from the stack.
+ $B4C2 LD HL,$0000   ; {#REGhl+=#N($0000,$04,$04).
+*$B4C5 ADD HL,DE     ; }
+ $B4C6 DEC A         ; Decrease #REGa by one.
+ $B4C7 JR NZ,$B4C5   ; Jump to #R$B4C5 until #REGa is zero.
+ $B4C9 EX DE,HL      ; Switch the #REGde and #REGhl registers.
  $B4CA CALL $B505    ; Call #R$B505.
  $B4CD LD A,($B4E9)  ; #REGa=*#R$B4E9.
  $B4D0 CP $FF        ; {Return if #REGa is not #N$FF.
@@ -6104,77 +6139,93 @@ c$B482 LD HL,($B4E7) ; #REGhl=*#R$B4E7.
  $B4DE POP AF        ; Restore #REGaf from the stack.
 *$B4DF CALL $B4EB    ; Call #R$B4EB.
  $B4E2 DEC A         ; Decrease #REGa by one.
- $B4E3 JR NZ,$B4DF   ;
+ $B4E3 JR NZ,$B4DF   ; Jump to #R$B4DF until #REGa is zero.
  $B4E5 JR $B4D3      ; Jump to #R$B4D3.
 
-; Data block at B4E7
+; Music Data Pointer
+@label=Pointer_MusicData
 w$B4E7 DEFW $0000
 
-; Data block at B4E9
-b$B4E9 DEFB $FF
- $B4EA DEFB $00
+; Flag: Temp Game Options
+@label=Flag_Temp_GameOptions
+g$B4E9 DEFB $FF
 
-; Routine at B4EB
+; Flag: Theme Music Key Change
+@label=Flag_ThemeMusic_KeyChange
+g$B4EA DEFB $00
+
+; Handler: Game Menu Input
 ;
-; Used by the routines at #R$B482 and #R$B505.
+; Used by the routines at #R$B494 and #R$B505.
+;
+; BC Counter for a slight pause
+@label=Handler_GameMenuInput
 c$B4EB PUSH AF       ; {Stash #REGaf, #REGbc and #REGde on the stack.
  $B4EC PUSH BC       ;
  $B4ED PUSH DE       ; }
+@label=Handler_GameMenuInput_Pause
 *$B4EE DEC BC        ; Decrease #REGbc by one.
  $B4EF LD A,B        ; {Jump to #R$B4EE until #REGbc is #N($0000,$04,$04).
  $B4F0 OR C          ;
  $B4F1 JR NZ,$B4EE   ; }
+; Collect the user input.
  $B4F3 LD A,$F7      ; {Read from the keyboard;
  $B4F5 IN A,($FE)    ; #TABLE(default,centre,centre,centre,centre,centre,centre)
                      ; { =h,r2 Port Number | =h,c5 Bit }
                      ; { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
                      ; { #N$F7 | 1 | 2 | 3 | 4 | 5 }
                      ; TABLE#}
+; Pad out the bits we're not interested in (only keys 1, 2, 3 and 4).
  $B4F7 OR %11110000  ; Set bits 4-7.
- $B4F9 LD E,A        ;
- $B4FA LD A,($B4E9)  ;
- $B4FD AND E         ;
- $B4FE LD ($B4E9),A  ;
+ $B4F9 LD E,A        ; Store the result in #REGe.
+ $B4FA LD A,($B4E9)  ; #REGa=*#R$B4E9.
+ $B4FD AND E         ; Merge in the bits from #REGe.
+ $B4FE LD ($B4E9),A  ; Write #REGa to *#R$B4E9.
  $B501 POP DE        ; {Restore #REGde, #REGbc and #REGaf from the stack.
  $B502 POP BC        ;
  $B503 POP AF        ; }
  $B504 RET           ; Return.
 
-; Routine at B505
+; Play Theme Music
 ;
-; Used by the routine at #R$B482.
-c$B505 LD A,($B4EA)  ;
- $B508 OR A          ;
- $B509 JR Z,$B50F    ;
- $B50B LD H,B        ;
- $B50C LD L,C        ;
- $B50D JR $B520      ;
-*$B50F LD H,B        ;
- $B510 LD L,C        ;
- $B511 SRA B         ;
- $B513 RR C          ;
- $B515 ADD HL,BC     ;
- $B516 SRA B         ;
- $B518 RR C          ;
- $B51A ADD HL,BC     ;
- $B51B SRA B         ;
- $B51D RR C          ;
- $B51F ADD HL,BC     ;
-*$B520 LD A,$10      ;
- $B522 OUT ($FE),A   ;
- $B524 CALL $B4EB    ;
- $B527 XOR A         ;
- $B528 OUT ($FE),A   ;
- $B52A PUSH BC       ;
- $B52B LD B,H        ;
- $B52C LD C,L        ;
- $B52D CALL $B4EB    ;
- $B530 POP BC        ;
- $B531 DEC DE        ;
- $B532 LD A,D        ;
- $B533 OR E          ;
- $B534 JR NZ,$B520   ;
- $B536 RET           ; Return.
+; Used by the routine at #R$B494.
+@label=Play_ThemeMusic
+c$B505 LD A,($B4EA)   ; {If #R$B4EA is zero jump to #R$B50F.
+ $B508 OR A           ;
+ $B509 JR Z,$B50F     ; }
+ $B50B LD H,B         ; #REGh=#REGb.
+ $B50C LD L,C         ; #REGl=#REGc.
+ $B50D JR $B520       ; Jump to #R$B520.
+@label=Play_ThemeMusic_KeyChange
+*$B50F LD H,B         ; #REGh=#REGb.
+ $B510 LD L,C         ; #REGl=#REGc.
+ $B511 SRA B          ;
+ $B513 RR C           ;
+ $B515 ADD HL,BC      ; #REGhl+=#REGbc.
+ $B516 SRA B          ;
+ $B518 RR C           ;
+ $B51A ADD HL,BC      ; #REGhl+=#REGbc.
+ $B51B SRA B          ;
+ $B51D RR C           ;
+ $B51F ADD HL,BC      ; #REGhl+=#REGbc.
+; Flip speaker on (set bit 4).
+@label=Play_ThemeMusic_Sound
+*$B520 LD A,%00010000 ; {#REGa=#N$10 (speaker on = bit 4).
+ $B522 OUT ($FE),A    ; }
+ $B524 CALL $B4EB     ; Call #R$B4EB.
+; Flip speaker off (unset bit 4).
+ $B527 XOR A          ; {#REGa=#N$00 (speaker off).
+ $B528 OUT ($FE),A    ; }
+ $B52A PUSH BC        ; Stash #REGbc on the stack.
+ $B52B LD B,H         ; #REGb=#REGh.
+ $B52C LD C,L         ; #REGc=#REGl.
+ $B52D CALL $B4EB     ; Call #R$B4EB.
+ $B530 POP BC         ; Restore #REGbc from the stack.
+ $B531 DEC DE         ; Decrease #REGde by one.
+ $B532 LD A,D         ; {Jump to #R$B520 until #REGde is zero.
+ $B533 OR E           ;
+ $B534 JR NZ,$B520    ; }
+ $B536 RET            ; Return.
 
 ; Data block at B537
 b$B537 DEFB $00,$00,$EC,$1C,$DF,$1C,$D3,$1E
@@ -6183,63 +6234,76 @@ b$B537 DEFB $00,$00,$EC,$1C,$DF,$1C,$D3,$1E
  $B54F DEFB $7C,$36,$73,$3A,$6E,$3C,$67,$40
  $B557 DEFB $62,$42,$5C,$48,$56,$4C,$51,$52
 
-; Data block at B55F
-b$B55F DEFB $00
- $B560 DEFB $FF,$03,$07,$03,$07,$02,$07,$01
- $B568 DEFB $04,$02,$07,$0D,$0C,$03,$0E,$03
- $B570 DEFB $0E,$02,$0E,$01,$0C,$02,$09,$03
- $B578 DEFB $06,$03,$0E,$03,$0D,$03,$0C,$02
- $B580 DEFB $0B,$03,$13,$01,$09,$03,$11,$02
- $B588 DEFB $07,$03,$10,$01,$05,$09,$0E,$03
- $B590 DEFB $0C,$03,$0C,$02,$0C,$01,$09,$02
- $B598 DEFB $07,$0D,$0C,$FE,$05,$10,$01,$0F
- $B5A0 DEFB $05,$10,$01,$0E,$01,$10,$07,$0C
- $B5A8 DEFB $01,$0C,$01,$0B,$01,$0A,$02,$10
- $B5B0 DEFB $01,$0F,$02,$10,$01,$0E,$02,$10
- $B5B8 DEFB $01,$0E,$02,$10,$01,$0E,$0C,$0E
- $B5C0 DEFB $05,$0E,$01,$0D,$05,$0E,$01,$10
- $B5C8 DEFB $01,$11,$0A,$0E,$03,$0C,$01,$0C
- $B5D0 DEFB $02,$09,$01,$07,$02,$0C,$01,$0C
- $B5D8 DEFB $02,$09,$01,$07,$0C,$0C,$05,$10
- $B5E0 DEFB $01,$0F,$05,$10,$01,$0E,$01,$10
- $B5E8 DEFB $07,$0C,$01,$0C,$01,$0B,$01,$0A
- $B5F0 DEFB $02,$10,$01,$0F,$02,$10,$01,$0E
- $B5F8 DEFB $02,$10,$01,$0E,$02,$10,$01,$0E
- $B600 DEFB $0C,$0E,$05,$0E,$01,$0D,$05,$0E
- $B608 DEFB $01,$10,$01,$11,$0A,$0E,$03,$0C
- $B610 DEFB $01,$0C,$02,$09,$01,$07,$02,$0C
- $B618 DEFB $01,$0C,$02,$09,$01,$07,$0C,$0C
- $B620 DEFB $FF,$03,$07,$03,$07,$02,$07,$01
- $B628 DEFB $04,$02,$07,$0D,$0C,$03,$0E,$03
- $B630 DEFB $0E,$02,$0E,$01,$0C,$02,$09,$04
- $B638 DEFB $06,$03,$0E,$03,$0D,$03,$0C,$02
- $B640 DEFB $0B,$03,$13,$01,$09,$03,$11,$02
- $B648 DEFB $07,$03,$10,$01,$05,$09,$0E,$03
- $B650 DEFB $0C,$03,$0C,$02,$0C,$01,$09,$02
- $B658 DEFB $07,$0D,$0C,$03,$0B,$03,$0B,$02
- $B660 DEFB $0B,$01,$06,$02,$03,$0D,$0B,$03
- $B668 DEFB $07,$03,$07,$02,$07,$01,$06,$02
- $B670 DEFB $07,$0D,$04,$03,$09,$03,$09,$02
- $B678 DEFB $09,$01,$04,$02,$01,$0D,$09,$03
- $B680 DEFB $0E,$03,$0E,$02,$0E,$01,$09,$03
- $B688 DEFB $06,$06,$0B,$06,$0A,$FE,$05,$10
- $B690 DEFB $01,$0F,$05,$10,$01,$0E,$01,$10
- $B698 DEFB $07,$0C,$01,$0C,$01,$0B,$01,$0A
- $B6A0 DEFB $02,$10,$01,$0F,$02,$10,$01,$0E
- $B6A8 DEFB $02,$10,$01,$0E,$02,$10,$01,$0E
- $B6B0 DEFB $0C,$0E,$05,$0E,$01,$0D,$05,$0E
- $B6B8 DEFB $01,$10,$01,$11,$0A,$0E,$02,$0C
- $B6C0 DEFB $01,$0C,$02,$09,$01,$07,$02,$0C
- $B6C8 DEFB $01,$0C,$02,$09,$01,$07,$0C,$0C
- $B6D0 DEFB $FF,$05,$10,$01,$0F,$05,$10,$01
- $B6D8 DEFB $0E,$01,$10,$07,$0C,$01,$0C,$01
- $B6E0 DEFB $0B,$02,$0A,$02,$10,$01,$0F,$02
- $B6E8 DEFB $10,$01,$0E,$02,$10,$01,$0E,$02
- $B6F0 DEFB $10,$01,$0E,$0C,$0E,$05,$0E,$01
- $B6F8 DEFB $0D,$05,$0E,$01,$10,$01,$11,$0A
- $B700 DEFB $0E,$02,$0C,$01,$0C,$02,$09,$01
- $B708 DEFB $07,$02,$0C,$01,$0C,$02,$09,$01
- $B710 DEFB $07,$0C,$0C,$00,$00
+; Flag: Demo Mode
+@label=Flag_DemoMode
+g$B55F DEFB $00
+
+; Theme Music Data
+@label=Data_ThemeTune
+b$B560 DEFB $FF                             ; Control character: "Normal".
+ $B561 DEFB $03,$07,$03,$07,$02,$07,$01,$04
+ $B569 DEFB $02,$07,$0D,$0C,$03,$0E,$03,$0E
+ $B571 DEFB $02,$0E,$01,$0C,$02,$09,$03,$06
+ $B579 DEFB $03,$0E,$03,$0D,$03,$0C,$02,$0B
+ $B581 DEFB $03,$13,$01,$09,$03,$11,$02,$07
+ $B589 DEFB $03,$10,$01,$05,$09,$0E,$03,$0C
+ $B591 DEFB $03,$0C,$02,$0C,$01,$09,$02,$07
+ $B599 DEFB $0D,$0C
+ $B59B DEFB $FE                             ; Control character: "High".
+ $B59C DEFB $05,$10,$01,$0F,$05,$10,$01,$0E
+ $B5A4 DEFB $01,$10,$07,$0C,$01,$0C,$01,$0B
+ $B5AC DEFB $01,$0A,$02,$10,$01,$0F,$02,$10
+ $B5B4 DEFB $01,$0E,$02,$10,$01,$0E,$02,$10
+ $B5BC DEFB $01,$0E,$0C,$0E,$05,$0E,$01,$0D
+ $B5C4 DEFB $05,$0E,$01,$10,$01,$11,$0A,$0E
+ $B5CC DEFB $03,$0C,$01,$0C,$02,$09,$01,$07
+ $B5D4 DEFB $02,$0C,$01,$0C,$02,$09,$01,$07
+ $B5DC DEFB $0C,$0C,$05,$10,$01,$0F,$05,$10
+ $B5E4 DEFB $01,$0E,$01,$10,$07,$0C,$01,$0C
+ $B5EC DEFB $01,$0B,$01,$0A,$02,$10,$01,$0F
+ $B5F4 DEFB $02,$10,$01,$0E,$02,$10,$01,$0E
+ $B5FC DEFB $02,$10,$01,$0E,$0C,$0E,$05,$0E
+ $B604 DEFB $01,$0D,$05,$0E,$01,$10,$01,$11
+ $B60C DEFB $0A,$0E,$03,$0C,$01,$0C,$02,$09
+ $B614 DEFB $01,$07,$02,$0C,$01,$0C,$02,$09
+ $B61C DEFB $01,$07,$0C,$0C
+ $B620 DEFB $FF                             ; Control character: "Normal".
+ $B621 DEFB $03,$07,$03,$07,$02,$07,$01,$04
+ $B629 DEFB $02,$07,$0D,$0C,$03,$0E,$03,$0E
+ $B631 DEFB $02,$0E,$01,$0C,$02,$09,$04,$06
+ $B639 DEFB $03,$0E,$03,$0D,$03,$0C,$02,$0B
+ $B641 DEFB $03,$13,$01,$09,$03,$11,$02,$07
+ $B649 DEFB $03,$10,$01,$05,$09,$0E,$03,$0C
+ $B651 DEFB $03,$0C,$02,$0C,$01,$09,$02,$07
+ $B659 DEFB $0D,$0C,$03,$0B,$03,$0B,$02,$0B
+ $B661 DEFB $01,$06,$02,$03,$0D,$0B,$03,$07
+ $B669 DEFB $03,$07,$02,$07,$01,$06,$02,$07
+ $B671 DEFB $0D,$04,$03,$09,$03,$09,$02,$09
+ $B679 DEFB $01,$04,$02,$01,$0D,$09,$03,$0E
+ $B681 DEFB $03,$0E,$02,$0E,$01,$09,$03,$06
+ $B689 DEFB $06,$0B,$06,$0A
+ $B68D DEFB $FE                             ; Control character: "High".
+ $B68E DEFB $05,$10,$01,$0F,$05,$10,$01,$0E
+ $B696 DEFB $01,$10,$07,$0C,$01,$0C,$01,$0B
+ $B69E DEFB $01,$0A,$02,$10,$01,$0F,$02,$10
+ $B6A6 DEFB $01,$0E,$02,$10,$01,$0E,$02,$10
+ $B6AE DEFB $01,$0E,$0C,$0E,$05,$0E,$01,$0D
+ $B6B6 DEFB $05,$0E,$01,$10,$01,$11,$0A,$0E
+ $B6BE DEFB $02,$0C,$01,$0C,$02,$09,$01,$07
+ $B6C6 DEFB $02,$0C,$01,$0C,$02,$09,$01,$07
+ $B6CE DEFB $0C,$0C
+ $B6D0 DEFB $FF                             ; Control character: "Normal".
+ $B6D1 DEFB $05,$10,$01,$0F,$05,$10,$01,$0E
+ $B6D9 DEFB $01,$10,$07,$0C,$01,$0C,$01,$0B
+ $B6E1 DEFB $02,$0A,$02,$10,$01,$0F,$02,$10
+ $B6E9 DEFB $01,$0E,$02,$10,$01,$0E,$02,$10
+ $B6F1 DEFB $01,$0E,$0C,$0E,$05,$0E,$01,$0D
+ $B6F9 DEFB $05,$0E,$01,$10,$01,$11,$0A,$0E
+ $B701 DEFB $02,$0C,$01,$0C,$02,$09,$01,$07
+ $B709 DEFB $02,$0C,$01,$0C,$02,$09,$01,$07
+ $B711 DEFB $0C,$0C
+ $B713 DEFB $00                             ; {Terminator.
+ $B714 DEFB $00                             ; }
 
 ; Print Colour String
 ;

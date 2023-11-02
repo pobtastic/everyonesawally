@@ -8,7 +8,7 @@
 
 [Config]
 Expand=#INCLUDE(Expand)
-RefFiles=bases.ref;analytics.ref;changelog.ref;pokes.ref
+RefFiles=bases.ref;analytics.ref;changelog.ref;data.ref;pokes.ref;sound.ref
 HtmlWriterClass=:everyonesawally.EveryonesAWallyHtmlWriter
 GameDir=everyonesawally
 
@@ -22,6 +22,7 @@ LinkInternalOperands=1
 AddressAnchor={address#IF({base}==16)(:04x)}
 
 [Titles]
+ExternalLinks=Links
 GameStatusBuffer=Game Status Buffer
 GraphicsTable=Graphics Table
 ItemData=Item Data
@@ -29,24 +30,27 @@ ItemLabelsTable=Item Labels Table
 PlatformTable=Platform Table
 RoomTable=Room Table
 
-[Index:DataTables:Data tables and buffers]
+[Links]
+PlayArea=Play Area
+
+[Paths]
+Credits=reference/credits.html
+ExternalLinks=reference/links.html
+PlayAreaImagePath={ImagePath}/playarea
+PlayArea=graphics/playarea.html
+Sound=sound/sound.html
+
+[Index:Graphics:Graphics and Sounds]
+PlayArea
+Sound
+
+[Index:DataTables:Data Tables And Buffers]
 GameStatusBuffer
 GraphicsTable
 ItemLabelsTable
 ItemData
 PlatformTable
 RoomTable
-
-[Index:Reference:Reference]
-Pokes
-Links
-Changelog
-Credits
-
-[Paths]
-Credits=reference/credits.html
-Links=reference/links.html
-PlayAreaImagePath={ImagePath}/playarea
 
 [Page:GraphicsTable]
 Content=asm/#N$BD86.html
@@ -63,11 +67,27 @@ Content=asm/#N$AF8F.html
 [Page:RoomTable]
 Content=asm/#N$CDB5.html
 
+[Index:Reference:Reference]
+Pokes
+ExternalLinks
+Changelog
+Credits
+
+[Page:ExternalLinks]
+PageContent=#INCLUDE(ExternalLinks)
+
+[ExternalLinks]
+<div>
+  <dl>
+    <dt>An interview with Chris Hinsley on: The Retro Hour EP392</dt>
+    <dd><a href="https://theretrohour.com/mikrogen-chris-hinsley/" rel="noopener noreferrer nofollow">https://theretrohour.com/mikrogen-chris-hinsley/</a></dd>
+    <dt>Everyone's a Wally - Remix</dt>
+    <dd><a href="https://hairyviking.itch.io/everyones-a-wally-remix/" rel="noopener noreferrer nofollow">https://hairyviking.itch.io/everyones-a-wally-remix/</a></dd>
+  </dl>
+</div>
+
 [Page:Credits]
 PageContent=#INCLUDE(Credits)
-
-[Page:Links]
-PageContent=#INCLUDE(Links)
 
 [Credits]
 <div>
@@ -79,16 +99,6 @@ PageContent=#INCLUDE(Links)
     <dd>I <s>stole</s> "borrowed" your footer styling from your awesome <a href="https://dpt.github.io/The-Great-Escape/" rel="noopener noreferrer nofollow">"The Great Escape"</a> disassembly! Love it!</a></dd>
     <dt>Chris Hinsley (and <a href="https://en.wikipedia.org/wiki/Mikro-Gen/" rel="noopener noreferrer nofollow">Mikro-Gen</a>)</dt>
     <dd>The entire Wally Week series were definitely some of my most played games in my childhood, so thank you for all the memories!</dd>
-  </dl>
-</div>
-
-[Links]
-<div>
-  <dl>
-    <dt>An interview with Chris Hinsley on: The Retro Hour EP392</dt>
-    <dd><a href="https://theretrohour.com/mikrogen-chris-hinsley/" rel="noopener noreferrer nofollow">https://theretrohour.com/mikrogen-chris-hinsley/</a></dd>
-    <dt>Everyone's a Wally - Remix</dt>
-    <dd><a href="https://hairyviking.itch.io/everyones-a-wally-remix/" rel="noopener noreferrer nofollow">https://hairyviking.itch.io/everyones-a-wally-remix/</a></dd>
   </dl>
 </div>
 

@@ -3,18 +3,18 @@
 [Page:Changelog]
 SectionType=BulletPoints
 
-[Changelog:20231020]
+[Changelog:20231101]
 -
 
-- Added CHANGELOG!
+- Reordered changelog! New entries are now at the top.
+- Added stub music/ music data with minor commenting and audio file.
 
-[Changelog:20231021]
+[Changelog:20231031]
 -
 
-- Index graphics in the order they are in the graphics lookup table.
-- Added commenting to #R$B952.
-- Added room macro for looking up graphic IDs (todo cursor "movements" too).
-- Worked out the room order/ naming.
+- Added controls at #R$B00B, #R$B03C, #R$B06D and #R$ABD7.
+- Worked out how the banner #R$E77A(handles the items).
+- Found what the control characters do in the item messaging, e.g. #R$E4BE.
 
 [Changelog:20231026]
 -
@@ -24,9 +24,15 @@ SectionType=BulletPoints
 - Commented #R$B3AB.
 - Starting to work out how backgrounds are constructed.
 
-[Changelog:20231031]
+[Changelog:20231021]
 -
 
-- Added controls at #R$B00B, #R$B03C, #R$B06D and #R$ABD7.
-- Worked out how the banner #R$E77A(handles the items).
-- Found what the control characters do in the item messaging, e.g. #R$E4BE.
+- Index graphics in the order they are in the graphics lookup table.
+- Added commenting to #R$B952.
+- Added room macro for looking up graphic IDs (todo cursor "movements" too).
+- Worked out the room order/ naming.
+
+[Changelog:20231020]
+-
+
+- Added CHANGELOG!
