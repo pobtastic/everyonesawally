@@ -29,291 +29,101 @@ Prev: <a href="B471.html">B471</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b482">Map</a></td>
 <td class="next">
-Next: <a href="B4E7.html">B4E7</a>
+Next: <a href="B494.html">B494</a>
 </td>
 </tr>
 </table>
-<div class="description">B482: Routine at B482</div>
+<div class="description">B482: Check Music</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="80E5.html">GameMenu</a>.
+Used by the routines at <a href="80E5.html">GameMenu</a> and <a href="B494.html">ThemeMusic</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="address-2"><span id="b482"></span>B482</td>
-<td class="instruction">LD HL,($B4E7)</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=*<a href="B4E7.html">B4E7</a>.</td>
+<td class="routine-comment" colspan="5">
+<span id="b482"></span>
+<div class="comments">
+<div class="paragraph">
+If the music is still playing, jump ahead to <a href="B494.html">ThemeMusic</a>.
+</div>
+</div>
+</td>
 </tr>
 <tr>
+<td class="asm-label">Check_Music</td>
+<td class="address-2"><span id="b482"></span>B482</td>
+<td class="instruction">LD HL,($B4E7)</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=*<a href="B4E7.html">Pointer_MusicData</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b485"></span>
+<div class="comments">
+<div class="paragraph">
+Retrieve music data (the terminator is 00).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b485"></span>B485</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b486"></span>B486</td>
 <td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not zero jump to <a href="B494.html">ThemeMusic</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b487"></span>B487</td>
-<td class="instruction">JR NZ,<a href="B482.html#b494">$B494</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="B494.html">ThemeMusic</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b489"></span>
+<div class="comments">
+<div class="paragraph">
+Music has finished, so kick off demo mode.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b489"></span>B489</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="2">Write 01 to <a href="B55F.html">B55F</a>.</td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="B55F.html">Flag_DemoMode</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b48b"></span>B48B</td>
 <td class="instruction">LD ($B55F),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b48e"></span>B48E</td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-1" rowspan="2">Write FF to <a href="B4E9.html">B4E9</a>.</td>
+<td class="comment-1" rowspan="2">Write FF to <a href="B4E9.html">Flag_Temp_GameOptions</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b490"></span>B490</td>
 <td class="instruction">LD ($B4E9),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b493"></span>B493</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b494"></span>B494</td>
-<td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b495"></span>B495</td>
-<td class="instruction">CP $FE</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b497"></span>B497</td>
-<td class="instruction">JR NZ,<a href="B482.html#b4a2">$B4A2</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b499"></span>B499</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Write 00 to <a href="B4E9.html#b4ea">B4EA</a>.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b49a"></span>B49A</td>
-<td class="instruction">LD ($B4EA),A</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b49d"></span>B49D</td>
-<td class="instruction">LD ($B4E7),HL</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4a0"></span>B4A0</td>
-<td class="instruction">JR <a href="B482.html#b482">$B482</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B482.html">B482</a>.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b4a2"></span>B4A2</td>
-<td class="instruction">CP $FF</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4a4"></span>B4A4</td>
-<td class="instruction">JR NZ,<a href="B482.html#b4aa">$B4AA</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4a6"></span>B4A6</td>
-<td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=01.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4a8"></span>B4A8</td>
-<td class="instruction">JR <a href="B482.html#b49a">$B49A</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B482.html#b49a">B49A</a>.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b4aa"></span>B4AA</td>
-<td class="instruction">PUSH AF</td>
-<td class="comment-1" rowspan="1">Stash <span class="register">AF</span> on the stack.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4ab"></span>B4AB</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4ac"></span>B4AC</td>
-<td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4ad"></span>B4AD</td>
-<td class="instruction">LD ($B4E7),HL</td>
-<td class="comment-1" rowspan="1">Write <span class="register">HL</span> to <a href="B4E7.html">B4E7</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4b0"></span>B4B0</td>
-<td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4b1"></span>B4B1</td>
-<td class="instruction">JR Z,<a href="B482.html#b4db">$B4DB</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4b3"></span>B4B3</td>
-<td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4b4"></span>B4B4</td>
-<td class="instruction">LD H,$00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4b6"></span>B4B6</td>
-<td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4b7"></span>B4B7</td>
-<td class="instruction">LD DE,$B537</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4ba"></span>B4BA</td>
-<td class="instruction">ADD HL,DE</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4bb"></span>B4BB</td>
-<td class="instruction">LD C,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4bc"></span>B4BC</td>
-<td class="instruction">LD B,$00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4be"></span>B4BE</td>
-<td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4bf"></span>B4BF</td>
-<td class="instruction">LD E,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4c0"></span>B4C0</td>
-<td class="instruction">LD D,B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4c1"></span>B4C1</td>
-<td class="instruction">POP AF</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4c2"></span>B4C2</td>
-<td class="instruction">LD HL,$0000</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="b4c5"></span>B4C5</td>
-<td class="instruction">ADD HL,DE</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4c6"></span>B4C6</td>
-<td class="instruction">DEC A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4c7"></span>B4C7</td>
-<td class="instruction">JR NZ,<a href="B482.html#b4c5">$B4C5</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4c9"></span>B4C9</td>
-<td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4ca"></span>B4CA</td>
-<td class="instruction">CALL <a href="B505.html">$B505</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B505.html">B505</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4cd"></span>B4CD</td>
-<td class="instruction">LD A,($B4E9)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="B4E9.html">B4E9</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4d0"></span>B4D0</td>
-<td class="instruction">CP $FF</td>
-<td class="comment-1" rowspan="2">Return if <span class="register">A</span> is not FF.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4d2"></span>B4D2</td>
-<td class="instruction">RET NZ</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b4d3"></span>B4D3</td>
-<td class="instruction">LD BC,$0320</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=0320.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4d6"></span>B4D6</td>
-<td class="instruction">CALL <a href="B4EB.html">$B4EB</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B4EB.html">B4EB</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4d9"></span>B4D9</td>
-<td class="instruction">JR <a href="B482.html#b482">$B482</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B482.html">B482</a>.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b4db"></span>B4DB</td>
-<td class="instruction">LD BC,$19C8</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=19C8.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4de"></span>B4DE</td>
-<td class="instruction">POP AF</td>
-<td class="comment-1" rowspan="1">Restore <span class="register">AF</span> from the stack.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="b4df"></span>B4DF</td>
-<td class="instruction">CALL <a href="B4EB.html">$B4EB</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B4EB.html">B4EB</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4e2"></span>B4E2</td>
-<td class="instruction">DEC A</td>
-<td class="comment-1" rowspan="1">Decrease <span class="register">A</span> by one.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4e3"></span>B4E3</td>
-<td class="instruction">JR NZ,<a href="B482.html#b4df">$B4DF</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="b4e5"></span>B4E5</td>
-<td class="instruction">JR <a href="B482.html#b4d3">$B4D3</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B482.html#b4d3">B4D3</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -323,7 +133,7 @@ Prev: <a href="B471.html">B471</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b482">Map</a></td>
 <td class="next">
-Next: <a href="B4E7.html">B4E7</a>
+Next: <a href="B494.html">B494</a>
 </td>
 </tr>
 </table>

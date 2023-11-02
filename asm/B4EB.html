@@ -25,7 +25,7 @@ gtag('config', 'G-75RERFCHBG');
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="B4E9.html">B4E9</a>
+Prev: <a href="B4EA.html">B4EA</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b4eb">Map</a></td>
 <td class="next">
@@ -33,49 +33,76 @@ Next: <a href="B505.html">B505</a>
 </td>
 </tr>
 </table>
-<div class="description">B4EB: Routine at B4EB</div>
+<div class="description">B4EB: Handler: Game Menu Input</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="B482.html">B482</a> and <a href="B505.html">B505</a>.
+Used by the routines at <a href="B494.html">ThemeMusic</a> and <a href="B505.html">Play_ThemeMusic</a>.
 </div>
 </div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">Counter for a slight pause</td>
+</tr>
+</table>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Handler_GameMenuInput</td>
 <td class="address-2"><span id="b4eb"></span>B4EB</td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-1" rowspan="3">Stash <span class="register">AF</span>, <span class="register">BC</span> and <span class="register">DE</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4ec"></span>B4EC</td>
 <td class="instruction">PUSH BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4ed"></span>B4ED</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_GameMenuInput_Pause</td>
 <td class="address-2"><span id="b4ee"></span>B4EE</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4ef"></span>B4EF</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="3">Jump to <a href="B4EB.html#b4ee">B4EE</a> until <span class="register">BC</span> is 0000.</td>
+<td class="comment-1" rowspan="3">Jump to <a href="B4EB.html#b4ee">Handler_GameMenuInput_Pause</a> until <span class="register">BC</span> is 0000.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4f0"></span>B4F0</td>
 <td class="instruction">OR C</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4f1"></span>B4F1</td>
-<td class="instruction">JR NZ,<a href="B4EB.html#b4ee">$B4EE</a></td>
+<td class="instruction">JR NZ,<a href="B4EB.html#b4ee">Handler_GameMenuInput_Pause</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b4f3"></span>
+<div class="comments">
+<div class="paragraph">
+Collect the user input.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4f3"></span>B4F3</td>
 <td class="instruction">LD A,$F7</td>
 <td class="comment-1" rowspan="2">Read from the keyboard; <table class="default">
@@ -101,48 +128,68 @@ Used by the routines at <a href="B482.html">B482</a> and <a href="B505.html">B50
 </table></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4f5"></span>B4F5</td>
 <td class="instruction">IN A,($FE)</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="b4f7"></span>
+<div class="comments">
+<div class="paragraph">
+Pad out the bits we're not interested in (only keys 1, 2, 3 and 4).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4f7"></span>B4F7</td>
 <td class="instruction">OR %11110000</td>
 <td class="comment-1" rowspan="1">Set bits 4-7.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4f9"></span>B4F9</td>
 <td class="instruction">LD E,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Store the result in <span class="register">E</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4fa"></span>B4FA</td>
 <td class="instruction">LD A,($B4E9)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="B4E9.html">Flag_Temp_GameOptions</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4fd"></span>B4FD</td>
 <td class="instruction">AND E</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Merge in the bits from <span class="register">E</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b4fe"></span>B4FE</td>
 <td class="instruction">LD ($B4E9),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to *<a href="B4E9.html">Flag_Temp_GameOptions</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b501"></span>B501</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="3">Restore <span class="register">DE</span>, <span class="register">BC</span> and <span class="register">AF</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b502"></span>B502</td>
 <td class="instruction">POP BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b503"></span>B503</td>
 <td class="instruction">POP AF</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="b504"></span>B504</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -151,7 +198,7 @@ Used by the routines at <a href="B482.html">B482</a> and <a href="B505.html">B50
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="B4E9.html">B4E9</a>
+Prev: <a href="B4EA.html">B4EA</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b4eb">Map</a></td>
 <td class="next">

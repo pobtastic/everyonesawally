@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Everyone's a Wally: Routine at 46228</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<link rel="stylesheet" type="text/css" href="../everyonesawally.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46210.html">46210</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46228">Map</a></td>
+<td class="next">
+Next: <a href="46311.html">46311</a>
+</td>
+</tr>
+</table>
+<div class="description">46228: Handler: Theme Music</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="46210.html">Check_Music</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Music data</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Music data address pointer</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic</td>
+<td class="address-2"><span id="46228"></span>46228</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment music data address pointer held in <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46229"></span>
+<div class="comments">
+<div class="paragraph">
+The control character 254 signifies a key change.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46229"></span>46229</td>
+<td class="instruction">CP 254</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not 254 jump to <a href="46228.html#46242">ThemeMusic_CheckKeyChange</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46231"></span>46231</td>
+<td class="instruction">JR NZ,<a href="46228.html#46242">ThemeMusic_CheckKeyChange</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46233"></span>46233</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=0.</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic_SetKey</td>
+<td class="address-2"><span id="46234"></span>46234</td>
+<td class="instruction">LD (46314),A</td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="46314.html">Flag_ThemeMusic_KeyChange</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46237"></span>46237</td>
+<td class="instruction">LD (46311),HL</td>
+<td class="comment-1" rowspan="1">Write <span class="register">HL</span> to <a href="46311.html">Pointer_MusicData</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46240"></span>46240</td>
+<td class="instruction">JR <a href="46210.html">Check_Music</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="46210.html">Check_Music</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46242"></span>
+<div class="comments">
+<div class="paragraph">
+The control character 255 signifies a key change.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic_CheckKeyChange</td>
+<td class="address-2"><span id="46242"></span>46242</td>
+<td class="instruction">CP 255</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not 255 jump to <a href="46228.html#46250">ThemeMusic_0</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46244"></span>46244</td>
+<td class="instruction">JR NZ,<a href="46228.html#46250">ThemeMusic_0</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46246"></span>46246</td>
+<td class="instruction">LD A,1</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=1.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46248"></span>46248</td>
+<td class="instruction">JR <a href="46228.html#46234">ThemeMusic_SetKey</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="46228.html#46234">ThemeMusic_SetKey</a>.</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic_0</td>
+<td class="address-2"><span id="46250"></span>46250</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">AF</span> on the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46251"></span>46251</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46252"></span>46252</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment music data address pointer held in <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46253"></span>46253</td>
+<td class="instruction">LD (46311),HL</td>
+<td class="comment-1" rowspan="1">Write <span class="register">HL</span> to <a href="46311.html">Pointer_MusicData</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46256"></span>46256</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is zero jump to <a href="46228.html#46299">ThemeMusic_3</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46257"></span>46257</td>
+<td class="instruction">JR Z,<a href="46228.html#46299">ThemeMusic_3</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46259"></span>46259</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="2">Create an offset in <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46260"></span>46260</td>
+<td class="instruction">LD H,0</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46262"></span>46262</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>*=2.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46263"></span>46263</td>
+<td class="instruction">LD DE,46391</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>+=<a href="46391.html">46391</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46266"></span>46266</td>
+<td class="instruction">ADD HL,DE</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46267"></span>46267</td>
+<td class="instruction">LD C,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46268"></span>46268</td>
+<td class="instruction">LD B,0</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=0.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46270"></span>46270</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increment music data address pointer held in <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46271"></span>46271</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=*<span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46272"></span>46272</td>
+<td class="instruction">LD D,B</td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=0.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46273"></span>46273</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">AF</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46274"></span>46274</td>
+<td class="instruction">LD HL,0</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>+=0000.</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic_1</td>
+<td class="address-2"><span id="46277"></span>46277</td>
+<td class="instruction">ADD HL,DE</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46278"></span>46278</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">A</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46279"></span>46279</td>
+<td class="instruction">JR NZ,<a href="46228.html#46277">ThemeMusic_1</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="46228.html#46277">ThemeMusic_1</a> until <span class="register">A</span> is zero.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46281"></span>46281</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Switch the <span class="register">DE</span> and <span class="register">HL</span> registers.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46282"></span>46282</td>
+<td class="instruction">CALL <a href="46341.html">Play_ThemeMusic</a></td>
+<td class="comment-1" rowspan="1">Call <a href="46341.html">Play_ThemeMusic</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46285"></span>46285</td>
+<td class="instruction">LD A,(46313)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="46313.html">Flag_Temp_GameOptions</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46288"></span>46288</td>
+<td class="instruction">CP 255</td>
+<td class="comment-1" rowspan="2">Return if <span class="register">A</span> is not 255.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46290"></span>46290</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic_2</td>
+<td class="address-2"><span id="46291"></span>46291</td>
+<td class="instruction">LD BC,800</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=800.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46294"></span>46294</td>
+<td class="instruction">CALL <a href="46315.html">Handler_GameMenuInput</a></td>
+<td class="comment-1" rowspan="1">Call <a href="46315.html">Handler_GameMenuInput</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46297"></span>46297</td>
+<td class="instruction">JR <a href="46210.html">Check_Music</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="46210.html">Check_Music</a>.</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic_3</td>
+<td class="address-2"><span id="46299"></span>46299</td>
+<td class="instruction">LD BC,6600</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=6600.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46302"></span>46302</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore <span class="register">AF</span> from the stack.</td>
+</tr>
+<tr>
+<td class="asm-label">ThemeMusic_4</td>
+<td class="address-2"><span id="46303"></span>46303</td>
+<td class="instruction">CALL <a href="46315.html">Handler_GameMenuInput</a></td>
+<td class="comment-1" rowspan="1">Call <a href="46315.html">Handler_GameMenuInput</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46306"></span>46306</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">A</span> by one.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46307"></span>46307</td>
+<td class="instruction">JR NZ,<a href="46228.html#46303">ThemeMusic_4</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="46228.html#46303">ThemeMusic_4</a> until <span class="register">A</span> is zero.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="46309"></span>46309</td>
+<td class="instruction">JR <a href="46228.html#46291">ThemeMusic_2</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="46228.html#46291">ThemeMusic_2</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46210.html">46210</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46228">Map</a></td>
+<td class="next">
+Next: <a href="46311.html">46311</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Mikro-Gen &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/everyonesawally/">Source code</a>.</div>
+<div><a href="../../asm/B494.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

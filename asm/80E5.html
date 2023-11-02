@@ -29,7 +29,7 @@ Prev: <a href="80A9.html">80A9</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#80e5">Map</a></td>
 <td class="next">
-Next: <a href="813B.html">813B</a>
+Next: <a href="813A.html">813A</a>
 </td>
 </tr>
 </table>
@@ -55,6 +55,16 @@ Used by the routines at <a href="8155.html">Demo_Start</a> and <a href="8184.htm
 <td class="address-1"><span id="80e8"></span>80E8</td>
 <td class="instruction">CALL <a href="B471.html">Initialise_Theme_Music</a></td>
 <td class="comment-1" rowspan="1">Call <a href="B471.html">Initialise_Theme_Music</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="80eb"></span>
+<div class="comments">
+<div class="paragraph">
+Print up all the options.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label">GameMenu_Loop</td>
@@ -163,10 +173,30 @@ Calculate the screen position of the active control method.
 <td class="instruction">LD D,A</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="8104"></span>
+<div class="comments">
+<div class="paragraph">
+And <span class="register">E</span> is hardcoded for the horizontal position.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8104"></span>8104</td>
 <td class="instruction">LD E,$03</td>
 <td class="comment-1" rowspan="1"><span class="register">E</span>=03.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8106"></span>
+<div class="comments">
+<div class="paragraph">
+Print the active key to the screen, this just overwrites the one which is already present (so turns it white).
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -175,10 +205,10 @@ Calculate the screen position of the active control method.
 <td class="comment-1" rowspan="1">Call <a href="B8C4.html">PrintString</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">GameMenu_0</td>
+<td class="asm-label">GameMenu_Initialise</td>
 <td class="address-2"><span id="8109"></span>8109</td>
 <td class="instruction">LD A,$FF</td>
-<td class="comment-1" rowspan="2">Write FF to <a href="B4E9.html">B4E9</a>.</td>
+<td class="comment-1" rowspan="2">Write FF to <a href="B4E9.html">Flag_Temp_GameOptions</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -188,32 +218,50 @@ Calculate the screen position of the active control method.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="810e"></span>810E</td>
-<td class="instruction">CALL <a href="B482.html">$B482</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B482.html">B482</a>.</td>
+<td class="instruction">CALL <a href="B482.html">Check_Music</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B482.html">Check_Music</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8111"></span>
+<div class="comments">
+<div class="paragraph">
+Check if demo mode should start.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8111"></span>8111</td>
 <td class="instruction">LD A,($B55F)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <a href="B55F.html">Flag_DemoMode</a> is not zero jump to <a href="8155.html">Demo_Start</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8114"></span>8114</td>
 <td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8115"></span>8115</td>
 <td class="instruction">JR NZ,<a href="8155.html">Demo_Start</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8117"></span>8117</td>
 <td class="instruction">LD A,($B4E9)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="B4E9.html">Flag_Temp_GameOptions</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="811a"></span>
+<div class="comments">
+<div class="paragraph">
+Handler for selecting "Sinclair Joystick".
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -239,6 +287,16 @@ Calculate the screen position of the active control method.
 <td class="comment-1" rowspan="1">Jump to <a href="80E5.html#80eb">GameMenu_Loop</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="8123"></span>
+<div class="comments">
+<div class="paragraph">
+Handler for selecting "Kempston Joystick".
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label">GameMenu_Kempston</td>
 <td class="address-2"><span id="8123"></span>8123</td>
 <td class="instruction">BIT 1,A</td>
@@ -262,15 +320,25 @@ Calculate the screen position of the active control method.
 <td class="comment-1" rowspan="1">Jump to <a href="80E5.html#80eb">GameMenu_Loop</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="812c"></span>
+<div class="comments">
+<div class="paragraph">
+Handler for selecting "Keyboard".
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label">GameMenu_Keyboard</td>
 <td class="address-2"><span id="812c"></span>812C</td>
 <td class="instruction">BIT 2,A</td>
-<td class="comment-1" rowspan="2">If bit 2 is not set, jump to <a href="80E5.html#8135">GameMenu_1</a>.</td>
+<td class="comment-1" rowspan="2">If bit 2 is not set, jump to <a href="80E5.html#8135">GameMenu_StartGame</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="812e"></span>812E</td>
-<td class="instruction">JR NZ,<a href="80E5.html#8135">GameMenu_1</a></td>
+<td class="instruction">JR NZ,<a href="80E5.html#8135">GameMenu_StartGame</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -285,27 +353,31 @@ Calculate the screen position of the active control method.
 <td class="comment-1" rowspan="1">Jump to <a href="80E5.html#80eb">GameMenu_Loop</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">GameMenu_1</td>
+<td class="routine-comment" colspan="5">
+<span id="8135"></span>
+<div class="comments">
+<div class="paragraph">
+Handler for selecting "Start".
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">GameMenu_StartGame</td>
 <td class="address-2"><span id="8135"></span>8135</td>
 <td class="instruction">BIT 3,A</td>
-<td class="comment-1" rowspan="2">If bit 3 is not set, jump to <a href="80E5.html#8109">GameMenu_0</a>.</td>
+<td class="comment-1" rowspan="2">If bit 3 is not set, jump to <a href="80E5.html#8109">GameMenu_Initialise</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8137"></span>8137</td>
-<td class="instruction">JR NZ,<a href="80E5.html#8109">GameMenu_0</a></td>
+<td class="instruction">JR NZ,<a href="80E5.html#8109">GameMenu_Initialise</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8139"></span>8139</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="813a"></span>813A</td>
-<td class="instruction">NOP</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -315,7 +387,7 @@ Prev: <a href="80A9.html">80A9</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#80e5">Map</a></td>
 <td class="next">
-Next: <a href="813B.html">813B</a>
+Next: <a href="813A.html">813A</a>
 </td>
 </tr>
 </table>
