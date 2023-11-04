@@ -686,10 +686,14 @@ c $A8A0
   $A91F,$01 Restore #REGaf from the stack.
   $A920,$01 Return.
 
-c $A921
+c $A921 Check If Active Character
+@ $A921 label=Character_Active
+R $A921 IY Character pointer
+R $A921 F Zero flag is set if the given character is active
   $A921,$03 #REGhl=#REGiy.
   $A924,$04 #REGde=*#R$B09D.
   $A928,$01 Reset the flags.
+N $A929 Simply subtract one character address pointer from the current character pointer.
   $A929,$02 #REGhl-=#REGde.
   $A92B,$01 Return.
 
@@ -772,20 +776,24 @@ N $AA6B Write the picked up item to the characters item 1.
   $AA7D,$01 Restore #REGhl from the stack.
   $AA7E,$01 Return.
 
-c $AA7F
+c $AA7F Sounds: Pick Up
+@ $AA7F label=Sounds_PickUp
   $AA7F,$03 #REGbc=#N$FF0A.
   $AA82,$03 #REGde=#N$0114.
   $AA85,$03 #REGhl=#N$1401.
   $AA88,$03 Call #R$E3D3.
   $AA8B,$01 Return.
 
-c $AA8C
+c $AA8C Handler: Fetch Items In Current Room
+@ $AA8C label=Handler_ItemsCurrentRoom
   $AA8C,$03 #REGa=*#REGiy+#N$0F (current room).
   $AA8F,$03 #REGhl=#R$BCE9.
   $AA92,$03 Call #R$AC6C.
-
+  $AA95,$04 If #REGb is zero jump to #R$AA9F.
+@ $AA99 label=Handler_ItemsCurrentRoom_Loop
   $AA99,$04 Increment #REGhl by four.
   $AA9D,$02 Decrease counter by one and loop back to #R$AA99 until counter is zero.
+@ $AA9F label=Handler_ItemsCurrentRoom_Return
   $AA9F,$01 Return.
 
 w $AAA0 Jump Table
@@ -1200,8 +1208,10 @@ N $B09B No key was pressed so return #REGa=#N$00.
   $B09B,$01 #REGa=#N$00.
   $B09C,$01 Return.
 
-w $B09D
-  $B09D,$02
+g $B09D Current Character Pointer
+@ $B09D label=CurrentCharacter
+D $B09D Will be one of: #LIST #FOR($00,$04)(n,{ #R($BC67+n)(#CHARACTERn data.) }) LIST#
+W $B09D,$02 Points to the base of where the interlaced character data begins.
 
 c $B09F
   $B09F,$04 #REGiy=*#R$B09D.
@@ -1577,8 +1587,8 @@ w $B4E7 Music Data Pointer
 @ $B4E7 label=Pointer_MusicData
   $B4E7,$02
 
-g $B4E9 Flag: Temp Game Options
-@ $B4E9 label=Flag_Temp_GameOptions
+g $B4E9 Temporary Storage: Game Options
+@ $B4E9 label=TempStore_GameOptions
 B $B4E9,$01
 
 g $B4EA Flag: Theme Music Key Change
@@ -1792,7 +1802,8 @@ c $B7F9
   $B826,$04 Restore #REGde, #REGbc, #REGhl and #REGaf from the stack.
   $B82A,$01 Return.
 
-c $B82B
+c $B82B Switch Sprite Drawing Functions
+@ $B82B label=Switch_DrawSprite_Functions
   $B82B,$01 Stash #REGhl on the stack.
   $B82C,$0C Write #R$B7F9 to: #LIST { #R$B8BD(#N$B8BE) } { #R$B8B4(#N$B8B5) } { #R$B894(#N$B895) } LIST#
   $B838,$01 Restore #REGhl from the stack.
@@ -1958,8 +1969,9 @@ N $B947 Move onto the next screen buffer location.
   $B94C,$02 Jump to #R$B93A until #REGc is zero.
   $B94E,$03 Jump to #R$B92D.
 
-b $B951
-  $B951,$01
+g $B951 Temporary Storage: Room ID
+@ $B951 label=TempStore_Room
+B $B951,$01
 
 c $B952 Draw Room
 @ $B952 label=DrawRoom
@@ -2033,52 +2045,66 @@ N $B9A8 Finish by blitting the shadow buffer to the screen and return to the cal
 c $B9AC
   $B9AC,$03 #REGde=#N$5B00.
   $B9AF,$04 #REGix=#R$8278.
-  $B9B3,$03 #REGbc=#N($1000,$04,$04).
+  $B9B3,$03 #REGbc=#N$1000 (bytes of data).
+N $B9B6 Fetch the screen buffer from the look up table held by #REGix.
   $B9B6,$03 #REGl=*#REGix+#N$00.
   $B9B9,$03 #REGh=*#REGix+#N$01.
   $B9BC,$04 Increment #REGix by two.
   $B9C0,$03 Call #R$BA25.
-  $B9C3,$03 If the return from #R$BA25 is even, jump to #R$B9B6.
-  $B9C6,$03 #REGbc=#N($0200,$04,$04).
+  $B9C3,$03 Jump to #R$B9B6 until #REGbc is zero.
+  $B9C6,$03 #REGbc=#N$0200 (bytes of data).
   $B9C9,$03 #REGde=#R$FE00.
   $B9CC,$03 #REGhl=#R$5900.
   $B9CF,$03 Call #R$BA25.
-  $B9D2,$03 If the return from #R$BA25 is even, jump to #R$B9CF.
+  $B9D2,$03 Jump to #R$B9CF until #REGbc is zero.
   $B9D5,$01 Return.
 
-c $B9D6
+c $B9D6 Draw Characters In The Current Room
+@ $B9D6 label=Draw_Characters_CurrentRoom
+N $B9D6 Write the current room ID for referring back to.
   $B9D6,$06 Write the current room (#REGiy+#N$0F) to #R$B951.
-  $B9DC,$02 #REGb=#N$05.
+N $B9DC There are five characters, cycle through each of them in reverse.
+  $B9DC,$02 #REGb=#N$05 (counter).
+N $B9DE Store the current character reference so it isn't corrupted.
   $B9DE,$02 Stash #REGiy on the stack.
+N $B9E0 Starting at the end with Harry.
   $B9E0,$04 #REGiy=#R$BC6B.
-  $B9E4,$01 Stash #REGbc on the stack.
+@ $B9E4 label=Draw_Characters_CurrentRoom_Loop
+  $B9E4,$01 Stash the counter in #REGbc on the stack.
+N $B9E5 Don't draw the character if they're not in the current room.
   $B9E5,$03 #REGa=*#R$B951.
   $B9E8,$05 If #REGa is not equal to the current room (*#REGiy+#N$0F) jump to #R$B9F0.
+N $B9ED Draw the character in the shadow buffer as they are in the room with our current character.
   $B9ED,$03 Call #R$B0E6.
+N $B9F0 Move onto the next character.
+@ $B9F0 label=Draw_Characters_CurrentRoom_Skip
   $B9F0,$02 Decrease #REGiy by one.
-  $B9F2,$01 Restore #REGbc from the stack.
+  $B9F2,$01 Restore the counter (#REGbc) from the stack.
   $B9F3,$02 Decrease counter by one and loop back to #R$B9E4 until counter is zero.
+N $B9F5 Restores the current character pointer to #REGiy.
   $B9F5,$02 Restore #REGiy from the stack.
+N $B9F7 Update the screen buffer and return.
   $B9F7,$03 Call #R$B9FB.
   $B9FA,$01 Return.
 
 c $B9FB Copy Shadow Buffer To Screen
-@ $B9FB label=Copy_ShadowBuffer
-N $B9FB Copy the shadow screen buffer.
+@ $B9FB label=ShadowBufferToScreen
+N $B9FB Copy the shadow screen buffer to the playarea (beginning at memory location #N$4800).
   $B9FB,$03 #REGhl=#R$6B00.
   $B9FE,$04 #REGix=#R$8278.
-  $BA02,$03 #REGbc=#N$1000.
-@ $BA05 label=Copy_ShadowBuffer_Loop
+  $BA02,$03 #REGbc=#N$1000 (bytes of data).
+N $BA05 Fetch the screen buffer from the look up table held by #REGix.
+@ $BA05 label=ShadowBufferToScreen_Loop
   $BA05,$03 #REGe=*#REGix+#N$00.
   $BA08,$03 #REGd=*#REGix+#N$01.
   $BA0B,$04 Increment #REGix by two.
   $BA0F,$03 Call #R$BA25.
   $BA12,$03 Jump to #R$BA05 until #REGbc is zero.
-N $BA15 Copy the shadow attribute buffer.
-  $BA15,$03 #REGbc=#N$0200.
+N $BA15 Copy the shadow attribute buffer to the attribute buffer.
+  $BA15,$03 #REGbc=#N$0200 (bytes of data).
   $BA18,$03 #REGhl=#R$FC00.
   $BA1B,$03 #REGde=#R$5900.
-@ $BA1E label=Copy_ShadowBuffer_Attributes_Loop
+@ $BA1E label=ShadowBufferToScreen_Attributes_Loop
   $BA1E,$03 Call #R$BA25.
   $BA21,$03 Jump to #R$BA1E until #REGbc is zero.
   $BA24,$01 Return.
@@ -2237,169 +2263,220 @@ b $BB7C
 
 b $BC30
 
-g $BC67 Character Data
-@ $BC67 label=Character_Data
-B $BC67,$01
-B $BC68,$01
-B $BC69,$01
-B $BC6A,$01
-B $BC6B,$01
+g $BC67 Character: Frame ID
+@ $BC67 label=FrameId_Wally
+@ $BC68 label=FrameId_Wilma
+@ $BC69 label=FrameId_Tom
+@ $BC6A label=FrameId_Dick
+@ $BC6B label=FrameId_Harry
+B $BC67,$01 Current Frame ID for #CHARACTER(#PC-$BC67).
+L $BC67,$01,$05
 
-g $BC6C
-B $BC6C,$01
-B $BC6D,$01
-B $BC6E,$01
-B $BC6F,$01
-B $BC70,$01
+g $BC6C Character: X Screen Position
+@ $BC6C label=Position_X_Wally
+@ $BC6D label=Position_X_Wilma
+@ $BC6E label=Position_X_Tom
+@ $BC6F label=Position_X_Dick
+@ $BC70 label=Position_X_Harry
+B $BC6C,$01 X position for #CHARACTER(#PC-$BC6C).
+L $BC6C,$01,$05
 
-g $BC71
-B $BC71,$01
-B $BC72,$01
-B $BC73,$01
-B $BC74,$01
-B $BC75,$01
+g $BC71 Character: Y Screen Position
+@ $BC71 label=Position_Y_Wally
+@ $BC72 label=Position_Y_Wilma
+@ $BC73 label=Position_Y_Tom
+@ $BC74 label=Position_Y_Dick
+@ $BC75 label=Position_Y_Harry
+B $BC71,$01 Y position for #CHARACTER(#PC-$BC71).
+L $BC71,$01,$05
 
 g $BC76 Character: Current Room ID
 @ $BC76 label=CurrentRoom_Wally
-B $BC76,$01 Current room ID for Wally.
 @ $BC77 label=CurrentRoom_Wilma
-B $BC77,$01 Current room ID for Wilma.
 @ $BC78 label=CurrentRoom_Tom
-B $BC78,$01 Current room ID for Tom.
 @ $BC79 label=CurrentRoom_Dick
-B $BC79,$01 Current room ID for Dick.
 @ $BC7A label=CurrentRoom_Harry
-B $BC7A,$01 Current room ID for Harry.
+B $BC76,$01 Current room ID for #CHARACTER(#PC-$BC76).
+L $BC76,$01,$05
 
 g $BC7B
-B $BC7B,$01
-B $BC7C,$01
-B $BC7D,$01
-B $BC7E,$01
-B $BC7F,$01
+B $BC7B,$01 #CHARACTER(#PC-$BC7B).
+L $BC7B,$01,$05
 
 g $BC80
-B $BC80,$01
-B $BC81,$01
-B $BC82,$01
-B $BC83,$01
-B $BC84,$01
+B $BC80,$01 #CHARACTER(#PC-$BC80).
+L $BC80,$01,$05
 
-g $BC85
-B $BC85,$01
-B $BC86,$01
-B $BC87,$01
-B $BC88,$01
-B $BC89,$01
+g $BC85 Character: Colour Attribute
+@ $BC85 label=Attribute_Wally
+@ $BC86 label=Attribute_Wilma
+@ $BC87 label=Attribute_Tom
+@ $BC88 label=Attribute_Dick
+@ $BC89 label=Attribute_Harry
+B $BC85,$01 #CHARACTER(#PC-$BC85) colour attribute: #COLOUR(#PEEK(#PC)).
+L $BC85,$01,$05
 
 g $BC8A
-B $BC8A,$01
-B $BC8B,$01
-B $BC8C,$01
-B $BC8D,$01
-B $BC8E,$01
+B $BC8A,$01 #CHARACTER(#PC-$BC8A).
+L $BC8A,$01,$05
 
 g $BC8F
-B $BC8F,$01
-B $BC90,$01
-B $BC91,$01
-B $BC92,$01
-B $BC93,$01
+B $BC8F,$01 #CHARACTER(#PC-$BC8F).
+L $BC8F,$01,$05
 
 g $BC94 Character: Lives
 @ $BC94 label=Lives_Wally
-B $BC94,$01 Current lives for Wally.
 @ $BC95 label=Lives_Wilma
-B $BC95,$01 Current lives for Wilma.
 @ $BC96 label=Lives_Tom
-B $BC96,$01 Current lives for Tom.
 @ $BC97 label=Lives_Dick
-B $BC97,$01 Current lives for Dick.
 @ $BC98 label=Lives_Harry
-B $BC98,$01 Current lives for Harry.
+B $BC94,$01 Current lives for #CHARACTER(#PC-$BC94).
+L $BC94,$01,$05
 
 g $BC99
-B $BC99,$01
-B $BC9A,$01
-B $BC9B,$01
-B $BC9C,$01
-B $BC9D,$01
+B $BC99,$01 #CHARACTER(#PC-$BC99).
+L $BC99,$01,$05
 
 g $BC9E
+B $BC9E,$01 #CHARACTER(#PC-$BC9E).
+L $BC9E,$01,$05
+B $BCA3,$01 #CHARACTER(#PC-$BCA3).
+L $BCA3,$01,$05
 
 g $BCA8
+B $BCA8,$01 #CHARACTER(#PC-$BCA8).
+L $BCA8,$01,$05
+B $BCAD,$01 #CHARACTER(#PC-$BCAD).
+L $BCAD,$01,$05
+B $BCB2,$01 #CHARACTER(#PC-$BCB2).
+L $BCB2,$01,$05
 
 g $BCB7 Character: Items
 @ $BCB7 label=Item_1_Wally
-B $BCB7,$01 Item 1 for Wally.
 @ $BCB8 label=Item_1_Wilma
-B $BCB8,$01 Item 1 for Wilma.
 @ $BCB9 label=Item_1_Tom
-B $BCB9,$01 Item 1 for Tom.
 @ $BCBA label=Item_1_Dick
-B $BCBA,$01 Item 1 for Dick.
 @ $BCBB label=Item_1_Harry
-B $BCBB,$01 Item 1 for Harry.
+B $BCB7,$01 Item 1 for #CHARACTER(#PC-$BCB7).
+L $BCB7,$01,$05
 @ $BCBC label=Item_2_Wally
-B $BCBC,$01 Item 2 for Wally.
 @ $BCBD label=Item_2_Wilma
-B $BCBD,$01 Item 2 for Wilma.
 @ $BCBE label=Item_2_Tom
-B $BCBE,$01 Item 2 for Tom.
 @ $BCBF label=Item_2_Dick
-B $BCBF,$01 Item 2 for Dick.
 @ $BCC0 label=Item_2_Harry
-B $BCC0,$01 Item 2 for Harry.
+B $BCBC,$01 Item 2 for #CHARACTER(#PC-$BCBC).
+L $BCBC,$01,$05
 
 g $BCC1
 
 b $BCE9 Item Data
-@ $BCE9 label=Item_Data
+N $BCE9 Items in room #N$00: Town Square.
+@ $BCE9 label=Items_TownSquare
   $BCE9,$01 Terminator.
+N $BCEA Items in room #N$01: Stamp Street.
+@ $BCEA label=Items_StampStreet
   $BCEA,$01 Terminator.
-  $BCEB,$01 Room ID #N(#PEEK(#PC)).
-  $BCEC,$02
+N $BCEB Items in room #N$02: The Post Office.
+@ $BCEB label=Items_ThePostOffice
+  $BCEB,$04 Item ID: #N(#PEEK(#PC)).
   $BCEF,$01 Terminator.
+N $BCF0 Items in room #N$03: Market Street.
+@ $BCF0 label=Items_MarketStreet
   $BCF0,$01 Terminator.
-  $BCF1,$01 Room ID #N(#PEEK(#PC)).
-@ $BCF5 label=Item_Supermarket
-  $BCF5,$04,$01 Room ID #N(#PEEK(#PC)).
+N $BCF1 Items in room #N$04: The Super Market.
+@ $BCF1 label=Items_TheSuperMarket
+  $BCF1,$04 Item ID: #N(#PEEK(#PC)).
+  $BCF5,$04 Item ID: #N(#PEEK(#PC)).
   $BCF9,$01 Terminator.
-@ $BCFA label=Item_Park
-B $BCFA,$06,$01 Room ID #N(#PEEK(#PC)).
+N $BCFA Items in room #N$05: The Park.
+@ $BCFA label=Items_ThePark
+  $BCFA,$04 Item ID: #N(#PEEK(#PC)).
+  $BCFE,$01 Terminator.
+N $BCFF Items in room #N$06: Wobbly Walk.
+@ $BCFF label=Items_WobblyWalk
+  $BCFF,$01 Terminator.
+N $BD00 Items in room #N$07: Rubble Road.
+@ $BD00 label=Items_RubbleRoad
   $BD00,$01 Terminator.
-@ $BD01 label=Item_WallStreet
-B $BD01,$01 Room ID #N(#PEEK(#PC)).
-@ $BD0F label=Item_Workshed_OnLeftTable
-B $BD0F,$01 Room ID #N(#PEEK(#PC)).
-@ $BD13 label=Item_Workshed_UnderLeftTable
-B $BD13,$01 Room ID #N(#PEEK(#PC)).
-@ $BD17 label=Item_Workshed_UnderRightTable
-B $BD17,$01 Room ID #N(#PEEK(#PC)).
-@ $BD21 label=Item_School
-B $BD21,$01 Room ID #N(#PEEK(#PC)).
-@ $BD32 label=Item_KemcoLab_Left
-B $BD32,$01 Room ID #N(#PEEK(#PC)).
-@ $BD36 label=Item_KemcoLab_Right
-B $BD36,$01 Room ID #N(#PEEK(#PC)).
-@ $BD3B label=Item_Garage
-B $BD3B,$01 Room ID #N(#PEEK(#PC)).
-@ $BD4D label=Item_WallysHouse
-B $BD4D,$01 Room ID #N(#PEEK(#PC)).
-@ $BD4F label=Item_Bank
-B $BD4F,$01 Room ID #N(#PEEK(#PC)).
-@ $BD5A label=Item_Butchers
-B $BD5A,$01 Room ID #N(#PEEK(#PC)).
-@ $BD6A label=Item_Station
-B $BD6A,$01 Room ID #N(#PEEK(#PC)).
-@ $BD78 label=Item_Sewer
-  $BD78,$01 Room ID #N(#PEEK(#PC)).
-  $BD79,$03,$01
+N $BD01 Items in room #N$08: Wall Street.
+@ $BD01 label=Items_WallStreet
+  $BD01,$04 Item ID: #N(#PEEK(#PC)).
+  $BD05,$04 Item ID: #N(#PEEK(#PC)).
+  $BD09,$01 Terminator.
+N $BD0A Items in room #N$09: Pete Street.
+  $BD0A,$04 Item ID: #N(#PEEK(#PC)).
+  $BD0E,$01 Terminator.
+N $BD0F Items in room #N$0A: The Work Shed.
+  $BD0F,$04 Item ID: #N(#PEEK(#PC)).
+  $BD13,$04 Item ID: #N(#PEEK(#PC)).
+  $BD17,$04 Item ID: #N(#PEEK(#PC)).
+  $BD1B,$01 Terminator.
+N $BD1C Items in room #N$0B: School Lane.
+  $BD1C,$04 Item ID: #N(#PEEK(#PC)).
+  $BD20,$01 Terminator.
+N $BD21 Items in room #N$0C: The School.
+  $BD21,$04 Item ID: #N(#PEEK(#PC)).
+  $BD25,$01 Terminator.
+N $BD26 Items in room #N$0D: Baker Street.
+@ $BD26 label=Items_BakerStreet
+  $BD26,$01 Terminator.
+N $BD27 Items in room #N$0E: The Bakers.
+  $BD27,$04 Item ID: #N(#PEEK(#PC)).
+  $BD2B,$01 Terminator.
+N $BD2C Items in room #N$0F: The Pub.
+  $BD2C,$04 Item ID: #N(#PEEK(#PC)).
+  $BD30,$01 Terminator.
+N $BD31 Items in room #N$10: Motor Way.
+  $BD31,$01 Terminator.
+N $BD32 Items in room #N$11: The Laboratory.
+  $BD32,$04 Item ID: #N(#PEEK(#PC)).
+  $BD36,$04 Item ID: #N(#PEEK(#PC)).
+  $BD3A,$01 Terminator.
+N $BD3B Items in room #N$12: The Garage.
+  $BD3B,$04 Item ID: #N(#PEEK(#PC)).
+  $BD3F,$01 Terminator.
+N $BD40 Items in room #N$13: Reference Road.
+  $BD40,$01 Terminator.
+N $BD41 Items in room #N$14: The Library.
+  $BD41,$04 Item ID: #N(#PEEK(#PC)).
+  $BD45,$04 Item ID: #N(#PEEK(#PC)).
+  $BD49,$04 Item ID: #N(#PEEK(#PC)).
+  $BD4D,$01 Terminator.
+N $BD4E Items in room #N$15: Penny Lane.
+  $BD4E,$01 Terminator.
+N $BD4F Items in room #N$16: The Bank.
+  $BD4F,$04 Item ID: #N(#PEEK(#PC)).
+  $BD53,$01 Terminator.
+N $BD54 Items in room #N$17: Wally's House.
+  $BD54,$04 Item ID: #N(#PEEK(#PC)).
+  $BD58,$01 Terminator.
+N $BD59 Items in room #N$18: Meat Street.
+  $BD59,$01 Terminator.
+N $BD5A Items in room #N$19: The Butchers.
+@ $BD5A label=Items_TheButchers
+  $BD5A,$04 Item ID: #N(#PEEK(#PC)).
+  $BD5E,$04 Item ID: #N(#PEEK(#PC)).
+  $BD62,$01 Terminator.
+N $BD63 Items in room #N$1A: Trunk Road.
+  $BD63,$01 Terminator.
+N $BD64 Items in room #N$1B: The Zoo.
+  $BD64,$04 Item ID: #N(#PEEK(#PC)).
+  $BD68,$01 Terminator.
+N $BD69 Items in room #N$1C: Rail Road.
+  $BD69,$01 Terminator.
+N $BD6A Items in room #N$1D: The Station.
+  $BD6A,$04 Item ID: #N(#PEEK(#PC)).
+  $BD6E,$01 Terminator.
+N $BD6F Items in room #N$1E: The Docks.
+  $BD6F,$04 Item ID: #N(#PEEK(#PC)).
+  $BD73,$04 Item ID: #N(#PEEK(#PC)).
+  $BD77,$01 Terminator.
+N $BD78 Items in room #N$1F: The Sewer.
+  $BD78,$04 Item ID: #N(#PEEK(#PC)).
   $BD7C,$01 Terminator.
-  $BD7D,$01 Room ID #N(#PEEK(#PC)).
-  $BD7E,$02
-  $BD81,$01 Room ID #N(#PEEK(#PC)).
-  $BD82,$03,$01
+N $BD7D Items in room #N$20: The Cave.
+  $BD7D,$04 Item ID: #N(#PEEK(#PC)).
+  $BD81,$04 Item ID: #N(#PEEK(#PC)).
   $BD85,$01 Terminator.
 
 b $BD86 Table: Graphic Data
@@ -6540,6 +6617,20 @@ N $DFDC This is where the font UDGs start, so #R$E0DC is "SPACE" (ASCII code #N$
 L $D1BC,$08,$228
 
 c $E2FC
+  $E2FC,$06 Jump to #R$E30B if #REGiy+#N$00 is zero.
+  $E302,$04 If it is #N$03 jump to #R$E30B.
+  $E306,$04 Write #N$00 to #REGiy-#N$19.
+  $E30A,$01 Return.
+
+  $E30B,$05 Return if #REGiy-#N$19 is not zero.
+  $E310,$05 Write #N$01 to #REGiy-#N$19.
+  $E315,$07 Return if *#R$B951 and *#REGiy+#N$0F are not equal.
+N $E31C Play the "walking" sound.
+  $E31C,$03 #REGbc=#N$0701.
+  $E31F,$03 #REGde=#N$0F01.
+  $E322,$03 #REGhl=#N$0404.
+  $E325,$03 Call #R$E3D3.
+  $E328,$01 Return.
 
 c $E329
   $E329,$08 #REGa=*#R$A838-(*#REGiy+#N$05)-#N$0D.
@@ -7045,11 +7136,7 @@ N $E7A9 Loop through the port bits and correlate them with the base character re
 N $E7A9 This associates each character with a keypress.
 . #TABLE(default,centre,centre)
 . { =h Key | =h Character }
-. { #N$01 | Wally }
-. { #N$02 | Wilma }
-. { #N$03 | Tom }
-. { #N$04 | Dick }
-. { #N$05 | Harry }
+. #FOR($00,$04)(n,{ #N(n+$01) | #CHARACTERn })
 . TABLE#
   $E7A9,$04 #REGiy=#R$BC67.
 @ $E7AD label=ChangeCharacters_WhichCharacter_Loop
@@ -7095,38 +7182,71 @@ w $E7E9
 L $E7E9,$02,$13
 
 b $E80F
+N $E80F Room #N$00: Town Square.
   $E83B,$01 Terminator.
+N $E83C Room #N$01: Stamp Street.
   $E842,$01 Terminator.
+N $E843 Room #N$02: The Post Office.
   $E857,$01 Terminator.
+N $E858 Room #N$03: Market Street.
   $E858,$01 Terminator.
+N $E859 Room #N$04: The Super Market.
   $E876,$01 Terminator.
+N $E877 Room #N$05: The Park.
   $E87C,$01 Terminator.
+N $E87D Room #N$06: Wobbly Walk.
   $E87D,$01 Terminator.
+N $E87E Room #N$07: Rubble Road.
   $E87E,$01 Terminator.
+N $E87F Room #N$08: Wall Street.
   $E8AF,$01 Terminator.
+N $E8B0 Room #N$09: Pete Street.
   $E8C8,$01 Terminator.
+N $E8C9 Room #N$0A: The Work Shed.
   $E8FA,$01 Terminator.
+N $E8FB Room #N$0B: School Lane.
   $E91E,$01 Terminator.
+N $E91F Room #N$0C: The School.
   $E924,$01 Terminator.
+N $E925 Room #N$0D: Baker Street.
   $E92B,$01 Terminator.
+N $E92C Room #N$0E: The Bakers.
   $E931,$01 Terminator.
+N $E932 Room #N$0F: The Pub.
   $E940,$01 Terminator.
+N $E941 Room #N$10: Motor Way.
   $E941,$01 Terminator.
+N $E942 Room #N$11: The Laboratory.
   $E961,$01 Terminator.
+N $E962 Room #N$12: The Garage.
   $E985,$01 Terminator.
+N $E986 Room #N$13: Reference Road.
   $E992,$01 Terminator.
+N $E993 Room #N$14: The Library.
   $E9BC,$01 Terminator.
+N $E9BD Room #N$15: Penny Lane.
   $E9BD,$01 Terminator.
+N $E9BE Room #N$16: The Bank.
   $EA33,$01 Terminator.
+N $EA34 Room #N$17: Wally's House.
   $EA39,$01 Terminator.
+N $EA3A Room #N$18: Meat Street.
   $EA3A,$01 Terminator.
+N $EA3B Room #N$19: The Butchers.
   $EA58,$01 Terminator.
+N $EA59 Room #N$1A: Trunk Road.
   $EA5F,$01 Terminator.
+N $EA60 Room #N$1B: The Zoo.
   $EA6F,$01 Terminator.
+N $EA70 Room #N$1C: Rail Road.
   $EA70,$01 Terminator.
+N $EA71 Room #N$1D: The Station.
   $EA76,$01 Terminator.
+N $EA77 Room #N$1E: The Docks.
   $EA93,$01 Terminator.
+N $EA94 Room #N$1F: The Sewer.
   $EAA0,$01 Terminator.
+N $EAA1 Room #N$20: The Cave.
   $EABE,$01 Terminator.
 
 c $EABF
@@ -7173,6 +7293,30 @@ c $EB01
   $EB0C,$03 Jump to #R$EAEB.
 
 c $EB0F
+  $EB0F,$05 Write #N$01 to #R$EB54.
+  $EB14,$03 #REGb=#REGiy-#N$2D.
+  $EB17,$01 #REGc=*#REGhl.
+  $EB18,$01 Increment #REGhl by one.
+  $EB19,$03 Stash #REGhl and #REGiy on the stack.
+  $EB1C,$03 Call #R$AA8C.
+  $EB1F,$03 #REGa=*#REGiy+#N$50.
+
+  $EB25,$0A Increment #REGiy by five.
+N $EB2F Switch the values at *#REGhl and *#REGiy+#N$50.
+  $EB2F,$01 #REGc=*#REGhl.
+  $EB30,$04 Write *#REGiy+#N$50 to *#REGhl.
+  $EB34,$03 Write #REGc to *#REGiy+#N$50.
+  $EB37,$03 Increment #REGhl by three.
+  $EB3A,$01 #REGa=*#REGhl.
+
+  $EB3E,$01 #REGa=*#REGhl.
+  $EB3F,$02,b$01 Keep only bit 7.
+
+  $EB48,$02 Restore #REGiy from the stack.
+  $EB4A,$03 Call #R$E41D.
+  $EB4D,$03 Call #R$AA7F.
+  $EB50,$01 Restore #REGhl from the stack.
+  $EB51,$03 Jump to #R$EAEB.
 
 g $EB54
 
@@ -7368,6 +7512,9 @@ c $F10E
 
 c $F177
 
+B $F26E,$09,$01
+B $F571,$07,$01
+
 c $F578
   $F578,$05 Write #N$45 to #R$F26F.
   $F57D,$06 Write #R$9878 to #R$A838.
@@ -7416,9 +7563,30 @@ c $F5F1
   $F622,$04 #REGix=#R$F5BE.
 
 B $F7DE
+B $F7E9
 W $F812
 
 c $F814
+  $F814,$03 #REGhl=*#R$F812.
+
+  $F82E,$03 Call #R$A83D.
+
+  $F843,$03 #REGhl=*#R$F812.
+  $F846,$04 Increment #REGhl by four.
+
+  $F84F,$06 Write #R$F7E9 to #R$F812.
+
+  $F869,$03 Call #R$E36D.
+N $F86C Play the "Task Complete" sound.
+  $F86C,$03 #REGbc=#N$643C.
+  $F86F,$03 #REGde=#N$0128.
+  $F872,$03 #REGhl=#N$0103.
+  $F875,$03 Call #R$E3D3.
+  $F878,$01 Return.
+
+b $F879
+
+c $F8B9
 
 B $F9F0,$05,$01
 

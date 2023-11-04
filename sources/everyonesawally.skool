@@ -4092,7 +4092,8 @@ g$A83B DEFW $0000
 
 ; Routine at A83D
 ;
-; Used by the routines at #R$EEC1, #R$F177, #R$F578, #R$F5F1 and #R$F814.
+; Used by the routines at #R$EEC1, #R$F177, #R$F578, #R$F5F1, #R$F814 and
+; #R$F8B9.
 c$A83D DI            ; Disable interrupts.
  $A83E EXX           ; Switch to the shadow registers.
  $A83F PUSH AF       ; Stash #REGaf on the stack.
@@ -4164,7 +4165,7 @@ c$A83D DI            ; Disable interrupts.
 ; Routine at A8A0
 ;
 ; Used by the routines at #R$ED2A, #R$EFC7, #R$F10E, #R$F177, #R$F5F1 and
-; #R$F814.
+; #R$F8B9.
 c$A8A0 EXX           ; Switch to the shadow registers.
  $A8A1 PUSH AF       ; Stash #REGaf on the stack.
  $A8A2 LD ($A83B),SP ; Write #REGsp to #R$A83B.
@@ -4254,13 +4255,19 @@ c$A8A0 EXX           ; Switch to the shadow registers.
  $A91F POP AF        ; Restore #REGaf from the stack.
  $A920 RET           ; Return.
 
-; Routine at A921
+; Check If Active Character
 ;
 ; Used by the routines at #R$A92C, #R$AA30, #R$B288 and #R$E79B.
+;
+; IY Character pointer
+; F Zero flag is set if the given character is active
+@label=Character_Active
 c$A921 PUSH IY       ; {#REGhl=#REGiy.
  $A923 POP HL        ; }
  $A924 LD DE,($B09D) ; #REGde=*#R$B09D.
  $A928 AND A         ; Reset the flags.
+; Simply subtract one character address pointer from the current character
+; pointer.
  $A929 SBC HL,DE     ; #REGhl-=#REGde.
  $A92B RET           ; Return.
 
@@ -4436,31 +4443,35 @@ c$AA30 PUSH HL       ; Stash #REGhl on the stack.
  $AA7D POP HL        ; Restore #REGhl from the stack.
  $AA7E RET           ; Return.
 
-; Routine at AA7F
+; Sounds: Pick Up
 ;
 ; Used by the routines at #R$AA30 and #R$EB0F.
+@label=Sounds_PickUp
 c$AA7F LD BC,$FF0A   ; #REGbc=#N$FF0A.
  $AA82 LD DE,$0114   ; #REGde=#N$0114.
  $AA85 LD HL,$1401   ; #REGhl=#N$1401.
  $AA88 CALL $E3D3    ; Call #R$E3D3.
  $AA8B RET           ; Return.
 
-; Routine at AA8C
+; Handler: Fetch Items In Current Room
 ;
 ; Used by the routines at #R$A92C, #R$AA30, #R$EB0F, #R$EB55, #R$EB95, #R$EC34
 ; and #R$EEC1.
+@label=Handler_ItemsCurrentRoom
 c$AA8C LD A,(IY+$0F) ; #REGa=*#REGiy+#N$0F (current room).
  $AA8F LD HL,$BCE9   ; #REGhl=#R$BCE9.
  $AA92 CALL $AC6C    ; Call #R$AC6C.
- $AA95 LD A,B        ;
+ $AA95 LD A,B        ; {If #REGb is zero jump to #R$AA9F.
  $AA96 OR A          ;
- $AA97 JR Z,$AA9F    ;
+ $AA97 JR Z,$AA9F    ; }
+@label=Handler_ItemsCurrentRoom_Loop
 *$AA99 INC HL        ; {Increment #REGhl by four.
  $AA9A INC HL        ;
  $AA9B INC HL        ;
  $AA9C INC HL        ; }
  $AA9D DJNZ $AA99    ; Decrease counter by one and loop back to #R$AA99 until
                      ; counter is zero.
+@label=Handler_ItemsCurrentRoom_Return
 *$AA9F RET           ; Return.
 
 ; Jump Table
@@ -4604,7 +4615,7 @@ c$AB9B LD A,(IY+$0A)   ; {If #REGiy+#N$0A is not #N$98 jump to #R$ABC3.
 
 ; Controls: Exit Screen
 ;
-; Used by the routines at #R$AC06, #R$ED2A and #R$F814.
+; Used by the routines at #R$AC06, #R$ED2A and #R$F8B9.
 ;
 ; O:A #N$00 for no press and #N$01 for pressed
 @label=Controls_ExitScreen
@@ -5269,7 +5280,7 @@ c$AFC4 LD (IY+$37),$01 ; Write #N$01 to *#REGiy+#N$37.
 
 ; Controls: Right
 ;
-; Used by the routines at #R$B09F, #R$EFC7 and #R$F814.
+; Used by the routines at #R$B09F, #R$EFC7 and #R$F8B9.
 ;
 ; O:A #N$00 for no press and #N$01 for pressed
 @label=Controls_Right
@@ -5326,7 +5337,7 @@ c$B00B LD A,($B2DB)  ; {If #R$B2DB is zero then jump to #R$B028.
 
 ; Controls: Left
 ;
-; Used by the routines at #R$B09F, #R$EFC7 and #R$F814.
+; Used by the routines at #R$B09F, #R$EFC7 and #R$F8B9.
 ;
 ; O:A #N$00 for no press and #N$01 for pressed
 @label=Controls_Left
@@ -5383,7 +5394,7 @@ c$B03C LD A,($B2DB)  ; {If #R$B2DB is zero then jump to #R$B059.
 
 ; Controls: Jump
 ;
-; Used by the routines at #R$B09F and #R$F814.
+; Used by the routines at #R$B09F and #R$F8B9.
 ;
 ; O:A #N$00 for no press and #N$01 for pressed
 @label=Controls_Jump
@@ -5437,8 +5448,15 @@ c$B06D LD A,($B2DB)  ; {If #R$B2DB is zero then jump to #R$B08A.
 *$B09B XOR A         ; #REGa=#N$00.
  $B09C RET           ; Return.
 
-; Data block at B09D
-w$B09D DEFW $0000
+; Current Character Pointer
+;
+; Will be one of:
+; #LIST
+; #FOR($00,$04)(n,{ #R($BC67+n)(#CHARACTERn data.) }
+; ) LIST#
+@label=CurrentCharacter
+g$B09D DEFW $0000    ; Points to the base of where the interlaced character
+                     ; data begins.
 
 ; Routine at B09F
 ;
@@ -6146,8 +6164,8 @@ c$B494 INC HL        ; Increment music data address pointer held in #REGhl by
 @label=Pointer_MusicData
 w$B4E7 DEFW $0000
 
-; Flag: Temp Game Options
-@label=Flag_Temp_GameOptions
+; Temporary Storage: Game Options
+@label=TempStore_GameOptions
 g$B4E9 DEFB $FF
 
 ; Flag: Theme Music Key Change
@@ -6558,9 +6576,10 @@ c$B7F9 PUSH AF       ; {Stash #REGaf, #REGhl, #REGbc and #REGde on the stack.
  $B829 POP AF        ; }
  $B82A RET           ; Return.
 
-; Routine at B82B
+; Switch Sprite Drawing Functions
 ;
 ; Used by the routines at #R$B3BE, #R$EB79 and #R$EFC7.
+@label=Switch_DrawSprite_Functions
 c$B82B PUSH HL       ; Stash #REGhl on the stack.
  $B82C LD HL,$B7F9   ; {Write #R$B7F9 to: #LIST { #R$B8BD(#N$B8BE) } {
  $B82F LD ($B8BE),HL ; #R$B8B4(#N$B8B5) } { #R$B894(#N$B895) } LIST#
@@ -6804,8 +6823,9 @@ c$B931 PUSH HL       ; {Stash #REGhl, #REGbc and #REGde on the stack.
  $B94C JR NZ,$B93A   ; Jump to #R$B93A until #REGc is zero.
  $B94E JP $B92D      ; Jump to #R$B92D.
 
-; Data block at B951
-b$B951 DEFB $00
+; Temporary Storage: Room ID
+@label=TempStore_Room
+g$B951 DEFB $00
 
 ; Draw Room
 ;
@@ -6901,38 +6921,55 @@ c$B952 LD A,$B8      ; {Write #N$B8 to #R$AF88.
 ; Used by the routines at #R$B952, #R$ED2A and #R$EDF7.
 c$B9AC LD DE,$5B00   ; #REGde=#N$5B00.
  $B9AF LD IX,$8278   ; #REGix=#R$8278.
- $B9B3 LD BC,$1000   ; #REGbc=#N($1000,$04,$04).
+ $B9B3 LD BC,$1000   ; #REGbc=#N$1000 (bytes of data).
+; Fetch the screen buffer from the look up table held by #REGix.
 *$B9B6 LD L,(IX+$00) ; #REGl=*#REGix+#N$00.
  $B9B9 LD H,(IX+$01) ; #REGh=*#REGix+#N$01.
  $B9BC INC IX        ; {Increment #REGix by two.
  $B9BE INC IX        ; }
  $B9C0 CALL $BA25    ; Call #R$BA25.
- $B9C3 JP PE,$B9B6   ; If the return from #R$BA25 is even, jump to #R$B9B6.
- $B9C6 LD BC,$0200   ; #REGbc=#N($0200,$04,$04).
+ $B9C3 JP PE,$B9B6   ; Jump to #R$B9B6 until #REGbc is zero.
+ $B9C6 LD BC,$0200   ; #REGbc=#N$0200 (bytes of data).
  $B9C9 LD DE,$FE00   ; #REGde=#R$FE00.
  $B9CC LD HL,$5900   ; #REGhl=#R$5900.
 *$B9CF CALL $BA25    ; Call #R$BA25.
- $B9D2 JP PE,$B9CF   ; If the return from #R$BA25 is even, jump to #R$B9CF.
+ $B9D2 JP PE,$B9CF   ; Jump to #R$B9CF until #REGbc is zero.
  $B9D5 RET           ; Return.
 
-; Routine at B9D6
+; Draw Characters In The Current Room
 ;
 ; Used by the routines at #R$813B, #R$81AE and #R$B3BE.
+;
+; .
+;
+; Write the current room ID for referring back to.
+@label=Draw_Characters_CurrentRoom
 c$B9D6 LD A,(IY+$0F) ; {Write the current room (#REGiy+#N$0F) to #R$B951.
  $B9D9 LD ($B951),A  ; }
- $B9DC LD B,$05      ; #REGb=#N$05.
+; There are five characters, cycle through each of them in reverse.
+ $B9DC LD B,$05      ; #REGb=#N$05 (counter).
+; Store the current character reference so it isn't corrupted.
  $B9DE PUSH IY       ; Stash #REGiy on the stack.
+; Starting at the end with Harry.
  $B9E0 LD IY,$BC6B   ; #REGiy=#R$BC6B.
-*$B9E4 PUSH BC       ; Stash #REGbc on the stack.
+@label=Draw_Characters_CurrentRoom_Loop
+*$B9E4 PUSH BC       ; Stash the counter in #REGbc on the stack.
+; Don't draw the character if they're not in the current room.
  $B9E5 LD A,($B951)  ; #REGa=*#R$B951.
  $B9E8 CP (IY+$0F)   ; {If #REGa is not equal to the current room
  $B9EB JR NZ,$B9F0   ; (*#REGiy+#N$0F) jump to #R$B9F0.}
+; Draw the character in the shadow buffer as they are in the room with our
+; current character.
  $B9ED CALL $B0E6    ; Call #R$B0E6.
+; Move onto the next character.
+@label=Draw_Characters_CurrentRoom_Skip
 *$B9F0 DEC IY        ; Decrease #REGiy by one.
- $B9F2 POP BC        ; Restore #REGbc from the stack.
+ $B9F2 POP BC        ; Restore the counter (#REGbc) from the stack.
  $B9F3 DJNZ $B9E4    ; Decrease counter by one and loop back to #R$B9E4 until
                      ; counter is zero.
+; Restores the current character pointer to #REGiy.
  $B9F5 POP IY        ; Restore #REGiy from the stack.
+; Update the screen buffer and return.
  $B9F7 CALL $B9FB    ; Call #R$B9FB.
  $B9FA RET           ; Return.
 
@@ -6943,23 +6980,25 @@ c$B9D6 LD A,(IY+$0F) ; {Write the current room (#REGiy+#N$0F) to #R$B951.
 ;
 ; .
 ;
-; Copy the shadow screen buffer.
-@label=Copy_ShadowBuffer
+; Copy the shadow screen buffer to the playarea (beginning at memory location
+; #N$4800).
+@label=ShadowBufferToScreen
 c$B9FB LD HL,$6B00   ; #REGhl=#R$6B00.
  $B9FE LD IX,$8278   ; #REGix=#R$8278.
- $BA02 LD BC,$1000   ; #REGbc=#N$1000.
-@label=Copy_ShadowBuffer_Loop
+ $BA02 LD BC,$1000   ; #REGbc=#N$1000 (bytes of data).
+; Fetch the screen buffer from the look up table held by #REGix.
+@label=ShadowBufferToScreen_Loop
 *$BA05 LD E,(IX+$00) ; #REGe=*#REGix+#N$00.
  $BA08 LD D,(IX+$01) ; #REGd=*#REGix+#N$01.
  $BA0B INC IX        ; {Increment #REGix by two.
  $BA0D INC IX        ; }
  $BA0F CALL $BA25    ; Call #R$BA25.
  $BA12 JP PE,$BA05   ; Jump to #R$BA05 until #REGbc is zero.
-; Copy the shadow attribute buffer.
- $BA15 LD BC,$0200   ; #REGbc=#N$0200.
+; Copy the shadow attribute buffer to the attribute buffer.
+ $BA15 LD BC,$0200   ; #REGbc=#N$0200 (bytes of data).
  $BA18 LD HL,$FC00   ; #REGhl=#R$FC00.
  $BA1B LD DE,$5900   ; #REGde=#R$5900.
-@label=Copy_ShadowBuffer_Attributes_Loop
+@label=ShadowBufferToScreen_Attributes_Loop
 *$BA1E CALL $BA25    ; Call #R$BA25.
  $BA21 JP PE,$BA1E   ; Jump to #R$BA1E until #REGbc is zero.
  $BA24 RET           ; Return.
@@ -7228,123 +7267,168 @@ b$BC30 DEFB $1F,$1F,$1F,$1F,$1F,$1F,$1F,$1F
  $BC58 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $BC60 DEFB $00,$00,$00,$00,$00,$00,$00
 
-; Character Data
-@label=Character_Data
-g$BC67 DEFB $00
- $BC68 DEFB $00
- $BC69 DEFB $00
- $BC6A DEFB $00
- $BC6B DEFB $00
+; Character: Frame ID
+@label=FrameId_Wally
+g$BC67 DEFB $00      ; Current Frame ID for #CHARACTER(#PC-$BC67).
+@label=FrameId_Wilma
+ $BC68 DEFB $00      ; Current Frame ID for #CHARACTER(#PC-$BC67).
+@label=FrameId_Tom
+ $BC69 DEFB $00      ; Current Frame ID for #CHARACTER(#PC-$BC67).
+@label=FrameId_Dick
+ $BC6A DEFB $00      ; Current Frame ID for #CHARACTER(#PC-$BC67).
+@label=FrameId_Harry
+ $BC6B DEFB $00      ; Current Frame ID for #CHARACTER(#PC-$BC67).
 
-; Game status buffer entry at BC6C
-g$BC6C DEFB $40
- $BC6D DEFB $08
- $BC6E DEFB $90
- $BC6F DEFB $A8
- $BC70 DEFB $E8
+; Character: X Screen Position
+@label=Position_X_Wally
+g$BC6C DEFB $40      ; X position for #CHARACTER(#PC-$BC6C).
+@label=Position_X_Wilma
+ $BC6D DEFB $08      ; X position for #CHARACTER(#PC-$BC6C).
+@label=Position_X_Tom
+ $BC6E DEFB $90      ; X position for #CHARACTER(#PC-$BC6C).
+@label=Position_X_Dick
+ $BC6F DEFB $A8      ; X position for #CHARACTER(#PC-$BC6C).
+@label=Position_X_Harry
+ $BC70 DEFB $E8      ; X position for #CHARACTER(#PC-$BC6C).
 
-; Game status buffer entry at BC71
-g$BC71 DEFB $98
- $BC72 DEFB $98
- $BC73 DEFB $98
- $BC74 DEFB $98
- $BC75 DEFB $98
+; Character: Y Screen Position
+@label=Position_Y_Wally
+g$BC71 DEFB $98      ; Y position for #CHARACTER(#PC-$BC71).
+@label=Position_Y_Wilma
+ $BC72 DEFB $98      ; Y position for #CHARACTER(#PC-$BC71).
+@label=Position_Y_Tom
+ $BC73 DEFB $98      ; Y position for #CHARACTER(#PC-$BC71).
+@label=Position_Y_Dick
+ $BC74 DEFB $98      ; Y position for #CHARACTER(#PC-$BC71).
+@label=Position_Y_Harry
+ $BC75 DEFB $98      ; Y position for #CHARACTER(#PC-$BC71).
 
 ; Character: Current Room ID
 @label=CurrentRoom_Wally
-g$BC76 DEFB $00      ; Current room ID for Wally.
+g$BC76 DEFB $00      ; Current room ID for #CHARACTER(#PC-$BC76).
 @label=CurrentRoom_Wilma
- $BC77 DEFB $00      ; Current room ID for Wilma.
+ $BC77 DEFB $00      ; Current room ID for #CHARACTER(#PC-$BC76).
 @label=CurrentRoom_Tom
- $BC78 DEFB $00      ; Current room ID for Tom.
+ $BC78 DEFB $00      ; Current room ID for #CHARACTER(#PC-$BC76).
 @label=CurrentRoom_Dick
- $BC79 DEFB $00      ; Current room ID for Dick.
+ $BC79 DEFB $00      ; Current room ID for #CHARACTER(#PC-$BC76).
 @label=CurrentRoom_Harry
- $BC7A DEFB $00      ; Current room ID for Harry.
+ $BC7A DEFB $00      ; Current room ID for #CHARACTER(#PC-$BC76).
 
 ; Game status buffer entry at BC7B
-g$BC7B DEFB $80
- $BC7C DEFB $80
- $BC7D DEFB $80
- $BC7E DEFB $80
- $BC7F DEFB $80
+g$BC7B DEFB $80      ; #CHARACTER(#PC-$BC7B).
+ $BC7C DEFB $80      ; #CHARACTER(#PC-$BC7B).
+ $BC7D DEFB $80      ; #CHARACTER(#PC-$BC7B).
+ $BC7E DEFB $80      ; #CHARACTER(#PC-$BC7B).
+ $BC7F DEFB $80      ; #CHARACTER(#PC-$BC7B).
 
 ; Game status buffer entry at BC80
-g$BC80 DEFB $5B
- $BC81 DEFB $5C
- $BC82 DEFB $5D
- $BC83 DEFB $5E
- $BC84 DEFB $5F
+g$BC80 DEFB $5B      ; #CHARACTER(#PC-$BC80).
+ $BC81 DEFB $5C      ; #CHARACTER(#PC-$BC80).
+ $BC82 DEFB $5D      ; #CHARACTER(#PC-$BC80).
+ $BC83 DEFB $5E      ; #CHARACTER(#PC-$BC80).
+ $BC84 DEFB $5F      ; #CHARACTER(#PC-$BC80).
 
-; Game status buffer entry at BC85
-g$BC85 DEFB $46
- $BC86 DEFB $45
- $BC87 DEFB $44
- $BC88 DEFB $43
- $BC89 DEFB $07
+; Character: Colour Attribute
+@label=Attribute_Wally
+g$BC85 DEFB $46      ; #CHARACTER(#PC-$BC85) colour attribute:
+                     ; #COLOUR(#PEEK(#PC)).
+@label=Attribute_Wilma
+ $BC86 DEFB $45      ; #CHARACTER(#PC-$BC85) colour attribute:
+                     ; #COLOUR(#PEEK(#PC)).
+@label=Attribute_Tom
+ $BC87 DEFB $44      ; #CHARACTER(#PC-$BC85) colour attribute:
+                     ; #COLOUR(#PEEK(#PC)).
+@label=Attribute_Dick
+ $BC88 DEFB $43      ; #CHARACTER(#PC-$BC85) colour attribute:
+                     ; #COLOUR(#PEEK(#PC)).
+@label=Attribute_Harry
+ $BC89 DEFB $07      ; #CHARACTER(#PC-$BC85) colour attribute:
+                     ; #COLOUR(#PEEK(#PC)).
 
 ; Game status buffer entry at BC8A
-g$BC8A DEFB $38
- $BC8B DEFB $38
- $BC8C DEFB $38
- $BC8D DEFB $38
- $BC8E DEFB $38
+g$BC8A DEFB $38      ; #CHARACTER(#PC-$BC8A).
+ $BC8B DEFB $38      ; #CHARACTER(#PC-$BC8A).
+ $BC8C DEFB $38      ; #CHARACTER(#PC-$BC8A).
+ $BC8D DEFB $38      ; #CHARACTER(#PC-$BC8A).
+ $BC8E DEFB $38      ; #CHARACTER(#PC-$BC8A).
 
 ; Game status buffer entry at BC8F
-g$BC8F DEFB $94
- $BC90 DEFB $98
- $BC91 DEFB $9C
- $BC92 DEFB $A0
- $BC93 DEFB $A4
+g$BC8F DEFB $94      ; #CHARACTER(#PC-$BC8F).
+ $BC90 DEFB $98      ; #CHARACTER(#PC-$BC8F).
+ $BC91 DEFB $9C      ; #CHARACTER(#PC-$BC8F).
+ $BC92 DEFB $A0      ; #CHARACTER(#PC-$BC8F).
+ $BC93 DEFB $A4      ; #CHARACTER(#PC-$BC8F).
 
 ; Character: Lives
 @label=Lives_Wally
-g$BC94 DEFB $03      ; Current lives for Wally.
+g$BC94 DEFB $03      ; Current lives for #CHARACTER(#PC-$BC94).
 @label=Lives_Wilma
- $BC95 DEFB $03      ; Current lives for Wilma.
+ $BC95 DEFB $03      ; Current lives for #CHARACTER(#PC-$BC94).
 @label=Lives_Tom
- $BC96 DEFB $03      ; Current lives for Tom.
+ $BC96 DEFB $03      ; Current lives for #CHARACTER(#PC-$BC94).
 @label=Lives_Dick
- $BC97 DEFB $03      ; Current lives for Dick.
+ $BC97 DEFB $03      ; Current lives for #CHARACTER(#PC-$BC94).
 @label=Lives_Harry
- $BC98 DEFB $03      ; Current lives for Harry.
+ $BC98 DEFB $03      ; Current lives for #CHARACTER(#PC-$BC94).
 
 ; Game status buffer entry at BC99
-g$BC99 DEFB $00
- $BC9A DEFB $00
- $BC9B DEFB $00
- $BC9C DEFB $00
- $BC9D DEFB $00
+g$BC99 DEFB $00      ; #CHARACTER(#PC-$BC99).
+ $BC9A DEFB $00      ; #CHARACTER(#PC-$BC99).
+ $BC9B DEFB $00      ; #CHARACTER(#PC-$BC99).
+ $BC9C DEFB $00      ; #CHARACTER(#PC-$BC99).
+ $BC9D DEFB $00      ; #CHARACTER(#PC-$BC99).
 
 ; Game status buffer entry at BC9E
-g$BC9E DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $BCA6 DEFB $00,$00
+g$BC9E DEFB $00      ; #CHARACTER(#PC-$BC9E).
+ $BC9F DEFB $00      ; #CHARACTER(#PC-$BC9E).
+ $BCA0 DEFB $00      ; #CHARACTER(#PC-$BC9E).
+ $BCA1 DEFB $00      ; #CHARACTER(#PC-$BC9E).
+ $BCA2 DEFB $00      ; #CHARACTER(#PC-$BC9E).
+ $BCA3 DEFB $00      ; #CHARACTER(#PC-$BCA3).
+ $BCA4 DEFB $00      ; #CHARACTER(#PC-$BCA3).
+ $BCA5 DEFB $00      ; #CHARACTER(#PC-$BCA3).
+ $BCA6 DEFB $00      ; #CHARACTER(#PC-$BCA3).
+ $BCA7 DEFB $00      ; #CHARACTER(#PC-$BCA3).
 
 ; Game status buffer entry at BCA8
-g$BCA8 DEFB $01,$01,$01,$01,$01,$00,$00,$00
- $BCB0 DEFB $00,$00,$00,$00,$00,$00,$00
+g$BCA8 DEFB $01      ; #CHARACTER(#PC-$BCA8).
+ $BCA9 DEFB $01      ; #CHARACTER(#PC-$BCA8).
+ $BCAA DEFB $01      ; #CHARACTER(#PC-$BCA8).
+ $BCAB DEFB $01      ; #CHARACTER(#PC-$BCA8).
+ $BCAC DEFB $01      ; #CHARACTER(#PC-$BCA8).
+ $BCAD DEFB $00      ; #CHARACTER(#PC-$BCAD).
+ $BCAE DEFB $00      ; #CHARACTER(#PC-$BCAD).
+ $BCAF DEFB $00      ; #CHARACTER(#PC-$BCAD).
+ $BCB0 DEFB $00      ; #CHARACTER(#PC-$BCAD).
+ $BCB1 DEFB $00      ; #CHARACTER(#PC-$BCAD).
+ $BCB2 DEFB $00      ; #CHARACTER(#PC-$BCB2).
+ $BCB3 DEFB $00      ; #CHARACTER(#PC-$BCB2).
+ $BCB4 DEFB $00      ; #CHARACTER(#PC-$BCB2).
+ $BCB5 DEFB $00      ; #CHARACTER(#PC-$BCB2).
+ $BCB6 DEFB $00      ; #CHARACTER(#PC-$BCB2).
 
 ; Character: Items
 @label=Item_1_Wally
-g$BCB7 DEFB $1F      ; Item 1 for Wally.
+g$BCB7 DEFB $1F      ; Item 1 for #CHARACTER(#PC-$BCB7).
 @label=Item_1_Wilma
- $BCB8 DEFB $21      ; Item 1 for Wilma.
+ $BCB8 DEFB $21      ; Item 1 for #CHARACTER(#PC-$BCB7).
 @label=Item_1_Tom
- $BCB9 DEFB $23      ; Item 1 for Tom.
+ $BCB9 DEFB $23      ; Item 1 for #CHARACTER(#PC-$BCB7).
 @label=Item_1_Dick
- $BCBA DEFB $25      ; Item 1 for Dick.
+ $BCBA DEFB $25      ; Item 1 for #CHARACTER(#PC-$BCB7).
 @label=Item_1_Harry
- $BCBB DEFB $27      ; Item 1 for Harry.
+ $BCBB DEFB $27      ; Item 1 for #CHARACTER(#PC-$BCB7).
 @label=Item_2_Wally
- $BCBC DEFB $20      ; Item 2 for Wally.
+ $BCBC DEFB $20      ; Item 2 for #CHARACTER(#PC-$BCBC).
 @label=Item_2_Wilma
- $BCBD DEFB $22      ; Item 2 for Wilma.
+ $BCBD DEFB $22      ; Item 2 for #CHARACTER(#PC-$BCBC).
 @label=Item_2_Tom
- $BCBE DEFB $24      ; Item 2 for Tom.
+ $BCBE DEFB $24      ; Item 2 for #CHARACTER(#PC-$BCBC).
 @label=Item_2_Dick
- $BCBF DEFB $26      ; Item 2 for Dick.
+ $BCBF DEFB $26      ; Item 2 for #CHARACTER(#PC-$BCBC).
 @label=Item_2_Harry
- $BCC0 DEFB $28      ; Item 2 for Harry.
+ $BCC0 DEFB $28      ; Item 2 for #CHARACTER(#PC-$BCBC).
 
 ; Game status buffer entry at BCC1
 g$BCC1 DEFB $14,$05,$17,$12,$08,$00,$00,$00
@@ -7354,88 +7438,119 @@ g$BCC1 DEFB $14,$05,$17,$12,$08,$00,$00,$00
  $BCE1 DEFB $B9,$C2,$CB,$AE,$AE,$AE,$AE,$AE
 
 ; Item Data
-@label=Item_Data
-b$BCE9 DEFB $FF                             ; Terminator.
- $BCEA DEFB $FF                             ; Terminator.
- $BCEB DEFB $00                             ; Room ID #N(#PEEK(#PC)).
- $BCEC DEFB $C8,$90
- $BCEE DEFB $1F
- $BCEF DEFB $FF                             ; Terminator.
- $BCF0 DEFB $FF                             ; Terminator.
- $BCF1 DEFB $01                             ; Room ID #N(#PEEK(#PC)).
- $BCF2 DEFB $18,$88,$9F
-@label=Item_Supermarket
- $BCF5 DEFB $02                             ; {Room ID #N(#PEEK(#PC)).
- $BCF6 DEFB $78                             ;
- $BCF7 DEFB $A8                             ;
- $BCF8 DEFB $1F                             ; }
- $BCF9 DEFB $FF                             ; Terminator.
-@label=Item_Park
- $BCFA DEFB $03                             ; {Room ID #N(#PEEK(#PC)).
- $BCFB DEFB $88                             ;
- $BCFC DEFB $A8                             ;
- $BCFD DEFB $9F                             ;
- $BCFE DEFB $FF                             ;
- $BCFF DEFB $FF                             ; }
- $BD00 DEFB $FF                             ; Terminator.
-@label=Item_WallStreet
- $BD01 DEFB $04                             ; Room ID #N(#PEEK(#PC)).
- $BD02 DEFB $20,$A0,$9F,$05,$C8,$68,$9F,$FF
- $BD0A DEFB $06,$40,$A8,$9F,$FF
-@label=Item_Workshed_OnLeftTable
- $BD0F DEFB $07                             ; Room ID #N(#PEEK(#PC)).
- $BD10 DEFB $60,$90,$1F
-@label=Item_Workshed_UnderLeftTable
- $BD13 DEFB $08                             ; Room ID #N(#PEEK(#PC)).
- $BD14 DEFB $80,$A8,$1F
-@label=Item_Workshed_UnderRightTable
- $BD17 DEFB $09                             ; Room ID #N(#PEEK(#PC)).
- $BD18 DEFB $C8,$A8,$1F,$FF,$0A,$28,$50,$9F
- $BD20 DEFB $FF
-@label=Item_School
- $BD21 DEFB $0B                             ; Room ID #N(#PEEK(#PC)).
- $BD22 DEFB $10,$A8,$9F,$FF,$FF,$0C,$10,$A0
- $BD2A DEFB $1F,$FF,$0D,$A0,$90,$9F,$FF,$FF
-@label=Item_KemcoLab_Left
- $BD32 DEFB $0E                             ; Room ID #N(#PEEK(#PC)).
- $BD33 DEFB $60,$90,$1F
-@label=Item_KemcoLab_Right
- $BD36 DEFB $0F                             ; Room ID #N(#PEEK(#PC)).
- $BD37 DEFB $D8,$90,$1F,$FF
-@label=Item_Garage
- $BD3B DEFB $10                             ; Room ID #N(#PEEK(#PC)).
- $BD3C DEFB $78,$A8,$1F,$FF,$FF,$11,$38,$90
- $BD44 DEFB $9F,$12,$78,$90,$9F,$13,$C0,$90
- $BD4C DEFB $9F
-@label=Item_WallysHouse
- $BD4D DEFB $FF                             ; Room ID #N(#PEEK(#PC)).
- $BD4E DEFB $FF
-@label=Item_Bank
- $BD4F DEFB $14                             ; Room ID #N(#PEEK(#PC)).
- $BD50 DEFB $C8,$A8,$1F,$FF,$15,$78,$A8,$1F
- $BD58 DEFB $FF,$FF
-@label=Item_Butchers
- $BD5A DEFB $16                             ; Room ID #N(#PEEK(#PC)).
- $BD5B DEFB $10,$A8,$9F,$17,$10,$90,$9F,$FF
- $BD63 DEFB $FF,$18,$08,$A8,$9F,$FF,$FF
-@label=Item_Station
- $BD6A DEFB $19                             ; Room ID #N(#PEEK(#PC)).
- $BD6B DEFB $B0,$90,$1F,$FF,$1A,$00,$A8,$9F
- $BD73 DEFB $1B,$84,$90,$9F,$FF
-@label=Item_Sewer
- $BD78 DEFB $1C                             ; Room ID #N(#PEEK(#PC)).
- $BD79 DEFB $78
- $BD7A DEFB $A8
- $BD7B DEFB $1F
- $BD7C DEFB $FF                             ; Terminator.
- $BD7D DEFB $1D                             ; Room ID #N(#PEEK(#PC)).
- $BD7E DEFB $00,$98
- $BD80 DEFB $9F
- $BD81 DEFB $1E                             ; Room ID #N(#PEEK(#PC)).
- $BD82 DEFB $48
- $BD83 DEFB $A8
- $BD84 DEFB $9F
- $BD85 DEFB $FF                             ; Terminator.
+;
+; .
+;
+; .
+;
+; Items in room #N$00: Town Square.
+@label=Items_TownSquare
+b$BCE9 DEFB $FF             ; Terminator.
+; Items in room #N$01: Stamp Street.
+@label=Items_StampStreet
+ $BCEA DEFB $FF             ; Terminator.
+; Items in room #N$02: The Post Office.
+@label=Items_ThePostOffice
+ $BCEB DEFB $00,$C8,$90,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BCEF DEFB $FF             ; Terminator.
+; Items in room #N$03: Market Street.
+@label=Items_MarketStreet
+ $BCF0 DEFB $FF             ; Terminator.
+; Items in room #N$04: The Super Market.
+@label=Items_TheSuperMarket
+ $BCF1 DEFB $01,$18,$88,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BCF5 DEFB $02,$78,$A8,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BCF9 DEFB $FF             ; Terminator.
+; Items in room #N$05: The Park.
+@label=Items_ThePark
+ $BCFA DEFB $03,$88,$A8,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BCFE DEFB $FF             ; Terminator.
+; Items in room #N$06: Wobbly Walk.
+@label=Items_WobblyWalk
+ $BCFF DEFB $FF             ; Terminator.
+; Items in room #N$07: Rubble Road.
+@label=Items_RubbleRoad
+ $BD00 DEFB $FF             ; Terminator.
+; Items in room #N$08: Wall Street.
+@label=Items_WallStreet
+ $BD01 DEFB $04,$20,$A0,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD05 DEFB $05,$C8,$68,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD09 DEFB $FF             ; Terminator.
+; Items in room #N$09: Pete Street.
+ $BD0A DEFB $06,$40,$A8,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD0E DEFB $FF             ; Terminator.
+; Items in room #N$0A: The Work Shed.
+ $BD0F DEFB $07,$60,$90,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD13 DEFB $08,$80,$A8,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD17 DEFB $09,$C8,$A8,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD1B DEFB $FF             ; Terminator.
+; Items in room #N$0B: School Lane.
+ $BD1C DEFB $0A,$28,$50,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD20 DEFB $FF             ; Terminator.
+; Items in room #N$0C: The School.
+ $BD21 DEFB $0B,$10,$A8,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD25 DEFB $FF             ; Terminator.
+; Items in room #N$0D: Baker Street.
+@label=Items_BakerStreet
+ $BD26 DEFB $FF             ; Terminator.
+; Items in room #N$0E: The Bakers.
+ $BD27 DEFB $0C,$10,$A0,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD2B DEFB $FF             ; Terminator.
+; Items in room #N$0F: The Pub.
+ $BD2C DEFB $0D,$A0,$90,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD30 DEFB $FF             ; Terminator.
+; Items in room #N$10: Motor Way.
+ $BD31 DEFB $FF             ; Terminator.
+; Items in room #N$11: The Laboratory.
+ $BD32 DEFB $0E,$60,$90,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD36 DEFB $0F,$D8,$90,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD3A DEFB $FF             ; Terminator.
+; Items in room #N$12: The Garage.
+ $BD3B DEFB $10,$78,$A8,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD3F DEFB $FF             ; Terminator.
+; Items in room #N$13: Reference Road.
+ $BD40 DEFB $FF             ; Terminator.
+; Items in room #N$14: The Library.
+ $BD41 DEFB $11,$38,$90,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD45 DEFB $12,$78,$90,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD49 DEFB $13,$C0,$90,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD4D DEFB $FF             ; Terminator.
+; Items in room #N$15: Penny Lane.
+ $BD4E DEFB $FF             ; Terminator.
+; Items in room #N$16: The Bank.
+ $BD4F DEFB $14,$C8,$A8,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD53 DEFB $FF             ; Terminator.
+; Items in room #N$17: Wally's House.
+ $BD54 DEFB $15,$78,$A8,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD58 DEFB $FF             ; Terminator.
+; Items in room #N$18: Meat Street.
+ $BD59 DEFB $FF             ; Terminator.
+; Items in room #N$19: The Butchers.
+@label=Items_TheButchers
+ $BD5A DEFB $16,$10,$A8,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD5E DEFB $17,$10,$90,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD62 DEFB $FF             ; Terminator.
+; Items in room #N$1A: Trunk Road.
+ $BD63 DEFB $FF             ; Terminator.
+; Items in room #N$1B: The Zoo.
+ $BD64 DEFB $18,$08,$A8,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD68 DEFB $FF             ; Terminator.
+; Items in room #N$1C: Rail Road.
+ $BD69 DEFB $FF             ; Terminator.
+; Items in room #N$1D: The Station.
+ $BD6A DEFB $19,$B0,$90,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD6E DEFB $FF             ; Terminator.
+; Items in room #N$1E: The Docks.
+ $BD6F DEFB $1A,$00,$A8,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD73 DEFB $1B,$84,$90,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD77 DEFB $FF             ; Terminator.
+; Items in room #N$1F: The Sewer.
+ $BD78 DEFB $1C,$78,$A8,$1F ; Item ID: #N(#PEEK(#PC)).
+ $BD7C DEFB $FF             ; Terminator.
+; Items in room #N$20: The Cave.
+ $BD7D DEFB $1D,$00,$98,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD81 DEFB $1E,$48,$A8,$9F ; Item ID: #N(#PEEK(#PC)).
+ $BD85 DEFB $FF             ; Terminator.
 
 ; Table: Graphic Data
 @label=Table_GraphicData
@@ -13732,28 +13847,29 @@ b$D1BC DEFB $00,$FF,$FE,$01,$03,$01,$00,$00 ; #UDG(#PC)
 ; Routine at E2FC
 ;
 ; Used by the routine at #R$B288.
-c$E2FC LD A,(IY+$00) ;
+c$E2FC LD A,(IY+$00) ; {Jump to #R$E30B if #REGiy+#N$00 is zero.
  $E2FF OR A          ;
- $E300 JR Z,$E30B    ;
- $E302 CP $03        ;
- $E304 JR Z,$E30B    ;
- $E306 XOR A         ;
- $E307 LD (IY-$19),A ;
- $E30A RET           ;
-*$E30B LD A,(IY-$19) ;
+ $E300 JR Z,$E30B    ; }
+ $E302 CP $03        ; {If it is #N$03 jump to #R$E30B.
+ $E304 JR Z,$E30B    ; }
+ $E306 XOR A         ; {Write #N$00 to #REGiy-#N$19.
+ $E307 LD (IY-$19),A ; }
+ $E30A RET           ; Return.
+*$E30B LD A,(IY-$19) ; {Return if #REGiy-#N$19 is not zero.
  $E30E OR A          ;
- $E30F RET NZ        ;
- $E310 LD A,$01      ;
- $E312 LD (IY-$19),A ;
+ $E30F RET NZ        ; }
+ $E310 LD A,$01      ; {Write #N$01 to #REGiy-#N$19.
+ $E312 LD (IY-$19),A ; }
 ; This entry point is used by the routine at #R$B1A6.
-*$E315 LD A,($B951)  ;
+*$E315 LD A,($B951)  ; {Return if *#R$B951 and *#REGiy+#N$0F are not equal.
  $E318 CP (IY+$0F)   ;
- $E31B RET NZ        ;
- $E31C LD BC,$0701   ;
- $E31F LD DE,$0F01   ;
- $E322 LD HL,$0404   ;
- $E325 CALL $E3D3    ;
- $E328 RET           ;
+ $E31B RET NZ        ; }
+; Play the "walking" sound.
+ $E31C LD BC,$0701   ; #REGbc=#N$0701.
+ $E31F LD DE,$0F01   ; #REGde=#N$0F01.
+ $E322 LD HL,$0404   ; #REGhl=#N$0404.
+ $E325 CALL $E3D3    ; Call #R$E3D3.
+ $E328 RET           ; Return.
 
 ; Routine at E329
 ;
@@ -13768,7 +13884,7 @@ c$E329 LD A,($A838)    ; {#REGa=*#R$A838-(*#REGiy+#N$05)-#N$0D.
  $E33A SUB $1C         ; }
  $E33C CP $D6          ;
  $E33E RET C           ;
-; This entry point is used by the routines at #R$F177, #R$F5F1 and #R$F814.
+; This entry point is used by the routines at #R$F177, #R$F5F1 and #R$F8B9.
 *$E33F LD A,($B55F)    ; {Return if #R$B55F is not zero.
  $E342 OR A            ;
  $E343 RET NZ          ; }
@@ -13856,7 +13972,7 @@ c$E329 LD A,($A838)    ; {#REGa=*#R$A838-(*#REGiy+#N$05)-#N$0D.
 
 ; Play Wave Sequence
 ;
-; Used by the routines at #R$AA7F, #R$E2FC, #R$E329 and #R$F814.
+; Used by the routines at #R$AA7F, #R$E2FC, #R$E329, #R$F814 and #R$F8B9.
 @label=PlayWaveSequence
 c$E3D3 LD A,B        ; {#REGb-=#REGh.
  $E3D4 SUB H         ;
@@ -14385,11 +14501,7 @@ c$E79B LD A,$F7        ; {Read from the keyboard;
 ; This associates each character with a keypress.
 ; #TABLE(default,centre,centre)
 ; { =h Key | =h Character }
-; { #N$01 | Wally }
-; { #N$02 | Wilma }
-; { #N$03 | Tom }
-; { #N$04 | Dick }
-; { #N$05 | Harry }
+; #FOR($00,$04)(n,{ #N(n+$01) | #CHARACTERn })
 ; TABLE#
  $E7A9 LD IY,$BC67     ; #REGiy=#R$BC67.
 @label=ChangeCharacters_WhichCharacter_Loop
@@ -14457,6 +14569,12 @@ w$E7E9 DEFW $EB95    ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$E7E9)/$02)).
  $E80D DEFW $F177    ; #R(#PEEK(#PC)+#PEEK(#PC+$01)*$100)(#N((#PC-$E7E9)/$02)).
 
 ; Data block at E80F
+;
+; .
+;
+; .
+;
+; Room #N$00: Town Square.
 b$E80F DEFB $04,$48,$60,$05,$08,$01,$18,$01
  $E817 DEFB $00,$F7,$05,$00,$02,$08,$F6,$04
  $E81F DEFB $48,$98,$01,$10,$02,$08,$F7,$05
@@ -14464,22 +14582,30 @@ b$E80F DEFB $04,$48,$60,$05,$08,$01,$18,$01
  $E82F DEFB $18,$F7,$09,$F6,$04,$48,$60,$06
  $E837 DEFB $00,$F7,$09,$F6
  $E83B DEFB $FF                             ; Terminator.
+; Room #N$01: Stamp Street.
  $E83C DEFB $04,$E0,$90,$F7,$07,$F6
  $E842 DEFB $FF                             ; Terminator.
+; Room #N$02: The Post Office.
  $E843 DEFB $00,$00,$F7,$00,$F6,$01,$15,$01
  $E84B DEFB $26,$05,$02,$04,$18,$98,$F7,$05
  $E853 DEFB $09,$02,$02,$F6
  $E857 DEFB $FF                             ; Terminator.
+; Room #N$03: Market Street.
  $E858 DEFB $FF                             ; Terminator.
+; Room #N$04: The Super Market.
  $E859 DEFB $05,$10,$00,$00,$F7,$05,$1C,$00
  $E861 DEFB $F6,$00,$01,$F7,$00,$F6,$04,$F0
  $E869 DEFB $98,$01,$1F,$02,$07,$05,$04,$F7
  $E871 DEFB $05,$05,$02,$0C,$F6
  $E876 DEFB $FF                             ; Terminator.
+; Room #N$05: The Park.
  $E877 DEFB $00,$00,$F7,$00,$F6
  $E87C DEFB $FF                             ; Terminator.
+; Room #N$06: Wobbly Walk.
  $E87D DEFB $FF                             ; Terminator.
+; Room #N$07: Rubble Road.
  $E87E DEFB $FF                             ; Terminator.
+; Room #N$08: Wall Street.
  $E87F DEFB $05,$04,$00,$00,$F7,$00,$F6,$05
  $E887 DEFB $04,$03,$00,$04,$02,$06,$F7,$05
  $E88F DEFB $1E,$F6,$00,$01,$F7,$05,$1F,$00
@@ -14487,10 +14613,12 @@ b$E80F DEFB $04,$48,$60,$05,$08,$01,$18,$01
  $E89F DEFB $80,$98,$F7,$05,$0D,$02,$09,$06
  $E8A7 DEFB $0C,$0C,$0F,$06,$0C,$0C,$13,$F6
  $E8AF DEFB $FF                             ; Terminator.
+; Room #N$09: Pete Street.
  $E8B0 DEFB $05,$01,$01,$10,$02,$04,$01,$03
  $E8B8 DEFB $00,$00,$F7,$05,$0C,$03,$04,$01
  $E8C0 DEFB $03,$F6,$04,$F0,$98,$F7,$0A,$F6
  $E8C8 DEFB $FF                             ; Terminator.
+; Room #N$0A: The Work Shed.
  $E8C9 DEFB $00,$00,$F7,$00,$F6,$00,$01,$F7
  $E8D1 DEFB $00,$F6,$00,$02,$F7,$00,$F6,$03
  $E8D9 DEFB $00,$1D,$01,$1C,$01,$0F,$04,$78
@@ -14499,36 +14627,46 @@ b$E80F DEFB $04,$48,$60,$05,$08,$01,$18,$01
  $E8F1 DEFB $98,$05,$01,$F7,$05,$08,$02,$03
  $E8F9 DEFB $F6
  $E8FA DEFB $FF                             ; Terminator.
+; Room #N$0B: School Lane.
  $E8FB DEFB $06,$19,$00,$00,$F7,$09,$F6,$06
  $E903 DEFB $21,$07,$00,$21,$00,$00,$F7,$09
  $E90B DEFB $F6,$05,$10,$01,$19,$01,$21,$02
  $E913 DEFB $0D,$00,$00,$F7,$05,$04,$01,$21
  $E91B DEFB $02,$0B,$F6
  $E91E DEFB $FF                             ; Terminator.
+; Room #N$0C: The School.
  $E91F DEFB $00,$00,$F7,$00,$F6
  $E924 DEFB $FF                             ; Terminator.
+; Room #N$0D: Baker Street.
  $E925 DEFB $04,$F0,$98,$F7,$0A,$F6
  $E92B DEFB $FF                             ; Terminator.
+; Room #N$0E: The Bakers.
  $E92C DEFB $00,$00,$F7,$00,$F6
  $E931 DEFB $FF                             ; Terminator.
+; Room #N$0F: The Pub.
  $E932 DEFB $05,$04,$01,$22,$02,$00,$00,$00
  $E93A DEFB $F7,$05,$0E,$01,$22,$F6
  $E940 DEFB $FF                             ; Terminator.
+; Room #N$10: Motor Way.
  $E941 DEFB $FF                             ; Terminator.
+; Room #N$11: The Laboratory.
  $E942 DEFB $00,$00,$F7,$00,$F6,$00,$01,$F7
  $E94A DEFB $00,$F6,$05,$04,$02,$0A,$03,$00
  $E952 DEFB $12,$03,$01,$22,$01,$09,$04,$60
  $E95A DEFB $98,$F7,$05,$03,$02,$00,$F6
  $E961 DEFB $FF                             ; Terminator.
+; Room #N$12: The Garage.
  $E962 DEFB $00,$00,$F7,$00,$F6,$04,$D8,$98
  $E96A DEFB $01,$0D,$01,$1F,$F7,$05,$17,$02
  $E972 DEFB $07,$F6,$02,$0B,$04,$3C,$98,$01
  $E97A DEFB $04,$01,$11,$05,$10,$F7,$05,$0B
  $E982 DEFB $02,$06,$F6
  $E985 DEFB $FF                             ; Terminator.
+; Room #N$13: Reference Road.
  $E986 DEFB $04,$08,$90,$F7,$07,$F6,$04,$00
  $E98E DEFB $98,$F7,$0A,$F6
  $E992 DEFB $FF                             ; Terminator.
+; Room #N$14: The Library.
  $E993 DEFB $05,$02,$01,$0B,$00,$00,$F7,$00
  $E99B DEFB $F6,$05,$02,$01,$02,$03,$00,$0B
  $E9A3 DEFB $00,$01,$F7,$05,$10,$00,$F6,$05
@@ -14536,7 +14674,9 @@ b$E80F DEFB $04,$48,$60,$05,$08,$01,$18,$01
  $E9B3 DEFB $02,$00,$02,$F7,$05,$11,$01,$07
  $E9BB DEFB $F6
  $E9BC DEFB $FF                             ; Terminator.
+; Room #N$15: Penny Lane.
  $E9BD DEFB $FF                             ; Terminator.
+; Room #N$16: The Bank.
  $E9BE DEFB $00,$00,$F7,$00,$F6,$04,$EC,$98
  $E9C6 DEFB $05,$02,$01,$13,$F7,$05,$12,$08
  $E9CE DEFB $F6,$04,$EC,$98,$05,$04,$01,$1E
@@ -14553,30 +14693,40 @@ b$E80F DEFB $04,$48,$60,$05,$08,$01,$18,$01
  $EA26 DEFB $F7,$09,$F6,$04,$EC,$98,$05,$01
  $EA2E DEFB $06,$05,$F7,$09,$F6
  $EA33 DEFB $FF                             ; Terminator.
+; Room #N$17: Wally's House.
  $EA34 DEFB $00,$00,$F7,$00,$F6
  $EA39 DEFB $FF                             ; Terminator.
+; Room #N$18: Meat Street.
  $EA3A DEFB $FF                             ; Terminator.
+; Room #N$19: The Butchers.
  $EA3B DEFB $00,$00,$F7,$00,$F6,$03,$00,$16
  $EA43 DEFB $02,$01,$02,$0B,$00,$01,$F7,$00
  $EA4B DEFB $F6,$01,$16,$01,$20,$05,$10,$F7
  $EA53 DEFB $05,$06,$02,$01,$F6
  $EA58 DEFB $FF                             ; Terminator.
+; Room #N$1A: Trunk Road.
  $EA59 DEFB $04,$00,$98,$F7,$0A,$F6
  $EA5F DEFB $FF                             ; Terminator.
+; Room #N$1B: The Zoo.
  $EA60 DEFB $00,$00,$F7,$05,$18,$00,$F6,$07
  $EA68 DEFB $00,$0C,$06,$0C,$F7,$09,$F6
  $EA6F DEFB $FF                             ; Terminator.
+; Room #N$1C: Rail Road.
  $EA70 DEFB $FF                             ; Terminator.
+; Room #N$1D: The Station.
  $EA71 DEFB $00,$00,$F7,$00,$F6
  $EA76 DEFB $FF                             ; Terminator.
+; Room #N$1E: The Docks.
  $EA77 DEFB $03,$01,$1B,$02,$03,$05,$02,$00
  $EA7F DEFB $00,$F7,$00,$05,$0A,$F6,$03,$01
  $EA87 DEFB $1B,$02,$03,$F7,$05,$19,$F6,$00
  $EA8F DEFB $01,$F7,$00,$F6
  $EA93 DEFB $FF                             ; Terminator.
+; Room #N$1F: The Sewer.
  $EA94 DEFB $03,$00,$17,$F7,$05,$1A,$F6,$00
  $EA9C DEFB $00,$F7,$00,$F6
  $EAA0 DEFB $FF                             ; Terminator.
+; Room #N$20: The Cave.
  $EAA1 DEFB $05,$08,$00,$00,$F7,$00,$F6,$03
  $EAA9 DEFB $00,$1D,$02,$05,$F7,$05,$0F,$02
  $EAB1 DEFB $0A,$F6,$01,$1E,$F7,$05,$1B,$F6
@@ -14644,42 +14794,43 @@ c$EB01 LD A,$01      ;
  $EB0C JP $EAEB      ; Jump to #R$EAEB.
 
 ; Routine at EB0F
-c$EB0F LD A,$01      ;
- $EB11 LD ($EB54),A  ;
- $EB14 LD B,(IY-$2D) ;
- $EB17 LD C,(HL)     ;
- $EB18 INC HL        ;
- $EB19 PUSH HL       ;
- $EB1A PUSH IY       ;
- $EB1C CALL $AA8C    ;
- $EB1F LD A,(IY+$50) ;
+c$EB0F LD A,$01      ; {Write #N$01 to #R$EB54.
+ $EB11 LD ($EB54),A  ; }
+ $EB14 LD B,(IY-$2D) ; #REGb=#REGiy-#N$2D.
+ $EB17 LD C,(HL)     ; #REGc=*#REGhl.
+ $EB18 INC HL        ; Increment #REGhl by one.
+ $EB19 PUSH HL       ; {Stash #REGhl and #REGiy on the stack.
+ $EB1A PUSH IY       ; }
+ $EB1C CALL $AA8C    ; Call #R$AA8C.
+ $EB1F LD A,(IY+$50) ; #REGa=*#REGiy+#N$50.
  $EB22 CP C          ;
  $EB23 JR Z,$EB2F    ;
- $EB25 INC IY        ;
+ $EB25 INC IY        ; {Increment #REGiy by five.
  $EB27 INC IY        ;
  $EB29 INC IY        ;
  $EB2B INC IY        ;
- $EB2D INC IY        ;
-*$EB2F LD C,(HL)     ;
- $EB30 LD A,(IY+$50) ;
- $EB33 LD (HL),A     ;
- $EB34 LD (IY+$50),C ;
- $EB37 INC HL        ;
+ $EB2D INC IY        ; }
+; Switch the values at *#REGhl and *#REGiy+#N$50.
+*$EB2F LD C,(HL)     ; #REGc=*#REGhl.
+ $EB30 LD A,(IY+$50) ; {Write *#REGiy+#N$50 to *#REGhl.
+ $EB33 LD (HL),A     ; }
+ $EB34 LD (IY+$50),C ; Write #REGc to *#REGiy+#N$50.
+ $EB37 INC HL        ; {Increment #REGhl by three.
  $EB38 INC HL        ;
- $EB39 INC HL        ;
- $EB3A LD A,(HL)     ;
+ $EB39 INC HL        ; }
+ $EB3A LD A,(HL)     ; #REGa=*#REGhl.
  $EB3B RES 7,A       ;
  $EB3D LD C,A        ;
- $EB3E LD A,(HL)     ;
- $EB3F AND $80       ;
+ $EB3E LD A,(HL)     ; #REGa=*#REGhl.
+ $EB3F AND %10000000 ; Keep only bit 7.
  $EB41 OR (IY-$37)   ;
  $EB44 LD (HL),A     ;
  $EB45 LD (IY-$37),C ;
- $EB48 POP IY        ;
- $EB4A CALL $E41D    ;
- $EB4D CALL $AA7F    ;
- $EB50 POP HL        ;
- $EB51 JP $EAEB      ;
+ $EB48 POP IY        ; Restore #REGiy from the stack.
+ $EB4A CALL $E41D    ; Call #R$E41D.
+ $EB4D CALL $AA7F    ; Call #R$AA7F.
+ $EB50 POP HL        ; Restore #REGhl from the stack.
+ $EB51 JP $EAEB      ; Jump to #R$EAEB.
 
 ; Game status buffer entry at EB54
 g$EB54 DEFB $00
@@ -15241,7 +15392,7 @@ c$EEC1 CALL $EEA2    ;
  $EF33 LD C,A        ;
  $EF34 PUSH AF       ;
 ; This entry point is used by the routines at #R$ED2A, #R$F10E, #R$F177,
-; #R$F5F1 and #R$F814.
+; #R$F5F1 and #R$F8B9.
 *$EF35 LD E,(IX+$02) ;
  $EF38 LD D,(IX+$03) ;
  $EF3B PUSH BC       ;
@@ -15289,7 +15440,7 @@ c$EEC1 CALL $EEA2    ;
  $EF83 LD (IX+$03),D ;
  $EF86 POP AF        ;
  $EF87 POP BC        ;
-; This entry point is used by the routine at #R$F814.
+; This entry point is used by the routine at #R$F8B9.
 *$EF88 INC IX        ;
  $EF8A INC IX        ;
  $EF8C INC IX        ;
@@ -15653,13 +15804,15 @@ c$F177 LD A,(IY+$05)   ;
  $F267 CALL $A8A0      ;
  $F26A CALL $E329      ;
  $F26D RET             ;
- $F26E NOP             ;
- $F26F LD B,E          ;
- $F270 LD E,D          ;
- $F271 XOR B           ;
- $F272 LD BC,$0000     ;
- $F275 INC BC          ;
- $F276 LD B,B          ;
+ $F26E DEFB $00        ;
+ $F26F DEFB $43        ;
+ $F270 DEFB $5A        ;
+ $F271 DEFB $A8        ;
+ $F272 DEFB $01        ;
+ $F273 DEFB $00        ;
+ $F274 DEFB $00        ;
+ $F275 DEFB $03        ;
+ $F276 DEFB $40        ;
 ; This entry point is used by the routine at #R$81AE.
 *$F277 LD A,$02        ;
  $F279 LD ($F26E),A    ;
@@ -16014,10 +16167,13 @@ c$F177 LD A,(IY+$05)   ;
  $F568 LD ($F26E),A    ;
  $F56B CALL $E33F      ;
  $F56E JP $ED13        ;
- $F571 LD D,B          ;
- $F572 LD A,$08        ;
- $F574 CALL $EC1D      ;
- $F577 RET Z           ;
+ $F571 DEFB $50        ;
+ $F572 DEFB $3E        ;
+ $F573 DEFB $08        ;
+ $F574 DEFB $CD        ;
+ $F575 DEFB $1D        ;
+ $F576 DEFB $EC        ;
+ $F577 DEFB $C8        ;
 
 ; Routine at F578
 ;
@@ -16309,126 +16465,86 @@ c$F5F1 LD HL,$5DE7                          ; #REGhl=#N$5DE7.
  $F7DB DJNZ $F7A1                           ;
  $F7DD RET                                  ;
  $F7DE DEFB $5A,$38,$29,$60,$21,$88,$19,$B0 ;
- $F7E6 DEFB $11,$D8,$09,$0E,$90,$A0,$5B,$0A ;
- $F7EE DEFB $08,$A8,$5C,$0F,$F0,$A8,$5E,$19 ;
- $F7F6 DEFB $90,$A0,$5D,$17,$20,$90,$5F,$FF ;
- $F7FE DEFB $0F,$F0,$A8,$5E,$19,$90,$A0,$5D ;
- $F806 DEFB $17,$20,$90,$5F,$0E,$90,$A0,$5B ;
- $F80E DEFB $0A,$08,$A8,$5C                 ;
+ $F7E6 DEFB $11,$D8,$09                     ;
+ $F7E9 DEFB $0E,$90,$A0,$5B,$0A,$08,$A8,$5C ;
+ $F7F1 DEFB $0F,$F0,$A8,$5E,$19,$90,$A0,$5D ;
+ $F7F9 DEFB $17,$20,$90,$5F,$FF,$0F,$F0,$A8 ;
+ $F801 DEFB $5E,$19,$90,$A0,$5D,$17,$20,$90 ;
+ $F809 DEFB $5F,$0E,$90,$A0,$5B,$0A,$08,$A8 ;
+ $F811 DEFB $5C                             ;
  $F812 DEFW $F7E9                           ;
 
 ; Routine at F814
 ;
 ; Used by the routine at #R$81AE.
-c$F814 LD HL,($F812)   ;
- $F817 LD A,(IY+$0F)   ;
- $F81A CP (HL)         ;
- $F81B JR Z,$F823      ;
- $F81D LD DE,$0015     ;
- $F820 ADD HL,DE       ;
- $F821 CP (HL)         ;
- $F822 RET NZ          ;
-*$F823 INC HL          ;
- $F824 LD E,(HL)       ;
- $F825 INC HL          ;
- $F826 LD D,(HL)       ;
- $F827 INC HL          ;
- $F828 LD A,(HL)       ;
- $F829 LD B,A          ;
- $F82A LD ($A838),DE   ;
- $F82E CALL $A83D      ;
- $F831 LD A,(IY+$05)   ;
- $F834 SUB E           ;
- $F835 SUB $04         ;
- $F837 CP $F8          ;
- $F839 RET C           ;
- $F83A LD A,(IY+$0A)   ;
- $F83D SUB D           ;
- $F83E ADD A,$0C       ;
- $F840 CP $F8          ;
- $F842 RET C           ;
- $F843 LD HL,($F812)   ;
- $F846 INC HL          ;
- $F847 INC HL          ;
- $F848 INC HL          ;
- $F849 INC HL          ;
- $F84A LD A,(HL)       ;
- $F84B CP $FF          ;
- $F84D JR NZ,$F852     ;
- $F84F LD HL,$F7E9     ;
-*$F852 LD ($F812),HL   ;
- $F855 LD A,(IY+$19)   ;
- $F858 CP B            ;
- $F859 JR Z,$F864      ;
- $F85B LD A,(IY+$14)   ;
- $F85E ADD A,$20       ;
- $F860 CP $80          ;
- $F862 JR C,$F866      ;
-*$F864 LD A,$80        ;
-*$F866 LD (IY+$14),A   ;
- $F869 CALL $E36D      ;
- $F86C LD BC,$643C     ;
- $F86F LD DE,$0128     ;
- $F872 LD HL,$0103     ;
- $F875 CALL $E3D3      ;
- $F878 RET             ;
- $F879 XOR $42         ;
- $F87B CP $02          ;
- $F87D JR C,$F86D      ;
- $F87F XOR (HL)        ;
- $F880 CP $FE          ;
- $F882 JR C,$F886      ;
- $F884 LD B,D          ;
- $F885 LD (BC),A       ;
-*$F886 LD (BC),A       ;
- $F887 JR C,$F88B      ;
- $F889 XOR (HL)        ;
- $F88A LD (BC),A       ;
-*$F88B CP $38          ;
- $F88D LD A,B          ;
- $F88E LD B,D          ;
- $F88F NOP             ;
- $F890 LD (BC),A       ;
- $F891 JR C,$F90B      ;
- $F893 XOR (HL)        ;
- $F894 NOP             ;
- $F895 CP $38          ;
- $F897 RST $38         ;
- $F898 NOP             ;
- $F899 NOP             ;
- $F89A NOP             ;
- $F89B NOP             ;
- $F89C RST $38         ;
- $F89D NOP             ;
- $F89E NOP             ;
- $F89F NOP             ;
- $F8A0 NOP             ;
- $F8A1 RST $38         ;
- $F8A2 NOP             ;
- $F8A3 NOP             ;
- $F8A4 NOP             ;
- $F8A5 NOP             ;
- $F8A6 RST $38         ;
- $F8A7 NOP             ;
- $F8A8 NOP             ;
- $F8A9 NOP             ;
- $F8AA NOP             ;
- $F8AB RST $38         ;
- $F8AC NOP             ;
- $F8AD NOP             ;
- $F8AE NOP             ;
- $F8AF NOP             ;
- $F8B0 RST $38         ;
- $F8B1 NOP             ;
- $F8B2 NOP             ;
- $F8B3 NOP             ;
- $F8B4 NOP             ;
- $F8B5 NOP             ;
- $F8B6 RET P           ;
- $F8B7 LD B,B          ;
- $F8B8 OR B            ;
-; This entry point is used by the routine at #R$EDF7.
-*$F8B9 LD IX,$80A9     ;
+c$F814 LD HL,($F812) ; #REGhl=*#R$F812.
+ $F817 LD A,(IY+$0F) ;
+ $F81A CP (HL)       ;
+ $F81B JR Z,$F823    ;
+ $F81D LD DE,$0015   ;
+ $F820 ADD HL,DE     ;
+ $F821 CP (HL)       ;
+ $F822 RET NZ        ;
+*$F823 INC HL        ;
+ $F824 LD E,(HL)     ;
+ $F825 INC HL        ;
+ $F826 LD D,(HL)     ;
+ $F827 INC HL        ;
+ $F828 LD A,(HL)     ;
+ $F829 LD B,A        ;
+ $F82A LD ($A838),DE ;
+ $F82E CALL $A83D    ; Call #R$A83D.
+ $F831 LD A,(IY+$05) ;
+ $F834 SUB E         ;
+ $F835 SUB $04       ;
+ $F837 CP $F8        ;
+ $F839 RET C         ;
+ $F83A LD A,(IY+$0A) ;
+ $F83D SUB D         ;
+ $F83E ADD A,$0C     ;
+ $F840 CP $F8        ;
+ $F842 RET C         ;
+ $F843 LD HL,($F812) ; #REGhl=*#R$F812.
+ $F846 INC HL        ; {Increment #REGhl by four.
+ $F847 INC HL        ;
+ $F848 INC HL        ;
+ $F849 INC HL        ; }
+ $F84A LD A,(HL)     ;
+ $F84B CP $FF        ;
+ $F84D JR NZ,$F852   ;
+ $F84F LD HL,$F7E9   ; {Write #R$F7E9 to #R$F812.
+*$F852 LD ($F812),HL ; }
+ $F855 LD A,(IY+$19) ;
+ $F858 CP B          ;
+ $F859 JR Z,$F864    ;
+ $F85B LD A,(IY+$14) ;
+ $F85E ADD A,$20     ;
+ $F860 CP $80        ;
+ $F862 JR C,$F866    ;
+*$F864 LD A,$80      ;
+*$F866 LD (IY+$14),A ;
+ $F869 CALL $E36D    ; Call #R$E36D.
+; Play the "Task Complete" sound.
+ $F86C LD BC,$643C   ; #REGbc=#N$643C.
+ $F86F LD DE,$0128   ; #REGde=#N$0128.
+ $F872 LD HL,$0103   ; #REGhl=#N$0103.
+ $F875 CALL $E3D3    ; Call #R$E3D3.
+ $F878 RET           ; Return.
+
+; Data block at F879
+b$F879 DEFB $EE,$42,$FE,$02,$38,$EE,$AE,$FE
+ $F881 DEFB $FE,$38,$02,$42,$02,$02,$38,$02
+ $F889 DEFB $AE,$02,$FE,$38,$78,$42,$00,$02
+ $F891 DEFB $38,$78,$AE,$00,$FE,$38,$FF,$00
+ $F899 DEFB $00,$00,$00,$FF,$00,$00,$00,$00
+ $F8A1 DEFB $FF,$00,$00,$00,$00,$FF,$00,$00
+ $F8A9 DEFB $00,$00,$FF,$00,$00,$00,$00,$FF
+ $F8B1 DEFB $00,$00,$00,$00,$00,$F0,$40,$B0
+
+; Routine at F8B9
+;
+; Used by the routine at #R$EDF7.
+c$F8B9 LD IX,$80A9     ;
  $F8BD LD A,$08        ;
  $F8BF LD ($F26E),A    ;
  $F8C2 LD B,$0C        ;
