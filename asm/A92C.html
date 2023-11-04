@@ -54,7 +54,7 @@ Used by the routine at <a href="81AE.html">81AE</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="a92e"></span>A92E</td>
 <td class="instruction">LD A,(IY+$0F)</td>
-<td class="comment-1" rowspan="2">Write <span class="register">IY</span>+0F to <a href="B951.html">B951</a>.</td>
+<td class="comment-1" rowspan="2">Write <span class="register">IY</span>+0F to <a href="B951.html">TempStore_Room</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -65,7 +65,7 @@ Used by the routine at <a href="81AE.html">81AE</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="a934"></span>A934</td>
 <td class="instruction">LD IY,$BC67</td>
-<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="BC67.html">Character_Data</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="BC67.html">FrameId_Wally</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -108,8 +108,8 @@ Used by the routine at <a href="81AE.html">81AE</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="a945"></span>A945</td>
-<td class="instruction">CALL <a href="A921.html">$A921</a></td>
-<td class="comment-1" rowspan="1">Call <a href="A921.html">A921</a>.</td>
+<td class="instruction">CALL <a href="A921.html">Character_Active</a></td>
+<td class="comment-1" rowspan="1">Call <a href="A921.html">Character_Active</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -478,7 +478,7 @@ TODO.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="a9cd"></span>A9CD</td>
-<td class="instruction">CALL <a href="AA8C.html">$AA8C</a></td>
+<td class="instruction">CALL <a href="AA8C.html">Handler_ItemsCurrentRoom</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>

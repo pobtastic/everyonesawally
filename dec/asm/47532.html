@@ -57,7 +57,17 @@ Used by the routines at <a href="47442.html">DrawRoom</a>, <a href="60714.html">
 <tr>
 <td class="address-1"><span id="47539"></span>47539</td>
 <td class="instruction">LD BC,4096</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=4096.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=4096 (bytes of data).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47542"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the screen buffer from the look up table held by <span class="register">IX</span>.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-2"><span id="47542"></span>47542</td>
@@ -86,12 +96,12 @@ Used by the routines at <a href="47442.html">DrawRoom</a>, <a href="60714.html">
 <tr>
 <td class="address-1"><span id="47555"></span>47555</td>
 <td class="instruction">JP PE,<a href="47532.html#47542">47542</a></td>
-<td class="comment-1" rowspan="1">If the return from <a href="47653.html">CopyRoutine</a> is even, jump to <a href="47532.html#47542">47542</a>.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="47532.html#47542">47542</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47558"></span>47558</td>
 <td class="instruction">LD BC,512</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=0512.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=512 (bytes of data).</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47561"></span>47561</td>
@@ -111,7 +121,7 @@ Used by the routines at <a href="47442.html">DrawRoom</a>, <a href="60714.html">
 <tr>
 <td class="address-1"><span id="47570"></span>47570</td>
 <td class="instruction">JP PE,<a href="47532.html#47567">47567</a></td>
-<td class="comment-1" rowspan="1">If the return from <a href="47653.html">CopyRoutine</a> is even, jump to <a href="47532.html#47567">47567</a>.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="47532.html#47567">47567</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="47573"></span>47573</td>

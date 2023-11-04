@@ -33,7 +33,7 @@ Next: <a href="AA8C.html">AA8C</a>
 </td>
 </tr>
 </table>
-<div class="description">AA7F: Routine at AA7F</div>
+<div class="description">AA7F: Sounds: Pick Up</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,26 +45,31 @@ Used by the routines at <a href="AA30.html">Handler_PickUpObjects</a> and <a hre
 </td>
 </tr>
 <tr>
+<td class="asm-label">Sounds_PickUp</td>
 <td class="address-2"><span id="aa7f"></span>AA7F</td>
 <td class="instruction">LD BC,$FF0A</td>
 <td class="comment-1" rowspan="1"><span class="register">BC</span>=FF0A.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa82"></span>AA82</td>
 <td class="instruction">LD DE,$0114</td>
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=0114.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa85"></span>AA85</td>
 <td class="instruction">LD HL,$1401</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=1401.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa88"></span>AA88</td>
 <td class="instruction">CALL <a href="E3D3.html">PlayWaveSequence</a></td>
 <td class="comment-1" rowspan="1">Call <a href="E3D3.html">PlayWaveSequence</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa8b"></span>AA8B</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

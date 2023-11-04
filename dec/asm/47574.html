@@ -33,7 +33,7 @@ Next: <a href="47611.html">47611</a>
 </td>
 </tr>
 </table>
-<div class="description">47574: Routine at B9D6</div>
+<div class="description">47574: Draw Characters In The Current Room</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,79 +45,185 @@ Used by the routines at <a href="33083.html">33083</a>, <a href="33198.html">331
 </td>
 </tr>
 <tr>
-<td class="address-2"><span id="47574"></span>47574</td>
-<td class="instruction">LD A,(IY+15)</td>
-<td class="comment-1" rowspan="2">Write the current room (<span class="register">IY</span>+15) to <a href="47441.html">47441</a>.</td>
+<td class="routine-comment" colspan="5">
+<span id="47574"></span>
+<div class="comments">
+<div class="paragraph">
+Write the current room ID for referring back to.
+</div>
+</div>
+</td>
 </tr>
 <tr>
+<td class="asm-label">Draw_Characters_CurrentRoom</td>
+<td class="address-2"><span id="47574"></span>47574</td>
+<td class="instruction">LD A,(IY+15)</td>
+<td class="comment-1" rowspan="2">Write the current room (<span class="register">IY</span>+15) to <a href="47441.html">TempStore_Room</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47577"></span>47577</td>
 <td class="instruction">LD (47441),A</td>
 </tr>
 <tr>
-<td class="address-1"><span id="47580"></span>47580</td>
-<td class="instruction">LD B,5</td>
-<td class="comment-1" rowspan="1"><span class="register">B</span>=5.</td>
+<td class="routine-comment" colspan="5">
+<span id="47580"></span>
+<div class="comments">
+<div class="paragraph">
+There are five characters, cycle through each of them in reverse.
+</div>
+</div>
+</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47580"></span>47580</td>
+<td class="instruction">LD B,5</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=5 (counter).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47582"></span>
+<div class="comments">
+<div class="paragraph">
+Store the current character reference so it isn't corrupted.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47582"></span>47582</td>
 <td class="instruction">PUSH IY</td>
 <td class="comment-1" rowspan="1">Stash <span class="register">IY</span> on the stack.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47584"></span>
+<div class="comments">
+<div class="paragraph">
+Starting at the end with Harry.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47584"></span>47584</td>
 <td class="instruction">LD IY,48235</td>
-<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="48231.html#48235">48235</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="48231.html#48235">FrameId_Harry</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">Draw_Characters_CurrentRoom_Loop</td>
 <td class="address-2"><span id="47588"></span>47588</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-1" rowspan="1">Stash <span class="register">BC</span> on the stack.</td>
+<td class="comment-1" rowspan="1">Stash the counter in <span class="register">BC</span> on the stack.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47589"></span>
+<div class="comments">
+<div class="paragraph">
+Don't draw the character if they're not in the current room.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47589"></span>47589</td>
 <td class="instruction">LD A,(47441)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="47441.html">47441</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<a href="47441.html">TempStore_Room</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47592"></span>47592</td>
 <td class="instruction">CP (IY+15)</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is not equal to the current room (*<span class="register">IY</span>+15) jump to <a href="47574.html#47600">47600</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is not equal to the current room (*<span class="register">IY</span>+15) jump to <a href="47574.html#47600">Draw_Characters_CurrentRoom_Skip</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47595"></span>47595</td>
-<td class="instruction">JR NZ,<a href="47574.html#47600">47600</a></td>
+<td class="instruction">JR NZ,<a href="47574.html#47600">Draw_Characters_CurrentRoom_Skip</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47597"></span>
+<div class="comments">
+<div class="paragraph">
+Draw the character in the shadow buffer as they are in the room with our current character.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47597"></span>47597</td>
 <td class="instruction">CALL <a href="45286.html">WriteSprite_ShadowBuffer</a></td>
 <td class="comment-1" rowspan="1">Call <a href="45286.html">WriteSprite_ShadowBuffer</a>.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47600"></span>
+<div class="comments">
+<div class="paragraph">
+Move onto the next character.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Draw_Characters_CurrentRoom_Skip</td>
 <td class="address-2"><span id="47600"></span>47600</td>
 <td class="instruction">DEC IY</td>
 <td class="comment-1" rowspan="1">Decrease <span class="register">IY</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47602"></span>47602</td>
 <td class="instruction">POP BC</td>
-<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
+<td class="comment-1" rowspan="1">Restore the counter (<span class="register">BC</span>) from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47603"></span>47603</td>
-<td class="instruction">DJNZ <a href="47574.html#47588">47588</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="47574.html#47588">47588</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="47574.html#47588">Draw_Characters_CurrentRoom_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="47574.html#47588">Draw_Characters_CurrentRoom_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="47605"></span>
+<div class="comments">
+<div class="paragraph">
+Restores the current character pointer to <span class="register">IY</span>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47605"></span>47605</td>
 <td class="instruction">POP IY</td>
 <td class="comment-1" rowspan="1">Restore <span class="register">IY</span> from the stack.</td>
 </tr>
 <tr>
-<td class="address-1"><span id="47607"></span>47607</td>
-<td class="instruction">CALL <a href="47611.html">Copy_ShadowBuffer</a></td>
-<td class="comment-1" rowspan="1">Call <a href="47611.html">Copy_ShadowBuffer</a>.</td>
+<td class="routine-comment" colspan="5">
+<span id="47607"></span>
+<div class="comments">
+<div class="paragraph">
+Update the screen buffer and return.
+</div>
+</div>
+</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="47607"></span>47607</td>
+<td class="instruction">CALL <a href="47611.html">ShadowBufferToScreen</a></td>
+<td class="comment-1" rowspan="1">Call <a href="47611.html">ShadowBufferToScreen</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47610"></span>47610</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

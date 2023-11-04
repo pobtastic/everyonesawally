@@ -42,34 +42,52 @@ Next: <a href="BD86.html">BD86</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">Item_Data</td>
+<td class="routine-comment" colspan="5">
+<span id="bce9"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 00: Town Square.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_TownSquare</td>
 <td class="address-1"><span id="bce9"></span>BCE9</td>
 <td class="instruction">DEFB $FF</td>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label"></td>
+<td class="routine-comment" colspan="5">
+<span id="bcea"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 01: Stamp Street.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_StampStreet</td>
 <td class="address-1"><span id="bcea"></span>BCEA</td>
 <td class="instruction">DEFB $FF</td>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label"></td>
+<td class="routine-comment" colspan="5">
+<span id="bceb"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 02: The Post Office.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_ThePostOffice</td>
 <td class="address-1"><span id="bceb"></span>BCEB</td>
-<td class="instruction">DEFB $00</td>
-<td class="comment-1" rowspan="1">Room ID 00.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcec"></span>BCEC</td>
-<td class="instruction">DEFB $C8,$90</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcee"></span>BCEE</td>
-<td class="instruction">DEFB $1F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $00,$C8,$90,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 00.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -78,43 +96,42 @@ Next: <a href="BD86.html">BD86</a>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label"></td>
+<td class="routine-comment" colspan="5">
+<span id="bcf0"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 03: Market Street.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_MarketStreet</td>
 <td class="address-1"><span id="bcf0"></span>BCF0</td>
 <td class="instruction">DEFB $FF</td>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label"></td>
+<td class="routine-comment" colspan="5">
+<span id="bcf1"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 04: The Super Market.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_TheSuperMarket</td>
 <td class="address-1"><span id="bcf1"></span>BCF1</td>
-<td class="instruction">DEFB $01</td>
-<td class="comment-1" rowspan="1">Room ID 01.</td>
+<td class="instruction">DEFB $01,$18,$88,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 01.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bcf2"></span>BCF2</td>
-<td class="instruction">DEFB $18,$88,$9F</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Item_Supermarket</td>
 <td class="address-1"><span id="bcf5"></span>BCF5</td>
-<td class="instruction">DEFB $02</td>
-<td class="comment-1" rowspan="4">Room ID 02.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcf6"></span>BCF6</td>
-<td class="instruction">DEFB $78</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcf7"></span>BCF7</td>
-<td class="instruction">DEFB $A8</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcf8"></span>BCF8</td>
-<td class="instruction">DEFB $1F</td>
+<td class="instruction">DEFB $02,$78,$A8,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 02.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -123,257 +140,586 @@ Next: <a href="BD86.html">BD86</a>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_Park</td>
+<td class="routine-comment" colspan="5">
+<span id="bcfa"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 05: The Park.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_ThePark</td>
 <td class="address-1"><span id="bcfa"></span>BCFA</td>
-<td class="instruction">DEFB $03</td>
-<td class="comment-1" rowspan="6">Room ID 03.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcfb"></span>BCFB</td>
-<td class="instruction">DEFB $88</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcfc"></span>BCFC</td>
-<td class="instruction">DEFB $A8</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bcfd"></span>BCFD</td>
-<td class="instruction">DEFB $9F</td>
+<td class="instruction">DEFB $03,$88,$A8,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 03.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bcfe"></span>BCFE</td>
 <td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label"></td>
+<td class="routine-comment" colspan="5">
+<span id="bcff"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 06: Wobbly Walk.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_WobblyWalk</td>
 <td class="address-1"><span id="bcff"></span>BCFF</td>
 <td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label"></td>
+<td class="routine-comment" colspan="5">
+<span id="bd00"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 07: Rubble Road.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_RubbleRoad</td>
 <td class="address-1"><span id="bd00"></span>BD00</td>
 <td class="instruction">DEFB $FF</td>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_WallStreet</td>
+<td class="routine-comment" colspan="5">
+<span id="bd01"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 08: Wall Street.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_WallStreet</td>
 <td class="address-1"><span id="bd01"></span>BD01</td>
-<td class="instruction">DEFB $04</td>
-<td class="comment-1" rowspan="1">Room ID 04.</td>
+<td class="instruction">DEFB $04,$20,$A0,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 04.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd02"></span>BD02</td>
-<td class="instruction">DEFB $20,$A0,$9F,$05,$C8,$68,$9F,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd05"></span>BD05</td>
+<td class="instruction">DEFB $05,$C8,$68,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 05.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd09"></span>BD09</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd0a"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 09: Pete Street.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd0a"></span>BD0A</td>
-<td class="instruction">DEFB $06,$40,$A8,$9F,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $06,$40,$A8,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 06.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_Workshed_OnLeftTable</td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd0e"></span>BD0E</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd0f"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 0A: The Work Shed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bd0f"></span>BD0F</td>
-<td class="instruction">DEFB $07</td>
-<td class="comment-1" rowspan="1">Room ID 07.</td>
+<td class="instruction">DEFB $07,$60,$90,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 07.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd10"></span>BD10</td>
-<td class="instruction">DEFB $60,$90,$1F</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Item_Workshed_UnderLeftTable</td>
 <td class="address-1"><span id="bd13"></span>BD13</td>
-<td class="instruction">DEFB $08</td>
-<td class="comment-1" rowspan="1">Room ID 08.</td>
+<td class="instruction">DEFB $08,$80,$A8,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 08.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd14"></span>BD14</td>
-<td class="instruction">DEFB $80,$A8,$1F</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Item_Workshed_UnderRightTable</td>
 <td class="address-1"><span id="bd17"></span>BD17</td>
-<td class="instruction">DEFB $09</td>
-<td class="comment-1" rowspan="1">Room ID 09.</td>
+<td class="instruction">DEFB $09,$C8,$A8,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 09.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd18"></span>BD18</td>
-<td class="instruction">DEFB $C8,$A8,$1F,$FF,$0A,$28,$50,$9F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd1b"></span>BD1B</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd1c"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 0B: School Lane.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd1c"></span>BD1C</td>
+<td class="instruction">DEFB $0A,$28,$50,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 0A.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd20"></span>BD20</td>
 <td class="instruction">DEFB $FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_School</td>
+<td class="routine-comment" colspan="5">
+<span id="bd21"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 0C: The School.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bd21"></span>BD21</td>
-<td class="instruction">DEFB $0B</td>
-<td class="comment-1" rowspan="1">Room ID 0B.</td>
+<td class="instruction">DEFB $0B,$10,$A8,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 0B.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd22"></span>BD22</td>
-<td class="instruction">DEFB $10,$A8,$9F,$FF,$FF,$0C,$10,$A0</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd25"></span>BD25</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd26"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 0D: Baker Street.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_BakerStreet</td>
+<td class="address-1"><span id="bd26"></span>BD26</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd27"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 0E: The Bakers.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd2a"></span>BD2A</td>
-<td class="instruction">DEFB $1F,$FF,$0D,$A0,$90,$9F,$FF,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd27"></span>BD27</td>
+<td class="instruction">DEFB $0C,$10,$A0,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 0C.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_KemcoLab_Left</td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd2b"></span>BD2B</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd2c"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 0F: The Pub.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd2c"></span>BD2C</td>
+<td class="instruction">DEFB $0D,$A0,$90,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 0D.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd30"></span>BD30</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd31"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 10: Motor Way.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd31"></span>BD31</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd32"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 11: The Laboratory.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bd32"></span>BD32</td>
-<td class="instruction">DEFB $0E</td>
-<td class="comment-1" rowspan="1">Room ID 0E.</td>
+<td class="instruction">DEFB $0E,$60,$90,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 0E.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd33"></span>BD33</td>
-<td class="instruction">DEFB $60,$90,$1F</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Item_KemcoLab_Right</td>
 <td class="address-1"><span id="bd36"></span>BD36</td>
-<td class="instruction">DEFB $0F</td>
-<td class="comment-1" rowspan="1">Room ID 0F.</td>
+<td class="instruction">DEFB $0F,$D8,$90,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 0F.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd37"></span>BD37</td>
-<td class="instruction">DEFB $D8,$90,$1F,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd3a"></span>BD3A</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_Garage</td>
+<td class="routine-comment" colspan="5">
+<span id="bd3b"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 12: The Garage.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bd3b"></span>BD3B</td>
-<td class="instruction">DEFB $10</td>
-<td class="comment-1" rowspan="1">Room ID 10.</td>
+<td class="instruction">DEFB $10,$78,$A8,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 10.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd3c"></span>BD3C</td>
-<td class="instruction">DEFB $78,$A8,$1F,$FF,$FF,$11,$38,$90</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd3f"></span>BD3F</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd40"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 13: Reference Road.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd44"></span>BD44</td>
-<td class="instruction">DEFB $9F,$12,$78,$90,$9F,$13,$C0,$90</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd40"></span>BD40</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd41"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 14: The Library.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd4c"></span>BD4C</td>
-<td class="instruction">DEFB $9F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd41"></span>BD41</td>
+<td class="instruction">DEFB $11,$38,$90,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 11.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_WallysHouse</td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd45"></span>BD45</td>
+<td class="instruction">DEFB $12,$78,$90,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 12.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd49"></span>BD49</td>
+<td class="instruction">DEFB $13,$C0,$90,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 13.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bd4d"></span>BD4D</td>
 <td class="instruction">DEFB $FF</td>
-<td class="comment-1" rowspan="1">Room ID FF.</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd4e"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 15: Penny Lane.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd4e"></span>BD4E</td>
 <td class="instruction">DEFB $FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_Bank</td>
-<td class="address-1"><span id="bd4f"></span>BD4F</td>
-<td class="instruction">DEFB $14</td>
-<td class="comment-1" rowspan="1">Room ID 14.</td>
+<td class="routine-comment" colspan="5">
+<span id="bd4f"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 16: The Bank.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd50"></span>BD50</td>
-<td class="instruction">DEFB $C8,$A8,$1F,$FF,$15,$78,$A8,$1F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd4f"></span>BD4F</td>
+<td class="instruction">DEFB $14,$C8,$A8,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 14.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd53"></span>BD53</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd54"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 17: Wally's House.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd54"></span>BD54</td>
+<td class="instruction">DEFB $15,$78,$A8,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 15.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd58"></span>BD58</td>
-<td class="instruction">DEFB $FF,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_Butchers</td>
-<td class="address-1"><span id="bd5a"></span>BD5A</td>
-<td class="instruction">DEFB $16</td>
-<td class="comment-1" rowspan="1">Room ID 16.</td>
+<td class="routine-comment" colspan="5">
+<span id="bd59"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 18: Meat Street.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd5b"></span>BD5B</td>
-<td class="instruction">DEFB $10,$A8,$9F,$17,$10,$90,$9F,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd59"></span>BD59</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd5a"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 19: The Butchers.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">Items_TheButchers</td>
+<td class="address-1"><span id="bd5a"></span>BD5A</td>
+<td class="instruction">DEFB $16,$10,$A8,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 16.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd5e"></span>BD5E</td>
+<td class="instruction">DEFB $17,$10,$90,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 17.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd62"></span>BD62</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd63"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 1A: Trunk Road.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd63"></span>BD63</td>
-<td class="instruction">DEFB $FF,$18,$08,$A8,$9F,$FF,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_Station</td>
-<td class="address-1"><span id="bd6a"></span>BD6A</td>
-<td class="instruction">DEFB $19</td>
-<td class="comment-1" rowspan="1">Room ID 19.</td>
+<td class="routine-comment" colspan="5">
+<span id="bd64"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 1B: The Zoo.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
-<td class="address-1"><span id="bd6b"></span>BD6B</td>
-<td class="instruction">DEFB $B0,$90,$1F,$FF,$1A,$00,$A8,$9F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="address-1"><span id="bd64"></span>BD64</td>
+<td class="instruction">DEFB $18,$08,$A8,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 18.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd68"></span>BD68</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd69"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 1C: Rail Road.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd69"></span>BD69</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd6a"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 1D: The Station.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd6a"></span>BD6A</td>
+<td class="instruction">DEFB $19,$B0,$90,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 19.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd6e"></span>BD6E</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd6f"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 1E: The Docks.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd6f"></span>BD6F</td>
+<td class="instruction">DEFB $1A,$00,$A8,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 1A.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd73"></span>BD73</td>
-<td class="instruction">DEFB $1B,$84,$90,$9F,$FF</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $1B,$84,$90,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 1B.</td>
 </tr>
 <tr>
-<td class="asm-label">Item_Sewer</td>
+<td class="asm-label"></td>
+<td class="address-1"><span id="bd77"></span>BD77</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="bd78"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 1F: The Sewer.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="bd78"></span>BD78</td>
-<td class="instruction">DEFB $1C</td>
-<td class="comment-1" rowspan="1">Room ID 1C.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd79"></span>BD79</td>
-<td class="instruction">DEFB $78</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd7a"></span>BD7A</td>
-<td class="instruction">DEFB $A8</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd7b"></span>BD7B</td>
-<td class="instruction">DEFB $1F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $1C,$78,$A8,$1F</td>
+<td class="comment-1" rowspan="1">Item ID: 1C.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -382,46 +728,26 @@ Next: <a href="BD86.html">BD86</a>
 <td class="comment-1" rowspan="1">Terminator.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="bd7d"></span>
+<div class="comments">
+<div class="paragraph">
+Items in room 20: The Cave.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd7d"></span>BD7D</td>
-<td class="instruction">DEFB $1D</td>
-<td class="comment-1" rowspan="1">Room ID 1D.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd7e"></span>BD7E</td>
-<td class="instruction">DEFB $00,$98</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd80"></span>BD80</td>
-<td class="instruction">DEFB $9F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $1D,$00,$98,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 1D.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="bd81"></span>BD81</td>
-<td class="instruction">DEFB $1E</td>
-<td class="comment-1" rowspan="1">Room ID 1E.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd82"></span>BD82</td>
-<td class="instruction">DEFB $48</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd83"></span>BD83</td>
-<td class="instruction">DEFB $A8</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="bd84"></span>BD84</td>
-<td class="instruction">DEFB $9F</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFB $1E,$48,$A8,$9F</td>
+<td class="comment-1" rowspan="1">Item ID: 1E.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

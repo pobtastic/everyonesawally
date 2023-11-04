@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Everyone's a Wally: Data at B09D</title>
+<title>Everyone's a Wally: Game status buffer entry at B09D</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
@@ -15,11 +15,11 @@ gtag('js', new Date());
 gtag('config', 'G-75RERFCHBG');
 </script>
 </head>
-<body class="Asm-w">
+<body class="Asm-g">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Data</td>
+<td class="page-header">Game status buffer</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -33,18 +33,28 @@ Next: <a href="B09F.html">B09F</a>
 </td>
 </tr>
 </table>
-<div class="description">B09D: Data block at B09D</div>
+<div class="description">B09D: Current Character Pointer</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
+<div class="paragraph">
+Will be one of: <ul class="">
+<li><a href="BC67.html">Wally data.</a></li>
+<li><a href="BC67.html#bc68">Wilma data.</a></li>
+<li><a href="BC67.html#bc69">Tom data.</a></li>
+<li><a href="BC67.html#bc6a">Dick data.</a></li>
+<li><a href="BC67.html#bc6b">Harry data.</a></li>
+</ul>
+</div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">CurrentCharacter</td>
 <td class="address-1"><span id="b09d"></span>B09D</td>
 <td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Points to the base of where the interlaced character data begins.</td>
 </tr>
 </table>
 <table class="asm-navigation">

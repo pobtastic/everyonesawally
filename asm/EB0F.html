@@ -44,182 +44,183 @@ Next: <a href="EB54.html">EB54</a>
 <tr>
 <td class="address-2"><span id="eb0f"></span>EB0F</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="EB54.html">EB54</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb11"></span>EB11</td>
 <td class="instruction">LD ($EB54),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb14"></span>EB14</td>
 <td class="instruction">LD B,(IY-$2D)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=<span class="register">IY</span>-2D.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb17"></span>EB17</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb18"></span>EB18</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb19"></span>EB19</td>
 <td class="instruction">PUSH HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Stash <span class="register">HL</span> and <span class="register">IY</span> on the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb1a"></span>EB1A</td>
 <td class="instruction">PUSH IY</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb1c"></span>EB1C</td>
-<td class="instruction">CALL <a href="AA8C.html">$AA8C</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="AA8C.html">Handler_ItemsCurrentRoom</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AA8C.html">Handler_ItemsCurrentRoom</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb1f"></span>EB1F</td>
 <td class="instruction">LD A,(IY+$50)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+50.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb22"></span>EB22</td>
 <td class="instruction">CP C</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb23"></span>EB23</td>
 <td class="instruction">JR Z,<a href="EB0F.html#eb2f">$EB2F</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb25"></span>EB25</td>
 <td class="instruction">INC IY</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="5">Increment <span class="register">IY</span> by five.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb27"></span>EB27</td>
 <td class="instruction">INC IY</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb29"></span>EB29</td>
 <td class="instruction">INC IY</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb2b"></span>EB2B</td>
 <td class="instruction">INC IY</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb2d"></span>EB2D</td>
 <td class="instruction">INC IY</td>
-<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="eb2f"></span>
+<div class="comments">
+<div class="paragraph">
+Switch the values at *<span class="register">HL</span> and *<span class="register">IY</span>+50.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-2"><span id="eb2f"></span>EB2F</td>
 <td class="instruction">LD C,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb30"></span>EB30</td>
 <td class="instruction">LD A,(IY+$50)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write *<span class="register">IY</span>+50 to *<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb33"></span>EB33</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb34"></span>EB34</td>
 <td class="instruction">LD (IY+$50),C</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">C</span> to *<span class="register">IY</span>+50.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb37"></span>EB37</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Increment <span class="register">HL</span> by three.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb38"></span>EB38</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb39"></span>EB39</td>
 <td class="instruction">INC HL</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb3a"></span>EB3A</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb3b"></span>EB3B</td>
 <td class="instruction">RES 7,A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb3d"></span>EB3D</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb3e"></span>EB3E</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb3f"></span>EB3F</td>
-<td class="instruction">AND $80</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">AND %10000000</td>
+<td class="comment-1" rowspan="1">Keep only bit 7.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb41"></span>EB41</td>
 <td class="instruction">OR (IY-$37)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb44"></span>EB44</td>
 <td class="instruction">LD (HL),A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb45"></span>EB45</td>
 <td class="instruction">LD (IY-$37),C</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb48"></span>EB48</td>
 <td class="instruction">POP IY</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">IY</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb4a"></span>EB4A</td>
 <td class="instruction">CALL <a href="E41D.html">$E41D</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="E41D.html">E41D</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb4d"></span>EB4D</td>
-<td class="instruction">CALL <a href="AA7F.html">$AA7F</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">CALL <a href="AA7F.html">Sounds_PickUp</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AA7F.html">Sounds_PickUp</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb50"></span>EB50</td>
 <td class="instruction">POP HL</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="eb51"></span>EB51</td>
 <td class="instruction">JP <a href="EABF.html#eaeb">$EAEB</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="EABF.html#eaeb">EAEB</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

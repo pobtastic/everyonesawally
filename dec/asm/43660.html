@@ -33,7 +33,7 @@ Next: <a href="43680.html">43680</a>
 </td>
 </tr>
 </table>
-<div class="description">43660: Routine at AA8C</div>
+<div class="description">43660: Handler: Fetch Items In Current Room</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,58 +45,68 @@ Used by the routines at <a href="43308.html">Handler_Move_Characters</a>, <a hre
 </td>
 </tr>
 <tr>
+<td class="asm-label">Handler_ItemsCurrentRoom</td>
 <td class="address-2"><span id="43660"></span>43660</td>
 <td class="instruction">LD A,(IY+15)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+15 (current room).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43663"></span>43663</td>
 <td class="instruction">LD HL,48361</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="48361.html">Item_Data</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="48361.html">Items_TownSquare</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43666"></span>43666</td>
 <td class="instruction">CALL <a href="44140.html">FindDataById</a></td>
 <td class="comment-1" rowspan="1">Call <a href="44140.html">FindDataById</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43669"></span>43669</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">B</span> is zero jump to <a href="43660.html#43679">Handler_ItemsCurrentRoom_Return</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43670"></span>43670</td>
 <td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43671"></span>43671</td>
-<td class="instruction">JR Z,<a href="43660.html#43679">43679</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="43660.html#43679">Handler_ItemsCurrentRoom_Return</a></td>
 </tr>
 <tr>
+<td class="asm-label">Handler_ItemsCurrentRoom_Loop</td>
 <td class="address-2"><span id="43673"></span>43673</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="4">Increment <span class="register">HL</span> by four.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43674"></span>43674</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43675"></span>43675</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43676"></span>43676</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43677"></span>43677</td>
-<td class="instruction">DJNZ <a href="43660.html#43673">43673</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="43660.html#43673">43673</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="43660.html#43673">Handler_ItemsCurrentRoom_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="43660.html#43673">Handler_ItemsCurrentRoom_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_ItemsCurrentRoom_Return</td>
 <td class="address-2"><span id="43679"></span>43679</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

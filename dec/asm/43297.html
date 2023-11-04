@@ -33,7 +33,7 @@ Next: <a href="43308.html">43308</a>
 </td>
 </tr>
 </table>
-<div class="description">43297: Routine at A921</div>
+<div class="description">43297: Check If Active Character</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -42,33 +42,62 @@ Next: <a href="43308.html">43308</a>
 Used by the routines at <a href="43308.html">Handler_Move_Characters</a>, <a href="43568.html">Handler_PickUpObjects</a>, <a href="45704.html">45704</a> and <a href="59291.html">Handler_ChangeCharacters</a>.
 </div>
 </div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">Character pointer</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Zero flag is set if the given character is active</td>
+</tr>
+</table>
 </td>
 </tr>
 <tr>
+<td class="asm-label">Character_Active</td>
 <td class="address-2"><span id="43297"></span>43297</td>
 <td class="instruction">PUSH IY</td>
 <td class="comment-1" rowspan="2"><span class="register">HL</span>=<span class="register">IY</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43299"></span>43299</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43300"></span>43300</td>
 <td class="instruction">LD DE,(45213)</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=*<a href="45213.html">45213</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=*<a href="45213.html">CurrentCharacter</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43304"></span>43304</td>
 <td class="instruction">AND A</td>
 <td class="comment-1" rowspan="1">Reset the flags.</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="43305"></span>
+<div class="comments">
+<div class="paragraph">
+Simply subtract one character address pointer from the current character pointer.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43305"></span>43305</td>
 <td class="instruction">SBC HL,DE</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>-=<span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43307"></span>43307</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

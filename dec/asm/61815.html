@@ -183,7 +183,7 @@ Next: <a href="62840.html">62840</a>
 </tr>
 <tr>
 <td class="address-1"><span id="61890"></span>61890</td>
-<td class="instruction">CALL <a href="47611.html">Copy_ShadowBuffer</a></td>
+<td class="instruction">CALL <a href="47611.html">ShadowBufferToScreen</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
@@ -558,37 +558,47 @@ Next: <a href="62840.html">62840</a>
 </tr>
 <tr>
 <td class="address-1"><span id="62062"></span>62062</td>
-<td class="instruction">NOP</td>
+<td class="instruction">DEFB 0</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62063"></span>62063</td>
-<td class="instruction">LD B,E</td>
+<td class="instruction">DEFB 67</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62064"></span>62064</td>
-<td class="instruction">LD E,D</td>
+<td class="instruction">DEFB 90</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62065"></span>62065</td>
-<td class="instruction">XOR B</td>
+<td class="instruction">DEFB 168</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62066"></span>62066</td>
-<td class="instruction">LD BC,0</td>
+<td class="instruction">DEFB 1</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62067"></span>62067</td>
+<td class="instruction">DEFB 0</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62068"></span>62068</td>
+<td class="instruction">DEFB 0</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62069"></span>62069</td>
-<td class="instruction">INC BC</td>
+<td class="instruction">DEFB 3</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62070"></span>62070</td>
-<td class="instruction">LD B,B</td>
+<td class="instruction">DEFB 64</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
@@ -2378,22 +2388,37 @@ This entry point is used by the routine at <a href="61121.html">61121</a>.
 </tr>
 <tr>
 <td class="address-1"><span id="62833"></span>62833</td>
-<td class="instruction">LD D,B</td>
+<td class="instruction">DEFB 80</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62834"></span>62834</td>
-<td class="instruction">LD A,8</td>
+<td class="instruction">DEFB 62</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62835"></span>62835</td>
+<td class="instruction">DEFB 8</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62836"></span>62836</td>
-<td class="instruction">CALL <a href="60445.html">Handler_TaskCompleted</a></td>
+<td class="instruction">DEFB 205</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62837"></span>62837</td>
+<td class="instruction">DEFB 29</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62838"></span>62838</td>
+<td class="instruction">DEFB 236</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="62839"></span>62839</td>
-<td class="instruction">RET Z</td>
+<td class="instruction">DEFB 200</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 </table>

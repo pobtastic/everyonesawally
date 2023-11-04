@@ -183,7 +183,7 @@ Next: <a href="F578.html">F578</a>
 </tr>
 <tr>
 <td class="address-1"><span id="f1c2"></span>F1C2</td>
-<td class="instruction">CALL <a href="B9FB.html">Copy_ShadowBuffer</a></td>
+<td class="instruction">CALL <a href="B9FB.html">ShadowBufferToScreen</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
@@ -558,37 +558,47 @@ Next: <a href="F578.html">F578</a>
 </tr>
 <tr>
 <td class="address-1"><span id="f26e"></span>F26E</td>
-<td class="instruction">NOP</td>
+<td class="instruction">DEFB $00</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f26f"></span>F26F</td>
-<td class="instruction">LD B,E</td>
+<td class="instruction">DEFB $43</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f270"></span>F270</td>
-<td class="instruction">LD E,D</td>
+<td class="instruction">DEFB $5A</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f271"></span>F271</td>
-<td class="instruction">XOR B</td>
+<td class="instruction">DEFB $A8</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f272"></span>F272</td>
-<td class="instruction">LD BC,$0000</td>
+<td class="instruction">DEFB $01</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="f273"></span>F273</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="f274"></span>F274</td>
+<td class="instruction">DEFB $00</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f275"></span>F275</td>
-<td class="instruction">INC BC</td>
+<td class="instruction">DEFB $03</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f276"></span>F276</td>
-<td class="instruction">LD B,B</td>
+<td class="instruction">DEFB $40</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
@@ -2378,22 +2388,37 @@ This entry point is used by the routine at <a href="EEC1.html">EEC1</a>.
 </tr>
 <tr>
 <td class="address-1"><span id="f571"></span>F571</td>
-<td class="instruction">LD D,B</td>
+<td class="instruction">DEFB $50</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f572"></span>F572</td>
-<td class="instruction">LD A,$08</td>
+<td class="instruction">DEFB $3E</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="f573"></span>F573</td>
+<td class="instruction">DEFB $08</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f574"></span>F574</td>
-<td class="instruction">CALL <a href="EC1D.html">Handler_TaskCompleted</a></td>
+<td class="instruction">DEFB $CD</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="f575"></span>F575</td>
+<td class="instruction">DEFB $1D</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="f576"></span>F576</td>
+<td class="instruction">DEFB $EC</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="f577"></span>F577</td>
-<td class="instruction">RET Z</td>
+<td class="instruction">DEFB $C8</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 </table>

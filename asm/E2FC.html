@@ -47,67 +47,60 @@ Used by the routine at <a href="B288.html">B288</a>.
 <tr>
 <td class="address-2"><span id="e2fc"></span>E2FC</td>
 <td class="instruction">LD A,(IY+$00)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Jump to <a href="E2FC.html#e30b">E30B</a> if <span class="register">IY</span>+00 is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e2ff"></span>E2FF</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="e300"></span>E300</td>
 <td class="instruction">JR Z,<a href="E2FC.html#e30b">$E30B</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="e302"></span>E302</td>
 <td class="instruction">CP $03</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">If it is 03 jump to <a href="E2FC.html#e30b">E30B</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e304"></span>E304</td>
 <td class="instruction">JR Z,<a href="E2FC.html#e30b">$E30B</a></td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="e306"></span>E306</td>
 <td class="instruction">XOR A</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 00 to <span class="register">IY</span>-19.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e307"></span>E307</td>
 <td class="instruction">LD (IY-$19),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="e30a"></span>E30A</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="e30b"></span>E30B</td>
 <td class="instruction">LD A,(IY-$19)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Return if <span class="register">IY</span>-19 is not zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e30e"></span>E30E</td>
 <td class="instruction">OR A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="e30f"></span>E30F</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="e310"></span>E310</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write 01 to <span class="register">IY</span>-19.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e312"></span>E312</td>
 <td class="instruction">LD (IY-$19),A</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -122,42 +115,50 @@ This entry point is used by the routine at <a href="B1A6.html">B1A6</a>.
 <tr>
 <td class="address-2"><span id="e315"></span>E315</td>
 <td class="instruction">LD A,($B951)</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Return if *<a href="B951.html">TempStore_Room</a> and *<span class="register">IY</span>+0F are not equal.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e318"></span>E318</td>
 <td class="instruction">CP (IY+$0F)</td>
-<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="e31b"></span>E31B</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="e31c"></span>
+<div class="comments">
+<div class="paragraph">
+Play the "walking" sound.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e31c"></span>E31C</td>
 <td class="instruction">LD BC,$0701</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0701.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e31f"></span>E31F</td>
 <td class="instruction">LD DE,$0F01</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=0F01.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e322"></span>E322</td>
 <td class="instruction">LD HL,$0404</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=0404.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e325"></span>E325</td>
 <td class="instruction">CALL <a href="E3D3.html">PlayWaveSequence</a></td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="E3D3.html">PlayWaveSequence</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="e328"></span>E328</td>
 <td class="instruction">RET</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">

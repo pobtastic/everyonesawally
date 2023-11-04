@@ -39,7 +39,7 @@ Next: <a href="BA25.html">BA25</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="813B.html">813B</a>, <a href="B9D6.html">B9D6</a>, <a href="ED2A.html">ED2A</a>, <a href="EDF7.html">EDF7</a>, <a href="EFC7.html">EFC7</a> and <a href="F177.html">F177</a>.
+Used by the routines at <a href="813B.html">813B</a>, <a href="B9D6.html">Draw_Characters_CurrentRoom</a>, <a href="ED2A.html">ED2A</a>, <a href="EDF7.html">EDF7</a>, <a href="EFC7.html">EFC7</a> and <a href="F177.html">F177</a>.
 </div>
 </div>
 </td>
@@ -49,13 +49,13 @@ Used by the routines at <a href="813B.html">813B</a>, <a href="B9D6.html">B9D6</
 <span id="b9fb"></span>
 <div class="comments">
 <div class="paragraph">
-Copy the shadow screen buffer.
+Copy the shadow screen buffer to the playarea (beginning at memory location 4800).
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">Copy_ShadowBuffer</td>
+<td class="asm-label">ShadowBufferToScreen</td>
 <td class="address-2"><span id="b9fb"></span>B9FB</td>
 <td class="instruction">LD HL,$6B00</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="6B00.html">ShadowBuffer</a>.</td>
@@ -70,10 +70,20 @@ Copy the shadow screen buffer.
 <td class="asm-label"></td>
 <td class="address-1"><span id="ba02"></span>BA02</td>
 <td class="instruction">LD BC,$1000</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=1000.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=1000 (bytes of data).</td>
 </tr>
 <tr>
-<td class="asm-label">Copy_ShadowBuffer_Loop</td>
+<td class="routine-comment" colspan="5">
+<span id="ba05"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the screen buffer from the look up table held by <span class="register">IX</span>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">ShadowBufferToScreen_Loop</td>
 <td class="address-2"><span id="ba05"></span>BA05</td>
 <td class="instruction">LD E,(IX+$00)</td>
 <td class="comment-1" rowspan="1"><span class="register">E</span>=*<span class="register">IX</span>+00.</td>
@@ -104,15 +114,15 @@ Copy the shadow screen buffer.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ba12"></span>BA12</td>
-<td class="instruction">JP PE,<a href="B9FB.html#ba05">Copy_ShadowBuffer_Loop</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba05">Copy_ShadowBuffer_Loop</a> until <span class="register">BC</span> is zero.</td>
+<td class="instruction">JP PE,<a href="B9FB.html#ba05">ShadowBufferToScreen_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba05">ShadowBufferToScreen_Loop</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
 <span id="ba15"></span>
 <div class="comments">
 <div class="paragraph">
-Copy the shadow attribute buffer.
+Copy the shadow attribute buffer to the attribute buffer.
 </div>
 </div>
 </td>
@@ -121,7 +131,7 @@ Copy the shadow attribute buffer.
 <td class="asm-label"></td>
 <td class="address-1"><span id="ba15"></span>BA15</td>
 <td class="instruction">LD BC,$0200</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=0200.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0200 (bytes of data).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -136,7 +146,7 @@ Copy the shadow attribute buffer.
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="4000.html#5900">5900</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">Copy_ShadowBuffer_Attributes_Loop</td>
+<td class="asm-label">ShadowBufferToScreen_Attributes_Loop</td>
 <td class="address-2"><span id="ba1e"></span>BA1E</td>
 <td class="instruction">CALL <a href="BA25.html">CopyRoutine</a></td>
 <td class="comment-1" rowspan="1">Call <a href="BA25.html">CopyRoutine</a>.</td>
@@ -144,8 +154,8 @@ Copy the shadow attribute buffer.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ba21"></span>BA21</td>
-<td class="instruction">JP PE,<a href="B9FB.html#ba1e">Copy_ShadowBuffer_Attributes_Loop</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba1e">Copy_ShadowBuffer_Attributes_Loop</a> until <span class="register">BC</span> is zero.</td>
+<td class="instruction">JP PE,<a href="B9FB.html#ba1e">ShadowBufferToScreen_Attributes_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="B9FB.html#ba1e">ShadowBufferToScreen_Attributes_Loop</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

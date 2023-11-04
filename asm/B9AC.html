@@ -57,7 +57,17 @@ Used by the routines at <a href="B952.html">DrawRoom</a>, <a href="ED2A.html">ED
 <tr>
 <td class="address-1"><span id="b9b3"></span>B9B3</td>
 <td class="instruction">LD BC,$1000</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=1000.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=1000 (bytes of data).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="b9b6"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the screen buffer from the look up table held by <span class="register">IX</span>.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="address-2"><span id="b9b6"></span>B9B6</td>
@@ -86,12 +96,12 @@ Used by the routines at <a href="B952.html">DrawRoom</a>, <a href="ED2A.html">ED
 <tr>
 <td class="address-1"><span id="b9c3"></span>B9C3</td>
 <td class="instruction">JP PE,<a href="B9AC.html#b9b6">$B9B6</a></td>
-<td class="comment-1" rowspan="1">If the return from <a href="BA25.html">CopyRoutine</a> is even, jump to <a href="B9AC.html#b9b6">B9B6</a>.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="B9AC.html#b9b6">B9B6</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9c6"></span>B9C6</td>
 <td class="instruction">LD BC,$0200</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=0200.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0200 (bytes of data).</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9c9"></span>B9C9</td>
@@ -111,7 +121,7 @@ Used by the routines at <a href="B952.html">DrawRoom</a>, <a href="ED2A.html">ED
 <tr>
 <td class="address-1"><span id="b9d2"></span>B9D2</td>
 <td class="instruction">JP PE,<a href="B9AC.html#b9cf">$B9CF</a></td>
-<td class="comment-1" rowspan="1">If the return from <a href="BA25.html">CopyRoutine</a> is even, jump to <a href="B9AC.html#b9cf">B9CF</a>.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="B9AC.html#b9cf">B9CF</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="b9d5"></span>B9D5</td>

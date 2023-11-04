@@ -33,7 +33,7 @@ Next: <a href="AAA0.html">AAA0</a>
 </td>
 </tr>
 </table>
-<div class="description">AA8C: Routine at AA8C</div>
+<div class="description">AA8C: Handler: Fetch Items In Current Room</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,58 +45,68 @@ Used by the routines at <a href="A92C.html">Handler_Move_Characters</a>, <a href
 </td>
 </tr>
 <tr>
+<td class="asm-label">Handler_ItemsCurrentRoom</td>
 <td class="address-2"><span id="aa8c"></span>AA8C</td>
 <td class="instruction">LD A,(IY+$0F)</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=*<span class="register">IY</span>+0F (current room).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa8f"></span>AA8F</td>
 <td class="instruction">LD HL,$BCE9</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="BCE9.html">Item_Data</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="BCE9.html">Items_TownSquare</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa92"></span>AA92</td>
 <td class="instruction">CALL <a href="AC6C.html">FindDataById</a></td>
 <td class="comment-1" rowspan="1">Call <a href="AC6C.html">FindDataById</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa95"></span>AA95</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <span class="register">B</span> is zero jump to <a href="AA8C.html#aa9f">Handler_ItemsCurrentRoom_Return</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa96"></span>AA96</td>
 <td class="instruction">OR A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa97"></span>AA97</td>
-<td class="instruction">JR Z,<a href="AA8C.html#aa9f">$AA9F</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="AA8C.html#aa9f">Handler_ItemsCurrentRoom_Return</a></td>
 </tr>
 <tr>
+<td class="asm-label">Handler_ItemsCurrentRoom_Loop</td>
 <td class="address-2"><span id="aa99"></span>AA99</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="4">Increment <span class="register">HL</span> by four.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa9a"></span>AA9A</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa9b"></span>AA9B</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa9c"></span>AA9C</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aa9d"></span>AA9D</td>
-<td class="instruction">DJNZ <a href="AA8C.html#aa99">$AA99</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AA8C.html#aa99">AA99</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="AA8C.html#aa99">Handler_ItemsCurrentRoom_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AA8C.html#aa99">Handler_ItemsCurrentRoom_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label">Handler_ItemsCurrentRoom_Return</td>
 <td class="address-2"><span id="aa9f"></span>AA9F</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

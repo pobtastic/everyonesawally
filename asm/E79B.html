@@ -156,7 +156,7 @@ This associates each character with a keypress. <table class="default">
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7a9"></span>E7A9</td>
 <td class="instruction">LD IY,$BC67</td>
-<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="BC67.html">Character_Data</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=<a href="BC67.html">FrameId_Wally</a>.</td>
 </tr>
 <tr>
 <td class="asm-label">ChangeCharacters_WhichCharacter_Loop</td>
@@ -270,8 +270,8 @@ The chosen character is in the same room as the current character, so begin to a
 <tr>
 <td class="asm-label">ChangeCharacters_Process</td>
 <td class="address-2"><span id="e7c0"></span>E7C0</td>
-<td class="instruction">CALL <a href="A921.html">$A921</a></td>
-<td class="comment-1" rowspan="1">Call <a href="A921.html">A921</a>.</td>
+<td class="instruction">CALL <a href="A921.html">Character_Active</a></td>
+<td class="comment-1" rowspan="1">Call <a href="A921.html">Character_Active</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -283,7 +283,7 @@ The chosen character is in the same room as the current character, so begin to a
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7c5"></span>E7C5</td>
 <td class="instruction">LD ($B09D),IY</td>
-<td class="comment-1" rowspan="1">Write <span class="register">IY</span> to *<a href="B09D.html">B09D</a>.</td>
+<td class="comment-1" rowspan="1">Write <span class="register">IY</span> to *<a href="B09D.html">CurrentCharacter</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -361,7 +361,7 @@ The chosen character is in the same room as the current character, so begin to a
 <td class="asm-label"></td>
 <td class="address-1"><span id="e7e1"></span>E7E1</td>
 <td class="instruction">LD IY,($B09D)</td>
-<td class="comment-1" rowspan="1"><span class="register">IY</span>=*<a href="B09D.html">B09D</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">IY</span>=*<a href="B09D.html">CurrentCharacter</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">

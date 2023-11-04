@@ -33,7 +33,7 @@ Next: <a href="47179.html">47179</a>
 </td>
 </tr>
 </table>
-<div class="description">47147: Routine at B82B</div>
+<div class="description">47147: Switch Sprite Drawing Functions</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,11 +45,13 @@ Used by the routines at <a href="46014.html">46014</a>, <a href="60281.html">602
 </td>
 </tr>
 <tr>
+<td class="asm-label">Switch_DrawSprite_Functions</td>
 <td class="address-2"><span id="47147"></span>47147</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47148"></span>47148</td>
 <td class="instruction">LD HL,47097</td>
 <td class="comment-1" rowspan="4">Write <a href="47097.html">47097</a> to: <ul class="">
@@ -59,33 +61,40 @@ Used by the routines at <a href="46014.html">46014</a>, <a href="60281.html">602
 </ul></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47151"></span>47151</td>
 <td class="instruction">LD (47294),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47154"></span>47154</td>
 <td class="instruction">LD (47285),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47157"></span>47157</td>
 <td class="instruction">LD (47253),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47160"></span>47160</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47161"></span>47161</td>
 <td class="instruction">CALL <a href="47179.html">Controller_Tile</a></td>
 <td class="comment-1" rowspan="1">Call <a href="47179.html">Controller_Tile</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47164"></span>47164</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="1">Stash <span class="register">HL</span> on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47165"></span>47165</td>
 <td class="instruction">LD HL,47034</td>
 <td class="comment-1" rowspan="4">Write <a href="47034.html">DrawSprite</a> to: <ul class="">
@@ -95,23 +104,28 @@ Used by the routines at <a href="46014.html">46014</a>, <a href="60281.html">602
 </ul></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47168"></span>47168</td>
 <td class="instruction">LD (47253),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47171"></span>47171</td>
 <td class="instruction">LD (47294),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47174"></span>47174</td>
 <td class="instruction">LD (47285),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47177"></span>47177</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="1">Restore <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="47178"></span>47178</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
