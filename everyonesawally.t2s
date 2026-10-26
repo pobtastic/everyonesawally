@@ -7,7 +7,6 @@
 https://www.worldofspectrum.org//pub/sinclair/games/e/EveryonesAWally.tzx.zip
 EveryonesaWally.z80
 
---sim-load
 --tape-name "Everyone's A Wally.tzx"
 --tape-sum 538ad0852363e32bc75cfbc7debbf702
 ; The "real" start address is 0xFEF7 but we allow the code to move blocks around

@@ -1,4 +1,4 @@
-; Copyright 2023 Paul Maddern (paul@arcadegeek.co.uk)
+; Copyright 2026 Paul Maddern (paul@arcadegeek.co.uk)
 
 [Page:Sound]
 SectionPrefix=Audio
@@ -7,25 +7,25 @@ SectionPrefix=Audio
 This tune is played by the routine at #R$B494 using the music data at #R$B560
 and is played before a new game or the demo mode starts.
 
-#AUDIO(tune.wav)(#INCLUDE(ThemeTune))
+#AUDIO0(tune.wav)(#INCLUDE(ThemeTune))
 
 [Audio:pickup:Pick Up Item]
 The sound made when an item is picked up. See the routine at #R$AA7F.
 
-#AUDIO(pickup.wav)(#INCLUDE(PickUp))
+#AUDIO0(pickup.wav)(#INCLUDE(PickUp))
 
 [Audio:endurance:Endurance Depletion]
 This horrible sound plays while the players endurance level is being depleted.
 See the routine at #R$E329.
 
-#AUDIO(endurance.wav)(#INCLUDE(Endurance))
+#AUDIO0(endurance.wav)(#INCLUDE(Endurance))
 
 [Audio:walking:Walking]
 Subtle sound made while the characters are walking. See the routine at #R$E2FC.
 
-#AUDIO(walking.wav)(#INCLUDE(Walking))
+#AUDIO0(walking.wav)(#INCLUDE(Walking))
 
 [Audio:taskcomplete:Task Complete]
 This sound effect plays when a task has been completed. See the routine at #R$F814.
 
-#AUDIO(taskcomplete.wav)(#INCLUDE(TaskComplete))
+#AUDIO0(taskcomplete.wav)(#INCLUDE(TaskComplete))

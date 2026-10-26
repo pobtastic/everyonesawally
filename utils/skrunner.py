@@ -1,3 +1,4 @@
+# Copyright 2026 Paul Maddern (paul@arcadegeek.co.uk)
 import art
 import sys
 import os
@@ -28,7 +29,7 @@ def run_skool2asm():
 def run_skool2html():
     options = "-c Config/InitModule={}:publish -d {}/build/html".format(SKOOLKIT_TOOLS, EVERYONESAWALLY_HOME)
     art.tprint("Everyone's a Wally")
-    hex = '-H -c Config/GameDir=everyonesawally --var pub=2'
-    dec = '-D -c Config/GameDir=everyonesawally/dec --var pub=4'
+    hex = '-H --ini ListRefs=2 -c Config/GameDir=everyonesawally --var pub=2'
+    dec = '-D --ini ListRefs=2 -c Config/GameDir=everyonesawally/dec --var pub=4'
     skool2html.main(options.split() + hex.split() + sys.argv[1:] + [EVERYONESAWALLY_SKOOL])
     skool2html.main(options.split() + dec.split() + sys.argv[1:] + [EVERYONESAWALLY_SKOOL])

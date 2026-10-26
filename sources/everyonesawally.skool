@@ -1322,137 +1322,137 @@ t$7C15 DEFM "HARRY",$FF ; "#STR$7C15,$08($b==$FF)".
 ; Messaging: Wages
 @label=Messaging_Wages
 t$7C1B DEFB $FE,$43         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7C1D DEFM "TODAY'S WAGES" ; #FONT:(TODAY'S WAGES)$E0DC,attr=$43(wages-01)
+ $7C1D DEFM "TODAY'S WAGES" ; #FONT$E0DC,attr=$43,chars=0(TODAY'S WAGES)(wages-01)
  $7C2A DEFB $B8,$04         ; Move cursor: #N(#PEEK(#PC)-$C8),
                             ; #N(#PEEK(#PC+$01)).
  $7C2C DEFB $FE,$46         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7C2E DEFM "WALLY'S PAY"   ; #FONT:(WALLY'S PAY)$E0DC,attr=$46(wages-02)
+ $7C2E DEFM "WALLY'S PAY"   ; #FONT$E0DC,attr=$46,chars=0(WALLY'S PAY)(wages-02)
  $7C39 DEFB $BD,$03         ; Move cursor: #N(#PEEK(#PC)-$C8),
                             ; #N(#PEEK(#PC+$01)).
- $7C3B DEFM "WILMA'S PAY"   ; #FONT:(WILMA'S PAY)$E0DC,attr=$46(wages-03)
+ $7C3B DEFM "WILMA'S PAY"   ; #FONT$E0DC,attr=$46,chars=0(WILMA'S PAY)(wages-03)
  $7C46 DEFB $BD,$03         ; Move cursor: #N(#PEEK(#PC)-$C8),
                             ; #N(#PEEK(#PC+$01)).
- $7C48 DEFM "TOM'S PAY"     ; #FONT:(TOM'S PAY)$E0DC,attr=$46(wages-04)
+ $7C48 DEFM "TOM'S PAY"     ; #FONT$E0DC,attr=$46,chars=0(TOM'S PAY)(wages-04)
  $7C51 DEFB $BF,$03         ; Move cursor: #N(#PEEK(#PC)-$C8),
                             ; #N(#PEEK(#PC+$01)).
- $7C53 DEFM "DICK'S PAY"    ; #FONT:(DICK'S PAY)$E0DC,attr=$46(wages-05)
+ $7C53 DEFM "DICK'S PAY"    ; #FONT$E0DC,attr=$46,chars=0(DICK'S PAY)(wages-05)
  $7C5D DEFB $BE,$03         ; Move cursor: #N(#PEEK(#PC)-$C8),
                             ; #N(#PEEK(#PC+$01)).
- $7C5F DEFM "HARRY'S PAY"   ; #FONT:(HARRY'S PAY)$E0DC,attr=$46(wages-06)
+ $7C5F DEFM "HARRY'S PAY"   ; #FONT$E0DC,attr=$46,chars=0(HARRY'S PAY)(wages-06)
  $7C6A DEFB $FE,$43         ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7C6C DEFB $BF,$04         ; Move cursor: #N(#PEEK(#PC)-$C8),
                             ; #N(#PEEK(#PC+$01)).
- $7C6E DEFM "OVERALL"       ; #FONT:(OVERALL)$E0DC,attr=$43(wages-07)
+ $7C6E DEFM "OVERALL"       ; #FONT$E0DC,attr=$43,chars=0(OVERALL)(wages-07)
  $7C75 DEFB $FF             ; Terminator.
 
 ; Messaging: Congratulations
 @label=Messaging_Congratulations
 t$7C76 DEFB $FE,$44                       ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7C78 DEFM "YOU CLEVER DICK  (PLUS TOM," ; #FONT:(YOU CLEVER DICK  PLUS
-                                          ; TOM,)$E0DC,attr=$44(congratulations-01)
+ $7C78 DEFM "YOU CLEVER DICK  (PLUS TOM," ; #FONT$E0DC,attr=$44,chars=0(YOU
+                                          ; CLEVER DICK  PLUS TOM,)(congratulations-01)
  $7C93 DEFB $AD,$03                       ; Move cursor: #N(#PEEK(#PC)-$C8),
                                           ; #N(#PEEK(#PC+$01)).
- $7C95 DEFM "HARRY, WILMA AND WALLY)."    ; #FONT:(HARRY, WILMA AND
-                                          ; WALLY.)$E0DC,attr=$44(congratulations-02)
+ $7C95 DEFM "HARRY, WILMA AND WALLY)."    ; #FONT$E0DC,attr=$44,chars=0(HARRY,
+                                          ; WILMA AND WALLY.)(congratulations-02)
  $7CAD DEFB $B0,$03                       ; Move cursor: #N(#PEEK(#PC)-$C8),
                                           ; #N(#PEEK(#PC+$01)).
- $7CAF DEFM "YOU'VE OPENED THE SAFE."     ; #FONT:(YOU'VE OPENED THE
-                                          ; SAFE.)$E0DC,attr=$44(congratulations-03)
+ $7CAF DEFM "YOU'VE OPENED THE SAFE."     ; #FONT$E0DC,attr=$44,chars=0(YOU'VE
+                                          ; OPENED THE SAFE.)(congratulations-03)
  $7CC6 DEFB $B1,$03                       ; Move cursor: #N(#PEEK(#PC)-$C8),
                                           ; #N(#PEEK(#PC+$01)).
- $7CC8 DEFM "PERHAPS  EVERYONE'S  NOT  A" ; #FONT:(PERHAPS  EVERYONE'S  NOT
-                                          ; A)$E0DC,attr=$44(congratulations-04)
+ $7CC8 DEFM "PERHAPS  EVERYONE'S  NOT  A" ; #FONT$E0DC,attr=$44,chars=0(PERHAPS
+                                          ;  EVERYONE'S  NOT A)(congratulations-04)
  $7CE3 DEFB $AD,$03                       ; Move cursor: #N(#PEEK(#PC)-$C8),
                                           ; #N(#PEEK(#PC+$01)).
- $7CE5 DEFM "WALLY AFTER ALL."            ; #FONT:(WALLY AFTER
-                                          ; ALL.)$E0DC,attr=$44(congratulations-05)
+ $7CE5 DEFM "WALLY AFTER ALL."            ; #FONT$E0DC,attr=$44,chars=0(WALLY
+                                          ; AFTER ALL.)(congratulations-05)
  $7CF5 DEFB $B8,$03                       ; Move cursor: #N(#PEEK(#PC)-$C8),
                                           ; #N(#PEEK(#PC+$01)).
- $7CF7 DEFM "THE GANG HAVE BEEN PAID AND" ; #FONT:(THE GANG HAVE BEEN PAID
-                                          ; AND)$E0DC,attr=$44(congratulations-06)
+ $7CF7 DEFM "THE GANG HAVE BEEN PAID AND" ; #FONT$E0DC,attr=$44,chars=0(THE
+                                          ; GANG HAVE BEEN PAID AND)(congratulations-06)
  $7D12 DEFB $AD,$03                       ; Move cursor: #N(#PEEK(#PC)-$C8),
                                           ; #N(#PEEK(#PC+$01)).
- $7D14 DEFM "ARE NOW OFF ON THEIR HOLS."  ; #FONT:(ARE NOW OFF ON THEIR
-                                          ; HOLS.)$E0DC,attr=$44(congratulations-07)
+ $7D14 DEFM "ARE NOW OFF ON THEIR HOLS."  ; #FONT$E0DC,attr=$44,chars=0(ARE
+                                          ; NOW OFF ON THEIR HOLS.)(congratulations-07)
  $7D2E DEFB $AE,$03                       ; Move cursor: #N(#PEEK(#PC)-$C8),
                                           ; #N(#PEEK(#PC+$01)).
- $7D30 DEFM "SEE YOU AGAIN SOMETIME."     ; #FONT:(SEE YOU AGAIN
-                                          ; SOMETIME.)$E0DC,attr=$44(congratulations-08)
+ $7D30 DEFM "SEE YOU AGAIN SOMETIME."     ; #FONT$E0DC,attr=$44,chars=0(SEE
+                                          ; YOU AGAIN SOMETIME.)(congratulations-08)
  $7D47 DEFB $FF                           ; Terminator.
 
 ; Messaging: Tough Luck
 @label=Messaging_ToughLuck
 t$7D48 DEFB $FE,$44                     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7D4A DEFM "TOUGH LUCK.  THE GANG HAS" ; #FONT:(TOUGH LUCK.  THE GANG
-                                        ; HAS)$E0DC,attr=$44(tough-luck-01)
+ $7D4A DEFM "TOUGH LUCK.  THE GANG HAS" ; #FONT$E0DC,attr=$44,chars=0(TOUGH
+                                        ; LUCK.  THE GANG HAS)(tough-luck-01)
  $7D63 DEFB $AF,$03                     ; Move cursor: #N(#PEEK(#PC)-$C8),
                                         ; #N(#PEEK(#PC+$01)).
- $7D65 DEFM "EARNED"                    ; #FONT:(EARNED)$E0DC,attr=$44(tough-luck-02)
+ $7D65 DEFM "EARNED"                    ; #FONT$E0DC,attr=$44,chars=0(EARNED)(tough-luck-02)
  $7D6B DEFB $CE,$00                     ; Move cursor: #N(#PEEK(#PC)-$C8),
                                         ; #N(#PEEK(#PC+$01)).
- $7D6D DEFM ",  BUT  CAN'T"             ; #FONT:(,  BUT
-                                        ; CAN'T)$E0DC,attr=$44(tough-luck-03)
+ $7D6D DEFM ",  BUT  CAN'T"             ; #FONT$E0DC,attr=$44,chars=0(,
+                                        ;  BUT CAN'T)(tough-luck-03)
  $7D7A DEFB $AF,$03                     ; Move cursor: #N(#PEEK(#PC)-$C8),
                                         ; #N(#PEEK(#PC+$01)).
- $7D7C DEFM "HAVE  IT  'COS  THE  SAFE" ; #FONT:(HAVE  IT  'COS  THE
-                                        ; SAFE)$E0DC,attr=$44(tough-luck-04)
+ $7D7C DEFM "HAVE  IT  'COS  THE  SAFE" ; #FONT$E0DC,attr=$44,chars=0(HAVE
+                                        ;  IT  'COS  THE SAFE)(tough-luck-04)
  $7D95 DEFB $AF,$03                     ; Move cursor: #N(#PEEK(#PC)-$C8),
                                         ; #N(#PEEK(#PC+$01)).
- $7D97 DEFM "WASN'T OPENED, AND THAT'S" ; #FONT:(WASN'T OPENED, AND
-                                        ; THAT'S)$E0DC,attr=$44(tough-luck-05)
+ $7D97 DEFM "WASN'T OPENED, AND THAT'S" ; #FONT$E0DC,attr=$44,chars=0(WASN'T
+                                        ; OPENED, AND THAT'S)(tough-luck-05)
  $7DB0 DEFB $AF,$03                     ; Move cursor: #N(#PEEK(#PC)-$C8),
                                         ; #N(#PEEK(#PC+$01)).
- $7DB2 DEFM "WHERE THE MONEY IS."       ; #FONT:(WHERE THE MONEY
-                                        ; IS.)$E0DC,attr=$44(tough-luck-06)
+ $7DB2 DEFM "WHERE THE MONEY IS."       ; #FONT$E0DC,attr=$44,chars=0(WHERE
+                                        ; THE MONEY IS.)(tough-luck-06)
  $7DC5 DEFB $FF                         ; Terminator.
 
 ; Messaging: Splash Screen
 @label=Messaging_Splash
 t$7DC6 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DC8 DEFM "KEY:-"                  ; #FONT:(KEY:-)$E0DC,attr=$42(key)
+ $7DC8 DEFM "KEY:-"                  ; #FONT$E0DC,attr=$42,chars=0(KEY:-)(key)
  $7DCD DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DCF DEFM "   1.SINCLAIR JOYSTICK" ; #FONT:(   1.SINCLAIR
-                                     ; JOYSTICK)$E0DC,attr=$46(sinclair)
+ $7DCF DEFM "   1.SINCLAIR JOYSTICK" ; #FONT$E0DC,attr=$46,chars=0(
+                                     ;   1.SINCLAIR JOYSTICK)(sinclair)
  $7DE5 DEFB $AD,$07                  ; Move cursor: #N(#PEEK(#PC)-$C8),
                                      ; #N(#PEEK(#PC+$01)).
  $7DE7 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DE9 DEFM "KEY:-"                  ; #FONT:(KEY:-)$E0DC,attr=$42(key)
+ $7DE9 DEFM "KEY:-"                  ; #FONT$E0DC,attr=$42,chars=0(KEY:-)(key)
  $7DEE DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7DF0 DEFM "   2.KEMPSTON JOYSTICK" ; #FONT:(   2.KEMPSTON
-                                     ; JOYSTICK)$E0DC,attr=$46(kempston)
+ $7DF0 DEFM "   2.KEMPSTON JOYSTICK" ; #FONT$E0DC,attr=$46,chars=0(
+                                     ;   2.KEMPSTON JOYSTICK)(kempston)
  $7E06 DEFB $AD,$07                  ; Move cursor: #N(#PEEK(#PC)-$C8),
                                      ; #N(#PEEK(#PC+$01)).
  $7E08 DEFB $FE,$42                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E0A DEFM "KEY:-"                  ; #FONT:(KEY:-)$E0DC,attr=$42(key)
+ $7E0A DEFM "KEY:-"                  ; #FONT$E0DC,attr=$42,chars=0(KEY:-)(key)
  $7E0F DEFB $FE,$46                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E11 DEFM "   3.KEYBOARD"          ; #FONT:(
-                                     ; 3.KEYBOARD)$E0DC,attr=$46(keyboard)
+ $7E11 DEFM "   3.KEYBOARD"          ; #FONT$E0DC,attr=$46,chars=0(
+                                     ; 3.KEYBOARD)(keyboard)
  $7E1E DEFB $BA,$08                  ; Move cursor: #N(#PEEK(#PC)-$C8),
                                      ; #N(#PEEK(#PC+$01)).
  $7E20 DEFB $FE,$45                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E22 DEFM "PRESS KEY 4 TO START"   ; #FONT:(PRESS KEY 4 TO
-                                     ; START)$E0DC,attr=$46(start)
+ $7E22 DEFM "PRESS KEY 4 TO START"   ; #FONT$E0DC,attr=$46,chars=0(PRESS
+                                     ; KEY 4 TO START)(start)
  $7E36 DEFB $FF                      ; Terminator.
 
 ; Messaging: Key
 @label=Messaging_Key
 t$7E37 DEFB $FE,$47     ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E39 DEFM "KEY:-",$FF ; #FONT:(KEY:-)$E0DC,attr=$47(key-chosen)
+ $7E39 DEFM "KEY:-",$FF ; #FONT$E0DC,attr=$47,chars=0(KEY:-)(key-chosen)
 
 ; Messaging: Banner
 @label=Messaging_Banner
 t$7E3F DEFB $FB          ; {Sprite Bank:
  $7E40 DEFW $DFDC        ; #R(#PEEK(#PC+$01)+#PEEK(#PC+$02)*$100).}
  $7E42 DEFB $FE,$44      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E44 DEFM "CHARACTER:" ; #FONT:(CHARACTER:)$E0DC,attr=$47(character)
+ $7E44 DEFM "CHARACTER:" ; #FONT$E0DC,attr=$47,chars=0(CHARACTER:)(character)
  $7E4E DEFB $BE,$02      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $7E50 DEFB $FE,$47      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E52 DEFM "ENDURANCE:" ; #FONT:(ENDURANCE:)$E0DC,attr=$47(endurance)
+ $7E52 DEFM "ENDURANCE:" ; #FONT$E0DC,attr=$47,chars=0(ENDURANCE:)(endurance)
  $7E5C DEFB $AE,$00      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $7E5E DEFB $FE,$47      ; Attribute: #COLOUR(#PEEK(#PC+$01)).
- $7E60 DEFM "  "         ; #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
+ $7E60 DEFM "  "         ; #FONT$E0DC,attr=$47,chars=0(  )(whitespace) (whitespace).
  $7E62 DEFB $C6,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $7E64 DEFM "  "         ; #FONT:(  )$E0DC,attr=$47(whitespace) (whitespace).
+ $7E64 DEFM "  "         ; #FONT$E0DC,attr=$47,chars=0(  )(whitespace) (whitespace).
  $7E66 DEFB $C6,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
 @label=Messaging_Banner_Underline
  $7E68 DEFB $FB          ; {Sprite Bank:
@@ -1469,12 +1469,12 @@ t$7E3F DEFB $FB          ; {Sprite Bank:
 t$7E71 DEFB $FE,$45                  ; Attribute: #COLOUR(#PEEK(#PC+$01)).
  $7E73 DEFB $CD,$0C                  ; Move cursor: #N(#PEEK(#PC)-$C8),
                                      ; #N(#PEEK(#PC+$01)).
- $7E75 DEFM "HO HUM, TIME FOR A BUN" ; #FONT:(HO HUM, TIME FOR A
-                                     ; BUN)$E0DC,attr=$45(tea-break-01)
+ $7E75 DEFM "HO HUM, TIME FOR A BUN" ; #FONT$E0DC,attr=$45,chars=0(HO
+                                     ; HUM, TIME FOR A BUN)(tea-break-01)
  $7E8B DEFB $B4,$04                  ; Move cursor: #N(#PEEK(#PC)-$C8),
                                      ; #N(#PEEK(#PC+$01)).
- $7E8D DEFM "MORNING TEA BREAK"      ; #FONT:(MORNING TEA
-                                     ; BREAK)$E0DC,attr=$45(tea-break-02)
+ $7E8D DEFM "MORNING TEA BREAK"      ; #FONT$E0DC,attr=$45,chars=0(MORNING
+                                     ; TEA BREAK)(tea-break-02)
  $7E9E DEFB $FF                      ; Terminator.
 
 ; Messaging: Lunch Time
@@ -1483,12 +1483,12 @@ t$7E9F DEFB $FE,$43                        ; Attribute:
                                            ; #COLOUR(#PEEK(#PC+$01)).
  $7EA1 DEFB $CA,$0C                        ; Move cursor: #N(#PEEK(#PC)-$C8),
                                            ; #N(#PEEK(#PC+$01)).
- $7EA3 DEFM "RUBBA DUB DUB, TIME FOR GRUB" ; #FONT:(RUBBA DUB DUB, TIME FOR
-                                           ; GRUB)$E0DC,attr=$43(lunch-time-01)
+ $7EA3 DEFM "RUBBA DUB DUB, TIME FOR GRUB" ; #FONT$E0DC,attr=$43,chars=0(RUBBA
+                                           ; DUB DUB, TIME FOR GRUB)(lunch-time-01)
  $7EBF DEFB $B5,$04                        ; Move cursor: #N(#PEEK(#PC)-$C8),
                                            ; #N(#PEEK(#PC+$01)).
- $7EC1 DEFM "LUNCH TIME"                   ; #FONT:(LUNCH
-                                           ; TIME)$E0DC,attr=$43(lunch-time-02)
+ $7EC1 DEFM "LUNCH TIME"                   ; #FONT$E0DC,attr=$43,chars=0(LUNCH
+                                           ; TIME)(lunch-time-02)
  $7ECB DEFB $FF                            ; Terminator.
 
 ; Messaging: Afternoon Tea Break
@@ -1497,12 +1497,12 @@ t$7ECC DEFB $FE,$46                        ; Attribute:
                                            ; #COLOUR(#PEEK(#PC+$01)).
  $7ECE DEFB $CA,$0C                        ; Move cursor: #N(#PEEK(#PC)-$C8),
                                            ; #N(#PEEK(#PC+$01)).
- $7ED0 DEFM "FIDDLE DEE DEE, TIME FOR TEA" ; #FONT:(FIDDLE DEE DEE, TIME FOR
-                                           ; TEA)$E0DC,attr=$46(afternoon-01)
+ $7ED0 DEFM "FIDDLE DEE DEE, TIME FOR TEA" ; #FONT$E0DC,attr=$46,chars=0(FIDDLE
+                                           ; DEE DEE, TIME FOR TEA)(afternoon-01)
  $7EEC DEFB $B1,$04                        ; Move cursor: #N(#PEEK(#PC)-$C8),
                                            ; #N(#PEEK(#PC+$01)).
- $7EEE DEFM "AFTERNOON TEA BREAK"          ; #FONT:(AFTERNOON TEA
-                                           ; BREAK)$E0DC,attr=$46(afternoon-02)
+ $7EEE DEFM "AFTERNOON TEA BREAK"          ; #FONT$E0DC,attr=$46,chars=0(AFTERNOON
+                                           ; TEA BREAK)(afternoon-02)
  $7F01 DEFB $FF                            ; Terminator.
 
 ; Data block at 7F02
@@ -7043,7 +7043,7 @@ c$BA25 LDI           ; {#HTML(Runs:
 
 ; Messaging: Is In
 @label=Messaging_IsIn
-t$BA66 DEFM " IS IN " ; #UDGTABLE { #FONT:( IS IN )$E0DC,attr=$4E(is-in) }
+t$BA66 DEFM " IS IN " ; #UDGTABLE { #FONT$E0DC,attr=$4E,chars=0( IS IN )(is-in) }
                       ; UDGTABLE#
  $BA6D DEFB $FF       ; Terminator.
 
@@ -7058,11 +7058,11 @@ t$BA66 DEFM " IS IN " ; #UDGTABLE { #FONT:( IS IN )$E0DC,attr=$4E(is-in) }
 ; .
 ; For example:
 ; #UDGTABLE
-; { #FONT:(WALLY IS IN THE TOWN SQUARE)$E0DC,attr=$4E(wally-is-in-the-town-square) }
-; { #FONT:(WILMA IS IN PENNY LANE)$E0DC,attr=$4E(wilma-is-in-penny-lane) }
-; { #FONT:(TOM IS IN THE PUB)$E0DC,attr=$4E(tom-is-in-the-pub) }
-; { #FONT:(DICK IS IN THE DOCKS)$E0DC,attr=$4E(dick-is-in-the-docks) }
-; { #FONT:(HARRY IS IN THE SUPER MARKET)$E0DC,attr=$4E(harry-is-in-the-super-market) }
+; { #FONT$E0DC,attr=$4E,chars=0(WALLY IS IN THE TOWN SQUARE)(wally-is-in-the-town-square) }
+; { #FONT$E0DC,attr=$4E,chars=0(WILMA IS IN PENNY LANE)(wilma-is-in-penny-lane) }
+; { #FONT$E0DC,attr=$4E,chars=0(TOM IS IN THE PUB)(tom-is-in-the-pub) }
+; { #FONT$E0DC,attr=$4E,chars=0(DICK IS IN THE DOCKS)(dick-is-in-the-docks) }
+; { #FONT$E0DC,attr=$4E,chars=0(HARRY IS IN THE SUPER MARKET)(harry-is-in-the-super-market) }
 ; UDGTABLE#
 ; .
 ; Return if the messaging is already showing.
@@ -14121,285 +14121,285 @@ c$E468 CALL $B84B    ; Call #R$B84B.
  $E481 JP $B84B      ; Jump to #R$B84B.
 
 ; Messaging: The Plunger
-t$E484 DEFM "THE PLUNGER" ; #FONT:(THE PLUNGER)$E0DC,attr=$45(the-plunger)
+t$E484 DEFM "THE PLUNGER" ; #FONT$E0DC,attr=$45,chars=0(THE PLUNGER)(the-plunger)
  $E48F DEFB $FF           ; Terminator.
 
 ; Messaging: The Letter A
-t$E490 DEFM "THE LETTER" ; #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+t$E490 DEFM "THE LETTER" ; #FONT$E0DC,attr=$45,chars=0(THE LETTER)(the-letter)
  $E49A DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E49C DEFM "A"          ; #FONT:(A)$E0DC,attr=$45(the-letter-a)
+ $E49C DEFM "A"          ; #FONT$E0DC,attr=$45,chars=0(A)(the-letter-a)
  $E49D DEFB $FF          ; Terminator.
 
 ; Messaging: Book Two
-t$E49E DEFM "BOOK TWO" ; #FONT:(BOOK TWO)$E0DC,attr=$45(book-two)
+t$E49E DEFM "BOOK TWO" ; #FONT$E0DC,attr=$45,chars=0(BOOK TWO)(book-two)
  $E4A6 DEFB $FF        ; Terminator.
 
 ; Messaging: The Sand
-t$E4A7 DEFM "THE SAND" ; #FONT:(THE SAND)$E0DC,attr=$45(the-sand)
+t$E4A7 DEFM "THE SAND" ; #FONT$E0DC,attr=$45,chars=0(THE SAND)(the-sand)
  $E4AF DEFB $FF        ; Terminator.
 
 ; Messaging: The Battery
-t$E4B0 DEFM "THE BATTERY" ; #FONT:(THE BATTERY)$E0DC,attr=$45(the-battery)
+t$E4B0 DEFM "THE BATTERY" ; #FONT$E0DC,attr=$45,chars=0(THE BATTERY)(the-battery)
  $E4BB DEFB $BD,$01       ; Move cursor: #N(#PEEK(#PC)-$C8),
                           ; #N(#PEEK(#PC+$01)).
  $E4BD DEFB $FF           ; Terminator.
 
 ; Messaging: Charged
 t$E4BE DEFB $F4,$06   ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E4C0 DEFM "CHARGED" ; #FONT:(CHARGED)$E0DC,attr=$45(charged)
+ $E4C0 DEFM "CHARGED" ; #FONT$E0DC,attr=$45,chars=0(CHARGED)(charged)
  $E4C7 DEFB $FF       ; Terminator.
 
 ; Messaging: Flat
-t$E4C8 DEFM "FLAT"   ; #FONT:(FLAT)$E0DC,attr=$45(flat)
+t$E4C8 DEFM "FLAT"   ; #FONT$E0DC,attr=$45,chars=0(FLAT)(flat)
  $E4CC DEFB $FF      ; Terminator.
 
 ; Messaging: The Letter K
-t$E4CD DEFM "THE LETTER" ; #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+t$E4CD DEFM "THE LETTER" ; #FONT$E0DC,attr=$45,chars=0(THE LETTER)(the-letter)
  $E4D7 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E4D9 DEFM "K"          ; #FONT:(K)$E0DC,attr=$45(the-letter-k)
+ $E4D9 DEFM "K"          ; #FONT$E0DC,attr=$45,chars=0(K)(the-letter-k)
  $E4DA DEFB $FF          ; Terminator.
 
 ; Messaging: The Cement
-t$E4DB DEFM "THE CEMENT" ; #FONT:(THE CEMENT)$E0DC,attr=$45(the-cement)
+t$E4DB DEFM "THE CEMENT" ; #FONT$E0DC,attr=$45,chars=0(THE CEMENT)(the-cement)
  $E4E5 DEFB $FF          ; Terminator.
 
 ; Messaging: Book Three
-t$E4E6 DEFM "BOOK THREE" ; #FONT:(BOOK THREE)$E0DC,attr=$45(book-three)
+t$E4E6 DEFM "BOOK THREE" ; #FONT$E0DC,attr=$45,chars=0(BOOK THREE)(book-three)
  $E4F0 DEFB $FF          ; Terminator.
 
 ; Messaging: The Trowel
-t$E4F1 DEFM "THE TROWEL" ; #FONT:(THE TROWEL)$E0DC,attr=$45(the-trowel)
+t$E4F1 DEFM "THE TROWEL" ; #FONT$E0DC,attr=$45,chars=0(THE TROWEL)(the-trowel)
  $E4FB DEFB $FF          ; Terminator.
 
 ; Messaging: The Matches
-t$E4FC DEFM "THE MATCHES" ; #FONT:(THE MATCHES)$E0DC,attr=$45(the-matches)
+t$E4FC DEFM "THE MATCHES" ; #FONT$E0DC,attr=$45,chars=0(THE MATCHES)(the-matches)
  $E507 DEFB $FF           ; Terminator.
 
 ; Messaging: The Cracked Insulator
-t$E508 DEFM "THE CRACKED" ; #FONT:(THE CRACKED)$E0DC,attr=$45(the-cracked)
+t$E508 DEFM "THE CRACKED" ; #FONT$E0DC,attr=$45,chars=0(THE CRACKED)(the-cracked)
  $E513 DEFB $BD,$01       ; Move cursor: #N(#PEEK(#PC)-$C8),
                           ; #N(#PEEK(#PC+$01)).
- $E515 DEFM "INSULATOR"   ; #FONT:(INSULATOR)$E0DC,attr=$45(insulator)
+ $E515 DEFM "INSULATOR"   ; #FONT$E0DC,attr=$45,chars=0(INSULATOR)(insulator)
  $E51E DEFB $FF           ; Terminator.
 
 ; Messaging: Book One
-t$E51F DEFM "BOOK ONE" ; #FONT:(BOOK ONE)$E0DC,attr=$45(book-one)
+t$E51F DEFM "BOOK ONE" ; #FONT$E0DC,attr=$45,chars=0(BOOK ONE)(book-one)
  $E527 DEFB $FF        ; Terminator.
 
 ; Messaging: The Monkey Nuts
-t$E528 DEFM "THE MONKEY" ; #FONT:(THE MONKEY)$E0DC,attr=$45(the-monkey)
+t$E528 DEFM "THE MONKEY" ; #FONT$E0DC,attr=$45,chars=0(THE MONKEY)(the-monkey)
  $E532 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E534 DEFM "NUTS"       ; #FONT:(NUTS)$E0DC,attr=$45(nuts)
+ $E534 DEFM "NUTS"       ; #FONT$E0DC,attr=$45,chars=0(NUTS)(nuts)
  $E538 DEFB $FF          ; Terminator.
 
 ; Messaging: The Money
-t$E539 DEFM "THE MONEY" ; #FONT:(THE MONEY)$E0DC,attr=$45(the-money)
+t$E539 DEFM "THE MONEY" ; #FONT$E0DC,attr=$45,chars=0(THE MONEY)(the-money)
  $E542 DEFB $FF         ; Terminator.
 
 ; Messaging: Superglue
-t$E543 DEFM "SUPERGLUE" ; #FONT:(SUPERGLUE)$E0DC,attr=$45(superglue)
+t$E543 DEFM "SUPERGLUE" ; #FONT$E0DC,attr=$45,chars=0(SUPERGLUE)(superglue)
  $E54C DEFB $FF         ; Terminator.
 
 ; Messaging: The Chewing Gum
-t$E54D DEFM "THE CHEWING" ; #FONT:(THE CHEWING)$E0DC,attr=$45(the-chewing)
+t$E54D DEFM "THE CHEWING" ; #FONT$E0DC,attr=$45,chars=0(THE CHEWING)(the-chewing)
  $E558 DEFB $BD,$01       ; Move cursor: #N(#PEEK(#PC)-$C8),
                           ; #N(#PEEK(#PC+$01)).
- $E55A DEFM "GUM"         ; #FONT:(GUM)$E0DC,attr=$45(gum)
+ $E55A DEFM "GUM"         ; #FONT$E0DC,attr=$45,chars=0(GUM)(gum)
  $E55D DEFB $FF           ; Terminator.
 
 ; Messaging: The Bucket
-t$E55E DEFM "THE BUCKET" ; #FONT:(THE BUCKET)$E0DC,attr=$45(the-bucket)
+t$E55E DEFM "THE BUCKET" ; #FONT$E0DC,attr=$45,chars=0(THE BUCKET)(the-bucket)
  $E568 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $E56A DEFB $FF          ; Terminator.
 
 ; Messaging: Full
 t$E56B DEFB $F4,$04  ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E56D DEFM "FULL"   ; #FONT:(FULL)$E0DC,attr=$45(full)
+ $E56D DEFM "FULL"   ; #FONT$E0DC,attr=$45,chars=0(FULL)(full)
  $E571 DEFB $FF      ; Terminator.
 
 ; Messaging: Empty
-t$E572 DEFM "EMPTY"  ; #FONT:(EMPTY)$E0DC,attr=$45(empty)
+t$E572 DEFM "EMPTY"  ; #FONT$E0DC,attr=$45,chars=0(EMPTY)(empty)
  $E577 DEFB $FF      ; Terminator.
 
 ; Messaging: The Jump Leads
-t$E578 DEFM "THE JUMP" ; #FONT:(THE JUMP)$E0DC,attr=$45(the-jump)
+t$E578 DEFM "THE JUMP" ; #FONT$E0DC,attr=$45,chars=0(THE JUMP)(the-jump)
  $E580 DEFB $C0,$01    ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E582 DEFM "LEADS"    ; #FONT:(LEADS)$E0DC,attr=$45(leads)
+ $E582 DEFM "LEADS"    ; #FONT$E0DC,attr=$45,chars=0(LEADS)(leads)
  $E587 DEFB $FF        ; Terminator.
 
 ; Messaging: The Bunsen Burner
-t$E588 DEFM "THE BUNSEN" ; #FONT:(THE BUNSEN)$E0DC,attr=$45(the-bunsen)
+t$E588 DEFM "THE BUNSEN" ; #FONT$E0DC,attr=$45,chars=0(THE BUNSEN)(the-bunsen)
  $E592 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E594 DEFM "BURNER"     ; #FONT:(BURNER)$E0DC,attr=$45(burner)
+ $E594 DEFM "BURNER"     ; #FONT$E0DC,attr=$45,chars=0(BURNER)(burner)
  $E59A DEFB $FF          ; Terminator.
 
 ; Messaging: The Letter B
-t$E59B DEFM "THE LETTER" ; #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+t$E59B DEFM "THE LETTER" ; #FONT$E0DC,attr=$45,chars=0(THE LETTER)(the-letter)
  $E5A5 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E5A7 DEFM "B"          ; #FONT:(B)$E0DC,attr=$45(the-letter-b)
+ $E5A7 DEFM "B"          ; #FONT$E0DC,attr=$45,chars=0(B)(the-letter-b)
  $E5A8 DEFB $FF          ; Terminator.
 
 ; Messaging: Gas Mask
-t$E5A9 DEFM "GAS MASK" ; #FONT:(GAS MASK)$E0DC,attr=$45(gas-mask)
+t$E5A9 DEFM "GAS MASK" ; #FONT$E0DC,attr=$45,chars=0(GAS MASK)(gas-mask)
  $E5B1 DEFB $FF        ; Terminator.
 
 ; Messaging: The Parcel
-t$E5B2 DEFM "THE PARCEL" ; #FONT:(THE PARCEL)$E0DC,attr=$45(the-parcel)
+t$E5B2 DEFM "THE PARCEL" ; #FONT$E0DC,attr=$45,chars=0(THE PARCEL)(the-parcel)
  $E5BC DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $E5BE DEFB $FF          ; Terminator.
 
 ; Messaging: Stamped
 t$E5BF DEFB $F4,$02   ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E5C1 DEFM "STAMPED" ; #FONT:(STAMPED)$E0DC,attr=$45(stamped)
+ $E5C1 DEFM "STAMPED" ; #FONT$E0DC,attr=$45,chars=0(STAMPED)(stamped)
  $E5C8 DEFB $FF       ; Terminator.
 
 ; Messaging: Unstamped
-t$E5C9 DEFM "UNSTAMPED" ; #FONT:(UNSTAMPED)$E0DC,attr=$45(unstamped)
+t$E5C9 DEFM "UNSTAMPED" ; #FONT$E0DC,attr=$45,chars=0(UNSTAMPED)(unstamped)
  $E5D2 DEFB $FF         ; Terminator.
 
 ; Messaging: The Fuse
-t$E5D3 DEFM "THE FUSE" ; #FONT:(THE FUSE)$E0DC,attr=$45(the-fuse)
+t$E5D3 DEFM "THE FUSE" ; #FONT$E0DC,attr=$45,chars=0(THE FUSE)(the-fuse)
  $E5DB DEFB $C0,$01    ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $E5DD DEFB $FF        ; Terminator.
 
 ; Messaging: Rewired
 t$E5DE DEFB $F4,$01   ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E5E0 DEFM "REWIRED" ; #FONT:(REWIRED)$E0DC,attr=$45(rewired)
+ $E5E0 DEFM "REWIRED" ; #FONT$E0DC,attr=$45,chars=0(REWIRED)(rewired)
  $E5E7 DEFB $FF       ; Terminator.
 
 ; Messaging: Blown
-t$E5E8 DEFM "BLOWN"  ; #FONT:(BLOWN)$E0DC,attr=$45(blown)
+t$E5E8 DEFM "BLOWN"  ; #FONT$E0DC,attr=$45,chars=0(BLOWN)(blown)
  $E5ED DEFB $FF      ; Terminator.
 
 ; Messaging: The Meat
-t$E5EE DEFM "THE MEAT" ; #FONT:(THE MEAT)$E0DC,attr=$45(the-meat)
+t$E5EE DEFM "THE MEAT" ; #FONT$E0DC,attr=$45,chars=0(THE MEAT)(the-meat)
  $E5F6 DEFB $FF        ; Terminator.
 
 ; Messaging: The Monkey Wrench
-t$E5F7 DEFM "THE MONKEY" ; #FONT:(THE MONKEY)$E0DC,attr=$45(the-monkey)
+t$E5F7 DEFM "THE MONKEY" ; #FONT$E0DC,attr=$45,chars=0(THE MONKEY)(the-monkey)
  $E601 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E603 DEFM "WRENCH"     ; #FONT:(WRENCH)$E0DC,attr=$45(wrench)
+ $E603 DEFM "WRENCH"     ; #FONT$E0DC,attr=$45,chars=0(WRENCH)(wrench)
  $E609 DEFB $FF          ; Terminator.
 
 ; Messaging: Screwdriver
-t$E60A DEFM "SCREWDRIVER" ; #FONT:(SCREWDRIVER)$E0DC,attr=$45(screwdriver)
+t$E60A DEFM "SCREWDRIVER" ; #FONT$E0DC,attr=$45,chars=0(SCREWDRIVER)(screwdriver)
  $E615 DEFB $FF           ; Terminator.
 
 ; Messaging: The Letter E
-t$E616 DEFM "THE LETTER" ; #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+t$E616 DEFM "THE LETTER" ; #FONT$E0DC,attr=$45,chars=0(THE LETTER)(the-letter)
  $E620 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E622 DEFM "E"          ; #FONT:(E)$E0DC,attr=$45(the-letter-e)
+ $E622 DEFM "E"          ; #FONT$E0DC,attr=$45,chars=0(E)(the-letter-e)
  $E623 DEFB $FF          ; Terminator.
 
 ; Messaging: The Hook
-t$E624 DEFM "THE HOOK" ; #FONT:(THE HOOK)$E0DC,attr=$45(the-hook)
+t$E624 DEFM "THE HOOK" ; #FONT$E0DC,attr=$45,chars=0(THE HOOK)(the-hook)
  $E62C DEFB $C0,$01    ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $E62E DEFB $FF        ; Terminator.
 
 ; Messaging: Working
 t$E62F DEFB $F4,$03   ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E631 DEFM "WORKING" ; #FONT:(WORKING)$E0DC,attr=$45(working)
+ $E631 DEFM "WORKING" ; #FONT$E0DC,attr=$45,chars=0(WORKING)(working)
  $E638 DEFB $FF       ; Terminator.
 
 ; Messaging: Broken
-t$E639 DEFM "BROKEN" ; #FONT:(BROKEN)$E0DC,attr=$45(broken)
+t$E639 DEFM "BROKEN" ; #FONT$E0DC,attr=$45,chars=0(BROKEN)(broken)
  $E63F DEFB $FF      ; Terminator.
 
 ; Messaging: The Patch
-t$E640 DEFM "THE PATCH" ; #FONT:(THE PATCH)$E0DC,attr=$45(the-patch)
+t$E640 DEFM "THE PATCH" ; #FONT$E0DC,attr=$45,chars=0(THE PATCH)(the-patch)
  $E649 DEFB $FF         ; Terminator.
 
 ; Messaging: The Pipe
-t$E64A DEFM "THE PIPE" ; #FONT:(THE PIPE)$E0DC,attr=$45(the-pipe)
+t$E64A DEFM "THE PIPE" ; #FONT$E0DC,attr=$45,chars=0(THE PIPE)(the-pipe)
  $E652 DEFB $C0,$01    ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $E654 DEFB $FF        ; Terminator.
 
 ; Messaging: Patched
 t$E655 DEFB $F4,$05   ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E657 DEFM "PATCHED" ; #FONT:(PATCHED)$E0DC,attr=$45(patched)
+ $E657 DEFM "PATCHED" ; #FONT$E0DC,attr=$45,chars=0(PATCHED)(patched)
  $E65E DEFB $FF       ; Terminator.
 
 ; Messaging: Leaking
-t$E65F DEFM "LEAKING" ; #FONT:(LEAKING)$E0DC,attr=$45(leaking)
+t$E65F DEFM "LEAKING" ; #FONT$E0DC,attr=$45,chars=0(LEAKING)(leaking)
  $E666 DEFB $FF       ; Terminator.
 
 ; Messaging: The Letter R
-t$E667 DEFM "THE LETTER" ; #FONT:(THE LETTER)$E0DC,attr=$45(the-letter)
+t$E667 DEFM "THE LETTER" ; #FONT$E0DC,attr=$45,chars=0(THE LETTER)(the-letter)
  $E671 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E673 DEFM "R"          ; #FONT:(R)$E0DC,attr=$45(the-letter-r)
+ $E673 DEFM "R"          ; #FONT$E0DC,attr=$45,chars=0(R)(the-letter-r)
  $E674 DEFB $FF          ; Terminator.
 
 ; Messaging: The Oil Can
-t$E675 DEFM "THE OIL" ; #FONT:(THE OIL)$E0DC,attr=$45(the-oil)
+t$E675 DEFM "THE OIL" ; #FONT$E0DC,attr=$45,chars=0(THE OIL)(the-oil)
  $E67C DEFB $C1,$01   ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E67E DEFM "CAN "    ; #FONT:(CAN)$E0DC,attr=$45(can)
+ $E67E DEFM "CAN "    ; #FONT$E0DC,attr=$45,chars=0(CAN)(can)
  $E682 DEFB $FF       ; Terminator.
 
 ; Messaging: Full
 t$E683 DEFB $F4,$07  ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E685 DEFM "FULL"   ; #FONT:(FULL)$E0DC,attr=$45(full)
+ $E685 DEFM "FULL"   ; #FONT$E0DC,attr=$45,chars=0(FULL)(full)
  $E689 DEFB $FF      ; Terminator.
 
 ; Messaging: Empty
-t$E68A DEFM "EMPTY"  ; #FONT:(EMPTY)$E0DC,attr=$45(empty)
+t$E68A DEFM "EMPTY"  ; #FONT$E0DC,attr=$45,chars=0(EMPTY)(empty)
  $E68F DEFB $FF      ; Terminator.
 
 ; Messaging: The Fuse Wire
-t$E690 DEFM "THE FUSE" ; #FONT:(THE FUSE)$E0DC,attr=$45(the-fuse)
+t$E690 DEFM "THE FUSE" ; #FONT$E0DC,attr=$45,chars=0(THE FUSE)(the-fuse)
  $E698 DEFB $C0,$01    ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E69A DEFM "WIRE"     ; #FONT:(WIRE)$E0DC,attr=$45(wire)
+ $E69A DEFM "WIRE"     ; #FONT$E0DC,attr=$45,chars=0(WIRE)(wire)
  $E69E DEFB $FF        ; Terminator.
 
 ; Messaging: The Good Insulator
-t$E69F DEFM "THE GOOD"  ; #FONT:(THE GOOD)$E0DC,attr=$45(the-good)
+t$E69F DEFM "THE GOOD"  ; #FONT$E0DC,attr=$45,chars=0(THE GOOD)(the-good)
  $E6A7 DEFB $C0,$01     ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E6A9 DEFM "INSULATOR" ; #FONT:(INSULATOR)$E0DC,attr=$45(insulator)
+ $E6A9 DEFM "INSULATOR" ; #FONT$E0DC,attr=$45,chars=0(INSULATOR)(insulator)
  $E6B2 DEFB $FF         ; Terminator.
 
 ; Messaging: The Bottle
-t$E6B3 DEFM "THE BOTTLE" ; #FONT:(THE BOTTLE)$E0DC,attr=$45(the-bottle)
+t$E6B3 DEFM "THE BOTTLE" ; #FONT$E0DC,attr=$45,chars=0(THE BOTTLE)(the-bottle)
  $E6BD DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
  $E6BF DEFB $FF          ; Terminator.
 
 ; Messaging: Full
 t$E6C0 DEFB $F4,$00  ; Check task: #R($EC0F+#PEEK(#PC+$01)).
- $E6C2 DEFM "FULL"   ; #FONT:(FULL)$E0DC,attr=$45(full)
+ $E6C2 DEFM "FULL"   ; #FONT$E0DC,attr=$45,chars=0(FULL)(full)
  $E6C6 DEFB $FF      ; Terminator.
 
 ; Messaging: Empty
-t$E6C7 DEFM "EMPTY"  ; #FONT:(EMPTY)$E0DC,attr=$45(empty)
+t$E6C7 DEFM "EMPTY"  ; #FONT$E0DC,attr=$45,chars=0(EMPTY)(empty)
  $E6CC DEFB $FF      ; Terminator.
 
 ; Messaging: The Red Herring
-t$E6CD DEFM "THE RED" ; #FONT:(THE RED)$E0DC,attr=$45(the-red)
+t$E6CD DEFM "THE RED" ; #FONT$E0DC,attr=$45,chars=0(THE RED)(the-red)
  $E6D4 DEFB $C1,$01   ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E6D6 DEFM "HERRING" ; #FONT:(HERRING)$E0DC,attr=$45(herring)
+ $E6D6 DEFM "HERRING" ; #FONT$E0DC,attr=$45,chars=0(HERRING)(herring)
  $E6DD DEFB $FF       ; Terminator.
 
 ; Messaging: The Test Tube
-t$E6DE DEFM "THE TEST" ; #FONT:(THE TEST)$E0DC,attr=$45(the-test)
+t$E6DE DEFM "THE TEST" ; #FONT$E0DC,attr=$45,chars=0(THE TEST)(the-test)
  $E6E6 DEFB $C0,$01    ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E6E8 DEFM "TUBE"     ; #FONT:(TUBE)$E0DC,attr=$45(tube)
+ $E6E8 DEFM "TUBE"     ; #FONT$E0DC,attr=$45,chars=0(TUBE)(tube)
  $E6EC DEFB $FF        ; Terminator.
 
 ; Messaging: The Can Of Beans
-t$E6ED DEFM "THE CAN OF" ; #FONT:(THE CAN OF)$E0DC,attr=$45(the-can-of)
+t$E6ED DEFM "THE CAN OF" ; #FONT$E0DC,attr=$45,chars=0(THE CAN OF)(the-can-of)
  $E6F7 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E6F9 DEFM "BEANS"      ; #FONT:(BEANS)$E0DC,attr=$45(beans)
+ $E6F9 DEFM "BEANS"      ; #FONT$E0DC,attr=$45,chars=0(BEANS)(beans)
  $E6FE DEFB $FF          ; Terminator.
 
 ; Messaging: The Rubber Stamp
-t$E6FF DEFM "THE RUBBER" ; #FONT:(THE RUBBER)$E0DC,attr=$45(the-rubber)
+t$E6FF DEFM "THE RUBBER" ; #FONT$E0DC,attr=$45,chars=0(THE RUBBER)(the-rubber)
  $E709 DEFB $BE,$01      ; Move cursor: #N(#PEEK(#PC)-$C8), #N(#PEEK(#PC+$01)).
- $E70B DEFM "STAMP"      ; #FONT:(STAMP)$E0DC,attr=$45(stamp)
+ $E70B DEFM "STAMP"      ; #FONT$E0DC,attr=$45,chars=0(STAMP)(stamp)
  $E710 DEFB $FF          ; Terminator.
 
 ; Messaging: The Pliers
-t$E711 DEFM "THE PLIERS" ; #FONT:(THE PLIERS)$E0DC,attr=$45(the-pliers)
+t$E711 DEFM "THE PLIERS" ; #FONT$E0DC,attr=$45,chars=0(THE PLIERS)(the-pliers)
  $E71B DEFB $FF          ; Terminator.
 
 ; Messaging: The Whistle
-t$E71C DEFM "THE WHISTLE" ; #FONT:(THE WHISTLE)$E0DC,attr=$45(the-whistle)
+t$E71C DEFM "THE WHISTLE" ; #FONT$E0DC,attr=$45,chars=0(THE WHISTLE)(the-whistle)
  $E727 DEFB $FF           ; Terminator.
 
 ; Table: Item Labels

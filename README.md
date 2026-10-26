@@ -1,4 +1,3 @@
-
 Everyone's a Wally disassembly
 =============================
 
